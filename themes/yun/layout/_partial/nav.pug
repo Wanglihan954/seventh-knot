@@ -5,7 +5,7 @@ nav.valaxy-nav
   //- 1. 左侧：图标菜单
   .nav-left
     //- 📱 手机端：汉堡菜单
-    a#mobile-menu-btn.nav-item(href='javascript:;', onclick="toggleSidebar()", title="菜单")
+    button#mobile-menu-btn.nav-item(type='button', title="菜单", aria-label="打开站点菜单", aria-controls="site-overview-wrap", aria-expanded="false")
       +icon('ri:menu-line')
     
     //- 🏠 所有图标现在都直接放在这里，不分内外层
@@ -43,8 +43,8 @@ nav.valaxy-nav
       +icon('ri:search-line')
 
 //- 📱 手机端专属：全屏变暗遮罩层 & 右下角目录悬浮按钮
-#mobile-overlay(onclick="closeAllDrawers()")
-#mobile-toc-btn(onclick="toggleToc()", title="文章目录")
+#mobile-overlay(aria-hidden="true")
+button#mobile-toc-btn(type='button', title="文章目录", aria-label="打开文章目录", aria-controls="post-toc-wrap", aria-expanded="false")
   +icon('ri:list-unordered')
 
 //- 🚀 动态效果与抽屉控制 JS
@@ -59,11 +59,6 @@ script.
       });
     }
   });
-
-  // 手机端抽屉开关逻辑
-  window.toggleSidebar = function() { document.body.classList.toggle('sidebar-open'); };
-  window.toggleToc = function() { document.body.classList.toggle('toc-open'); };
-  window.closeAllDrawers = function() { document.body.classList.remove('sidebar-open', 'toc-open'); };
 
 //- ==============================================================
 //- 搜索弹窗代码 (保持原样不变)

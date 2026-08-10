@@ -54,7 +54,10 @@ aside.sidebar
       .links
         for link in theme.pages
           a.links-item.hty-icon-button(href=url_for(link.url), title=link.name, style='color:' + link.color)
-            +icon(link.icon)
+            if link.image
+              img.sidebar-page-icon(src=url_for(link.image), alt='', aria-hidden='true', width='32', height='32', style='width:2rem;height:2rem')
+            else
+              +icon(link.icon)
 
     if theme.mode === 'auto' || theme.mode === "time"
       br

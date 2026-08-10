@@ -19,11 +19,14 @@ section#recent-posts(class="flex flex-col")
             +post_meta(post)
             if post.description
               .post-description=post.description
-        .post-card-content.text-center
-          .post-card-excerpt.markdown-body!=post.excerpt
-          if post.readmore
-            - var readmoreBgColor = post_type ? post_type.color : theme.colors.primary
-            a.hty-button.hty-button--raised(href=url_for(post.path), style=`margin: 1rem;background-color:${readmoreBgColor}`)=__('post.read_more')
+        - var preview = post_preview(post)
+        if preview.html
+          .post-card-content
+            .post-card-preview(class=preview.truncated ? 'is-truncated' : '')
+              .post-card-excerpt.markdown-body!=preview.html
+            a.post-preview-more(href=url_for(post.path), aria-label=__('post.read_more') + '：' + post.title)
+              span=__('post.read_more')
+              +icon('ri:arrow-right-line')
 
         .hty-card__actions.post-card__actions
           .post-card-category

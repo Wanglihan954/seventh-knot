@@ -7,8 +7,6 @@ extends _partial/layout.pug
 
 block content
   if is_home() && page.current == 1
-    if theme.banner.enable
-      include ./_partial/banner.pug
     if theme.say.enable
       include ./_widget/say.pug
     if theme.notice.enable

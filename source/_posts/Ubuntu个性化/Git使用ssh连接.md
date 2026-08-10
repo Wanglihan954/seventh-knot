@@ -23,15 +23,15 @@ date: 2026-01-21 10:48:39
 ### 1. 检查你电脑上有没有现成的SSH key
 
 - 打开命令行（Windows可以用Git Bash，Mac直接用终端Terminal）
-  
+    
 - 输入下面命令：
-  
+    
     ```
     ls ~/.ssh
     ```
     
 - 如果看到有`id_rsa`和`id_rsa.pub`或者`id_ed25519`和`id_ed25519.pub`，说明已经有key了，可以直接用；没有就继续下一步。
-  
+    
 
 > `.pub`是公钥，没后缀的是私钥。
 
@@ -40,18 +40,18 @@ date: 2026-01-21 10:48:39
 ### 2. 生成新的SSH key（如果没有）
 
 - 输入：
-  
+    
     ```
     ssh-keygen -t ed25519 -C "你的邮箱地址"
     ```
     
     - 这里`-t ed25519`是选择一种更安全的算法，`-C`是加备注（通常写你的邮箱）。
 - 提示你输入保存文件名，直接回车（默认就好）。
-  
+    
 - 让你设置密码，直接回车跳过（有需要可以设置，方便一般不用）。
-  
+    
 - 完成后，会生成类似`id_ed25519`和`id_ed25519.pub`这两个文件。
-  
+    
 
 **原理说明：**
 
@@ -63,18 +63,18 @@ date: 2026-01-21 10:48:39
 ### 3. 把公钥添加到GitHub账号
 
 - 打开命令行，输入下面命令，把公钥内容复制出来：
-  
+    
     ```
     cat ~/.ssh/id_rsa.pub
     ```
     
 - 拷贝输出的整行内容！
-  
+    
 - 登录你的GitHub账号，进入：  
     右上角头像 -> Settings -> SSH and GPG keys -> New SSH key
     
 - 粘贴刚才复制的内容到“Key”那里，起个名字（随便，比如“My Laptop”），点击“Add SSH key”。
-  
+    
 
 **原理说明：**
 
@@ -86,13 +86,13 @@ date: 2026-01-21 10:48:39
 ### 4. 测试一下是否成功
 
 - 在命令行输入：
-  
+    
     ```
     ssh -T git@github.com
     ```
     
 - 第一次连接，可能会提示你“Are you sure you want to continue connecting”，输入`yes`回车。
-  
+    
 - 如果看到`Hi xxx! You've successfully authenticated...`，说明配置成功！
 ## 三、解决“ssh:connect to host github.com port 22: Connection timed out”
 有时候使用 SSH 连接 GitHub 时，出现如下报错：
@@ -106,7 +106,7 @@ date: 2026-01-21 10:48:39
 #### 方法一：改用 HTTPS 连接方式
 
 1. 输入命令：
-   
+    
     ```
     git config --local -e
     ```
@@ -122,19 +122,19 @@ date: 2026-01-21 10:48:39
 #### 方法二：更改 SSH 端口（推荐）
 
 1. 进入 ~/.ssh 目录
-   
+    
     ```
     cd ~/.ssh
     ```
     
 2. 新建或编辑 config 文件（如用 vim 编辑器）：
-   
+    
     ```
     vim config
     ```
     
 3. 写入以下内容（如果用的是 id_rsa，留意 IdentityFile 的文件名；注意 gitlab 配置可选）：
-   
+    
     ```
     Host github.com
       User git
@@ -152,9 +152,9 @@ date: 2026-01-21 10:48:39
     ```
     
 4. 保存并退出。
-   
+    
 5. 检查配置是否生效：
-   
+    
     ```
     ssh -T git@github.com
     ```

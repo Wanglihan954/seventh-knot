@@ -10,6 +10,8 @@ abbrlink: 22a73298
 date: 2025-12-26 10:46:39
 ---
 
+# WSL2 一键设置代理：从配置原理到脚本使用
+
 # 为 WSL2 一键设置代理
 
 ## WSL1 和 WSL2 网络的区别
@@ -27,9 +29,9 @@ export ALL_PROXY="http://127.0.0.1:8000"
 有两个关键步骤：
 
 1. WSL2 中配置的代理要指向 Windows 的 IP；
-   
+    
 2. Windows 上的代理客户端需要允许来自本地局域网的请求（Allow LAN）；
-   
+    
 
 由于 Linux 子系统也是通过 Windows 访问网络，所以 Linux 子系统中的网关指向的是 Windows，DNS 服务器指向的也是 Windows，基于这两个特性，我们可以将 Windows 的 IP 读取出来。
 
@@ -64,19 +66,45 @@ export ALL_PROXY="http://$host_ip:7897"
 脚本说明：
 
 - 通过 `cat /etc/resolv.conf` 获取 DNS 服务器（即 Windows 的 IP）
-  
+    
 - 截取其中的 IP 部分，拼接代理客户端端口（可根据实际情况修改 7890）
-  
+    
 - 使用 `export` 写入环境变量
-  
+    
 
 ### 使用方法
 
 1. 下载脚本文件：[.proxyrc](https://zhuanlan.zhihu.com/p/153124468)（原文提供的下载链接）
-   
+    
 2. 在 WSL2 终端中执行以下命令生效：
 
 
 ```Bash
 source .proxyrc
 ```
+
+# 在WSL2中使用vscode copilot插件
+**问题:** Windows开了代理（规则模式），装完WSL2用VS Code连接，结果在WSL Linux里用不了Copilot。
+**解决方法：** 在VScode中
+<mark>设置->搜索“proxy support”,改为off，让vscode扩展不使用代理</mark>
+![image.png](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@img/img/20260103223950355.png)
+ssh连接到远程服务器的时候copilot无法运行的问题，此时无论使用系统代理还是设置vscode自己的代理都不能让copilot连上，这是因为copilot插件运行于远程服务器上的工作区，而不是vscode gui
+
+解决方法：设置[extension host](https://zhida.zhihu.com/search?content_id=256514679&content_type=Article&match_order=1&q=extension+host&zhida_source=entity)
+
+ctrl+shift+p打开控制面板
+
+![](https://picx.zhimg.com/v2-8963f1fad2c9391d465352c912100a9d_1440w.jpg)
+
+![](https://pic1.zhimg.com/v2-70a11199680733843fc9e3c01b25670c_1440w.jpg)
+
+在setting.json中添加
+
+```json
+"remote.extensionKind": {
+        "GitHub.copilot": ["ui"],
+        "GitHub.copilot-chat": ["ui"],
+    },
+```
+
+然后reload window

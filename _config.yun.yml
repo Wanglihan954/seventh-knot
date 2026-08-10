@@ -38,7 +38,7 @@ notice:
 bg_image:
   enable: true
   url: /images/image.png
-  # dark:
+  dark: /images/1.png
   blur: 10px # 设置背景模糊程度
   opacity: 0.8
 avatar:
@@ -67,7 +67,7 @@ social:
   - name: GitHub
     link: https://github.com/Wanglihan954
     icon: ri:github-line
-    color: '#181717'
+    color: '#f4f5f2'
   - name: E-Mail
     link: mailto:admin@yemengstar.com
     icon: ri:mail-line
@@ -120,8 +120,14 @@ menu:
   #   path: https://yun.yunyoujun.cn
   #   icon: ri:settings-line
 
+colors:
+  # Keep Yun's weighted tag cloud, recolored for the Inter-Knot skin.
+  tag_start_color: "#f6ff00"
+  tag_end_color: "#19a7ff"
+
 wordcloud:
-  enable: true
+  # The reference site uses Yun's responsive text tag cloud rather than canvas.
+  enable: false
 girls:
   enable: true
 pages:
@@ -129,15 +135,21 @@ pages:
     url: /links/
     icon: ri:genderless-line
     color: dodgerblue
-  - name: 她们都是我的翅膀
+  - name: 代理人列表
     url: /girls/
-    icon: ri:women-line
-    color: '#FF69B4'
+    image: /images/bangboo-nav.png
+    color: '#ffffff'
 
 wordcount:
   enable: true
   count: true
   time: true
+
+post_card:
+  preview:
+    enable: true
+    max_chars: 620
+    max_blocks: 4
 
 footer:
   since: 2025
@@ -197,5 +209,11 @@ katex:
   displayMode: true,
   trust: true }
 # 在配置文件中找到或添加这段代码
-custom_css:
-  - <link rel="stylesheet" href="/css/custom_theme.css"> # 添加这一行
+head:
+  css:
+    - /css/custom_theme.css?v=20260810-6
+  js:
+    defer:
+      - /js/web-pet.js
+      - /js/mobile-navigation.js
+      - /js/home-intro.js?v=20260810-6

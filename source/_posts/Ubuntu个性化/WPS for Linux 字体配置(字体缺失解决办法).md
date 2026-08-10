@@ -10,45 +10,61 @@ abbrlink: 5cd3f1bd
 date: 2025-12-26 10:48:39
 ---
 
-## WPS for Linux 字体配置(字体缺失解决办法)
+## 1. 背景
 
-### 1. 背景
-
+> **说明**
 > 有些linux装完wps后提示“部分字体无法显示”或“some formula symbols might be not display”。这是因为缺少某些字体导致，主要是特殊符号或公式字体等等，而这些字体其实是在windows中可以找到的。有兴趣的自己去研究。
 
-### 2. 解决方案
+## 2. 解决方案
+### 步骤一：下载字体库
 
-2.1. 下载字体库
+- [点此下载字体库（百度网盘/提取码：g9ci）](https://pan.baidu.com/s/1AhdMyXPbYsEnP0PYlLbVtQ "点击这里下载字体库（鼠标悬浮查看密码）")
 
-[点击这里下载字体库（鼠标悬浮查看密码）](https://pan.baidu.com/s/1AhdMyXPbYsEnP0PYlLbVtQ "点击这里下载字体库（鼠标悬浮查看密码）")(g9ci)
+---
 
-2.2. 添加字体（使下载的字体库生效）
+### 步骤二：安装字体库
 
-方法一：解压到 [WPS](https://so.csdn.net/so/search?q=WPS&spm=1001.2101.3001.7020)的默认字体文件夹中(wps-office)，然后重启WPS即可
+#### 方法一：复制到 WPS 专用字体目录
 
-```cobol
-sudo unzip wps_symbol_fonts.zip -d /usr/share/fonts/wps-office
-```
+1. 解压字体文件并复制到 WPS 字体目录：
+    
+    ```bash
+    sudo unzip wps_symbol_fonts.zip -d /usr/share/fonts/wps-office
+    ```
+    
+2. 重启 WPS 即可生效。
+    
 
-tips：如果`/usr/share/fonts/`目录下没有`wps-office`文件夹，则使用方法二。
+> **注意**：若 `/usr/share/fonts/` 下没有 `wps-office` 文件夹，请使用方法二。
 
-方法二：
+---
 
-- 将字体库文件解压
+#### 方法二：全局字体安装
 
-```python
-sudo unzip wps_symbol_fonts.zip		# 解压zip文件
-```
+1. 解压字体文件：
+    
+    ```bash
+    sudo unzip wps_symbol_fonts.zip
+    ```
+    
+2. 将解压出的字体文件（如 .ttf 文件）复制到系统字体目录，例如 `/usr/share/fonts` 或 `~/.fonts`（个人用户）：
+    
+    ```bash
+    sudo cp *.ttf /usr/share/fonts/
+    ```
+    
+3. 更新字体缓存：
+    
+    ```bash
+    sudo mkfontscale
+    sudo mkfontdir
+    sudo fc-cache
+    ```
+    
+4. 重启 WPS 客户端，字体问题消失。
 
-- 更新字体
+#### 方法三：图形界面安装（适合小白）
 
-```csharp
-# 生成字体索引sudo mkfontscalesudo mkfontdir# 更新字体缓存sudo fc-cache
-```
-
-- 重新打开WPS，提示不再出现。
-
-方法三：图形化操作
-
-- 点击zip文件，鼠标右键 -> 解压，解压后会得到一些tff文件
-- 双击点开tff文件，点击安装（全部的tff文件都操作一遍即可）
+1. 右键 zip 文件，选择“解压”。
+2. 得到若干 ttf 字体文件。
+3. 双击 .ttf 字体文件，选择“安装”按钮（每个都装一遍）。

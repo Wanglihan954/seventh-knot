@@ -39,6 +39,10 @@ html(lang=config.language, class=theme.mode === 'dark' ? 'dark' : '')
 
     //- 背景层
     include background.pug
+
+    //- 首页启动动画与个人资料首屏
+    if is_home() && page.current == 1
+      include home-profile.pug
     
     //- 1. 顶部全屏通栏导航栏 (只在非首页显示)
     if !is_home()
