@@ -124,6 +124,8 @@ deploy:
   type: git
   repository: git@github.com:Wanglihan954/Wanglihan954.github.io.git
   branch: main
+  # Keep .nojekyll when copying public/ into the deployment repository.
+  ignore_hidden: false
 aplayer:
   cdn: https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js
   style_cdn: https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css

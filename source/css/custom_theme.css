@@ -955,6 +955,87 @@ hr {
   color: var(--ik-blue);
 }
 
+/* Official Bangboo sticker cards between the two archive sections. */
+.zzz-sticker-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin: 1.75rem 0 0.7rem;
+  padding: 0.85rem;
+  background: rgba(8, 10, 12, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-left: 5px solid var(--ik-yellow);
+  border-radius: 3px 16px 3px 16px;
+}
+
+.zzz-sticker-strip figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: #0b0d0f;
+  border: 2px solid #090a0a;
+  border-radius: 10px 2px 10px 2px;
+}
+
+.zzz-sticker-strip img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0 !important;
+  box-shadow: none;
+}
+
+.zzz-sticker-strip figcaption {
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0.4rem;
+  padding: 0.2rem 0.55rem;
+  color: #090a0a;
+  background: var(--ik-yellow);
+  border: 2px solid #090a0a;
+  font-family: var(--ik-display-font);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  transform: rotate(-2deg);
+}
+
+/* Official ZZZ stickers used inline like expressive punctuation. */
+.markdown-body img.zzz-inline-sticker {
+  display: inline-block;
+  width: 1.72em;
+  height: 1.72em;
+  margin: -0.48em 0.06em -0.36em 0.12em;
+  padding: 0;
+  object-fit: contain;
+  vertical-align: baseline;
+  background: transparent;
+  border: 0;
+  border-radius: 0 !important;
+  box-shadow: none;
+  filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.45));
+}
+
+.zzz-sticker-source {
+  margin-bottom: 2rem !important;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .zzz-sticker-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .zzz-sticker-strip figure {
+    max-width: 320px;
+    margin-inline: auto;
+  }
+}
+
 /* Valaxy-like responsive layout: a compact content/outline pair on tablets. */
 @media (min-width: 901px) and (max-width: 1199px) {
   body:not(.is-home) .container {

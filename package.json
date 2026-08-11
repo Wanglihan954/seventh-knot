@@ -10,9 +10,9 @@
     "url": "git+ssh://git@github.com/Wanglihan954/seventh-knot.git"
   },
   "scripts": {
-    "build": "hexo generate",
+    "build": "hexo clean && hexo generate",
     "clean": "hexo clean",
-    "deploy": "hexo deploy",
+    "deploy": "hexo clean && hexo generate && hexo deploy",
     "server": "hexo server"
   },
   "hexo": {

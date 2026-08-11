@@ -197,3 +197,41 @@ girls:
 点击代理人卡片即可跳转至米游社绝区零官方 Wiki 查看完整角色档案。
 
 > 角色头像、姓名、组织与详情链接均整理自米游社绝区零 Wiki。
+
+## INTER-KNOT // 绳匠接入协议
+
+> 正在读取代理人数据库……身份校验通过。欢迎回到新艾利都，绳匠。<img class="zzz-inline-sticker" src="/images/zzz-stickers/lidu-soldier11.png" alt="11号表情" title="丽都漫步：11号">
+
+新艾利都不会记住每一个走进空洞的人，但绳网会。<img class="zzz-inline-sticker" src="/images/zzz-stickers/lidu-wise.png" alt="哲沉默表情" title="丽都漫步：哲">
+
+在以骸把姓名磨成噪点之前，我会替他们留下一份档案——他们从哪里来，为何拔出武器，又曾把谁从无尽的黑暗里带回灯火之下。
+
+<div class="zzz-sticker-strip" aria-label="绝区零官方嗯呢漫布表情包">
+  <figure>
+    <img src="/images/zzz-stickers/bangboo-gift.jpg" alt="嗯呢漫布送礼表情" loading="lazy">
+    <figcaption>委托接收</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/zzz-stickers/bangboo-thanks.jpg" alt="嗯呢漫布谢谢老板表情" loading="lazy">
+    <figcaption>报酬结算</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/zzz-stickers/bangboo-rest.jpg" alt="嗯呢漫布打工结束表情" loading="lazy">
+    <figcaption>行动结束</figcaption>
+  </figure>
+</div>
+
+<p class="zzz-sticker-source">大卡片素材：<a href="https://zzz.mihoyo.com/news/129710" target="_blank" rel="noopener noreferrer">《绝区零》官网「嗯呢漫布」新年主题表情包</a></p>
+
+## 空洞行动准则
+
+- 接受委托，但不接受命运的安排。<img class="zzz-inline-sticker" src="/images/zzz-stickers/lidu-nekomata.png" alt="猫又点赞表情" title="丽都漫步：猫又">
+- 信号会中断，萝卜会失效，绳匠不能松手。<img class="zzz-inline-sticker" src="/images/zzz-stickers/lidu-lycaon.png" alt="莱卡恩疑惑表情" title="丽都漫步：莱卡恩">
+- 不要在空洞里相信方向；相信同伴，以及最后一次确认过的撤离坐标。
+- 若退路已经坍塌，就把前方变成出口。<img class="zzz-inline-sticker" src="/images/zzz-stickers/lidu-anby.png" alt="安比充能表情" title="丽都漫步：安比">
+
+> 档案编号不是墓碑，而是下一次并肩作战之前的点名。<img class="zzz-inline-sticker" src="/images/zzz-stickers/lidu-rina.png" alt="丽娜微笑表情" title="丽都漫步：丽娜">
+
+~~若通讯频道里响起不存在的第七声回响，请勿应答。第七绳结已经替你接入。~~
+
+<p class="zzz-sticker-source">行内表情素材：<a href="https://zzz.mihoyo.com/news/122942" target="_blank" rel="noopener noreferrer">《绝区零》官网「丽都漫步」系列表情包第一弹</a></p>
