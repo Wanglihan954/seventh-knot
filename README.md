@@ -6,6 +6,28 @@
 
 站点地址：[https://20020730.xyz](https://20020730.xyz)
 
+GitHub 仓库：[Wanglihan954/seventh-knot](https://github.com/Wanglihan954/seventh-knot) — 查看源代码、提交记录与后续更新。
+
+## 运行截图
+
+以下画面由本地运行的 Hexo 站点实际截取，不是设计稿。
+
+![Seventh Knot 桌面端首页](source/images/screenshots/seventh-knot-home-desktop.png)
+
+| 首页加载阶段 | 首页文章卡片 |
+| --- | --- |
+| <img src="source/images/screenshots/seventh-knot-home-loading.png" alt="Seventh Knot 首页加载阶段" width="640"> | <img src="source/images/screenshots/seventh-knot-home-articles.png" alt="Seventh Knot 首页文章卡片" width="640"> |
+
+| 分类页 | 代理人档案页 |
+| --- | --- |
+| <img src="source/images/screenshots/seventh-knot-categories.png" alt="Seventh Knot 分类页" width="640"> | <img src="source/images/screenshots/seventh-knot-agents.png" alt="Seventh Knot 代理人档案页" width="640"> |
+
+| 移动端首页 | 移动端导航 |
+| --- | --- |
+| <img src="source/images/screenshots/seventh-knot-home-mobile.png" alt="Seventh Knot 移动端首页" width="320"> | <img src="source/images/screenshots/seventh-knot-mobile-navigation.png" alt="Seventh Knot 移动端导航" width="320"> |
+
+![Seventh Knot 文章阅读页](source/images/screenshots/seventh-knot-article-desktop.png)
+
 ## 项目特色
 
 - 两段式首页：原版 Yun 文字动画结束后进入加载阶段，再展示个人主页
@@ -61,7 +83,7 @@ npm run deploy
 ├─ source/
 │  ├─ _posts/              # 博客文章
 │  ├─ css/                 # 自定义主题样式
-│  ├─ images/              # 图片与动画资源
+│  ├─ images/              # 图片、动画与运行截图
 │  └─ js/                  # 首页、移动导航和网页宠物脚本
 ├─ themes/yun/
 │  ├─ layout/              # 深度修改后的 Pug 模板

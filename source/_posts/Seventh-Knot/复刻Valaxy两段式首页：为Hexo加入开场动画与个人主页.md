@@ -66,6 +66,8 @@ CSS 根据根节点状态控制三个层的透明度、可见性、缩放和指�
 
 加载阶段包含网格、旋转扫描线、终端面板、邦布动画和进度条。它只存在约 1.8 秒，因此所有信息都必须一眼可读。
 
+![Seventh Knot 首页加载阶段运行截图](/images/screenshots/seventh-knot-home-loading.png)
+
 ## 下拉箭头属于页面本身
 
 下拉箭头必须放在首页内部，而不是悬浮在浏览器窗口之外。它链接到文章区域：
@@ -101,5 +103,6 @@ const reduceMotion = window.matchMedia(
 
 ## 最终效果
 
-这套实现没有照搬 Valaxy 的组件代码，而是保留 Theme Yun 原版 Banner，再按照相同的两段式体验重组首页。最终得到的不是互不相关的动画集合，而是一条完整路径：看到标题、建立连接、进入个人节点，然后继续阅读文章。
+![Seventh Knot 桌面端首页运行截图](/images/screenshots/seventh-knot-home-desktop.png)
 
+这套实现没有照搬 Valaxy 的组件代码，而是保留 Theme Yun 原版 Banner，再按照相同的两段式体验重组首页。最终得到的不是互不相关的动画集合，而是一条完整路径：看到标题、建立连接、进入个人节点，然后继续阅读文章。

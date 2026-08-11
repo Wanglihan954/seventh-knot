@@ -19,6 +19,8 @@ updated: 2026-08-12 21:00:00
 
 > 当一个博客开始拥有自己的模板、交互、脚本和设计语言时，给它一个正式名字不是包装，而是在明确它接下来如何被维护。
 
+项目仓库：[Wanglihan954/seventh-knot](https://github.com/Wanglihan954/seventh-knot)。这里保存 Seventh Knot 的源代码、版本记录与持续更新。
+
 <!-- more -->
 
 ## 为什么叫 Seventh Knot
@@ -97,7 +99,8 @@ git push origin main
 
 ## 项目化之后发生了什么
 
+![Seventh Knot 文章阅读页运行截图](/images/screenshots/seventh-knot-article-desktop.png)
+
 命名和 README 不会直接改变页面效果，却会改变维护方式：新增功能需要考虑它是否符合 Seventh Knot 的视觉系统；修改文件时需要说明属于上游主题还是项目扩展；发布时以 `main` 的可构建状态为准。
 
 从这一刻开始，博客不再只是一个存放文章的目录，而是一个有名称、有版本、有边界，也有继续演进方向的个人项目。
-

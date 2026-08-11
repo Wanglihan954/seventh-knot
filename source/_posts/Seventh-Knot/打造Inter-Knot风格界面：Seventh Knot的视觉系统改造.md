@@ -80,7 +80,14 @@ source/css/custom_theme.css
 
 同时，README 中明确说明这是非官方个人项目，相关游戏素材的权利归原权利人所有。视觉借鉴和素材使用必须与原创代码、个人内容的权属分开说明。
 
+## 页面系统落地
+
+同一套面板、边框、警示色和信息层级不仅用于文章页，也延伸到了分类索引与代理人档案等独立页面。
+
+![Seventh Knot 分类页运行截图](/images/screenshots/seventh-knot-categories.png)
+
+![Seventh Knot 代理人档案页运行截图](/images/screenshots/seventh-knot-agents.png)
+
 ## 小结
 
 Seventh Knot 的视觉改造不是一次主题换肤，而是建立了一套可以继续扩展的界面规则。当新增一个页面或按钮时，我不需要重新决定它应该长什么样，只需要判断它属于哪种层级、承担什么功能，再使用已有的颜色与形状语言组合即可。
-

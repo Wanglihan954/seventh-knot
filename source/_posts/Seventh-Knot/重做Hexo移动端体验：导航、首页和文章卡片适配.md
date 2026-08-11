@@ -31,6 +31,8 @@ updated: 2026-08-12 20:40:00
 - 点击菜单链接后自动收起；
 - 菜单打开时限制背景滚动。
 
+![Seventh Knot 移动端展开导航](/images/screenshots/seventh-knot-mobile-navigation.png)
+
 按钮使用真正可聚焦的交互结构，并维护 `aria-expanded`，让键盘和辅助技术能够理解当前状态。
 
 ## 使用动态视口高度
@@ -89,6 +91,8 @@ padding-bottom: max(72px, env(safe-area-inset-bottom));
 
 ## 检查清单
 
+![Seventh Knot 390 × 844 移动端运行截图](/images/screenshots/seventh-knot-home-mobile.png)
+
 每次调整移动端，我都会检查：
 
 1. 导航能否通过点击、遮罩和 Escape 关闭；
@@ -99,4 +103,3 @@ padding-bottom: max(72px, env(safe-area-inset-bottom));
 6. 禁用动画后是否仍能进入正文。
 
 移动端最终不是桌面版本的附属品，而是 Seventh Knot 的另一种完整入口。
-
