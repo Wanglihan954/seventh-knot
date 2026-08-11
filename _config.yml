@@ -107,7 +107,10 @@ pagination_dir: page
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
 include:
+  - .nojekyll
 exclude:
+  - Template/**
+  - Templates/**
 ignore:
 
 # Extensions
