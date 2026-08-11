@@ -19,20 +19,20 @@ aside.sidebar
           +icon(theme.menu.home.icon)
 
       for item in theme.menu.list
-        if item.type === 'archives'
-          - item.title = item.title || __('menu.archives')
-          - item.count = site.posts.length
-        else if item.type === 'categories'
-          - item.title = item.title || __('menu.categories')
-          - item.count = site.categories.length
-        else if item.type === 'tags'
-          - item.title = item.title || __('menu.tags')
-          - item.count = site.tags.length
-        .site-state-item
-          a(href=url_for(item.path), title=item.title)
-            span.site-state-item-icon
-              +icon(item.icon)
-            if item.count !== undefined
+        if ['archives', 'categories', 'tags'].includes(item.type)
+          if item.type === 'archives'
+            - item.title = item.title || __('menu.archives')
+            - item.count = site.posts.length
+          else if item.type === 'categories'
+            - item.title = item.title || __('menu.categories')
+            - item.count = site.categories.length
+          else if item.type === 'tags'
+            - item.title = item.title || __('menu.tags')
+            - item.count = site.tags.length
+          .site-state-item
+            a(href=url_for(item.path), title=item.title)
+              span.site-state-item-icon
+                +icon(item.icon)
               span.site-state-item-count!=item.count
 
       if theme.menu.custom
