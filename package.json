@@ -1,7 +1,14 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "seventh-knot",
+  "version": "1.0.0",
+  "description": "Seventh Knot - an Inter-Knot inspired personal Hexo node.",
   "private": true,
+  "author": "Wanglihan954",
+  "homepage": "https://20020730.xyz",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Wanglihan954/seventh-knot.git"
+  },
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
@@ -20,16 +27,17 @@
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-feed": "^3.0.0",
     "hexo-generator-index": "^4.0.0",
+    "hexo-generator-searchdb": "^1.5.0",
     "hexo-generator-tag": "^2.0.0",
     "hexo-render-pug": "^2.1.4",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^7.0.0",
+    "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-tag-aplayer": "^3.0.4",
     "hexo-tag-common": "^0.2.0",
     "hexo-theme-landscape": "^1.0.0",
-    "hexo-theme-yun": "^1.10.11",
     "hexo-wordcount": "^6.0.1"
   }
 }

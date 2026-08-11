@@ -38,7 +38,7 @@ notice:
 bg_image:
   enable: true
   url: /images/image.png
-  # dark:
+  dark: /images/1.png
   blur: 10px # 设置背景模糊程度
   opacity: 0.8
 avatar:
@@ -67,7 +67,7 @@ social:
   - name: GitHub
     link: https://github.com/Wanglihan954
     icon: ri:github-line
-    color: '#181717'
+    color: '#f4f5f2'
   - name: E-Mail
     link: mailto:admin@yemengstar.com
     icon: ri:mail-line
@@ -114,17 +114,20 @@ menu:
     - type: tags
       path: /tags/
       icon: ri:price-tag-3-line
-    - type: about
-      path: /about/
-      icon: fas fa-user-circle
   # 自定义内容你可以看云游君提供的文档
   # custom:
   #   title: 文档
   #   path: https://yun.yunyoujun.cn
   #   icon: ri:settings-line
 
+colors:
+  # Keep Yun's weighted tag cloud, recolored for the Inter-Knot skin.
+  tag_start_color: "#f6ff00"
+  tag_end_color: "#19a7ff"
+
 wordcloud:
-  enable: true
+  # The reference site uses Yun's responsive text tag cloud rather than canvas.
+  enable: false
 girls:
   enable: true
 pages:
@@ -132,15 +135,21 @@ pages:
     url: /links/
     icon: ri:genderless-line
     color: dodgerblue
-  - name: 她们都是我的翅膀
+  - name: 代理人列表
     url: /girls/
-    icon: ri:women-line
-    color: '#FF69B4'
+    image: /images/bangboo-nav.png
+    color: '#ffffff'
 
 wordcount:
   enable: true
   count: true
   time: true
+
+post_card:
+  preview:
+    enable: true
+    max_chars: 620
+    max_blocks: 4
 
 footer:
   since: 2025
@@ -180,11 +189,16 @@ comment:
 
 medium_zoom: true
 engine_search:
-  enable: true
+  enable: false
   href: 'https://www.google.com/search?q=site:'
   # href: "https://www.baidu.com/s?wd=site:"
   # href: "https://www.bing.com/search?q=site:"
   domain: 20020730.xyz
+local_search:
+  enable: fasle
+search:
+  enable: true   # 开启弹窗搜索
+  engine: local_search
 katex:
   copy_tex: true
   global: true
@@ -194,3 +208,12 @@ katex:
   output: "htmlAndMathml",
   displayMode: true,
   trust: true }
+# 在配置文件中找到或添加这段代码
+head:
+  css:
+    - /css/custom_theme.css?v=20260810-6
+  js:
+    defer:
+      - /js/web-pet.js
+      - /js/mobile-navigation.js
+      - /js/home-intro.js?v=20260810-6

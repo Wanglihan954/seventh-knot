@@ -1,0 +1,69 @@
+section#home-sequence.home-sequence(aria-label='首页开场动画')
+  //- Yun original banner markup. Its bundled banner.js creates every char box.
+  #banner.home-sequence__banner(aria-label=theme.banner.title || config.title)
+    .banner-line.vertical-line-top
+    .banner-char-container
+    .banner-line.vertical-line-bottom
+
+  .home-sequence__loader(aria-hidden='true')
+    .home-intro__grid
+    .home-intro__reticle
+      span
+      span
+    .home-intro__terminal
+      .home-intro__bangboo(aria-hidden='true')
+        img(src=url_for('/images/bangboo-loading.gif'), alt='', width='96', height='96')
+      span.home-intro__eyebrow INTER-KNOT // PERSONAL NODE
+      strong INITIALIZING
+      .home-intro__progress
+        i
+      span.home-intro__status CONNECTING TO #{config.author}
+
+  section#home-profile.home-sequence__profile(aria-labelledby='home-profile-title')
+    .home-profile__content
+      .home-profile__identity
+        if theme.avatar && theme.avatar.url
+          .home-profile__avatar-wrap
+            img.home-profile__avatar(width='112', height='112', src=is_url(theme.avatar.url) ? theme.avatar.url : url_for(theme.cdn.pre + theme.avatar.url), alt=config.author)
+            if theme.avatar.status.enable
+              span.home-profile__status(title=theme.avatar.status.message)=theme.avatar.status.emoji
+        p.home-profile__author= config.author
+
+      .home-profile__divider(aria-hidden='true')
+
+      h1#home-profile-title.home-profile__title!= config.title
+      if config.subtitle
+        p.home-profile__subtitle!= config.subtitle
+      if config.description
+        p.home-profile__description!= config.description
+
+      if theme.social
+        nav.home-profile__social(aria-label='社交链接')
+          for social in theme.social
+            a.home-profile__social-link(rel='noopener', href=social.link, title=social.name, target='_blank', style='--link-color:' + social.color)
+              +icon(social.icon)
+              span.sr-only= social.name
+
+      nav.home-profile__nav(aria-label='站点导航')
+        for item in theme.menu.list
+          - var homeNavTitle = item.title || (item.type === 'archives' ? __('menu.archives') : item.type === 'categories' ? __('menu.categories') : item.type === 'tags' ? __('menu.tags') : item.type)
+          a.home-profile__nav-link(href=url_for(item.path))
+            +icon(item.icon)
+            span= homeNavTitle
+        if theme.pages
+          for link in theme.pages
+            a.home-profile__nav-link(href=url_for(link.url), style='--link-color:' + link.color)
+              if link.image
+                img(src=url_for(link.image), alt='', aria-hidden='true', width='24', height='24')
+              else
+                +icon(link.icon)
+              span= link.name
+
+  if theme.banner.cloud.enable
+    .home-sequence__cloud(aria-hidden='true')
+      include ../_widget/cloud.pug
+
+  a.home-stage__down.home-profile__down.home-sequence__down(href='#recent-posts', aria-label='向下浏览文章')
+    +icon(theme.banner.go_down.icon || 'ri:arrow-down-s-line')
+
+script(src=url_for(theme.cdn.pre + '/js/ui/banner.js'), type='module')
