@@ -1,7 +1,14 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "seventh-knot",
+  "version": "1.0.0",
+  "description": "Seventh Knot - an Inter-Knot inspired personal Hexo node.",
   "private": true,
+  "author": "Wanglihan954",
+  "homepage": "https://20020730.xyz",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Wanglihan954/seventh-knot.git"
+  },
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",

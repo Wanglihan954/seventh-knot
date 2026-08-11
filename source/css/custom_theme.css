@@ -1518,6 +1518,34 @@ hr {
   font-family: Consolas, "Courier New", monospace;
 }
 
+/* The original ZZZ wiki loading Bangboo joins the existing terminal. */
+.home-intro__bangboo {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  display: grid;
+  width: 94px;
+  height: 94px;
+  place-items: center;
+  pointer-events: none;
+  transform: translateY(-54%);
+}
+
+.home-intro__bangboo img {
+  display: block;
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.2));
+}
+
+.home-intro__terminal strong,
+.home-intro__progress,
+.home-intro__status {
+  padding-right: 86px;
+}
+
 .home-intro__eyebrow,
 .home-intro__status {
   display: block;
@@ -1606,6 +1634,25 @@ hr {
 }
 
 @media (max-width: 600px) {
+  .home-intro__bangboo {
+    top: -62px;
+    right: 50%;
+    width: 78px;
+    height: 78px;
+    transform: translateX(50%);
+  }
+
+  .home-intro__bangboo img {
+    width: 76px;
+    height: 76px;
+  }
+
+  .home-intro__terminal strong,
+  .home-intro__progress,
+  .home-intro__status {
+    padding-right: 0;
+  }
+
   .home-profile {
     padding-right: max(12px, env(safe-area-inset-right));
     padding-left: max(12px, env(safe-area-inset-left));
