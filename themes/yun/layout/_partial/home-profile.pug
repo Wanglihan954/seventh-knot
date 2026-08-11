@@ -31,11 +31,12 @@ section#home-sequence.home-sequence(aria-label='首页开场动画')
 
       .home-profile__divider(aria-hidden='true')
 
-      h1#home-profile-title.home-profile__title!= config.title
-      if config.subtitle
-        p.home-profile__subtitle!= config.subtitle
-      if config.description
-        p.home-profile__description!= config.description
+      - var homeProfile = theme.home_profile || {}
+      h1#home-profile-title.home-profile__title!= homeProfile.title || config.title
+      if homeProfile.subtitle || config.subtitle
+        p.home-profile__subtitle!= homeProfile.subtitle || config.subtitle
+      if homeProfile.description || config.description
+        p.home-profile__description!= homeProfile.description || config.description
 
       if theme.social
         nav.home-profile__social(aria-label='社交链接')
@@ -46,10 +47,11 @@ section#home-sequence.home-sequence(aria-label='首页开场动画')
 
       nav.home-profile__nav(aria-label='站点导航')
         for item in theme.menu.list
-          - var homeNavTitle = item.title || (item.type === 'archives' ? __('menu.archives') : item.type === 'categories' ? __('menu.categories') : item.type === 'tags' ? __('menu.tags') : item.type)
-          a.home-profile__nav-link(href=url_for(item.path))
-            +icon(item.icon)
-            span= homeNavTitle
+          if ['archives', 'categories', 'tags'].includes(item.type)
+            - var homeNavTitle = item.title || (item.type === 'archives' ? __('menu.archives') : item.type === 'categories' ? __('menu.categories') : __('menu.tags'))
+            a.home-profile__nav-link(href=url_for(item.path))
+              +icon(item.icon)
+              span= homeNavTitle
         if theme.pages
           for link in theme.pages
             a.home-profile__nav-link(href=url_for(link.url), style='--link-color:' + link.color)
