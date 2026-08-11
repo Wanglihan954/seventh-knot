@@ -3,7 +3,7 @@ layout: girls
 title: 绝区零代理人
 date: 2019-01-07 11:17:35
 updated: 2026-08-10 00:00:00
-icon: ri:women-line
+title_icon: bangboo
 banner: <span title="欢迎来到新艾利都">INTER-KNOT // 代理人档案</span>
 random: false
 girls:

@@ -101,24 +101,41 @@ social:
   #   icon: ri:wechat-2-line
   #   color: '#1AAD19'
 menu:
+  # 顶部导航中央名称；留空时回退到 _config.yml 的 title。
+  brand: Seventh Knot
+  # 左下角黄色标牌；设为空字符串可隐藏。
+  badge: INTER-KNOT // 20020730
+  mobile:
+    title: 菜单
+    icon: ri:menu-line
   home:
+    title: 首页
     path: /
     icon: ri:home-4-line
   list:
-    - type: archives
+    # icon 使用 Iconify；image 显示原色图片；mask_image 将图片变成可继承颜色的图标。
+    - title: 归档
       path: /archives/
       icon: ri:archive-line
-    - type: categories
+    - title: 分类
       path: /categories/
       icon: ri:folder-2-line
-    - type: tags
+    - title: 标签
       path: /tags/
       icon: ri:price-tag-3-line
-  # 自定义内容你可以看云游君提供的文档
-  # custom:
-  #   title: 文档
-  #   path: https://yun.yunyoujun.cn
-  #   icon: ri:settings-line
+    - title: 我的小伙伴们
+      path: /links/
+      icon: ri:links-line
+    - title: 代理人档案
+      path: /girls/
+      mask_image: /images/bangboo-nav.png
+  actions:
+    theme:
+      title: 切换主题
+      icon: ri:contrast-2-line
+    search:
+      title: 搜索
+      icon: ri:search-line
 
 colors:
   # Keep Yun's weighted tag cloud, recolored for the Inter-Knot skin.
@@ -211,7 +228,7 @@ katex:
 # 在配置文件中找到或添加这段代码
 head:
   css:
-    - /css/custom_theme.css?v=20260810-6
+    - /css/custom_theme.css?v=20260812-3
   js:
     defer:
       - /js/web-pet.js

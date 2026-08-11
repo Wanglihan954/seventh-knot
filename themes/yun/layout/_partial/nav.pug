@@ -1,46 +1,57 @@
 //- layout/_partial/nav.pug
 //- Valaxy 风格的顶部毛玻璃通栏导航 (内嵌搜索与移动端抽屉逻辑)
 
+mixin nav_menu_icon(item)
+  if item.mask_image
+    - var maskUrl = url_for(item.mask_image)
+    span.nav-mask-icon(style=`--nav-mask-image: url('${maskUrl}')`, aria-hidden='true')
+  else if item.image
+    img.nav-config-image(src=url_for(item.image), alt='', aria-hidden='true', width='26', height='26')
+  else if item.icon
+    +icon(item.icon)
+  else
+    span.nav-item-label= item.title || item.name
+
 nav.valaxy-nav
+  if theme.menu && theme.menu.badge
+    span.nav-badge= theme.menu.badge
   //- 1. 左侧：图标菜单
   .nav-left
     //- 📱 手机端：汉堡菜单
-    button#mobile-menu-btn.nav-item(type='button', title="菜单", aria-label="打开站点菜单", aria-controls="site-overview-wrap", aria-expanded="false")
-      +icon('ri:menu-line')
+    - var mobileMenu = (theme.menu && theme.menu.mobile) || {}
+    - var mobileTitle = mobileMenu.title || '菜单'
+    button#mobile-menu-btn.nav-item(type='button', title=mobileTitle, aria-label=`打开${mobileTitle}`, aria-controls="site-overview-wrap", aria-expanded="false")
+      +icon(mobileMenu.icon || 'ri:menu-line')
     
-    //- 🏠 所有图标现在都直接放在这里，不分内外层
-    a.nav-item(href=url_for('/'), title=__('menu.home'))
-      +icon('ri:home-4-line')
+    if theme.menu && theme.menu.home
+      - var homeItem = theme.menu.home
+      - var homeTitle = homeItem.title || __('menu.home')
+      a.nav-item(href=url_for(homeItem.path || '/'), title=homeTitle, style=homeItem.color ? `--nav-item-color: ${homeItem.color}` : '')
+        +nav_menu_icon(homeItem)
       
     if theme.menu && theme.menu.list
       for item, name in theme.menu.list
-        - var title = item.title || __('menu.' + (item.type || name))
-        //- 过滤掉已经在上面显示的 home，且如果是手机端，隐藏这些图标
-        if item.type !== 'home'
-          a.nav-item.desktop-only-icon(href=url_for(item.path), title=title)
-            if item.icon
-              +icon(item.icon)
-            else
-              span= title
-
-    a.nav-item.desktop-only-icon(href=url_for('/links/'), title="我的小伙伴们")
-      +icon('ri:links-line')
-    a.nav-item.desktop-only-icon(href=url_for('/girls/'), title="她们都是我的翅膀")
-      +icon('ri:women-line')
+        - var itemTitle = item.title || item.name || __('menu.' + (item.type || name))
+        - var itemPath = item.path || item.url || '#'
+        a.nav-item.desktop-only-icon(href=url_for(itemPath), title=itemTitle, target=item.target, rel=item.target === '_blank' ? 'noopener' : null, style=item.color ? `--nav-item-color: ${item.color}` : '')
+          +nav_menu_icon(item)
 
   //- 2. 中间：动态标题
   .nav-center#nav-center
     .nav-title-wrapper
-      a.site-name(href=url_for('/'))= config.title
+      a.site-name(href=url_for('/'))= (theme.menu && theme.menu.brand) || config.title
       if is_post() || is_page()
         span.article-title(onclick="window.scrollTo({top: 0, behavior: 'smooth'})", title="点击回到顶部")= page.title
 
   //- 3. 右侧：功能按钮
   .nav-right
-    a#toggle-mode-btn.nav-item(href='javascript:;', title="切换主题")
-      +icon('ri:contrast-2-line')
-    a.nav-item(href='javascript:;', title="搜索", onclick="openMySearch()")
-      +icon('ri:search-line')
+    - var navActions = (theme.menu && theme.menu.actions) || {}
+    - var themeAction = navActions.theme || {}
+    - var searchAction = navActions.search || {}
+    a#toggle-mode-btn.nav-item(href='javascript:;', title=themeAction.title || '切换主题')
+      +icon(themeAction.icon || 'ri:contrast-2-line')
+    a.nav-item(href='javascript:;', title=searchAction.title || '搜索', onclick="openMySearch()")
+      +icon(searchAction.icon || 'ri:search-line')
 
 //- 📱 手机端专属：全屏变暗遮罩层 & 右下角目录悬浮按钮
 #mobile-overlay(aria-hidden="true")

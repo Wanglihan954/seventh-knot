@@ -28,6 +28,10 @@ GitHub 仓库：[Wanglihan954/seventh-knot](https://github.com/Wanglihan954/seve
 
 ![Seventh Knot 文章阅读页](source/images/screenshots/seventh-knot-article-desktop.png)
 
+| 配置化导航栏 | 邦布代理人档案页 |
+| --- | --- |
+| <img src="source/images/screenshots/seventh-knot-navbar-detail.png" alt="Seventh Knot 配置化导航栏" width="640"> | <img src="source/images/screenshots/seventh-knot-configurable-navbar.png" alt="Seventh Knot 邦布代理人档案页" width="640"> |
+
 ## 项目特色
 
 - 两段式首页：原版 Yun 文字动画结束后进入加载阶段，再展示个人主页
@@ -37,7 +41,14 @@ GitHub 仓库：[Wanglihan954/seventh-knot](https://github.com/Wanglihan954/seve
 - 文章局部预览：首页直接展示文章片段，并提供渐隐和阅读全文入口
 - 移动端适配：针对窄屏重新设计导航、首页布局、文章卡片和触控区域
 - 个性化组件：网页宠物、代理人列表、社交入口和自定义侧边栏
+- 配置化导航：名称、标牌、链接顺序和图标均可在 `_config.yun.yml` 中维护
 - 笔记迁移：支持将本地 Markdown 笔记整理为 Hexo 文章
+
+## 导航栏配置
+
+顶部导航统一由 `_config.yun.yml` 的 `menu` 配置控制。`brand` 和 `badge` 对应中央名称与黄色标牌，`home` 和 `list` 管理左侧入口，`actions` 管理主题切换和搜索按钮。
+
+导航图标支持 Iconify 的 `icon`、保留原色的 `image`，以及跟随导航颜色的 `mask_image`。完整配置方法与实现说明见文章[《从硬编码到配置驱动：用 _config.yun.yml 管理 Seventh Knot 导航栏》](https://20020730.xyz/posts/7c4e2b91/)。
 
 ## 技术栈
 

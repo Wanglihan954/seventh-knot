@@ -73,8 +73,7 @@ body::before {
   overflow: visible !important;
 }
 
-.valaxy-nav::before {
-  content: "INTER-KNOT // 20020730";
+.valaxy-nav .nav-badge {
   position: absolute;
   left: 28px;
   bottom: -10px;
@@ -99,7 +98,7 @@ body::before {
 .valaxy-nav .nav-item {
   min-width: 36px;
   min-height: 36px;
-  color: #fff !important;
+  color: var(--nav-item-color, #fff) !important;
   opacity: 0.82 !important;
   border-radius: 9px 2px 9px 2px;
 }
@@ -110,6 +109,59 @@ body::before {
   opacity: 1 !important;
   transform: skewX(-8deg) translateY(-2px) !important;
   box-shadow: 3px 3px 0 #000;
+}
+
+.valaxy-nav .nav-mask-icon {
+  display: block;
+  width: 26px;
+  height: 26px;
+  background-color: currentColor;
+  mask-image: var(--nav-mask-image);
+  mask-mode: luminance;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.28));
+  pointer-events: none;
+}
+
+.valaxy-nav .nav-config-image {
+  display: block;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.valaxy-nav .nav-item:hover .nav-mask-icon {
+  color: #000;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.35));
+}
+
+.bangboo-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  color: inherit;
+  background-color: currentColor;
+  mask-image: url("/images/bangboo-nav.png");
+  mask-mode: luminance;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  pointer-events: none;
+}
+
+.valaxy-nav .bangboo-icon {
+  display: block;
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.28));
+}
+
+.valaxy-nav .nav-item:hover .bangboo-icon {
+  color: #000;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.35));
 }
 
 /* Main panels. */
@@ -406,6 +458,25 @@ h1.post-title,
   color: #fff !important;
   font-family: "Arial Black", "Microsoft YaHei", sans-serif !important;
   text-shadow: 2px 2px 0 #000;
+}
+
+.page-title-image {
+  display: inline-block;
+  width: 1.35em;
+  height: 1.35em;
+  margin-right: 0.3em;
+  object-fit: contain;
+  vertical-align: -0.3em;
+  filter: drop-shadow(0 0 6px rgba(246, 255, 0, 0.2));
+}
+
+.page-title-icon {
+  width: 1.15em;
+  height: 1.15em;
+  margin-right: 0.28em;
+  color: var(--ik-yellow);
+  vertical-align: -0.19em;
+  filter: drop-shadow(2px 2px 0 #000);
 }
 
 .post-card .post-title-link {
