@@ -37,8 +37,8 @@ notice:
   content: 欢迎光临我的世界
 bg_image:
   enable: true
-  url: /images/image.png
-  dark: /images/1.png
+  url: /images/background-light.webp
+  dark: /images/background-dark.webp
   blur: 10px # 设置背景模糊程度
   opacity: 0.8
 avatar:
