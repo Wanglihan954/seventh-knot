@@ -1,0 +1,158 @@
+extends _partial/layout.pug
+
+block content
+  - var helloGithub = page.feed === 'hellogithub' && site.data && site.data.hellogithub ? site.data.hellogithub : null
+  - var groups = helloGithub ? helloGithub.groups : (page.project_groups || [])
+  - var issueNumber = helloGithub && helloGithub.issue
+  - var projectCount = groups.reduce(function(total, group) { return total + ((group.projects && group.projects.length) || 0) }, 0)
+  - var projectSerial = 0
+  - var marqueeLine = 'INTER-KNOT // HELLOGITHUB // '.repeat(4)
+  link(rel='stylesheet', href=theme.vendors.waline.css)
+  #page.projects-page.ik-projects
+    .ik-zzz-marquee.is-running(aria-hidden='true')
+      .ik-zzz-marquee__band
+        .ik-zzz-marquee__row.ik-zzz-marquee__row--ltr
+          .ik-zzz-marquee__track
+            span.ik-zzz-marquee__text= marqueeLine
+            span.ik-zzz-marquee__text= marqueeLine
+        .ik-zzz-marquee__row.ik-zzz-marquee__row--rtl
+          .ik-zzz-marquee__track
+            span.ik-zzz-marquee__text= marqueeLine
+            span.ik-zzz-marquee__text= marqueeLine
+        .ik-zzz-marquee__row.ik-zzz-marquee__row--ltr.ik-zzz-marquee__row--offset
+          .ik-zzz-marquee__track
+            span.ik-zzz-marquee__text= marqueeLine
+            span.ik-zzz-marquee__text= marqueeLine
+
+    header.ik-projects-header
+      a.ik-projects-brand(href=url_for('/'), aria-label='返回博客首页')
+        img(src=url_for('/images/interknot/zzzicon.png'), alt='', aria-hidden='true')
+        strong SEVENTH KNOT
+
+      .ik-projects-search
+        input#projects-search(type='search', placeholder='搜索一下 (￣▽￣*)', aria-label='搜索项目', autocomplete='off')
+        span(aria-hidden='true')
+          +icon('ri:search-line')
+
+      nav.ik-projects-primary-nav(aria-label='项目页主导航')
+        button.is-active(type='button', data-project-filter='all', aria-pressed='true') 推荐
+        if groups[0]
+          each group, groupIndex in groups.slice(0, 3)
+            button(type='button', data-project-filter=group.key, aria-pressed='false')= group.name
+
+    .ik-projects-toolbar
+      nav.projects-filter.ik-projects-channels(aria-label='项目分类')
+        button.projects-filter__button.is-active(type='button', data-project-filter='all', aria-pressed='true') 全部
+        each group in groups
+          button.projects-filter__button(type='button', data-project-filter=group.key, aria-pressed='false')= group.name
+      .ik-projects-online
+        span(aria-hidden='true')
+        strong= helloGithub ? ('HG #' + issueNumber + ' · ' + projectCount + ' 个项目') : (projectCount + ' 个项目')
+        i.ik-projects-online__avatar(aria-hidden='true') H
+        i.ik-projects-online__avatar(aria-hidden='true') G
+        i.ik-projects-online__more(aria-hidden='true')= helloGithub ? ('#' + issueNumber) : '+1'
+
+    .projects-status.ik-projects-status
+      span.projects-status__light(aria-hidden='true')
+      span#projects-filter-status= '正在显示全部 ' + projectCount + ' 个项目'
+
+    section.projects-grid.ik-projects-masonry(aria-label='项目列表')
+      each group in groups
+        each project in group.projects
+          - projectSerial += 1
+          - var cardClass = 'ik-project-card' + (project.size ? ' ik-project-card--' + project.size : '')
+          - var stars = Number(project.stars || 0)
+          - var views = stars ? (stars >= 10000 ? (stars / 10000).toFixed(1) + 'w' : (stars >= 1000 ? (stars / 1000).toFixed(1) + 'k' : String(stars))) : (project.views || ((projectSerial * 11 + 4) % 57 + 1))
+          - var projectCover = project.cover || url_for('/images/interknot/default-cover.webp')
+          - var discussionKey = project.slug || encodeURIComponent(project.name)
+          - var projectTags = project.tags || [project.repo, stars ? ('Star ' + views) : null].filter(Boolean)
+          - var repoOwner = project.repo ? project.repo.split('/')[0] : ''
+          - var ownerAvatar = project.avatar || ''
+          article(class=cardClass, data-project-category=group.key, data-project-search=`${project.name} ${project.repo || ''} ${project.full_desc || project.desc} ${projectTags.join(' ')}`)
+            a.ik-project-card__link(
+              href=project.url,
+              data-project-open,
+              data-project-name=project.name,
+              data-project-desc=project.desc,
+              data-project-full-desc=(project.full_desc || project.desc),
+              data-project-avatar=ownerAvatar,
+              data-project-url=project.url,
+              data-project-cover=projectCover,
+              data-project-category-name=group.name,
+              data-project-tags=JSON.stringify(projectTags),
+              data-project-discussion=discussionKey,
+              aria-haspopup='dialog'
+            )
+              .ik-project-card__cover
+                img(src=projectCover, alt=(project.name + ' 项目截图'), loading='lazy')
+                span.ik-project-card__views
+                  if stars
+                    +icon('ri:star-fill')
+                  else
+                    +icon('ri:eye-line')
+                  b= views
+              .ik-project-card__body
+                .ik-project-card__author
+                  span.ik-project-card__avatar(style=`--project-accent:${project.color || '#bfff09'}`)
+                    span.ik-project-card__avatar-fallback= project.repo ? 'GH' : (project.emoji || '◇')
+                    if ownerAvatar
+                      img(src=ownerAvatar, alt=(repoOwner + ' 的 GitHub 头像'), loading='lazy', referrerpolicy='no-referrer', onerror='this.remove()')
+                  span.ik-project-card__author-name= project.repo || project.name
+                h2
+                  span= '[ ' + group.name + ' ] '
+                  = project.desc
+                if projectTags.length
+                  .ik-project-card__tags
+                    each tag in projectTags
+                      span= tag
+
+    .projects-empty.ik-projects-empty(hidden)
+      strong 暂无相关项目 (；′⌒`)
+
+    footer.projects-page__footer.ik-projects-footer
+      if helloGithub
+        span= '项目资料与截图来自 HelloGitHub 第 ' + issueNumber + ' 期'
+        a(href=helloGithub.source_url, target='_blank', rel='noopener')= 'SOURCE / HELLOGITHUB #' + issueNumber
+      else
+        span 占位数据来自公开项目
+      a(href='https://github.com/KawaYiLab/InterKnot-Web', target='_blank', rel='noopener') VISUAL SOURCE / INTERKNOT-WEB
+
+    #project-discussion-dialog.ik-project-dialog(hidden, role='dialog', aria-modal='true', aria-labelledby='project-dialog-title')
+      button.ik-project-dialog__backdrop(type='button', data-project-close, tabindex='-1', aria-label='关闭项目讨论窗口')
+      .ik-project-dialog__panel
+        header.ik-project-dialog__header
+          .ik-project-dialog__identity
+            span.ik-project-dialog__avatar(aria-hidden='true')
+              span.ik-project-dialog__avatar-fallback GH
+              img#project-dialog-avatar(hidden, alt='')
+            div
+              small= helloGithub ? 'HELLOGITHUB / PROJECT DISCUSSION' : 'PROJECT DISCUSSION'
+              strong#project-dialog-title 项目讨论
+          button.ik-project-dialog__close(type='button', data-project-close, aria-label='关闭项目讨论窗口')
+            +icon('ri:close-line')
+        .ik-project-dialog__content
+          article.ik-project-dialog__project
+            .ik-project-dialog__cover
+              img(src=url_for('/images/interknot/default-cover.webp'), alt='')
+              span.ik-project-dialog__channel 推荐
+            .ik-project-dialog__copy
+              h2 项目名称
+              p 项目说明
+              .ik-project-dialog__tags
+              a.ik-project-dialog__visit(href='#', target='_blank', rel='noopener')
+                span 访问项目
+                +icon('ri:external-link-line')
+          aside.ik-project-dialog__comments(aria-label='项目评论区')
+            .ik-project-dialog__comments-head
+              div
+                small INTER-KNOT / COMMENTS
+                strong 留下你的想法
+              span.ik-project-dialog__comment-path
+            #projects-waline
+            .ik-project-dialog__loading
+              span
+              p 正在连接评论终端…
+            .ik-project-dialog__error(hidden)
+              strong 评论终端暂时离线
+              p 项目详情仍可正常查看，请稍后再试。
+  script(src=url_for('/js/projects.js'), defer)

@@ -30,7 +30,7 @@ html(lang=config.language, class=theme.mode === 'dark' ? 'dark' : '')
         if (setting === 'dark' || (prefersDark && setting !== 'light'))
           document.documentElement.classList.toggle('dark', true)
       })()
-  body(class= is_home() ? 'is-home' : '')
+  body(class=[is_home() ? 'is-home' : '', page.layout === 'projects' ? 'is-projects-page' : ''])
     //- 全局 Mixins
     include ../_mixin/index.pug
     

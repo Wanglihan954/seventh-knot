@@ -133,12 +133,12 @@ menu:
       type: tags
       path: /tags/
       icon: ri:price-tag-3-line
-    - title: 我的小伙伴们
-      path: /links/
-      icon: ri:links-line
     - title: 代理人档案
       path: /girls/
       mask_image: /images/bangboo-nav.png
+    - title: 项目终端
+      path: /projects/
+      icon: ri:radar-line
   actions:
     theme:
       title: 切换主题
@@ -158,13 +158,13 @@ wordcloud:
 girls:
   enable: true
 pages:
-  - name: 我的小伙伴们
-    url: /links/
-    icon: ri:genderless-line
-    color: dodgerblue
   - name: 代理人列表
     url: /girls/
     image: /images/bangboo-nav.png
+    color: '#ffffff'
+  - name: 项目终端
+    url: /projects/
+    icon: ri:radar-line
     color: '#ffffff'
 
 wordcount:
@@ -239,6 +239,7 @@ katex:
 head:
   css:
     - /css/custom_theme.css?v=20260812-3
+    - /css/projects.css?v=20260815-1
   js:
     defer:
       - /js/web-pet.js

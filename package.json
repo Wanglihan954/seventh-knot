@@ -13,7 +13,9 @@
     "build": "hexo clean && hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo clean && hexo generate && hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "hellogithub:update": "node tools/hellogithub/generate.mjs",
+    "test:hellogithub": "node --test tools/hellogithub/test/hellogithub.test.mjs"
   },
   "hexo": {
     "version": "8.1.1"

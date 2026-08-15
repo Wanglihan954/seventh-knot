@@ -1,0 +1,21 @@
+/* Keep long post titles from dominating or widening the desktop navigation. */
+@media screen and (min-width: 1200px) {
+  .valaxy-nav .nav-center {
+    width: min(36vw, 620px) !important;
+    min-width: 0 !important;
+    max-width: min(36vw, 620px) !important;
+  }
+
+  .valaxy-nav .nav-title-wrapper,
+  .valaxy-nav .article-title {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .valaxy-nav .article-title {
+    display: block !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+}
