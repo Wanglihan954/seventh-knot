@@ -1,24 +1,13 @@
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { enrichRepositories, searchNewRepositories } from './lib/github.mjs';
-import { rankRepositories } from './lib/rank.mjs';
-import { summarizeRepositories } from './lib/summarize.mjs';
-import { fetchAllTrending } from './lib/trending.mjs';
-import { isoWeekId, stableSlug, uniqueByRepo, zonedDateParts } from './lib/utils.mjs';
 
+const HELLOGITHUB_API = 'https://api.hellogithub.com/v1/periodical/volume/';
+const HELLOGITHUB_LICENSE = 'https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans';
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, '..', '..');
-const configPath = path.join(scriptDirectory, 'config.json');
 const latestPath = path.join(projectRoot, 'source', '_data', 'github_weekly.json');
 const archivePath = path.join(projectRoot, 'source', '_data', 'github_weekly_archive.json');
-
-function escapeGitHubActionsMessage(value) {
-  return String(value)
-    .replaceAll('%', '%25')
-    .replaceAll('\r', '%0D')
-    .replaceAll('\n', '%0A');
-}
 
 async function readJson(filePath, fallback) {
   try {
@@ -36,121 +25,132 @@ async function writeJsonAtomic(filePath, data) {
   await rename(temporaryPath, filePath);
 }
 
-function publishedAt(date, timeZone) {
-  const parts = new Intl.DateTimeFormat('sv-SE', {
-    timeZone,
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-    hour12: false
-  }).format(date).replace(' ', 'T');
-  return `${parts}+08:00`;
+function escapeGitHubActionsMessage(value) {
+  return String(value)
+    .replaceAll('%', '%25')
+    .replaceAll('\r', '%0D')
+    .replaceAll('\n', '%0A');
 }
 
-function toPublishedProject(project) {
+function languageFromCategory(category) {
+  return category.endsWith(' 项目') ? category.slice(0, -3) : null;
+}
+
+function toProject(item, category, volume) {
+  if (!item?.name || !item?.full_name || !item?.github_url || !item?.description) {
+    throw new Error(`HelloGitHub 第 ${volume} 期包含字段不完整的项目`);
+  }
+
   return {
-    name: project.name,
-    repo: project.repo,
-    url: project.url,
-    homepage: project.homepage || null,
-    desc: project.editorial.summary,
-    highlights: project.editorial.highlights,
-    reason: project.editorial.reason,
-    maturity: project.editorial.maturity,
-    category: project.editorial.category,
-    tags: project.editorial.tags,
-    language: project.language || null,
-    stars: project.stars || 0,
-    forks: project.forks || 0,
-    weeklyStars: project.weeklyStars || null,
-    license: project.license || null,
-    avatar: project.ownerAvatar || null,
-    cover: null,
-    score: project.score,
-    sources: project.sources || [project.source].filter(Boolean),
-    aiGenerated: project.editorial.aiGenerated,
-    slug: stableSlug(project.repo)
+    name: item.name,
+    repo: item.full_name,
+    url: item.github_url,
+    homepage: null,
+    desc: item.description,
+    highlights: [],
+    reason: null,
+    maturity: null,
+    category,
+    tags: [],
+    language: languageFromCategory(category),
+    stars: Number(item.stars || 0),
+    forks: Number(item.forks || 0),
+    weeklyStars: null,
+    license: null,
+    avatar: item.image_url || null,
+    cover: item.image_url || null,
+    score: 0,
+    sources: ['hellogithub'],
+    aiGenerated: false,
+    slug: item.rid || item.full_name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
   };
 }
 
-export function buildIssue(projects, config, archive, now = new Date()) {
-  const week = isoWeekId(now, config.timezone);
-  const existing = (archive.issues || []).find((issue) => issue.week === week);
-  const nextIssue = existing?.issue || Math.max(0, ...(archive.issues || []).map((issue) => issue.issue || 0)) + 1;
-  const publishedProjects = projects.map(toPublishedProject);
-  const groups = config.categories.map((category) => ({
-    key: `weekly-${stableSlug(category).slice(0, 8)}`,
-    name: category,
-    projects: publishedProjects.filter((project) => project.category === category)
-  })).filter((group) => group.projects.length);
-  const dateParts = zonedDateParts(now, config.timezone);
+export function buildIssue(payload) {
+  if (!payload?.success || !Number.isInteger(payload.current_num) || !Array.isArray(payload.data)) {
+    throw new Error('HelloGitHub API 未返回有效的最新月刊');
+  }
 
+  const volume = payload.current_num;
+  const groups = payload.data.map((group) => ({
+    key: `hg-${group.category_id}`,
+    name: group.category_name,
+    projects: (group.items || []).map((item) => toProject(item, group.category_name, volume))
+  })).filter((group) => group.projects.length);
+  const projectCount = groups.reduce((total, group) => total + group.projects.length, 0);
+  if (!projectCount) throw new Error(`HelloGitHub 第 ${volume} 期没有可发布的项目`);
+
+  const publishedAt = payload.publish_at || new Date().toISOString();
   return {
-    issue: nextIssue,
-    week,
-    title: `GitHub 开源周报 · 第 ${nextIssue} 期`,
-    publishedAt: publishedAt(now, config.timezone),
-    date: `${dateParts.year}-${dateParts.month}-${dateParts.day}`,
+    issue: volume,
+    volume,
+    week: `HG-${volume}`,
+    title: `HelloGitHub 第 ${volume} 期`,
+    publishedAt,
+    date: publishedAt.slice(0, 10),
     status: 'published',
-    method: 'GitHub Trending Weekly + GitHub Search API',
-    projectCount: publishedProjects.length,
+    source: 'hellogithub',
+    sourceUrl: `https://hellogithub.com/periodical/volume/${volume}`,
+    license: 'CC BY-NC-ND 4.0',
+    licenseUrl: HELLOGITHUB_LICENSE,
+    method: 'HelloGitHub 官方月刊 API',
+    projectCount,
     groups
   };
 }
 
-function updateArchive(archive, issue) {
-  const issues = (archive.issues || []).filter((item) => item.week !== issue.week);
+export function updateArchive(archive, issue) {
+  const issues = (archive.issues || []).filter((item) => item.source === 'hellogithub' && item.volume !== issue.volume);
   issues.push({
     issue: issue.issue,
+    volume: issue.volume,
     week: issue.week,
     title: issue.title,
     date: issue.date,
     projectCount: issue.projectCount,
+    source: issue.source,
     path: `/github-weekly/${issue.week}/`
   });
-  issues.sort((a, b) => b.week.localeCompare(a.week));
+  issues.sort((a, b) => b.volume - a.volume);
 
-  const editions = { ...(archive.editions || {}), [issue.week]: issue };
-  const repositories = [...new Set([
-    ...(archive.repositories || []),
-    ...issue.groups.flatMap((group) => group.projects.map((project) => project.repo))
-  ])].slice(-1000);
+  const editions = Object.fromEntries(
+    Object.entries(archive.editions || {}).filter(([, edition]) => edition?.source === 'hellogithub')
+  );
+  editions[issue.week] = issue;
 
-  return { version: 1, updatedAt: issue.publishedAt, issues, editions, repositories };
+  return {
+    version: 2,
+    source: 'hellogithub',
+    updatedAt: issue.publishedAt,
+    issues,
+    editions
+  };
 }
 
-async function collectCandidates(config, token) {
-  const results = await Promise.allSettled([
-    fetchAllTrending(config.languages),
-    searchNewRepositories({ token, minStars: config.minStarsForNewRepositories })
-  ]);
-  const candidates = results.flatMap((result) => result.status === 'fulfilled' ? result.value : []);
-  const errors = results.filter((result) => result.status === 'rejected').map((result) => result.reason?.message || String(result.reason));
-  if (!candidates.length) throw new Error(`GitHub 候选项目采集全部失败：\n${errors.join('\n')}`);
-  if (errors.length) console.warn(`[github-weekly] 一个候选来源失败：${errors.join(' | ')}`);
-
-  return uniqueByRepo(candidates)
-    .sort((a, b) => (b.weeklyStars || 0) - (a.weeklyStars || 0) || (b.stars || 0) - (a.stars || 0))
-    .slice(0, config.maxCandidates);
-}
-
-export async function generateWeekly({ env = process.env, now = new Date() } = {}) {
-  const config = await readJson(configPath, null);
-  const archive = await readJson(archivePath, { version: 1, issues: [], editions: {}, repositories: [] });
-  const candidates = await collectCandidates(config, env.GH_TOKEN || env.GITHUB_TOKEN);
-  console.log(`[github-weekly] 采集到 ${candidates.length} 个去重候选项目。`);
-  const enriched = await enrichRepositories(candidates, {
-    token: env.GH_TOKEN || env.GITHUB_TOKEN,
-    concurrency: config.requestConcurrency,
-    readmeMaxCharacters: config.readmeMaxCharacters
+export async function fetchLatestIssue(fetchImpl = fetch) {
+  const response = await fetchImpl(HELLOGITHUB_API, {
+    headers: {
+      Accept: 'application/json',
+      'User-Agent': 'seventh-knot-hellogithub-sync/1.0'
+    },
+    signal: AbortSignal.timeout(30_000)
   });
-  const ranked = rankRepositories(enriched, config, archive.repositories);
-  if (!ranked.length) throw new Error('过滤和排序后没有可发布的项目');
-  const summarized = await summarizeRepositories(ranked, config, env);
-  const issue = buildIssue(summarized, config, archive, now);
+  if (!response.ok) throw new Error(`HelloGitHub API 请求失败：${response.status} ${await response.text()}`);
+  return buildIssue(await response.json());
+}
+
+export async function generateWeekly({ fetchImpl = fetch } = {}) {
+  const current = await readJson(latestPath, null);
+  const archive = await readJson(archivePath, { version: 2, issues: [], editions: {} });
+  const issue = await fetchLatestIssue(fetchImpl);
+  if (current?.source === 'hellogithub' && current.volume === issue.volume) {
+    console.log(`[hellogithub] 当前已是最新的第 ${issue.volume} 期，无需更新。`);
+    return current;
+  }
   const nextArchive = updateArchive(archive, issue);
   await writeJsonAtomic(latestPath, issue);
   await writeJsonAtomic(archivePath, nextArchive);
-  console.log(`[github-weekly] 已生成 ${issue.title}，共 ${issue.projectCount} 个项目。`);
+  console.log(`[hellogithub] 已同步 ${issue.title}，共 ${issue.projectCount} 个项目；未调用任何 AI 模型。`);
   return issue;
 }
 
@@ -158,9 +158,9 @@ const invokedPath = process.argv[1] ? path.resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   generateWeekly().catch((error) => {
     const detail = error.stack || error.message || String(error);
-    console.error(`[github-weekly] 生成失败：${detail}`);
+    console.error(`[hellogithub] 同步失败：${detail}`);
     if (process.env.GITHUB_ACTIONS === 'true') {
-      console.error(`::error title=GitHub Weekly 生成失败::${escapeGitHubActionsMessage(detail)}`);
+      console.error(`::error title=HelloGitHub 同步失败::${escapeGitHubActionsMessage(detail)}`);
     }
     process.exitCode = 1;
   });

@@ -12,7 +12,7 @@ hexo.extend.generator.register('github-weekly-archive-pages', function generateG
       layout: ['github-weekly'],
       data: {
         title: edition.title,
-        description: `${edition.week} GitHub 开源项目周报，共收录 ${edition.projectCount} 个项目。`,
+        description: `HelloGitHub 第 ${edition.volume} 期，共收录 ${edition.projectCount} 个项目。`,
         weeklyData: edition,
         comments: false,
         toc: false

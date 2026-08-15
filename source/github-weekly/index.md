@@ -1,10 +1,10 @@
 ---
 layout: github-weekly
-title: GitHub 开源周报
-description: 每周从 GitHub Trending 与新项目中发现值得关注的开源作品，并根据公开 README 生成中文介绍。
+title: HelloGitHub 最新一期
+description: 自动同步 HelloGitHub 官方月刊的最新一期内容。
 date: 2026-08-16 00:00:00
 comments: false
 toc: false
 ---
 
-<!-- 数据由 tools/github-weekly/generate.mjs 自动维护。 -->
+<!-- 数据由 tools/github-weekly/generate.mjs 从 HelloGitHub 官方 API 自动同步。 -->

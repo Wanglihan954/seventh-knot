@@ -6,7 +6,7 @@ block content
   - var groups = Array.isArray(weekly.groups) ? weekly.groups : []
   - var projectCount = groups.reduce(function(total, group) { return total + ((group.projects && group.projects.length) || 0) }, 0)
   - var published = weekly.status === 'published' && projectCount > 0
-  - var editionLabel = weekly.issue ? ('ISSUE ' + String(weekly.issue).padStart(2, '0')) : 'AWAITING SIGNAL'
+  - var editionLabel = weekly.volume ? ('HG #' + weekly.volume) : 'AWAITING SIGNAL'
   script.
     document.body.classList.add('is-github-weekly-page')
   link(rel='stylesheet', href=url_for('/css/github-weekly.css'))
@@ -17,12 +17,12 @@ block content
         span
         span
       .gw-hero__copy
-        p.gw-eyebrow SEVENTH KNOT / OPEN-SOURCE RADAR
-        h1 GitHub 开源周报
-        p.gw-intro 每周扫描 GitHub Trending 与近期新项目，由 AI 根据公开仓库资料生成中文导读。
+        p.gw-eyebrow SEVENTH KNOT / HELLOGITHUB MIRROR
+        h1 HelloGitHub 最新一期
+        p.gw-intro 同步 HelloGitHub 每月发布的开源项目月刊，不再调用 AI 生成介绍。
       .gw-hero__edition
         small= editionLabel
-        strong= weekly.week || '每周一更新'
+        strong= weekly.week || '等待月刊'
         if weekly.date
           time(datetime=weekly.date)= weekly.date
 
@@ -33,7 +33,7 @@ block content
           strong= projectCount
         .gw-console__metric
           span 数据来源
-          strong Trending + Search
+          strong HelloGitHub API
         .gw-console__metric
           span 内容语言
           strong 中文
@@ -79,9 +79,10 @@ block content
                 ul.gw-card__highlights
                   each highlight in project.highlights
                     li= highlight
-              p.gw-card__reason
-                strong 推荐理由
-                span= project.reason
+              if project.reason
+                p.gw-card__reason
+                  strong 推荐理由
+                  span= project.reason
               .gw-card__tags
                 if project.language
                   span= project.language
@@ -96,8 +97,6 @@ block content
                   = Number(project.forks || 0).toLocaleString('zh-CN')
                 if project.license
                   span= project.license
-                if project.aiGenerated
-                  em AI 导读
       .gw-empty#github-weekly-empty(hidden)
         strong 没有找到匹配的项目
         p 换一个关键词或分类试试。
@@ -107,16 +106,16 @@ block content
           span
         div
           p SYSTEM STANDBY
-          h2 第一份周报尚未生成
-          p 配置 GitHub Actions 与模型密钥后运行“GitHub Weekly”，这里会自动出现本周项目。
-          code npm run github-weekly
+          h2 HelloGitHub 月刊尚未同步
+          p 运行同步命令后，这里会自动显示官方最新一期。
+          code npm run hellogithub:update
 
     if archive.issues && archive.issues.length
       section.gw-archive
         header
           p ARCHIVE LOG
-          h2 历史周报
-        nav(aria-label='历史周报')
+          h2 历史月刊
+        nav(aria-label='历史月刊')
           each item in archive.issues
             - var active = weekly.week === item.week
             a(class=active ? 'is-active' : '', href=url_for(item.path))
@@ -125,8 +124,11 @@ block content
               small= item.projectCount + ' 个项目'
 
     footer.gw-source
-      p 候选项目来自 GitHub 公开页面与 API；中文介绍由 AI 根据公开 README 生成，可能存在疏漏，请以项目仓库为准。
-      a(href='https://github.com/trending?since=weekly', target='_blank', rel='noopener')
-        span 查看 GitHub Trending
+      p
+        | 项目资料与中文介绍同步自 HelloGitHub，未做 AI 改写；内容依　
+        a(href=weekly.licenseUrl || 'https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans', target='_blank', rel='license noopener') CC BY-NC-ND 4.0
+        | 　许可转载，请以官方页面为准。
+      a(href=weekly.sourceUrl || 'https://hellogithub.com/periodical', target='_blank', rel='noopener')
+        span 查看 HelloGitHub 原文
         +icon('ri:external-link-line')
   script(src=url_for('/js/github-weekly.js'), defer)

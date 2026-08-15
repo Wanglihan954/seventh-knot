@@ -14,8 +14,8 @@
     "clean": "hexo clean",
     "deploy": "hexo clean && hexo generate && hexo deploy",
     "server": "hexo server",
-    "github-weekly": "node tools/github-weekly/generate.mjs",
-    "test:github-weekly": "node --test tools/github-weekly/test/github-weekly.test.mjs"
+    "hellogithub:update": "node tools/github-weekly/generate.mjs",
+    "test:hellogithub": "node --test tools/github-weekly/test/github-weekly.test.mjs"
   },
   "hexo": {
     "version": "8.1.1"

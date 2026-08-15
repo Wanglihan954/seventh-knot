@@ -1,532 +1,1093 @@
 {
-  "issue": 1,
-  "week": "2026-W33",
-  "title": "GitHub 开源周报 · 第 1 期",
-  "publishedAt": "2026-08-16T01:26:22+08:00",
-  "date": "2026-08-16",
+  "issue": 124,
+  "volume": 124,
+  "week": "HG-124",
+  "title": "HelloGitHub 第 124 期",
+  "publishedAt": "2026-07-28T08:10:05",
+  "date": "2026-07-28",
   "status": "published",
-  "method": "GitHub Trending Weekly + GitHub Search API",
-  "projectCount": 15,
+  "source": "hellogithub",
+  "sourceUrl": "https://hellogithub.com/periodical/volume/124",
+  "license": "CC BY-NC-ND 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans",
+  "method": "HelloGitHub 官方月刊 API",
+  "projectCount": 40,
   "groups": [
     {
-      "key": "weekly-161332dd",
-      "name": "人工智能",
+      "key": "hg-11",
+      "name": "C 项目",
       "projects": [
         {
-          "name": "prime-agent",
-          "repo": "PrimeIntellect-ai/prime-agent",
-          "url": "https://github.com/PrimeIntellect-ai/prime-agent",
+          "name": "86Box",
+          "repo": "86Box/86Box",
+          "url": "https://github.com/86Box/86Box",
           "homepage": null,
-          "desc": "Prime Agent是基于RLM的自改进智能代理，面向编码工作流与长期自治任务，支持后台会话保活、子代理调度、技能迭代，采用MIT协议开源。",
-          "highlights": [
-            "支持长期自治任务运行，会话断开后可后台保持、后续重连",
-            "内置子代理调度能力，支持多代理间直接通信协作",
-            "可迭代优化技能、提示词等状态，支持历史快照回滚"
-          ],
-          "reason": "项目周星增量达10739，关注度攀升迅速，其面向长周期自治任务、多代理协作的特性在AI代理领域具备较高参考价值。",
+          "desc": "复古 PC 模拟器。这是一款开源的复古电脑模拟器，可自由搭配、模拟各种经典硬件，比如奔腾、赛扬处理器、声卡、显卡等。支持运行 DOS、Windows 98、Windows XP 等早期操作系统和同时代的软件。",
+          "highlights": [],
+          "reason": null,
           "maturity": null,
-          "category": "人工智能",
-          "tags": [
-            "RLM",
-            "智能代理",
-            "编码辅助",
-            "自治任务"
-          ],
-          "language": "TypeScript",
-          "stars": 16201,
-          "forks": 1742,
-          "weeklyStars": 10739,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/148051844?v=4",
-          "cover": null,
-          "score": 344.9,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "60ba395468f8a760"
-        },
-        {
-          "name": "pi",
-          "repo": "earendil-works/pi",
-          "url": "https://github.com/earendil-works/pi",
-          "homepage": null,
-          "desc": "这是一款基于TypeScript开发的AI Agent工具集，提供统一多厂商LLM API、Agent运行时、交互式编码代理CLI、差分渲染终端UI等能力，采用MIT许可证。",
-          "highlights": [
-            "统一对接多厂商LLM API，覆盖OpenAI、Anthropic、Google等主流服务商",
-            "提供可自扩展的交互式编码代理CLI与完整Agent运行时，支持工具调用与状态管理",
-            "配套完善的供应链安全加固机制，保障依赖管理与版本发布流程安全"
-          ],
-          "reason": "周增星达5255，总星量已超9万，关注度高，项目提供完整的AI Agent落地相关能力，配套完善的供应链安全机制，迭代活跃。",
-          "maturity": null,
-          "category": "人工智能",
-          "tags": [
-            "LLM",
-            "AI Agent",
-            "编码代理",
-            "TypeScript"
-          ],
-          "language": "TypeScript",
-          "stars": 90840,
-          "forks": 11266,
-          "weeklyStars": 5255,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/207902832?v=4",
-          "cover": null,
-          "score": 344.8,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "0c558be2bc3b8ea3"
-        },
-        {
-          "name": "TencentDB-Agent-Memory",
-          "repo": "TencentCloud/TencentDB-Agent-Memory",
-          "url": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
-          "homepage": null,
-          "desc": "TencentDB Agent Memory是面向AI Agent的团队级记忆中枢，可将对话、文档、代码转化为四类可复用记忆资产，支持跨Agent框架共享、管控与分配。",
-          "highlights": [
-            "自动提取Chat Memory、Skill、LLM-Wiki、Code-Graph四类记忆资产",
-            "支持DeepSeek Harness、Claude Code等多Agent框架零代码接入",
-            "提供分层记忆管理、权限管控、团队资产共享与分配能力"
-          ],
-          "reason": "本周新增星数达4423，功能覆盖Agent记忆分层、多框架适配、团队协作等场景，实用性较强",
-          "maturity": "Beta",
-          "category": "人工智能",
-          "tags": [
-            "ai-agent",
-            "llm",
-            "long-term-memory",
-            "vector-search"
-          ],
-          "language": "TypeScript",
-          "stars": 21910,
-          "forks": 2006,
-          "weeklyStars": 4423,
-          "license": "NOASSERTION",
-          "avatar": "https://avatars.githubusercontent.com/u/20101770?v=4",
-          "cover": null,
-          "score": 341.33,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "38ae38ecf8df6cc8"
-        },
-        {
-          "name": "ragflow",
-          "repo": "infiniflow/ragflow",
-          "url": "https://github.com/infiniflow/ragflow",
-          "homepage": "https://ragflow.io",
-          "desc": "RAGFlow是开源检索增强生成（RAG）引擎，融合RAG与Agent能力为大语言模型提供优质上下文层，适配各规模企业的RAG工作流需求。",
-          "highlights": [
-            "支持深度文档理解，可处理复杂格式非结构化数据，无token长度限制",
-            "提供模板化智能分块能力，支持引用溯源，可降低大模型生成幻觉",
-            "兼容多类数据源，内置自动化RAG工作流，提供易用API方便业务集成"
-          ],
-          "reason": "本周新增Star达1357，累计Star超8.8万，社区活跃度高；近期新增多聊天渠道接入、主流大模型适配、多数据源同步等功能，迭代速度快。",
-          "maturity": "稳定版",
-          "category": "人工智能",
-          "tags": [
-            "rag",
-            "retrieval-augmented-generation",
-            "agentic-ai",
-            "llm-apps"
-          ],
-          "language": "Go",
-          "stars": 88541,
-          "forks": 10390,
-          "weeklyStars": 1357,
-          "license": "Apache-2.0",
-          "avatar": "https://avatars.githubusercontent.com/u/69962740?v=4",
-          "cover": null,
-          "score": 324.25,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "4efad711ca8cf220"
-        },
-        {
-          "name": "unsloth",
-          "repo": "unslothai/unsloth",
-          "url": "https://github.com/unslothai/unsloth",
-          "homepage": "https://unsloth.ai/docs",
-          "desc": "Unsloth是支持本地运行、训练LLM、扩散等多类AI模型的工具，提供桌面端、网页UI、代码版三种使用形式，适配多类硬件，支持微调、导出部署等能力。",
-          "highlights": [
-            "支持Qwen3.8、Kimi K3、Gemma 4、FLUX等多款主流AI模型",
-            "模型微调速度提升2倍，显存占用可降低70%",
-            "提供OpenAI兼容API，支持GGUF等多格式模型导出部署"
-          ],
-          "reason": "本周新增星数1744，累计星量超7.1万，功能覆盖AI模型运行、训练全流程，适配多系统多硬件，易用性较强。",
-          "maturity": "beta",
-          "category": "人工智能",
-          "tags": [
-            "LLM微调",
-            "本地AI",
-            "扩散模型",
-            "模型部署"
-          ],
-          "language": "Python",
-          "stars": 71894,
-          "forks": 6481,
-          "weeklyStars": 1744,
-          "license": "Apache-2.0",
-          "avatar": "https://avatars.githubusercontent.com/u/150920049?v=4",
-          "cover": null,
-          "score": 323.43,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "5ba4a50d51e91832"
-        },
-        {
-          "name": "semantica",
-          "repo": "semantica-agi/semantica",
-          "url": "https://github.com/semantica-agi/semantica",
-          "homepage": "https://getsemantica.ai",
-          "desc": "Semantica是面向可问责AI系统的图原生基础设施，可构建上下文图与知识图谱，提供决策溯源、可解释推理等能力，适配高合规要求场景。",
-          "highlights": [
-            "支持构建上下文图与知识图谱，内置决策溯源、可解释推理、AI治理等核心能力",
-            "原生适配Databricks、Snowflake等企业数据平台，支持多源数据接入处理",
-            "兼容多种图存储与向量存储方案，可自托管，无厂商锁定"
-          ],
-          "reason": "本周周增星达5135，涨势迅猛，是热门的可问责AI基础设施项目，可满足高监管领域的AI合规与溯源需求。",
-          "maturity": null,
-          "category": "人工智能",
-          "tags": [
-            "知识图谱",
-            "AI治理",
-            "可解释AI",
-            "Graph RAG"
-          ],
-          "language": "Python",
-          "stars": 7854,
-          "forks": 806,
-          "weeklyStars": 5135,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/213958577?v=4",
-          "cover": null,
-          "score": 320.99,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "5e0449f3d53329cd"
-        },
-        {
-          "name": "paperclip",
-          "repo": "paperclipai/paperclip",
-          "url": "https://github.com/paperclipai/paperclip",
-          "homepage": "https://paperclip.ing",
-          "desc": "Paperclip是基于TypeScript开发的开源工作场景AI Agent编排工具，提供Node.js服务端与React前端，可统一管理多Agent团队、分配目标、追踪工作与成本。",
-          "highlights": [
-            "支持接入OpenClaw、Claude Code等任意主流Agent运行时，可编排多Agent协同完成业务目标",
-            "内置预算管控、审计日志、组织架构等能力，可避免Token浪费与多Agent管理混乱问题",
-            "采用类任务管理器交互逻辑，支持移动端访问，使用门槛较低"
-          ],
-          "reason": "本周周星达2404，涨势迅猛，功能覆盖工作场景Agent编排全流程，开箱即可解决多Agent管理混乱、成本失控的常见痛点。",
-          "maturity": null,
-          "category": "人工智能",
-          "tags": [
-            "AI Agent编排",
-            "多Agent协同",
-            "成本管控",
-            "任务管理"
-          ],
-          "language": "TypeScript",
-          "stars": 78256,
-          "forks": 14354,
-          "weeklyStars": 2404,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/264498616?v=4",
-          "cover": null,
-          "score": 319.83,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "2d4d3afa6fb542f6"
-        },
-        {
-          "name": "ComfyUI",
-          "repo": "Comfy-Org/ComfyUI",
-          "url": "https://github.com/Comfy-Org/ComfyUI",
-          "homepage": "https://www.comfy.org/",
-          "desc": "ComfyUI是具备节点图交互界面的模块化扩散模型GUI、API与后端，支持图像、视频、3D、音频等多模态内容生成，适配多类操作系统与主流AI模型。",
-          "highlights": [
-            "提供可视化节点图操作界面，无需代码即可搭建、复用多模态内容生成工作流",
-            "原生兼容大量主流开源AI模型，支持自定义节点扩展能力",
-            "覆盖本地桌面端、便携式安装、云服务多部署方式，支持API接入生产管线"
-          ],
-          "reason": "该项目周增星达3050，社区关注度极高，持续迭代支持最新各类多模态生成模型，可满足不同场景的部署使用需求。",
-          "maturity": "成熟",
-          "category": "人工智能",
-          "tags": [
-            "stable-diffusion",
-            "多模态生成",
-            "Pytorch",
-            "节点工作流"
-          ],
-          "language": "Python",
-          "stars": 127748,
-          "forks": 15045,
-          "weeklyStars": 3050,
-          "license": "GPL-3.0",
-          "avatar": "https://avatars.githubusercontent.com/u/166579949?v=4",
-          "cover": null,
-          "score": 319.77,
-          "sources": [
-            "trending"
-          ],
-          "aiGenerated": true,
-          "slug": "4218fbd48cabcdb6"
-        },
-        {
-          "name": "skills",
-          "repo": "anthropics/skills",
-          "url": "https://github.com/anthropics/skills",
-          "homepage": null,
-          "desc": "本项目是Anthropic官方推出的Claude Agent Skills公共仓库，包含多类技能示例、开发规范与模板，支持开发者为Claude定制专项任务处理能力。",
-          "highlights": [
-            "提供创意设计、技术开发、企业工作流、文档处理等多场景的Claude技能示例",
-            "包含官方Agent Skills开发规范与模板，降低自定义技能开发门槛",
-            "开放Claude生产级文档处理技能源码作为开发参考"
-          ],
-          "reason": "本周新增星数2693，总星数达16.9万，是Anthropic官方推出的Agent能力开发资源，参考价值高",
-          "maturity": null,
-          "category": "人工智能",
-          "tags": [
-            "Agent Skills",
-            "Claude",
-            "Python",
-            "AI Agent"
-          ],
-          "language": "Python",
-          "stars": 169532,
-          "forks": 20180,
-          "weeklyStars": 2693,
+          "category": "C 项目",
+          "tags": [],
+          "language": "C",
+          "stars": 4662,
+          "forks": 558,
+          "weeklyStars": null,
           "license": null,
-          "avatar": "https://avatars.githubusercontent.com/u/76263028?v=4",
-          "cover": null,
-          "score": 318.26,
+          "avatar": "https://img.hellogithub.com/i/fLrmhUxQ2SwPHno_1784957912.png",
+          "cover": "https://img.hellogithub.com/i/fLrmhUxQ2SwPHno_1784957912.png",
+          "score": 0,
           "sources": [
-            "trending"
+            "hellogithub"
           ],
-          "aiGenerated": true,
-          "slug": "f2db8404c222e36c"
+          "aiGenerated": false,
+          "slug": "b2227163c9b44d79beb8cb9278ec033a"
+        },
+        {
+          "name": "simplewall",
+          "repo": "henrypp/simplewall",
+          "url": "https://github.com/henrypp/simplewall",
+          "homepage": null,
+          "desc": "小巧的 Windows 网络管控工具。这是一款用于管理和控制 Windows 网络活动的工具，体积小、没广告、完全免费。它基于 WFP 实现网络过滤，不依赖系统自带防火墙，支持自定义规则、IPv6、拦截名单等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "C 项目",
+          "tags": [],
+          "language": "C",
+          "stars": 8840,
+          "forks": 646,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/68hD9dJbOziXgY3_1784955355.png",
+          "cover": "https://img.hellogithub.com/i/68hD9dJbOziXgY3_1784955355.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "7a00609d7ae349a283fe173323d83e10"
         }
       ]
     },
     {
-      "key": "weekly-7521c50f",
-      "name": "开发者工具",
+      "key": "hg-9",
+      "name": "C# 项目",
       "projects": [
         {
-          "name": "diagram-design",
-          "repo": "cathrynlavery/diagram-design",
-          "url": "https://github.com/cathrynlavery/diagram-design",
+          "name": "FluentCleaner",
+          "repo": "builtbybel/FluentCleaner",
+          "url": "https://github.com/builtbybel/FluentCleaner",
           "homepage": null,
-          "desc": "这是适配Claude Code、Codex、Pi的编辑级图表生成工具，内置27种图表类型，输出自包含HTML+SVG，支持自定义品牌样式，无额外依赖。",
-          "highlights": [
-            "内置27种常用图表类型，输出无冗余的自包含HTML+SVG，无需构建步骤和外部依赖",
-            "可自动提取目标网站品牌样式，快速生成契合品牌风格的图表，支持多品牌配置",
-            "兼容多类AI编程助手，支持导入Mermaid等源文件重绘为指定格式的图表"
-          ],
-          "reason": "本周星数涨幅达13556，增长迅猛，解决了现有AI生成图表样式粗糙、适配品牌成本高的痛点",
-          "maturity": "稳定",
-          "category": "开发者工具",
-          "tags": [
-            "图表生成",
-            "Claude插件",
-            "SVG",
-            "无依赖"
-          ],
-          "language": "HTML",
-          "stars": 18340,
-          "forks": 1103,
-          "weeklyStars": 13556,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/50469282?v=4",
-          "cover": null,
-          "score": 351.54,
+          "desc": "更好用的 Windows 系统清理工具。这是一款基于 WinUI 3 构建的 Windows 系统清理工具，灵感来自经典的 CCleaner。它使用维护多年、覆盖数千款应用的 winapp2.ini 规则库，支持自定义规则库和静默自动清理，清理过程透明、精准、无套路。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "C# 项目",
+          "tags": [],
+          "language": "C#",
+          "stars": 5238,
+          "forks": 171,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/UEpJbDRdvMoNfQL_1784964954.png",
+          "cover": "https://img.hellogithub.com/i/UEpJbDRdvMoNfQL_1784964954.png",
+          "score": 0,
           "sources": [
-            "trending"
+            "hellogithub"
           ],
-          "aiGenerated": true,
-          "slug": "231c4b191ae0f4ae"
+          "aiGenerated": false,
+          "slug": "6aacf0d14caf4fe7884cbf2badead9f0"
         },
         {
-          "name": "public-apis",
-          "repo": "public-apis/public-apis",
-          "url": "https://github.com/public-apis/public-apis",
-          "homepage": "https://APILayer.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo",
-          "desc": "该项目是由社区人工维护的免费公开API集合，覆盖动物、金融、天气等数十个领域，可帮助开发者快速找到适配需求的API资源。",
-          "highlights": [
-            "分类梳理数十个领域的公开API，检索便捷",
-            "标注各API的认证要求、HTTPS及CORS支持状态",
-            "社区持续维护更新，资源覆盖广实用性强"
-          ],
-          "reason": "本周星量增长4388，累计星标超45万，是广受开发者欢迎的公开API汇总项目，资源丰富更新稳定。",
-          "maturity": "高",
-          "category": "开发者工具",
-          "tags": [
-            "API",
-            "公开API",
-            "开发资源",
-            "开发者工具"
-          ],
-          "language": "Python",
-          "stars": 459791,
-          "forks": 50823,
-          "weeklyStars": 4388,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/51121562?v=4",
-          "cover": null,
-          "score": 335.58,
+          "name": "nvidiaProfileInspector",
+          "repo": "Orbmu2k/nvidiaProfileInspector",
+          "url": "https://github.com/Orbmu2k/nvidiaProfileInspector",
+          "homepage": null,
+          "desc": "解锁 NVIDIA 驱动隐藏设置。这是一款用于编辑 NVIDIA 驱动配置文件的 Windows 工具，可访问官方控制面板未展示的隐藏选项。它支持为单个游戏单独建档，调节帧率限制、垂直同步、纹理过滤和光线追踪等参数，配置可导出为 .nip 文件，方便备份或分享。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "C# 项目",
+          "tags": [],
+          "language": "C#",
+          "stars": 7021,
+          "forks": 380,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/JdlrTW7qmFCPOUy_1784962742.png",
+          "cover": "https://img.hellogithub.com/i/JdlrTW7qmFCPOUy_1784962742.png",
+          "score": 0,
           "sources": [
-            "trending"
+            "hellogithub"
           ],
-          "aiGenerated": true,
-          "slug": "fa7dc4680dc18bbd"
+          "aiGenerated": false,
+          "slug": "41bff54fe6344e758149722c71ce6518"
+        }
+      ]
+    },
+    {
+      "key": "hg-12",
+      "name": "C++ 项目",
+      "projects": [
+        {
+          "name": "JoltPhysics",
+          "repo": "jrouwe/JoltPhysics",
+          "url": "https://github.com/jrouwe/JoltPhysics",
+          "homepage": null,
+          "desc": "《死亡搁浅 2》背后的物理引擎。这是一款用 C++ 编写的刚体物理与碰撞检测库，支持多核并发和确定性模拟。它提供球体、方块、胶囊体等形状的连续碰撞检测，以及多种约束类型、软体、毛发模拟等功能，《地平线：西之绝境》和《死亡搁浅 2》等游戏均采用了该库。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "C++ 项目",
+          "tags": [],
+          "language": "C++",
+          "stars": 11349,
+          "forks": 961,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/4ZeL7pJFqKlC5wQ_1784962095.gif",
+          "cover": "https://img.hellogithub.com/i/4ZeL7pJFqKlC5wQ_1784962095.gif",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "99d7e4a8c4044698add9d294c303d1e5"
+        }
+      ]
+    },
+    {
+      "key": "hg-7",
+      "name": "Go 项目",
+      "projects": [
+        {
+          "name": "App-Store-Connect-CLI",
+          "repo": "rorkai/App-Store-Connect-CLI",
+          "url": "https://github.com/rorkai/App-Store-Connect-CLI",
+          "homepage": null,
+          "desc": "命令行发布 App Store 应用。这是一款用 Go 编写的 App Store Connect 命令行工具，可在终端、IDE 或 CI/CD 流水线中自动完成应用发布，支持构建上传、TestFlight、提交审核、签名等操作，覆盖 iOS、macOS、tvOS 和 visionOS 全平台。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Go 项目",
+          "tags": [],
+          "language": "Go",
+          "stars": 5844,
+          "forks": 507,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/QKsVLlRwuBSakqO_1784975805.png",
+          "cover": "https://img.hellogithub.com/i/QKsVLlRwuBSakqO_1784975805.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "dce4c150589b4614b7626c0f0c8c4c3a"
         },
         {
-          "name": "orca",
-          "repo": "stablyai/orca",
-          "url": "https://github.com/stablyai/orca",
-          "homepage": "https://onOrca.dev",
-          "desc": "Orca是面向并行AI代理集群的ADE开发环境，支持桌面、移动、VPS多端使用，可对接各类CLI编码代理，内置多项开发提效功能。",
-          "highlights": [
-            "支持对接所有CLI类型编码AI代理，可同时运行多个代理并隔离在独立git工作树中",
-            "覆盖桌面、移动端、VPS多端，支持移动端远程监控、操控运行中的代理",
-            "内置终端拆分、设计模式、GitHub/Linear原生对接等开发辅助功能"
-          ],
-          "reason": "该项目周增星量达6099，近期热度较高，支持对接数十款主流CLI编码代理，覆盖多端使用场景，可有效提升AI辅助开发效率。",
-          "maturity": "Beta",
-          "category": "开发者工具",
-          "tags": [
-            "AI代理",
-            "ADE",
-            "并行编排",
-            "开发工具"
-          ],
-          "language": "TypeScript",
-          "stars": 46006,
-          "forks": 3214,
-          "weeklyStars": 6099,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/127256420?v=4",
-          "cover": null,
-          "score": 333.45,
+          "name": "kage",
+          "repo": "tamnd/kage",
+          "url": "https://github.com/tamnd/kage",
+          "homepage": null,
+          "desc": "把整个网站打包离线阅读。该项目是用 Go 编写的网站离线保存工具，可将任意网站保存为可离线浏览的本地文件夹。保存后的网页看起来和线上一样，但不会发起任何网络请求，还支持打包成单个 .zim 文件或可直接运行的可执行文件。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Go 项目",
+          "tags": [],
+          "language": "Go",
+          "stars": 3222,
+          "forks": 119,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/l2EaQPyoSzfVcRb_1784976718.gif",
+          "cover": "https://img.hellogithub.com/i/l2EaQPyoSzfVcRb_1784976718.gif",
+          "score": 0,
           "sources": [
-            "trending"
+            "hellogithub"
           ],
-          "aiGenerated": true,
-          "slug": "89dc44e4b1b40fac"
+          "aiGenerated": false,
+          "slug": "7def6aa7604446e3ba1f28951a6155be"
         },
         {
-          "name": "firecrawl",
-          "repo": "firecrawl/firecrawl",
-          "url": "https://github.com/firecrawl/firecrawl",
-          "homepage": "https://firecrawl.dev",
-          "desc": "Firecrawl是可规模化实现网页搜索、抓取、交互的API，支持输出LLM友好的Markdown、结构化数据等格式，适配AI代理，开源同时提供托管服务。",
-          "highlights": [
-            "支持网页搜索、抓取、整站爬取、交互等多类网页数据采集场景",
-            "自动处理代理、速率限制、JS渲染等问题，无需额外配置",
-            "输出适配LLM的干净格式，可快速对接各类AI代理"
-          ],
-          "reason": "本周新增星标4810，功能覆盖网页数据采集全场景，支持多语言SDK，对接AI代理便捷，使用门槛低",
-          "maturity": "稳定",
-          "category": "开发者工具",
-          "tags": [
-            "web-scraping",
-            "LLM",
-            "API",
-            "数据提取"
-          ],
-          "language": "TypeScript",
-          "stars": 167709,
-          "forks": 9393,
-          "weeklyStars": 4810,
-          "license": "AGPL-3.0",
-          "avatar": "https://avatars.githubusercontent.com/u/135057108?v=4",
-          "cover": null,
-          "score": 329.01,
+          "name": "make-look-scanned",
+          "repo": "overflowy/make-look-scanned",
+          "url": "https://github.com/overflowy/make-look-scanned",
+          "homepage": null,
+          "desc": "让 PDF 看起来像扫描件。该项目可将 PDF 文件处理成类似扫描件的效果，支持命令行和浏览器本地运行，相同文件默认会得到完全一致的结果。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Go 项目",
+          "tags": [],
+          "language": "Go",
+          "stars": 719,
+          "forks": 39,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/F54W6xj83eZXJ7o_1784975923.jpg",
+          "cover": "https://img.hellogithub.com/i/F54W6xj83eZXJ7o_1784975923.jpg",
+          "score": 0,
           "sources": [
-            "trending"
+            "hellogithub"
           ],
-          "aiGenerated": true,
-          "slug": "7491830dc8888f7f"
+          "aiGenerated": false,
+          "slug": "ecc359af15e849e683b112711e372879"
         },
         {
-          "name": "agent-skills",
-          "repo": "addyosmani/agent-skills",
-          "url": "https://github.com/addyosmani/agent-skills",
-          "homepage": "https://skills.addy.ie",
-          "desc": "本项目是面向AI编程代理的生产级工程技能库，封装资深工程师的开发工作流、质量校验规则与最佳实践，支持适配70余款主流AI编码工具。",
-          "highlights": [
-            "内置8条对应开发生命周期的slash命令，可自动激活对应开发技能",
-            "共包含24项结构化技能，覆盖需求定义到上线的全开发流程",
-            "支持适配Claude Code、Cursor、Codex等70+主流AI编码工具"
+          "name": "zabbix",
+          "repo": "zabbix/zabbix",
+          "url": "https://github.com/zabbix/zabbix",
+          "homepage": null,
+          "desc": "开源的企业级分布式监控平台。该项目是企业级开源分布式监控系统，可实时监控网络设备、服务器、数据库、虚拟机、容器、云服务和应用的运行状态。它支持自动发现、Agent/Agent-less 采集和故障检测等功能，并可通过 Slack、Jira、Teams、邮件或短信发送告警。Zabbix 在中国也有非常活跃的社区。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Go 项目",
+          "tags": [],
+          "language": "Go",
+          "stars": 6264,
+          "forks": 1245,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/TpnIhRrWKzXe3AU_1784977662.png",
+          "cover": "https://img.hellogithub.com/i/TpnIhRrWKzXe3AU_1784977662.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
           ],
-          "reason": "本周新增星标3845，总星标超8.7万，覆盖全开发流程的规范技能可有效提升AI代码产出质量，适配范围广。",
-          "maturity": "生产可用",
-          "category": "开发者工具",
-          "tags": [
-            "agent-skills",
-            "AI编码",
-            "开发工作流",
-            "Claude Code"
+          "aiGenerated": false,
+          "slug": "bc04bd4183f2450c9ec5933370bae83e"
+        }
+      ]
+    },
+    {
+      "key": "hg-8",
+      "name": "Java 项目",
+      "projects": [
+        {
+          "name": "jabref",
+          "repo": "JabRef/jabref",
+          "url": "https://github.com/JabRef/jabref",
+          "homepage": null,
+          "desc": "写论文用的文献管理工具。这是一款免费开源、跨平台的文献与引用管理工具，原生支持 BibTeX/BibLaTeX。它可以从 Google 学术、arXiv 等平台检索论文，自动补全文献信息、提取 PDF 元数据、合并重复条目，并支持与 Word、LibreOffice 和多款 LaTeX 编辑器联动。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Java 项目",
+          "tags": [],
+          "language": "Java",
+          "stars": 4593,
+          "forks": 3504,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/uQPUiO14gbwjA7y_1784983806.png",
+          "cover": "https://img.hellogithub.com/i/uQPUiO14gbwjA7y_1784983806.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
           ],
+          "aiGenerated": false,
+          "slug": "4b0670de2ae44662a4688d5143f6e5ee"
+        }
+      ]
+    },
+    {
+      "key": "hg-2",
+      "name": "JavaScript 项目",
+      "projects": [
+        {
+          "name": "astryx",
+          "repo": "facebook/astryx",
+          "url": "https://github.com/facebook/astryx",
+          "homepage": null,
+          "desc": "Meta 开源的 React 设计系统。该项目是基于 React 和 StyleX 构建的设计系统，在 Meta 内部经过多年实践。它内置 150+ 组件、7 套可定制主题、深色模式、页面模板和 CLI，对 AI Agent 友好。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "JavaScript 项目",
+          "tags": [],
           "language": "JavaScript",
-          "stars": 87439,
-          "forks": 9376,
-          "weeklyStars": 3845,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/110953?v=4",
-          "cover": null,
-          "score": 325.01,
+          "stars": 12000,
+          "forks": 1030,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/xvbLVIMCSja6Wy1_1785034898.png",
+          "cover": "https://img.hellogithub.com/i/xvbLVIMCSja6Wy1_1785034898.png",
+          "score": 0,
           "sources": [
-            "trending"
+            "hellogithub"
           ],
-          "aiGenerated": true,
-          "slug": "1b1a194f4fbb088b"
+          "aiGenerated": false,
+          "slug": "3af1d1b883af446dae0169a50f011de0"
         },
         {
-          "name": "manim",
-          "repo": "3b1b/manim",
-          "url": "https://github.com/3b1b/manim",
+          "name": "ColorTxt",
+          "repo": "ssnangua/ColorTxt",
+          "url": "https://github.com/ssnangua/ColorTxt",
           "homepage": null,
-          "desc": "Manim是3Blue1Brown推出的Python编程式动画引擎，专为制作数学讲解类视频设计，分为原作者维护的ManimGL与社区版两个版本。",
-          "highlights": [
-            "支持通过代码生成高精度的数学科普类动画内容",
-            "兼容多操作系统，支持自定义输出配置与多种CLI参数",
-            "配套官方示例与中文社区文档，降低用户上手门槛"
-          ],
-          "reason": "项目周增星达1919，关注度高，是知名的科普动画制作工具，长期应用于3Blue1Brown系列数学科普视频的生产。",
-          "maturity": "成熟",
-          "category": "开发者工具",
-          "tags": [
-            "manim",
-            "动画引擎",
-            "数学可视化",
-            "Python"
-          ],
-          "language": "Python",
-          "stars": 91205,
-          "forks": 7547,
-          "weeklyStars": 1919,
-          "license": "MIT",
-          "avatar": "https://avatars.githubusercontent.com/u/11601040?v=4",
-          "cover": null,
-          "score": 314.78,
+          "desc": "会给小说上色的阅读器。这是一款基于 Electron 构建的本地小说阅读器，支持 TXT、EPUB、MOBI、PDF 等格式。它可自动为正文中的人名和关键词设置颜色，并支持章节识别、划线笔记、语音朗读和 AI 剧情分析等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "JavaScript 项目",
+          "tags": [],
+          "language": "JavaScript",
+          "stars": 1196,
+          "forks": 66,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/7vMRzmj3qQEwP9X_1785034024.jpg",
+          "cover": "https://img.hellogithub.com/i/7vMRzmj3qQEwP9X_1785034024.jpg",
+          "score": 0,
           "sources": [
-            "trending"
+            "hellogithub"
           ],
-          "aiGenerated": true,
-          "slug": "cfaa806580b087b9"
+          "aiGenerated": false,
+          "slug": "d5f9af214b7c4f28bce09b127a13ab4d"
+        },
+        {
+          "name": "karakeep",
+          "repo": "karakeep-app/karakeep",
+          "url": "https://github.com/karakeep-app/karakeep",
+          "homepage": null,
+          "desc": "可自托管的浏览器书签管理平台。这是一款可自托管的浏览器书签管理应用，可保存链接、笔记、图片和 PDF，并支持 AI 自动打标签与生成摘要。它提供全文搜索、OCR、浏览器扩展、移动端应用、RSS 自动收藏和网页归档等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "JavaScript 项目",
+          "tags": [],
+          "language": "JavaScript",
+          "stars": 28354,
+          "forks": 1434,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/vPVO2hgu6y5pWos_1785038129.png",
+          "cover": "https://img.hellogithub.com/i/vPVO2hgu6y5pWos_1785038129.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "52738cb34a504cbf8be56f83b658be22"
+        },
+        {
+          "name": "magic-resume",
+          "repo": "JOYCEQL/magic-resume",
+          "url": "https://github.com/JOYCEQL/magic-resume",
+          "homepage": null,
+          "desc": "在线 AI 简历编辑器。这是一款免费的在线 AI 简历编辑器，无需登录、内置多种模板。它基于 TanStack Start、TypeScript 和 Tiptap 构建，支持实时预览、配置 AI 服务商、深色模式、PDF 导出和自动保存等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "JavaScript 项目",
+          "tags": [],
+          "language": "JavaScript",
+          "stars": 9845,
+          "forks": 1080,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/tFHA6mMKecWrf3n_1785037322.png",
+          "cover": "https://img.hellogithub.com/i/tFHA6mMKecWrf3n_1785037322.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "51a0f545d0964a47a173794478119ec7"
+        },
+        {
+          "name": "TREK",
+          "repo": "liketrek/TREK",
+          "url": "https://github.com/liketrek/TREK",
+          "homepage": null,
+          "desc": "可多人协作的旅行规划平台。这是一款可自托管的旅行规划平台，支持多人实时协作、交互式地图、费用分摊、行李清单、预订管理和旅行计划等功能。它内置 MCP 服务，可结合 AI 助手规划旅行。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "JavaScript 项目",
+          "tags": [],
+          "language": "JavaScript",
+          "stars": 12251,
+          "forks": 1042,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/gWN3dSVGkoO2nyD_1785036451.png",
+          "cover": "https://img.hellogithub.com/i/gWN3dSVGkoO2nyD_1785036451.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "ee9c31fd98ec4a16835db811cbd93952"
+        }
+      ]
+    },
+    {
+      "key": "hg-1",
+      "name": "Python 项目",
+      "projects": [
+        {
+          "name": "abogen",
+          "repo": "denizsafak/abogen",
+          "url": "https://github.com/denizsafak/abogen",
+          "homepage": null,
+          "desc": "带同步字幕的有声书生成器。这是一款基于 Kokoro-82M 的文本转语音有声书生成工具，可将 EPUB、PDF、TXT、Markdown 和字幕文件转成 MP3、M4B、FLAC 等格式的音频。它提供批量处理、章节拆分、语速调节等功能，支持包括中文在内的 9 种语言。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Python 项目",
+          "tags": [],
+          "language": "Python",
+          "stars": 5683,
+          "forks": 420,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/1QLZu64WCa3V8vH_1784982737.gif",
+          "cover": "https://img.hellogithub.com/i/1QLZu64WCa3V8vH_1784982737.gif",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "5874f71080f34f9184376711e0870f43"
+        },
+        {
+          "name": "git-filter-repo",
+          "repo": "newren/git-filter-repo",
+          "url": "https://github.com/newren/git-filter-repo",
+          "homepage": null,
+          "desc": "Git 历史重写工具。这是一款用于重写 Git 仓库历史的命令行工具，可作为 git filter-branch 的替代品。它仅需 Python 和 Git 即可运行，支持批量改写提交信息、标签重命名、仓库拆分和自动清理等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Python 项目",
+          "tags": [],
+          "language": "Python",
+          "stars": 13131,
+          "forks": 994,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": null,
+          "cover": null,
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "78af0c177a414bc988ffd6814dfdf432"
+        },
+        {
+          "name": "HypoMux",
+          "repo": "Hypostasis-Cat/HypoMux",
+          "url": "https://github.com/Hypostasis-Cat/HypoMux",
+          "homepage": null,
+          "desc": "把多张网卡的带宽叠加起来。这是一款专为 Windows 平台打造的多网卡带宽聚合下载加速工具。当电脑同时接入网线、Wi-Fi 或手机热点时，它可将下载任务分配到不同网卡上，实现远超单网卡的下载速度，并支持虚拟网卡、进程分流和实时流量监控等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Python 项目",
+          "tags": [],
+          "language": "Python",
+          "stars": 2818,
+          "forks": 98,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/RcUb3KnSlNgP7jp_1784979213.png",
+          "cover": "https://img.hellogithub.com/i/RcUb3KnSlNgP7jp_1784979213.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "b199a1e3939347f7a23b33be72415595"
+        },
+        {
+          "name": "msgspec",
+          "repo": "msgspec/msgspec",
+          "url": "https://github.com/msgspec/msgspec",
+          "homepage": null,
+          "desc": "更快的 Python 序列化库。这是一个高性能 Python 序列化与数据校验库，支持 JSON、MessagePack、YAML 和 TOML 格式，常见操作比同类库快 10-80 倍。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Python 项目",
+          "tags": [],
+          "language": "Python",
+          "stars": 4013,
+          "forks": 173,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/aY57sSUQ0ry82GX_1784980034.png",
+          "cover": "https://img.hellogithub.com/i/aY57sSUQ0ry82GX_1784980034.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "3ccd47ead8cb42f081340b96ea73d1ed"
+        },
+        {
+          "name": "wenyi",
+          "repo": "BigDawnGhost/wenyi",
+          "url": "https://github.com/BigDawnGhost/wenyi",
+          "homepage": null,
+          "desc": "整本翻译外文小说的工具。这是一个用于翻译长篇小说的命令行工具，支持 EPUB、FB2、TXT、Markdown、HTML 和 PDF 文件格式。它通过全书分析、滚动上下文、动态术语表、润色和校对，提升长篇小说翻译的一致性和可读性。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Python 项目",
+          "tags": [],
+          "language": "Python",
+          "stars": 2224,
+          "forks": 173,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/gZX9aipQjfv8CGr_1784978777.png",
+          "cover": "https://img.hellogithub.com/i/gZX9aipQjfv8CGr_1784978777.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "648c0ab0997c42479027e360f604fa23"
+        }
+      ]
+    },
+    {
+      "key": "hg-17",
+      "name": "Rust 项目",
+      "projects": [
+        {
+          "name": "harper",
+          "repo": "Automattic/harper",
+          "url": "https://github.com/Automattic/harper",
+          "homepage": null,
+          "desc": "本地优先的英语语法检查工具。这是一个用 Rust 编写的英文语法检查工具，可在本地完成语法分析，无需将内容上传到服务器。它检查速度快、内存占用少，可编译成 WebAssembly 在浏览器里运行，也能集成到 VS Code、Neovim、Helix、Emacs、Zed 等编辑器中使用。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Rust 项目",
+          "tags": [],
+          "language": "Rust",
+          "stars": 14431,
+          "forks": 561,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/3YqXps4tkidgQPe_1785048741.png",
+          "cover": "https://img.hellogithub.com/i/3YqXps4tkidgQPe_1785048741.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "e57d2b35a6f9463b9eed596d35163476"
+        },
+        {
+          "name": "herdr",
+          "repo": "herdrdev/herdr",
+          "url": "https://github.com/herdrdev/herdr",
+          "homepage": null,
+          "desc": "管理多个 AI 编程助手的终端工具。该项目是用 Rust 编写的终端多路复用工具，专为同时操作多个 AI 编程助手而设计。它能在一屏内查看每个助手的终端画面，一眼看出谁在运行、谁卡住、谁已完成。支持断开后继续运行、随时从其他终端或 SSH 重新接入，同时兼容 tmux 风格的快捷键。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Rust 项目",
+          "tags": [],
+          "language": "Rust",
+          "stars": 29112,
+          "forks": 2061,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/eDriRaO9ZUSIs36_1785048533.png",
+          "cover": "https://img.hellogithub.com/i/eDriRaO9ZUSIs36_1785048533.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "ae05780e2e2d42b28931418c05dac8f9"
+        }
+      ]
+    },
+    {
+      "key": "hg-19",
+      "name": "Skills",
+      "projects": [
+        {
+          "name": "archify",
+          "repo": "tt-a1i/archify",
+          "url": "https://github.com/tt-a1i/archify",
+          "homepage": null,
+          "desc": "让 AI 读代码画出架构图。这是一款面向 Codex、Claude Code、Cursor 和 OpenCode 的架构图生成技能，可读取代码仓库或系统描述，生成可交互的架构图。它提供 5 种图表类型和 4 套主题，支持搜索节点、上下游链路追溯、架构变更对比，并可导出 PNG 或 SVG。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Skills",
+          "tags": [],
+          "language": null,
+          "stars": 12523,
+          "forks": 935,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/la6vTtGz305WYCP_1785043435.png",
+          "cover": "https://img.hellogithub.com/i/la6vTtGz305WYCP_1785043435.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "8b436445b5e642dd84f3a1af24800399"
+        },
+        {
+          "name": "claude-video",
+          "repo": "bradautomates/claude-video",
+          "url": "https://github.com/bradautomates/claude-video",
+          "homepage": null,
+          "desc": "让 AI 助手看懂视频。这是一个为 Claude Code 等 AI 助手提供视频理解能力的技能包。输入视频网址或本地文件后，它会借助 yt-dlp 和 FFmpeg 提取关键帧与字幕，无字幕时可调用 Whisper 转录，让 AI 助手结合画面与语音定位录屏故障、分析内容或生成摘要。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Skills",
+          "tags": [],
+          "language": null,
+          "stars": 15412,
+          "forks": 1483,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": null,
+          "cover": null,
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "36fca7cf692b465bbf59af599acbe02b"
+        },
+        {
+          "name": "hallmark",
+          "repo": "Nutlope/hallmark",
+          "url": "https://github.com/Nutlope/hallmark",
+          "homepage": null,
+          "desc": "拒绝 AI 味的网页设计技能。这是一个面向 Claude Code、Cursor 和 Codex 的网页设计技能，旨在避免 AI 生成页面千篇一律。它内置 20 个主题、4 种命令模式、57 项检查规则和自检流程，支持从截图或 URL 提取设计特征。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Skills",
+          "tags": [],
+          "language": null,
+          "stars": 24902,
+          "forks": 1257,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/dZImgXy0DWi49J1_1785046481.png",
+          "cover": "https://img.hellogithub.com/i/dZImgXy0DWi49J1_1785046481.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "ac9c66a44a5940e5988e92b5ac615343"
+        }
+      ]
+    },
+    {
+      "key": "hg-10",
+      "name": "Swift 项目",
+      "projects": [
+        {
+          "name": "LockIME",
+          "repo": "oomol-lab/LockIME",
+          "url": "https://github.com/oomol-lab/LockIME",
+          "homepage": null,
+          "desc": "锁住输入法的 macOS 菜单栏工具。这是一款用 SwiftUI 开发的 macOS 菜单栏工具，可全局或按应用、网址锁定指定输入法，一旦被手动或其他应用切换，便会立即恢复。它支持自定义快捷键、规则备份、配置导入导出等功能，安装包不到 3MB，且无需系统权限。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Swift 项目",
+          "tags": [],
+          "language": "Swift",
+          "stars": 539,
+          "forks": 20,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/bqVhp0kCXfrsQEx_1785045356.png",
+          "cover": "https://img.hellogithub.com/i/bqVhp0kCXfrsQEx_1785045356.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "2c8366cc6f424cbcac59b0219945aee2"
+        },
+        {
+          "name": "opendisplay",
+          "repo": "peetzweg/opendisplay",
+          "url": "https://github.com/peetzweg/opendisplay",
+          "homepage": null,
+          "desc": "把 iPhone 变成 Mac 扩展屏。这是一款免费开源的 macOS 副屏工具，可将闲置的 iPhone 或 iPad 变成第二个显示器。插上数据线或连同一 Wi-Fi 即可使用，可以直接把窗口拖过去，支持用手指点按、拖拽和双指滚动操作 Mac。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Swift 项目",
+          "tags": [],
+          "language": "Swift",
+          "stars": 2363,
+          "forks": 165,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/sctzlHLCx0GK4Zh_1785046689.jpg",
+          "cover": "https://img.hellogithub.com/i/sctzlHLCx0GK4Zh_1785046689.jpg",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "557d334006af4b309e252543db97eedf"
+        },
+        {
+          "name": "WhichSpace",
+          "repo": "gechr/WhichSpace",
+          "url": "https://github.com/gechr/WhichSpace",
+          "homepage": null,
+          "desc": "菜单栏里的桌面空间切换工具。这是一款用于查看和切换 macOS 桌面的工具，支持点击图标或滚动鼠标快速切换桌面，还能为每个桌面设置颜色、图标、文字标签或表情符号。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "Swift 项目",
+          "tags": [],
+          "language": "Swift",
+          "stars": 800,
+          "forks": 42,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/lf8XVwbWMYAxyPH_1785047348.png",
+          "cover": "https://img.hellogithub.com/i/lf8XVwbWMYAxyPH_1785047348.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "f0ac264e7b83402fbf16ce983723edad"
+        }
+      ]
+    },
+    {
+      "key": "hg-15",
+      "name": "人工智能",
+      "projects": [
+        {
+          "name": "code-review-graph",
+          "repo": "tirth8205/code-review-graph",
+          "url": "https://github.com/tirth8205/code-review-graph",
+          "homepage": null,
+          "desc": "让 AI 少读代码的图谱工具。这是一款本地优先的代码智能图谱工具，专为 MCP 和 CLI 设计。它通过 Tree-sitter 解析函数、类、调用和测试之间的关系，并持久化存成图。修改文件时，它能沿着图找出受影响的调用方和依赖代码，提供更精准的上下文，避免读取整个代码库浪费 token。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "人工智能",
+          "tags": [],
+          "language": null,
+          "stars": 30135,
+          "forks": 2762,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/jDotLzr35g6vANy_1784988207.png",
+          "cover": "https://img.hellogithub.com/i/jDotLzr35g6vANy_1784988207.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "ce86268808ea4b578db98d1121ceb348"
+        },
+        {
+          "name": "gastown",
+          "repo": "gastownhall/gastown",
+          "url": "https://github.com/gastownhall/gastown",
+          "homepage": null,
+          "desc": "同时指挥多个 AI 编程助手。该项目是多智能体工作区管理和编排系统，可统一调度 Claude Code、GitHub Copilot、Codex 等 AI 编程助手并行工作。它通过 Git 持久保存工作状态，Agent 重启后不丢上下文，可继续接着干。还提供实时监控、任务交接、卡死检测和合并队列等功能，支持 20-30 个智能体协同工作。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "人工智能",
+          "tags": [],
+          "language": null,
+          "stars": 17619,
+          "forks": 1620,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": null,
+          "cover": null,
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "c88ed3cfc1244f1999f42f51c3ec48b4"
+        },
+        {
+          "name": "harbor",
+          "repo": "harbor-framework/harbor",
+          "url": "https://github.com/harbor-framework/harbor",
+          "homepage": null,
+          "desc": "AI 智能体评测框架。这是一个跑 AI 智能体和大模型评测的开源框架，一条命令就能在 Docker 里把 Claude Code、Codex CLI 这些 Agent 拉起来，用 SWE-Bench 等评测集跑分。嫌本地慢也可以接 Daytona 这类云平台，开多个环境同时跑。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "人工智能",
+          "tags": [],
+          "language": null,
+          "stars": 4250,
+          "forks": 1564,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": null,
+          "cover": null,
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "ed32a85ab8da46668c23112b46321ef5"
+        },
+        {
+          "name": "OpenMontage",
+          "repo": "calesthio/OpenMontage",
+          "url": "https://github.com/calesthio/OpenMontage",
+          "homepage": null,
+          "desc": "把 AI 编程助手变成视频工作室。这是一个开源的智能体视频制作系统，可让 Claude Code、Cursor、Copilot、Windsurf 和 Codex 根据自然语言完成调研、脚本、素材生成、剪辑和合成。它内置 12 条制作流程、100 多个工具，以及 700 多份技能与制作知识文件，支持真实素材、AI 图像、配音、字幕和成片自检。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "人工智能",
+          "tags": [],
+          "language": null,
+          "stars": 48105,
+          "forks": 6004,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": null,
+          "cover": null,
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "650efabacf0746639add4b319ae5b2f7"
+        },
+        {
+          "name": "outlines",
+          "repo": "dottxt-ai/outlines",
+          "url": "https://github.com/dottxt-ai/outlines",
+          "homepage": null,
+          "desc": "严格的 LLM 结构化输出框架。这是一个约束大语言模型输出格式的 Python 库，可在生成过程中保证结果符合指定结构，而不是生成后再用正则修补。调用时只需传入期望的类型，同一段代码还能在 OpenAI、Ollama、vLLM 之间无缝切换。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "人工智能",
+          "tags": [],
+          "language": null,
+          "stars": 15615,
+          "forks": 859,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/GizBqHPv2MfZoAY_1784986991.png",
+          "cover": "https://img.hellogithub.com/i/GizBqHPv2MfZoAY_1784986991.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "67612bf932a04a8c9bef1741c867069b"
+        }
+      ]
+    },
+    {
+      "key": "hg-5",
+      "name": "其它",
+      "projects": [
+        {
+          "name": "crosspoint-reader",
+          "repo": "crosspoint-reader/crosspoint-reader",
+          "url": "https://github.com/crosspoint-reader/crosspoint-reader",
+          "homepage": null,
+          "desc": "Xteink 墨水屏阅读器的开源固件。这是一款开源的电子书阅读器固件，可替换 Xteink X3、X4 等 ESP32-C3 设备的原厂系统，通过浏览器连接 USB 即可刷入。它支持 EPUB、TXT 等格式，可自定义字体、主题和按键，并提供词典查询、KOReader 进度同步，Web 界面无线传书等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "其它",
+          "tags": [],
+          "language": null,
+          "stars": 7070,
+          "forks": 1441,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/9rcnT6dWaJBIivD_1785042122.png",
+          "cover": "https://img.hellogithub.com/i/9rcnT6dWaJBIivD_1785042122.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "d641d07a69854afdb143c420ae20421f"
+        },
+        {
+          "name": "exercises-dataset",
+          "repo": "hasaneyldrm/exercises-dataset",
+          "url": "https://github.com/hasaneyldrm/exercises-dataset",
+          "homepage": null,
+          "desc": "上千个健身动作的集合。这是一份包含 1000+ 个健身动作的开放数据集，每条记录标注了动作名称、目标肌群、协同肌肉、所需器械和分步教程。教程提供中文等 10 种语言，并配有 180x180 缩略图和演示动图。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "其它",
+          "tags": [],
+          "language": null,
+          "stars": 19644,
+          "forks": 2426,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/dfCMy6PjL4ANIGe_1785041186.png",
+          "cover": "https://img.hellogithub.com/i/dfCMy6PjL4ANIGe_1785041186.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "14ebe7e93550459e9ad7532018e8de21"
+        },
+        {
+          "name": "flutter_server_box",
+          "repo": "lollipopkit/flutter_server_box",
+          "url": "https://github.com/lollipopkit/flutter_server_box",
+          "homepage": null,
+          "desc": "手机上的服务器管理工具。这是一款用 Flutter 开发的服务器监控与管理工具，支持 iOS、macOS、Android、Linux 和 Windows。它提供 CPU、传感器、GPU 状态图表，以及 SSH 终端、SFTP、Docker、进程、Systemd 管理等功能。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "其它",
+          "tags": [],
+          "language": null,
+          "stars": 8522,
+          "forks": 534,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/GfiU43sHKPjZFQm_1785040850.png",
+          "cover": "https://img.hellogithub.com/i/GfiU43sHKPjZFQm_1785040850.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "78ba220d6c01475fbbd91278f1ed395f"
+        },
+        {
+          "name": "gitfut",
+          "repo": "Younesfdj/gitfut",
+          "url": "https://github.com/Younesfdj/gitfut",
+          "homepage": null,
+          "desc": "把 GitHub 数据做成球星卡。这是一款将 GitHub 个人数据生成足球球星卡的 Web 应用，可根据提交、Star、PR、关注者、语言等数据换算成球员能力值。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "其它",
+          "tags": [],
+          "language": null,
+          "stars": 2518,
+          "forks": 134,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/z0v2Im5yHJoVn8Z_1785040101.png",
+          "cover": "https://img.hellogithub.com/i/z0v2Im5yHJoVn8Z_1785040101.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "f01fc5bb89ef4842a365f17b5f11a85a"
+        },
+        {
+          "name": "local-llm",
+          "repo": "jamesob/local-llm",
+          "url": "https://github.com/jamesob/local-llm",
+          "homepage": null,
+          "desc": "本地运行 SOTA 大模型实录。该项目是作者整理的本地运行前沿开源大模型实践指南，记录了从 2k 到 40k 美元的硬件方案，内容涵盖硬件清单、BIOS 调优、Docker 配置等。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "其它",
+          "tags": [],
+          "language": null,
+          "stars": 1766,
+          "forks": 107,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/WnGM7Tz0Fd4L8pX_1785042862.png",
+          "cover": "https://img.hellogithub.com/i/WnGM7Tz0Fd4L8pX_1785042862.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "5bcad82ee18b4058bdf5f476be86aca1"
+        }
+      ]
+    },
+    {
+      "key": "hg-4",
+      "name": "开源书籍",
+      "projects": [
+        {
+          "name": "ai-agent-book",
+          "repo": "bojieli/ai-agent-book",
+          "url": "https://github.com/bojieli/ai-agent-book",
+          "homepage": null,
+          "desc": "《深入理解 AI Agent：设计原理与工程实践》。这是一本讲解 AI Agent 的开源中文书籍，围绕「Agent = LLM + 上下文 + 工具」展开，共 10 章。内容从原理讲到生产实践，涵盖上下文工程、用户记忆与知识库、MCP 协议、Coding Agent 等，并配有 92 个实验项目和 7 种语言版本。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "开源书籍",
+          "tags": [],
+          "language": null,
+          "stars": 37336,
+          "forks": 4096,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": null,
+          "cover": null,
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "c80ce91cc4744361adf369269922c8cf"
+        },
+        {
+          "name": "little-book-rl",
+          "repo": "alxndrTL/little-book-rl",
+          "url": "https://github.com/alxndrTL/little-book-rl",
+          "homepage": null,
+          "desc": "《强化学习小册子》。这是一本强化学习入门书籍，从基础概念讲到算法实现。内容包含基于 PyTorch 的多种算法实现，比如蒙特卡洛、PPO 等，也包括动态规划算法的详细推导和严格证明。",
+          "highlights": [],
+          "reason": null,
+          "maturity": null,
+          "category": "开源书籍",
+          "tags": [],
+          "language": null,
+          "stars": 1509,
+          "forks": 78,
+          "weeklyStars": null,
+          "license": null,
+          "avatar": "https://img.hellogithub.com/i/VEyXlsofhavFTM2_1785044915.png",
+          "cover": "https://img.hellogithub.com/i/VEyXlsofhavFTM2_1785044915.png",
+          "score": 0,
+          "sources": [
+            "hellogithub"
+          ],
+          "aiGenerated": false,
+          "slug": "fe8478dd8bbd45899bc3c6a078d94879"
         }
       ]
     }
