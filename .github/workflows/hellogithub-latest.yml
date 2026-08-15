@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - test
+      - main
     paths:
       - ".github/workflows/hellogithub-latest.yml"
       - "_config.yun.yml"
