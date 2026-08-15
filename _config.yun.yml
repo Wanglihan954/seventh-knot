@@ -239,7 +239,7 @@ katex:
 head:
   css:
     - /css/custom_theme.css?v=20260812-3
-    - /css/projects.css?v=20260815-1
+    - /css/projects.css?v=20260816-4
   js:
     defer:
       - /js/web-pet.js
