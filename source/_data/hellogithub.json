@@ -1,1 +1,526 @@
-﻿{"issue":124,"published_at":"2026-07-28T08:10:05","source_url":"https://hellogithub.com/periodical/volume/124","groups":[{"key":"hg-11","name":"C 项目","projects":[{"name":"86Box","repo":"86Box/86Box","desc":"复古 PC 模拟器。","url":"https://github.com/86Box/86Box","cover":"/images/hellogithub/fLrmhUxQ2SwPHno_1784957912.png","stars":4423,"forks":539,"slug":"b2227163c9b44d79beb8cb9278ec033a"},{"name":"simplewall","repo":"henrypp/simplewall","desc":"小巧的 Windows 网络管控工具。","url":"https://github.com/henrypp/simplewall","cover":"/images/hellogithub/68hD9dJbOziXgY3_1784955355.png","stars":8673,"forks":636,"slug":"7a00609d7ae349a283fe173323d83e10"}]},{"key":"hg-9","name":"C# 项目","projects":[{"name":"FluentCleaner","repo":"builtbybel/FluentCleaner","desc":"更好用的 Windows 系统清理工具。","url":"https://github.com/builtbybel/FluentCleaner","cover":"/images/hellogithub/UEpJbDRdvMoNfQL_1784964954.png","stars":4061,"forks":127,"slug":"6aacf0d14caf4fe7884cbf2badead9f0"},{"name":"nvidiaProfileInspector","repo":"Orbmu2k/nvidiaProfileInspector","desc":"解锁 NVIDIA 驱动隐藏设置。","url":"https://github.com/Orbmu2k/nvidiaProfileInspector","cover":"/images/hellogithub/JdlrTW7qmFCPOUy_1784962742.png","stars":6856,"forks":375,"slug":"41bff54fe6344e758149722c71ce6518"}]},{"key":"hg-12","name":"C++ 项目","projects":[{"name":"JoltPhysics","repo":"jrouwe/JoltPhysics","desc":"《死亡搁浅 2》背后的物理引擎。","url":"https://github.com/jrouwe/JoltPhysics","cover":"/images/hellogithub/4ZeL7pJFqKlC5wQ_1784962095.gif","stars":11078,"forks":853,"slug":"99d7e4a8c4044698add9d294c303d1e5"}]},{"key":"hg-7","name":"Go 项目","projects":[{"name":"App-Store-Connect-CLI","repo":"rorkai/App-Store-Connect-CLI","desc":"命令行发布 App Store 应用。","url":"https://github.com/rorkai/App-Store-Connect-CLI","cover":"/images/hellogithub/QKsVLlRwuBSakqO_1784975805.png","stars":5241,"forks":455,"slug":"dce4c150589b4614b7626c0f0c8c4c3a"},{"name":"kage","repo":"tamnd/kage","desc":"把整个网站打包离线阅读。","url":"https://github.com/tamnd/kage","cover":"/images/hellogithub/l2EaQPyoSzfVcRb_1784976718.gif","stars":2822,"forks":107,"slug":"7def6aa7604446e3ba1f28951a6155be"},{"name":"make-look-scanned","repo":"overflowy/make-look-scanned","desc":"让 PDF 看起来像扫描件。","url":"https://github.com/overflowy/make-look-scanned","cover":"/images/hellogithub/F54W6xj83eZXJ7o_1784975923.jpg","stars":569,"forks":28,"slug":"ecc359af15e849e683b112711e372879"},{"name":"zabbix","repo":"zabbix/zabbix","desc":"开源的企业级分布式监控平台。","url":"https://github.com/zabbix/zabbix","cover":"/images/hellogithub/TpnIhRrWKzXe3AU_1784977662.png","stars":6097,"forks":1241,"slug":"bc04bd4183f2450c9ec5933370bae83e"}]},{"key":"hg-8","name":"Java 项目","projects":[{"name":"jabref","repo":"JabRef/jabref","desc":"写论文用的文献管理工具。","url":"https://github.com/JabRef/jabref","cover":"/images/hellogithub/uQPUiO14gbwjA7y_1784983806.png","stars":4443,"forks":3476,"slug":"4b0670de2ae44662a4688d5143f6e5ee"}]},{"key":"hg-2","name":"JavaScript 项目","projects":[{"name":"astryx","repo":"facebook/astryx","desc":"Meta 开源的 React 设计系统。","url":"https://github.com/facebook/astryx","cover":"/images/hellogithub/xvbLVIMCSja6Wy1_1785034898.png","stars":10867,"forks":858,"slug":"3af1d1b883af446dae0169a50f011de0"},{"name":"ColorTxt","repo":"ssnangua/ColorTxt","desc":"会给小说上色的阅读器。","url":"https://github.com/ssnangua/ColorTxt","cover":"/images/hellogithub/7vMRzmj3qQEwP9X_1785034024.jpg","stars":605,"forks":36,"slug":"d5f9af214b7c4f28bce09b127a13ab4d"},{"name":"karakeep","repo":"karakeep-app/karakeep","desc":"可自托管的浏览器书签管理平台。","url":"https://github.com/karakeep-app/karakeep","cover":"/images/hellogithub/vPVO2hgu6y5pWos_1785038129.png","stars":27805,"forks":1375,"slug":"52738cb34a504cbf8be56f83b658be22"},{"name":"magic-resume","repo":"JOYCEQL/magic-resume","desc":"在线 AI 简历编辑器。","url":"https://github.com/JOYCEQL/magic-resume","cover":"/images/hellogithub/tFHA6mMKecWrf3n_1785037322.png","stars":8912,"forks":1001,"slug":"51a0f545d0964a47a173794478119ec7"},{"name":"TREK","repo":"liketrek/TREK","desc":"可多人协作的旅行规划平台。","url":"https://github.com/liketrek/TREK","cover":"/images/hellogithub/gWN3dSVGkoO2nyD_1785036451.png","stars":10790,"forks":908,"slug":"ee9c31fd98ec4a16835db811cbd93952"}]},{"key":"hg-1","name":"Python 项目","projects":[{"name":"abogen","repo":"denizsafak/abogen","desc":"带同步字幕的有声书生成器。","url":"https://github.com/denizsafak/abogen","cover":"/images/hellogithub/1QLZu64WCa3V8vH_1784982737.gif","stars":5364,"forks":397,"slug":"5874f71080f34f9184376711e0870f43"},{"name":"git-filter-repo","repo":"newren/git-filter-repo","desc":"Git 历史重写工具。","url":"https://github.com/newren/git-filter-repo","cover":null,"stars":12930,"forks":987,"slug":"78af0c177a414bc988ffd6814dfdf432"},{"name":"HypoMux","repo":"Hypostasis-Cat/HypoMux","desc":"把多张网卡的带宽叠加起来。","url":"https://github.com/Hypostasis-Cat/HypoMux","cover":"/images/hellogithub/RcUb3KnSlNgP7jp_1784979213.png","stars":1867,"forks":64,"slug":"b199a1e3939347f7a23b33be72415595"},{"name":"msgspec","repo":"msgspec/msgspec","desc":"更快的 Python 序列化库。","url":"https://github.com/msgspec/msgspec","cover":"/images/hellogithub/aY57sSUQ0ry82GX_1784980034.png","stars":3889,"forks":163,"slug":"3ccd47ead8cb42f081340b96ea73d1ed"},{"name":"wenyi","repo":"BigDawnGhost/wenyi","desc":"整本翻译外文小说的工具。","url":"https://github.com/BigDawnGhost/wenyi","cover":"/images/hellogithub/gZX9aipQjfv8CGr_1784978777.png","stars":1732,"forks":139,"slug":"648c0ab0997c42479027e360f604fa23"}]},{"key":"hg-17","name":"Rust 项目","projects":[{"name":"harper","repo":"Automattic/harper","desc":"本地优先的英语语法检查工具。","url":"https://github.com/Automattic/harper","cover":"/images/hellogithub/3YqXps4tkidgQPe_1785048741.png","stars":13695,"forks":522,"slug":"e57d2b35a6f9463b9eed596d35163476"},{"name":"herdr","repo":"ogulcancelik/herdr","desc":"管理多个 AI 编程助手的终端工具。","url":"https://github.com/ogulcancelik/herdr","cover":"/images/hellogithub/eDriRaO9ZUSIs36_1785048533.png","stars":21431,"forks":1447,"slug":"ae05780e2e2d42b28931418c05dac8f9"}]},{"key":"hg-19","name":"Skills","projects":[{"name":"archify","repo":"tt-a1i/archify","desc":"让 AI 读代码画出架构图。","url":"https://github.com/tt-a1i/archify","cover":"/images/hellogithub/la6vTtGz305WYCP_1785043435.png","stars":7452,"forks":555,"slug":"8b436445b5e642dd84f3a1af24800399"},{"name":"claude-video","repo":"bradautomates/claude-video","desc":"让 AI 助手看懂视频。","url":"https://github.com/bradautomates/claude-video","cover":null,"stars":10986,"forks":1136,"slug":"36fca7cf692b465bbf59af599acbe02b"},{"name":"hallmark","repo":"Nutlope/hallmark","desc":"拒绝 AI 味的网页设计技能。","url":"https://github.com/Nutlope/hallmark","cover":"/images/hellogithub/dZImgXy0DWi49J1_1785046481.png","stars":18712,"forks":942,"slug":"ac9c66a44a5940e5988e92b5ac615343"}]},{"key":"hg-10","name":"Swift 项目","projects":[{"name":"LockIME","repo":"oomol-lab/LockIME","desc":"锁住输入法的 macOS 菜单栏工具。","url":"https://github.com/oomol-lab/LockIME","cover":"/images/hellogithub/bqVhp0kCXfrsQEx_1785045356.png","stars":485,"forks":17,"slug":"2c8366cc6f424cbcac59b0219945aee2"},{"name":"opendisplay","repo":"peetzweg/opendisplay","desc":"把 iPhone 变成 Mac 扩展屏。","url":"https://github.com/peetzweg/opendisplay","cover":"/images/hellogithub/sctzlHLCx0GK4Zh_1785046689.jpg","stars":1873,"forks":124,"slug":"557d334006af4b309e252543db97eedf"},{"name":"WhichSpace","repo":"gechr/WhichSpace","desc":"菜单栏里的桌面空间切换工具。","url":"https://github.com/gechr/WhichSpace","cover":"/images/hellogithub/lf8XVwbWMYAxyPH_1785047348.png","stars":747,"forks":40,"slug":"f0ac264e7b83402fbf16ce983723edad"}]},{"key":"hg-15","name":"人工智能","projects":[{"name":"code-review-graph","repo":"tirth8205/code-review-graph","desc":"让 AI 少读代码的图谱工具。","url":"https://github.com/tirth8205/code-review-graph","cover":"/images/hellogithub/jDotLzr35g6vANy_1784988207.png","stars":26897,"forks":2500,"slug":"ce86268808ea4b578db98d1121ceb348"},{"name":"gastown","repo":"gastownhall/gastown","desc":"同时指挥多个 AI 编程助手。","url":"https://github.com/gastownhall/gastown","cover":null,"stars":17253,"forks":1585,"slug":"c88ed3cfc1244f1999f42f51c3ec48b4"},{"name":"harbor","repo":"harbor-framework/harbor","desc":"AI 智能体评测框架。","url":"https://github.com/harbor-framework/harbor","cover":null,"stars":3567,"forks":1410,"slug":"ed32a85ab8da46668c23112b46321ef5"},{"name":"OpenMontage","repo":"calesthio/OpenMontage","desc":"把 AI 编程助手变成视频工作室。","url":"https://github.com/calesthio/OpenMontage","cover":null,"stars":42690,"forks":5147,"slug":"650efabacf0746639add4b319ae5b2f7"},{"name":"outlines","repo":"dottxt-ai/outlines","desc":"严格的 LLM 结构化输出框架。","url":"https://github.com/dottxt-ai/outlines","cover":"/images/hellogithub/GizBqHPv2MfZoAY_1784986991.png","stars":15365,"forks":823,"slug":"67612bf932a04a8c9bef1741c867069b"}]},{"key":"hg-5","name":"其它","projects":[{"name":"crosspoint-reader","repo":"crosspoint-reader/crosspoint-reader","desc":"Xteink 墨水屏阅读器的开源固件。","url":"https://github.com/crosspoint-reader/crosspoint-reader","cover":"/images/hellogithub/9rcnT6dWaJBIivD_1785042122.png","stars":6538,"forks":1283,"slug":"d641d07a69854afdb143c420ae20421f"},{"name":"exercises-dataset","repo":"hasaneyldrm/exercises-dataset","desc":"上千个健身动作的集合。","url":"https://github.com/hasaneyldrm/exercises-dataset","cover":"/images/hellogithub/dfCMy6PjL4ANIGe_1785041186.png","stars":17167,"forks":2110,"slug":"14ebe7e93550459e9ad7532018e8de21"},{"name":"flutter_server_box","repo":"lollipopkit/flutter_server_box","desc":"手机上的服务器管理工具。","url":"https://github.com/lollipopkit/flutter_server_box","cover":"/images/hellogithub/GfiU43sHKPjZFQm_1785040850.png","stars":8187,"forks":504,"slug":"78ba220d6c01475fbbd91278f1ed395f"},{"name":"gitfut","repo":"Younesfdj/gitfut","desc":"把 GitHub 数据做成球星卡。","url":"https://github.com/Younesfdj/gitfut","cover":"/images/hellogithub/z0v2Im5yHJoVn8Z_1785040101.png","stars":2331,"forks":121,"slug":"f01fc5bb89ef4842a365f17b5f11a85a"},{"name":"local-llm","repo":"jamesob/local-llm","desc":"本地运行 SOTA 大模型实录。","url":"https://github.com/jamesob/local-llm","cover":"/images/hellogithub/WnGM7Tz0Fd4L8pX_1785042862.png","stars":1604,"forks":97,"slug":"5bcad82ee18b4058bdf5f476be86aca1"}]},{"key":"hg-4","name":"开源书籍","projects":[{"name":"ai-agent-book","repo":"bojieli/ai-agent-book","desc":"《深入理解 AI Agent：设计原理与工程实践》。","url":"https://github.com/bojieli/ai-agent-book","cover":null,"stars":22576,"forks":2263,"slug":"c80ce91cc4744361adf369269922c8cf"},{"name":"little-book-rl","repo":"alxndrTL/little-book-rl","desc":"《强化学习小册子》。","url":"https://github.com/alxndrTL/little-book-rl","cover":"/images/hellogithub/VEyXlsofhavFTM2_1785044915.png","stars":1284,"forks":66,"slug":"fe8478dd8bbd45899bc3c6a078d94879"}]}]}
+{
+  "assets_version": 1,
+  "issue": 124,
+  "published_at": "2026-07-28T08:10:05",
+  "source_url": "https://hellogithub.com/periodical/volume/124",
+  "groups": [
+    {
+      "key": "hg-11",
+      "name": "C 项目",
+      "projects": [
+        {
+          "name": "86Box",
+          "repo": "86Box/86Box",
+          "desc": "复古 PC 模拟器。",
+          "url": "https://github.com/86Box/86Box",
+          "cover": "/images/hellogithub/fLrmhUxQ2SwPHno_1784957912.png",
+          "avatar": "/images/github-avatars/86box.png",
+          "stars": 4662,
+          "forks": 558,
+          "slug": "b2227163c9b44d79beb8cb9278ec033a"
+        },
+        {
+          "name": "simplewall",
+          "repo": "henrypp/simplewall",
+          "desc": "小巧的 Windows 网络管控工具。",
+          "url": "https://github.com/henrypp/simplewall",
+          "cover": "/images/hellogithub/68hD9dJbOziXgY3_1784955355.png",
+          "avatar": "/images/github-avatars/henrypp.png",
+          "stars": 8840,
+          "forks": 646,
+          "slug": "7a00609d7ae349a283fe173323d83e10"
+        }
+      ]
+    },
+    {
+      "key": "hg-9",
+      "name": "C# 项目",
+      "projects": [
+        {
+          "name": "FluentCleaner",
+          "repo": "builtbybel/FluentCleaner",
+          "desc": "更好用的 Windows 系统清理工具。",
+          "url": "https://github.com/builtbybel/FluentCleaner",
+          "cover": "/images/hellogithub/UEpJbDRdvMoNfQL_1784964954.png",
+          "avatar": null,
+          "stars": 5238,
+          "forks": 171,
+          "slug": "6aacf0d14caf4fe7884cbf2badead9f0"
+        },
+        {
+          "name": "nvidiaProfileInspector",
+          "repo": "Orbmu2k/nvidiaProfileInspector",
+          "desc": "解锁 NVIDIA 驱动隐藏设置。",
+          "url": "https://github.com/Orbmu2k/nvidiaProfileInspector",
+          "cover": "/images/hellogithub/JdlrTW7qmFCPOUy_1784962742.png",
+          "avatar": null,
+          "stars": 7021,
+          "forks": 380,
+          "slug": "41bff54fe6344e758149722c71ce6518"
+        }
+      ]
+    },
+    {
+      "key": "hg-12",
+      "name": "C++ 项目",
+      "projects": [
+        {
+          "name": "JoltPhysics",
+          "repo": "jrouwe/JoltPhysics",
+          "desc": "《死亡搁浅 2》背后的物理引擎。",
+          "url": "https://github.com/jrouwe/JoltPhysics",
+          "cover": "/images/hellogithub/4ZeL7pJFqKlC5wQ_1784962095.gif",
+          "avatar": null,
+          "stars": 11349,
+          "forks": 961,
+          "slug": "99d7e4a8c4044698add9d294c303d1e5"
+        }
+      ]
+    },
+    {
+      "key": "hg-7",
+      "name": "Go 项目",
+      "projects": [
+        {
+          "name": "App-Store-Connect-CLI",
+          "repo": "rorkai/App-Store-Connect-CLI",
+          "desc": "命令行发布 App Store 应用。",
+          "url": "https://github.com/rorkai/App-Store-Connect-CLI",
+          "cover": "/images/hellogithub/QKsVLlRwuBSakqO_1784975805.png",
+          "avatar": null,
+          "stars": 5844,
+          "forks": 507,
+          "slug": "dce4c150589b4614b7626c0f0c8c4c3a"
+        },
+        {
+          "name": "kage",
+          "repo": "tamnd/kage",
+          "desc": "把整个网站打包离线阅读。",
+          "url": "https://github.com/tamnd/kage",
+          "cover": "/images/hellogithub/l2EaQPyoSzfVcRb_1784976718.gif",
+          "avatar": null,
+          "stars": 3222,
+          "forks": 119,
+          "slug": "7def6aa7604446e3ba1f28951a6155be"
+        },
+        {
+          "name": "make-look-scanned",
+          "repo": "overflowy/make-look-scanned",
+          "desc": "让 PDF 看起来像扫描件。",
+          "url": "https://github.com/overflowy/make-look-scanned",
+          "cover": "/images/hellogithub/F54W6xj83eZXJ7o_1784975923.jpg",
+          "avatar": null,
+          "stars": 719,
+          "forks": 39,
+          "slug": "ecc359af15e849e683b112711e372879"
+        },
+        {
+          "name": "zabbix",
+          "repo": "zabbix/zabbix",
+          "desc": "开源的企业级分布式监控平台。",
+          "url": "https://github.com/zabbix/zabbix",
+          "cover": "/images/hellogithub/TpnIhRrWKzXe3AU_1784977662.png",
+          "avatar": null,
+          "stars": 6264,
+          "forks": 1245,
+          "slug": "bc04bd4183f2450c9ec5933370bae83e"
+        }
+      ]
+    },
+    {
+      "key": "hg-8",
+      "name": "Java 项目",
+      "projects": [
+        {
+          "name": "jabref",
+          "repo": "JabRef/jabref",
+          "desc": "写论文用的文献管理工具。",
+          "url": "https://github.com/JabRef/jabref",
+          "cover": "/images/hellogithub/uQPUiO14gbwjA7y_1784983806.png",
+          "avatar": null,
+          "stars": 4593,
+          "forks": 3504,
+          "slug": "4b0670de2ae44662a4688d5143f6e5ee"
+        }
+      ]
+    },
+    {
+      "key": "hg-2",
+      "name": "JavaScript 项目",
+      "projects": [
+        {
+          "name": "astryx",
+          "repo": "facebook/astryx",
+          "desc": "Meta 开源的 React 设计系统。",
+          "url": "https://github.com/facebook/astryx",
+          "cover": "/images/hellogithub/xvbLVIMCSja6Wy1_1785034898.png",
+          "avatar": null,
+          "stars": 12000,
+          "forks": 1030,
+          "slug": "3af1d1b883af446dae0169a50f011de0"
+        },
+        {
+          "name": "ColorTxt",
+          "repo": "ssnangua/ColorTxt",
+          "desc": "会给小说上色的阅读器。",
+          "url": "https://github.com/ssnangua/ColorTxt",
+          "cover": "/images/hellogithub/7vMRzmj3qQEwP9X_1785034024.jpg",
+          "avatar": null,
+          "stars": 1196,
+          "forks": 66,
+          "slug": "d5f9af214b7c4f28bce09b127a13ab4d"
+        },
+        {
+          "name": "karakeep",
+          "repo": "karakeep-app/karakeep",
+          "desc": "可自托管的浏览器书签管理平台。",
+          "url": "https://github.com/karakeep-app/karakeep",
+          "cover": "/images/hellogithub/vPVO2hgu6y5pWos_1785038129.png",
+          "avatar": null,
+          "stars": 28354,
+          "forks": 1434,
+          "slug": "52738cb34a504cbf8be56f83b658be22"
+        },
+        {
+          "name": "magic-resume",
+          "repo": "JOYCEQL/magic-resume",
+          "desc": "在线 AI 简历编辑器。",
+          "url": "https://github.com/JOYCEQL/magic-resume",
+          "cover": "/images/hellogithub/tFHA6mMKecWrf3n_1785037322.png",
+          "avatar": null,
+          "stars": 9845,
+          "forks": 1080,
+          "slug": "51a0f545d0964a47a173794478119ec7"
+        },
+        {
+          "name": "TREK",
+          "repo": "liketrek/TREK",
+          "desc": "可多人协作的旅行规划平台。",
+          "url": "https://github.com/liketrek/TREK",
+          "cover": "/images/hellogithub/gWN3dSVGkoO2nyD_1785036451.png",
+          "avatar": null,
+          "stars": 12251,
+          "forks": 1042,
+          "slug": "ee9c31fd98ec4a16835db811cbd93952"
+        }
+      ]
+    },
+    {
+      "key": "hg-1",
+      "name": "Python 项目",
+      "projects": [
+        {
+          "name": "abogen",
+          "repo": "denizsafak/abogen",
+          "desc": "带同步字幕的有声书生成器。",
+          "url": "https://github.com/denizsafak/abogen",
+          "cover": "/images/hellogithub/1QLZu64WCa3V8vH_1784982737.gif",
+          "avatar": null,
+          "stars": 5683,
+          "forks": 420,
+          "slug": "5874f71080f34f9184376711e0870f43"
+        },
+        {
+          "name": "git-filter-repo",
+          "repo": "newren/git-filter-repo",
+          "desc": "Git 历史重写工具。",
+          "url": "https://github.com/newren/git-filter-repo",
+          "cover": null,
+          "avatar": null,
+          "stars": 13131,
+          "forks": 994,
+          "slug": "78af0c177a414bc988ffd6814dfdf432"
+        },
+        {
+          "name": "HypoMux",
+          "repo": "Hypostasis-Cat/HypoMux",
+          "desc": "把多张网卡的带宽叠加起来。",
+          "url": "https://github.com/Hypostasis-Cat/HypoMux",
+          "cover": "/images/hellogithub/RcUb3KnSlNgP7jp_1784979213.png",
+          "avatar": null,
+          "stars": 2818,
+          "forks": 98,
+          "slug": "b199a1e3939347f7a23b33be72415595"
+        },
+        {
+          "name": "msgspec",
+          "repo": "msgspec/msgspec",
+          "desc": "更快的 Python 序列化库。",
+          "url": "https://github.com/msgspec/msgspec",
+          "cover": "/images/hellogithub/aY57sSUQ0ry82GX_1784980034.png",
+          "avatar": null,
+          "stars": 4013,
+          "forks": 173,
+          "slug": "3ccd47ead8cb42f081340b96ea73d1ed"
+        },
+        {
+          "name": "wenyi",
+          "repo": "BigDawnGhost/wenyi",
+          "desc": "整本翻译外文小说的工具。",
+          "url": "https://github.com/BigDawnGhost/wenyi",
+          "cover": "/images/hellogithub/gZX9aipQjfv8CGr_1784978777.png",
+          "avatar": null,
+          "stars": 2224,
+          "forks": 173,
+          "slug": "648c0ab0997c42479027e360f604fa23"
+        }
+      ]
+    },
+    {
+      "key": "hg-17",
+      "name": "Rust 项目",
+      "projects": [
+        {
+          "name": "harper",
+          "repo": "Automattic/harper",
+          "desc": "本地优先的英语语法检查工具。",
+          "url": "https://github.com/Automattic/harper",
+          "cover": "/images/hellogithub/3YqXps4tkidgQPe_1785048741.png",
+          "avatar": null,
+          "stars": 14431,
+          "forks": 561,
+          "slug": "e57d2b35a6f9463b9eed596d35163476"
+        },
+        {
+          "name": "herdr",
+          "repo": "herdrdev/herdr",
+          "desc": "管理多个 AI 编程助手的终端工具。",
+          "url": "https://github.com/herdrdev/herdr",
+          "cover": "/images/hellogithub/eDriRaO9ZUSIs36_1785048533.png",
+          "avatar": null,
+          "stars": 29112,
+          "forks": 2061,
+          "slug": "ae05780e2e2d42b28931418c05dac8f9"
+        }
+      ]
+    },
+    {
+      "key": "hg-19",
+      "name": "Skills",
+      "projects": [
+        {
+          "name": "archify",
+          "repo": "tt-a1i/archify",
+          "desc": "让 AI 读代码画出架构图。",
+          "url": "https://github.com/tt-a1i/archify",
+          "cover": "/images/hellogithub/la6vTtGz305WYCP_1785043435.png",
+          "avatar": null,
+          "stars": 12523,
+          "forks": 935,
+          "slug": "8b436445b5e642dd84f3a1af24800399"
+        },
+        {
+          "name": "claude-video",
+          "repo": "bradautomates/claude-video",
+          "desc": "让 AI 助手看懂视频。",
+          "url": "https://github.com/bradautomates/claude-video",
+          "cover": null,
+          "avatar": null,
+          "stars": 15412,
+          "forks": 1483,
+          "slug": "36fca7cf692b465bbf59af599acbe02b"
+        },
+        {
+          "name": "hallmark",
+          "repo": "Nutlope/hallmark",
+          "desc": "拒绝 AI 味的网页设计技能。",
+          "url": "https://github.com/Nutlope/hallmark",
+          "cover": "/images/hellogithub/dZImgXy0DWi49J1_1785046481.png",
+          "avatar": null,
+          "stars": 24902,
+          "forks": 1257,
+          "slug": "ac9c66a44a5940e5988e92b5ac615343"
+        }
+      ]
+    },
+    {
+      "key": "hg-10",
+      "name": "Swift 项目",
+      "projects": [
+        {
+          "name": "LockIME",
+          "repo": "oomol-lab/LockIME",
+          "desc": "锁住输入法的 macOS 菜单栏工具。",
+          "url": "https://github.com/oomol-lab/LockIME",
+          "cover": "/images/hellogithub/bqVhp0kCXfrsQEx_1785045356.png",
+          "avatar": null,
+          "stars": 539,
+          "forks": 20,
+          "slug": "2c8366cc6f424cbcac59b0219945aee2"
+        },
+        {
+          "name": "opendisplay",
+          "repo": "peetzweg/opendisplay",
+          "desc": "把 iPhone 变成 Mac 扩展屏。",
+          "url": "https://github.com/peetzweg/opendisplay",
+          "cover": "/images/hellogithub/sctzlHLCx0GK4Zh_1785046689.jpg",
+          "avatar": null,
+          "stars": 2363,
+          "forks": 165,
+          "slug": "557d334006af4b309e252543db97eedf"
+        },
+        {
+          "name": "WhichSpace",
+          "repo": "gechr/WhichSpace",
+          "desc": "菜单栏里的桌面空间切换工具。",
+          "url": "https://github.com/gechr/WhichSpace",
+          "cover": "/images/hellogithub/lf8XVwbWMYAxyPH_1785047348.png",
+          "avatar": null,
+          "stars": 800,
+          "forks": 42,
+          "slug": "f0ac264e7b83402fbf16ce983723edad"
+        }
+      ]
+    },
+    {
+      "key": "hg-15",
+      "name": "人工智能",
+      "projects": [
+        {
+          "name": "code-review-graph",
+          "repo": "tirth8205/code-review-graph",
+          "desc": "让 AI 少读代码的图谱工具。",
+          "url": "https://github.com/tirth8205/code-review-graph",
+          "cover": "/images/hellogithub/jDotLzr35g6vANy_1784988207.png",
+          "avatar": null,
+          "stars": 30135,
+          "forks": 2762,
+          "slug": "ce86268808ea4b578db98d1121ceb348"
+        },
+        {
+          "name": "gastown",
+          "repo": "gastownhall/gastown",
+          "desc": "同时指挥多个 AI 编程助手。",
+          "url": "https://github.com/gastownhall/gastown",
+          "cover": null,
+          "avatar": null,
+          "stars": 17619,
+          "forks": 1620,
+          "slug": "c88ed3cfc1244f1999f42f51c3ec48b4"
+        },
+        {
+          "name": "harbor",
+          "repo": "harbor-framework/harbor",
+          "desc": "AI 智能体评测框架。",
+          "url": "https://github.com/harbor-framework/harbor",
+          "cover": null,
+          "avatar": null,
+          "stars": 4250,
+          "forks": 1564,
+          "slug": "ed32a85ab8da46668c23112b46321ef5"
+        },
+        {
+          "name": "OpenMontage",
+          "repo": "calesthio/OpenMontage",
+          "desc": "把 AI 编程助手变成视频工作室。",
+          "url": "https://github.com/calesthio/OpenMontage",
+          "cover": null,
+          "avatar": null,
+          "stars": 48105,
+          "forks": 6004,
+          "slug": "650efabacf0746639add4b319ae5b2f7"
+        },
+        {
+          "name": "outlines",
+          "repo": "dottxt-ai/outlines",
+          "desc": "严格的 LLM 结构化输出框架。",
+          "url": "https://github.com/dottxt-ai/outlines",
+          "cover": "/images/hellogithub/GizBqHPv2MfZoAY_1784986991.png",
+          "avatar": null,
+          "stars": 15615,
+          "forks": 859,
+          "slug": "67612bf932a04a8c9bef1741c867069b"
+        }
+      ]
+    },
+    {
+      "key": "hg-5",
+      "name": "其它",
+      "projects": [
+        {
+          "name": "crosspoint-reader",
+          "repo": "crosspoint-reader/crosspoint-reader",
+          "desc": "Xteink 墨水屏阅读器的开源固件。",
+          "url": "https://github.com/crosspoint-reader/crosspoint-reader",
+          "cover": "/images/hellogithub/9rcnT6dWaJBIivD_1785042122.png",
+          "avatar": null,
+          "stars": 7070,
+          "forks": 1441,
+          "slug": "d641d07a69854afdb143c420ae20421f"
+        },
+        {
+          "name": "exercises-dataset",
+          "repo": "hasaneyldrm/exercises-dataset",
+          "desc": "上千个健身动作的集合。",
+          "url": "https://github.com/hasaneyldrm/exercises-dataset",
+          "cover": "/images/hellogithub/dfCMy6PjL4ANIGe_1785041186.png",
+          "avatar": null,
+          "stars": 19644,
+          "forks": 2426,
+          "slug": "14ebe7e93550459e9ad7532018e8de21"
+        },
+        {
+          "name": "flutter_server_box",
+          "repo": "lollipopkit/flutter_server_box",
+          "desc": "手机上的服务器管理工具。",
+          "url": "https://github.com/lollipopkit/flutter_server_box",
+          "cover": "/images/hellogithub/GfiU43sHKPjZFQm_1785040850.png",
+          "avatar": null,
+          "stars": 8522,
+          "forks": 534,
+          "slug": "78ba220d6c01475fbbd91278f1ed395f"
+        },
+        {
+          "name": "gitfut",
+          "repo": "Younesfdj/gitfut",
+          "desc": "把 GitHub 数据做成球星卡。",
+          "url": "https://github.com/Younesfdj/gitfut",
+          "cover": "/images/hellogithub/z0v2Im5yHJoVn8Z_1785040101.png",
+          "avatar": null,
+          "stars": 2518,
+          "forks": 134,
+          "slug": "f01fc5bb89ef4842a365f17b5f11a85a"
+        },
+        {
+          "name": "local-llm",
+          "repo": "jamesob/local-llm",
+          "desc": "本地运行 SOTA 大模型实录。",
+          "url": "https://github.com/jamesob/local-llm",
+          "cover": "/images/hellogithub/WnGM7Tz0Fd4L8pX_1785042862.png",
+          "avatar": null,
+          "stars": 1766,
+          "forks": 107,
+          "slug": "5bcad82ee18b4058bdf5f476be86aca1"
+        }
+      ]
+    },
+    {
+      "key": "hg-4",
+      "name": "开源书籍",
+      "projects": [
+        {
+          "name": "ai-agent-book",
+          "repo": "bojieli/ai-agent-book",
+          "desc": "《深入理解 AI Agent：设计原理与工程实践》。",
+          "url": "https://github.com/bojieli/ai-agent-book",
+          "cover": null,
+          "avatar": null,
+          "stars": 37336,
+          "forks": 4096,
+          "slug": "c80ce91cc4744361adf369269922c8cf"
+        },
+        {
+          "name": "little-book-rl",
+          "repo": "alxndrTL/little-book-rl",
+          "desc": "《强化学习小册子》。",
+          "url": "https://github.com/alxndrTL/little-book-rl",
+          "cover": "/images/hellogithub/VEyXlsofhavFTM2_1785044915.png",
+          "avatar": null,
+          "stars": 1509,
+          "forks": 78,
+          "slug": "fe8478dd8bbd45899bc3c6a078d94879"
+        }
+      ]
+    }
+  ]
+}

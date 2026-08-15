@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildFeed, imageFilenameFromUrl, shortDescription } from '../generate.mjs';
+import {
+  avatarFilenameFromRepo,
+  buildFeed,
+  fetchImageBytes,
+  imageFilenameFromUrl,
+  shortDescription
+} from '../generate.mjs';
 
 const payload = {
   success: true,
@@ -25,6 +31,7 @@ const payload = {
 test('buildFeed creates the data shape used by the projects page', () => {
   const feed = buildFeed(payload);
   assert.equal(feed.issue, 125);
+  assert.equal(feed.assets_version, 1);
   assert.equal(feed.source_url, 'https://hellogithub.com/periodical/volume/125');
   assert.equal(feed.groups[0].key, 'hg-1');
   assert.deepEqual(feed.groups[0].projects[0], {
@@ -33,10 +40,42 @@ test('buildFeed creates the data shape used by the projects page', () => {
     desc: '第一句介绍。',
     url: 'https://github.com/owner/demo',
     cover: '/images/hellogithub/demo_123.png',
+    avatar: '/images/github-avatars/owner.png',
     stars: 1234,
     forks: 56,
     slug: 'demo-id'
   });
+});
+
+test('avatarFilenameFromRepo creates a safe local filename', () => {
+  assert.equal(avatarFilenameFromRepo('OpenAI/demo'), 'openai.png');
+  assert.equal(avatarFilenameFromRepo('../unsafe'), null);
+});
+
+test('fetchImageBytes sends the anti-hotlink referer and validates the image', async () => {
+  let requestOptions;
+  const bytes = await fetchImageBytes(
+    'https://img.hellogithub.com/demo.png',
+    { Referer: 'https://hellogithub.com/' },
+    async (_url, options) => {
+      requestOptions = options;
+      return new Response(Uint8Array.from([1, 2, 3]), {
+        status: 200,
+        headers: { 'Content-Type': 'image/png' }
+      });
+    }
+  );
+  assert.equal(requestOptions.headers.Referer, 'https://hellogithub.com/');
+  assert.deepEqual([...bytes], [1, 2, 3]);
+});
+
+test('fetchImageBytes rejects non-image responses', async () => {
+  await assert.rejects(
+    fetchImageBytes('https://img.hellogithub.com/demo.png', {}, async () => (
+      new Response('blocked', { status: 200, headers: { 'Content-Type': 'text/plain' } })
+    )),
+    /图片类型无效/
+  );
 });
 
 test('imageFilenameFromUrl only accepts safe HelloGitHub image names', () => {

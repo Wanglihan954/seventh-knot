@@ -67,7 +67,7 @@ block content
           - var discussionKey = project.slug || encodeURIComponent(project.name)
           - var projectTags = project.tags || [project.repo, stars ? ('Star ' + views) : null].filter(Boolean)
           - var repoOwner = project.repo ? project.repo.split('/')[0] : ''
-          - var ownerAvatar = project.avatar || (repoOwner ? ('https://github.com/' + encodeURIComponent(repoOwner) + '.png?size=96') : '')
+          - var ownerAvatar = project.avatar || ''
           article(class=cardClass, data-project-category=group.key, data-project-search=`${project.name} ${project.repo || ''} ${project.desc} ${projectTags.join(' ')}`)
             a.ik-project-card__link(
               href=project.url,

@@ -10,6 +10,6 @@ npm run hellogithub:update
 npm run build
 ```
 
-数据写入 `source/_data/hellogithub.json`，封面写入 `source/images/hellogithub/`。页面风格由 `themes/yun/layout/projects.pug`、`source/css/projects.css` 和 `source/js/projects.js` 提供。
+数据写入 `source/_data/hellogithub.json`，封面写入 `source/images/hellogithub/`，项目作者头像写入 `source/images/github-avatars/`。页面只引用这些本地资源；封面下载会携带 HelloGitHub 防盗链所需的 `Referer`，并校验响应类型和文件大小。
 
 GitHub Actions 每天北京时间 09:15 检查新一期。同一期会直接跳过，因此不会每天制造无意义提交。
