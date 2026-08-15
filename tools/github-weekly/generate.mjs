@@ -13,6 +13,13 @@ const configPath = path.join(scriptDirectory, 'config.json');
 const latestPath = path.join(projectRoot, 'source', '_data', 'github_weekly.json');
 const archivePath = path.join(projectRoot, 'source', '_data', 'github_weekly_archive.json');
 
+function escapeGitHubActionsMessage(value) {
+  return String(value)
+    .replaceAll('%', '%25')
+    .replaceAll('\r', '%0D')
+    .replaceAll('\n', '%0A');
+}
+
 async function readJson(filePath, fallback) {
   try {
     return JSON.parse(await readFile(filePath, 'utf8'));
@@ -150,7 +157,11 @@ export async function generateWeekly({ env = process.env, now = new Date() } = {
 const invokedPath = process.argv[1] ? path.resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   generateWeekly().catch((error) => {
-    console.error(`[github-weekly] 生成失败：${error.stack || error.message}`);
+    const detail = error.stack || error.message || String(error);
+    console.error(`[github-weekly] 生成失败：${detail}`);
+    if (process.env.GITHUB_ACTIONS === 'true') {
+      console.error(`::error title=GitHub Weekly 生成失败::${escapeGitHubActionsMessage(detail)}`);
+    }
     process.exitCode = 1;
   });
 }
