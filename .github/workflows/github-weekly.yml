@@ -1,0 +1,107 @@
+name: GitHub Weekly
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - test
+    paths:
+      - ".github/workflows/github-weekly.yml"
+      - "package.json"
+      - "scripts/github-weekly-*.js"
+      - "source/_data/github_weekly*.json"
+      - "source/css/github-weekly.css"
+      - "source/github-weekly/**"
+      - "source/js/github-weekly.js"
+      - "themes/yun/layout/github-weekly.pug"
+      - "tools/github-weekly/**"
+  schedule:
+    # Every Monday at 09:00 in Asia/Shanghai (01:00 UTC).
+    - cron: "0 1 * * 1"
+
+concurrency:
+  group: github-weekly-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
+      LLM_MODEL: ${{ vars.LLM_MODEL }}
+      GITHUB_WEEKLY_REQUIRE_AI: "true"
+      WEBLOG_DEPLOY_TOKEN: ${{ secrets.WEBLOG_DEPLOY_TOKEN }}
+
+    steps:
+      - name: Checkout weblog source
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run GitHub Weekly tests
+        run: npm run test:github-weekly
+
+      - name: Generate weekly issue
+        run: npm run github-weekly
+
+      - name: Build Hexo site
+        run: npm run build
+
+      - name: Commit generated data
+        id: source-commit
+        shell: bash
+        run: |
+          git config user.name "github-weekly[bot]"
+          git config user.email "github-weekly[bot]@users.noreply.github.com"
+          git add source/_data/github_weekly.json source/_data/github_weekly_archive.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "content: publish GitHub Weekly"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout production Pages repository
+        if: github.ref == 'refs/heads/main' && env.WEBLOG_DEPLOY_TOKEN != ''
+        uses: actions/checkout@v6
+        with:
+          repository: Wanglihan954/Wanglihan954.github.io
+          token: ${{ env.WEBLOG_DEPLOY_TOKEN }}
+          path: .weekly-deploy
+          fetch-depth: 1
+
+      - name: Publish generated site
+        if: github.ref == 'refs/heads/main' && env.WEBLOG_DEPLOY_TOKEN != ''
+        shell: bash
+        run: |
+          rsync -a --delete --exclude='.git/' public/ .weekly-deploy/
+          cd .weekly-deploy
+          git config user.name "github-weekly[bot]"
+          git config user.email "github-weekly[bot]@users.noreply.github.com"
+          git add --all
+          if git diff --cached --quiet; then
+            echo "Production site is already current."
+          else
+            git commit -m "deploy: GitHub Weekly ${GITHUB_SHA::7}"
+            git push
+          fi
+
+      - name: Explain skipped production deployment
+        if: github.ref == 'refs/heads/main' && env.WEBLOG_DEPLOY_TOKEN == ''
+        run: echo "WEBLOG_DEPLOY_TOKEN is not configured; source data was updated but production deployment was skipped."

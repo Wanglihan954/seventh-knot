@@ -1,0 +1,132 @@
+extends _partial/layout.pug
+
+block content
+  - var weekly = page.weeklyData || (site.data && site.data.github_weekly) || {}
+  - var archive = (site.data && site.data.github_weekly_archive) || { issues: [] }
+  - var groups = Array.isArray(weekly.groups) ? weekly.groups : []
+  - var projectCount = groups.reduce(function(total, group) { return total + ((group.projects && group.projects.length) || 0) }, 0)
+  - var published = weekly.status === 'published' && projectCount > 0
+  - var editionLabel = weekly.issue ? ('ISSUE ' + String(weekly.issue).padStart(2, '0')) : 'AWAITING SIGNAL'
+  script.
+    document.body.classList.add('is-github-weekly-page')
+  link(rel='stylesheet', href=url_for('/css/github-weekly.css'))
+  #page.github-weekly.gw-page(data-week=weekly.week || '')
+    header.gw-hero
+      .gw-hero__signal(aria-hidden='true')
+        span
+        span
+        span
+      .gw-hero__copy
+        p.gw-eyebrow SEVENTH KNOT / OPEN-SOURCE RADAR
+        h1 GitHub 开源周报
+        p.gw-intro 每周扫描 GitHub Trending 与近期新项目，由 AI 根据公开仓库资料生成中文导读。
+      .gw-hero__edition
+        small= editionLabel
+        strong= weekly.week || '每周一更新'
+        if weekly.date
+          time(datetime=weekly.date)= weekly.date
+
+    if published
+      section.gw-console(aria-label='周报概览')
+        .gw-console__metric
+          span 本期项目
+          strong= projectCount
+        .gw-console__metric
+          span 数据来源
+          strong Trending + Search
+        .gw-console__metric
+          span 内容语言
+          strong 中文
+        .gw-console__status
+          i(aria-hidden='true')
+          span 扫描完成
+
+      section.gw-controls(aria-label='项目筛选')
+        label.gw-search
+          +icon('ri:search-line')
+          span.sr-only 搜索项目
+          input#github-weekly-search(type='search', placeholder='搜索项目、语言或标签', autocomplete='off')
+        nav.gw-filters(aria-label='项目分类')
+          button.is-active(type='button', data-weekly-filter='all', aria-pressed='true') 全部
+          each group in groups
+            button(type='button', data-weekly-filter=group.key, aria-pressed='false')= group.name
+      p#github-weekly-status.gw-status= '正在显示全部 ' + projectCount + ' 个项目'
+
+      section.gw-grid(aria-label='本期项目')
+        each group in groups
+          each project in group.projects
+            - var tags = Array.isArray(project.tags) ? project.tags : []
+            - var searchText = [project.name, project.repo, project.desc, project.language].concat(tags).filter(Boolean).join(' ')
+            article.gw-card(data-weekly-category=group.key, data-weekly-search=searchText)
+              .gw-card__top
+                .gw-card__identity
+                  if project.avatar
+                    img(src=project.avatar, alt='', loading='lazy', referrerpolicy='no-referrer')
+                  else
+                    span(aria-hidden='true') GH
+                  div
+                    small= group.name
+                    h2= project.name
+                if project.weeklyStars
+                  span.gw-card__trend
+                    +icon('ri:arrow-up-line')
+                    = project.weeklyStars.toLocaleString('zh-CN') + ' / 周'
+              a.gw-card__repo(href=project.url, target='_blank', rel='noopener')
+                span= project.repo
+                +icon('ri:external-link-line')
+              p.gw-card__description= project.desc
+              if project.highlights && project.highlights.length
+                ul.gw-card__highlights
+                  each highlight in project.highlights
+                    li= highlight
+              p.gw-card__reason
+                strong 推荐理由
+                span= project.reason
+              .gw-card__tags
+                if project.language
+                  span= project.language
+                each tag in tags
+                  span= tag
+              footer.gw-card__footer
+                span
+                  +icon('ri:star-fill')
+                  = Number(project.stars || 0).toLocaleString('zh-CN')
+                span
+                  +icon('ri:git-fork-line')
+                  = Number(project.forks || 0).toLocaleString('zh-CN')
+                if project.license
+                  span= project.license
+                if project.aiGenerated
+                  em AI 导读
+      .gw-empty#github-weekly-empty(hidden)
+        strong 没有找到匹配的项目
+        p 换一个关键词或分类试试。
+    else
+      section.gw-awaiting
+        .gw-awaiting__radar(aria-hidden='true')
+          span
+        div
+          p SYSTEM STANDBY
+          h2 第一份周报尚未生成
+          p 配置 GitHub Actions 与模型密钥后运行“GitHub Weekly”，这里会自动出现本周项目。
+          code npm run github-weekly
+
+    if archive.issues && archive.issues.length
+      section.gw-archive
+        header
+          p ARCHIVE LOG
+          h2 历史周报
+        nav(aria-label='历史周报')
+          each item in archive.issues
+            - var active = weekly.week === item.week
+            a(class=active ? 'is-active' : '', href=url_for(item.path))
+              strong= '#' + item.issue
+              span= item.week
+              small= item.projectCount + ' 个项目'
+
+    footer.gw-source
+      p 候选项目来自 GitHub 公开页面与 API；中文介绍由 AI 根据公开 README 生成，可能存在疏漏，请以项目仓库为准。
+      a(href='https://github.com/trending?since=weekly', target='_blank', rel='noopener')
+        span 查看 GitHub Trending
+        +icon('ri:external-link-line')
+  script(src=url_for('/js/github-weekly.js'), defer)

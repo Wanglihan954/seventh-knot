@@ -1,0 +1,21 @@
+{
+  "languages": ["", "python", "cpp", "rust", "typescript", "go"],
+  "interests": [
+    "AI Agent",
+    "Computer Vision",
+    "Mamba",
+    "Deep Learning",
+    "Developer Tools",
+    "Self-hosted"
+  ],
+  "excludeTopics": ["cryptocurrency", "gambling", "malware"],
+  "maxCandidates": 48,
+  "maxProjects": 15,
+  "maxPerOwner": 2,
+  "minStarsForNewRepositories": 20,
+  "readmeMaxCharacters": 12000,
+  "requestConcurrency": 4,
+  "aiConcurrency": 2,
+  "timezone": "Asia/Shanghai",
+  "categories": ["人工智能", "开发者工具", "Web 应用", "系统工具", "数据与科学", "开源学习", "其它"]
+}
