@@ -10,6 +10,8 @@
     const empty = page.querySelector('.projects-empty');
     const dialog = page.querySelector('#project-discussion-dialog');
     const dialogTitle = page.querySelector('#project-dialog-title');
+    const dialogAvatar = page.querySelector('#project-dialog-avatar');
+    const dialogAvatarFallback = page.querySelector('.ik-project-dialog__avatar-fallback');
     const dialogCover = page.querySelector('.ik-project-dialog__cover img');
     const dialogChannel = page.querySelector('.ik-project-dialog__channel');
     const dialogName = page.querySelector('.ik-project-dialog__copy h2');
@@ -136,14 +138,26 @@
       const tags = JSON.parse(trigger.dataset.projectTags || '[]');
       const name = trigger.dataset.projectName || '项目讨论';
       const discussionKey = trigger.dataset.projectDiscussion || encodeURIComponent(name);
+      const avatar = trigger.dataset.projectAvatar || '';
 
       lastFocusedElement = trigger;
       dialogTitle.textContent = name;
+      if (dialogAvatar && dialogAvatarFallback) {
+        dialogAvatar.hidden = !avatar;
+        dialogAvatarFallback.hidden = Boolean(avatar);
+        if (avatar) {
+          dialogAvatar.src = avatar;
+          dialogAvatar.alt = name + ' 项目作者头像';
+        } else {
+          dialogAvatar.removeAttribute('src');
+          dialogAvatar.alt = '';
+        }
+      }
       dialogCover.src = trigger.dataset.projectCover || '/images/interknot/default-cover.webp';
       dialogCover.alt = name + ' 项目封面';
       dialogChannel.textContent = trigger.dataset.projectCategoryName || '项目';
       dialogName.textContent = name;
-      dialogDesc.textContent = trigger.dataset.projectDesc || '';
+      dialogDesc.textContent = trigger.dataset.projectFullDesc || trigger.dataset.projectDesc || '';
       dialogVisit.href = trigger.dataset.projectUrl || trigger.href;
       dialogTags.replaceChildren();
       tags.forEach(function (tag) {

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const HELLOGITHUB_API = 'https://api.hellogithub.com/v1/periodical/volume/';
 const ASSETS_VERSION = 1;
+const CONTENT_VERSION = 1;
 const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, '..', '..');
@@ -50,6 +51,10 @@ export function shortDescription(value) {
   return (sentence ? sentence[0] : text).slice(0, 120);
 }
 
+export function fullDescription(value) {
+  return String(value || '').replace(/\r\n?/g, '\n').trim();
+}
+
 export function avatarFilenameFromRepo(repo) {
   const owner = String(repo || '').split('/', 1)[0];
   return /^[a-zA-Z0-9-]{1,39}$/.test(owner) ? `${owner.toLowerCase()}.png` : null;
@@ -67,6 +72,7 @@ function toProject(item, volume, availableAssets) {
     name: item.name,
     repo: item.full_name,
     desc: shortDescription(item.description),
+    full_desc: fullDescription(item.description),
     url: item.github_url,
     cover: coverAvailable ? `/images/hellogithub/${imageFilename}` : null,
     avatar: avatarAvailable ? `/images/github-avatars/${avatarFilename}` : null,
@@ -90,6 +96,7 @@ export function buildFeed(payload, availableAssets = null) {
   if (!projectCount) throw new Error(`HelloGitHub 第 ${volume} 期没有可发布的项目`);
   return {
     assets_version: ASSETS_VERSION,
+    content_version: CONTENT_VERSION,
     issue: volume,
     published_at: payload.publish_at || new Date().toISOString(),
     source_url: `https://hellogithub.com/periodical/volume/${volume}`,
@@ -197,6 +204,21 @@ async function downloadAssets(payload, fetchImpl) {
   return available;
 }
 
+function availableAssetsFromFeed(feed) {
+  const available = { covers: new Set(), avatars: new Set() };
+  for (const group of feed?.groups || []) {
+    for (const project of group.projects || []) {
+      if (project.cover?.startsWith('/images/hellogithub/')) {
+        available.covers.add(path.posix.basename(project.cover));
+      }
+      if (project.avatar?.startsWith('/images/github-avatars/')) {
+        available.avatars.add(path.posix.basename(project.avatar));
+      }
+    }
+  }
+  return available;
+}
+
 export async function fetchLatestPayload(fetchImpl = fetch) {
   const response = await fetchImpl(HELLOGITHUB_API, {
     headers: {
@@ -212,11 +234,16 @@ export async function fetchLatestPayload(fetchImpl = fetch) {
 export async function syncLatest({ fetchImpl = fetch } = {}) {
   const current = await readJson(dataPath, null);
   const payload = await fetchLatestPayload(fetchImpl);
-  if (current?.issue === payload.current_num && current?.assets_version === ASSETS_VERSION) {
+  const sameIssue = current?.issue === payload.current_num;
+  const assetsCurrent = sameIssue && current?.assets_version === ASSETS_VERSION;
+  const contentCurrent = sameIssue && current?.content_version === CONTENT_VERSION;
+  if (assetsCurrent && contentCurrent) {
     console.log(`[hellogithub] 当前已是最新的第 ${payload.current_num} 期，图片也已本地化，无需更新。`);
     return current;
   }
-  const availableAssets = await downloadAssets(payload, fetchImpl);
+  const availableAssets = assetsCurrent
+    ? availableAssetsFromFeed(current)
+    : await downloadAssets(payload, fetchImpl);
   const feed = buildFeed(payload, availableAssets);
   await writeJsonAtomic(dataPath, feed);
   const projectCount = feed.groups.reduce((total, group) => total + group.projects.length, 0);

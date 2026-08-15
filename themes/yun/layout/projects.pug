@@ -68,12 +68,14 @@ block content
           - var projectTags = project.tags || [project.repo, stars ? ('Star ' + views) : null].filter(Boolean)
           - var repoOwner = project.repo ? project.repo.split('/')[0] : ''
           - var ownerAvatar = project.avatar || ''
-          article(class=cardClass, data-project-category=group.key, data-project-search=`${project.name} ${project.repo || ''} ${project.desc} ${projectTags.join(' ')}`)
+          article(class=cardClass, data-project-category=group.key, data-project-search=`${project.name} ${project.repo || ''} ${project.full_desc || project.desc} ${projectTags.join(' ')}`)
             a.ik-project-card__link(
               href=project.url,
               data-project-open,
               data-project-name=project.name,
               data-project-desc=project.desc,
+              data-project-full-desc=(project.full_desc || project.desc),
+              data-project-avatar=ownerAvatar,
               data-project-url=project.url,
               data-project-cover=projectCover,
               data-project-category-name=group.name,
@@ -120,7 +122,9 @@ block content
       .ik-project-dialog__panel
         header.ik-project-dialog__header
           .ik-project-dialog__identity
-            span.ik-project-dialog__signal(aria-hidden='true')
+            span.ik-project-dialog__avatar(aria-hidden='true')
+              span.ik-project-dialog__avatar-fallback GH
+              img#project-dialog-avatar(hidden, alt='')
             div
               small= helloGithub ? 'HELLOGITHUB / PROJECT DISCUSSION' : 'PROJECT DISCUSSION'
               strong#project-dialog-title 项目讨论

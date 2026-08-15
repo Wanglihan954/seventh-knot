@@ -4,6 +4,7 @@ import {
   avatarFilenameFromRepo,
   buildFeed,
   fetchImageBytes,
+  fullDescription,
   imageFilenameFromUrl,
   shortDescription
 } from '../generate.mjs';
@@ -32,12 +33,14 @@ test('buildFeed creates the data shape used by the projects page', () => {
   const feed = buildFeed(payload);
   assert.equal(feed.issue, 125);
   assert.equal(feed.assets_version, 1);
+  assert.equal(feed.content_version, 1);
   assert.equal(feed.source_url, 'https://hellogithub.com/periodical/volume/125');
   assert.equal(feed.groups[0].key, 'hg-1');
   assert.deepEqual(feed.groups[0].projects[0], {
     name: 'demo',
     repo: 'owner/demo',
     desc: '第一句介绍。',
+    full_desc: '第一句介绍。第二句不会进入卡片摘要。',
     url: 'https://github.com/owner/demo',
     cover: '/images/hellogithub/demo_123.png',
     avatar: '/images/github-avatars/owner.png',
@@ -87,6 +90,10 @@ test('imageFilenameFromUrl only accepts safe HelloGitHub image names', () => {
 test('shortDescription keeps a compact first sentence', () => {
   assert.equal(shortDescription('  简短介绍。 后续细节。 '), '简短介绍。');
   assert.equal(shortDescription('No punctuation'), 'No punctuation');
+});
+
+test('fullDescription preserves the complete HelloGitHub copy', () => {
+  assert.equal(fullDescription('第一段。\r\n第二段。'), '第一段。\n第二段。');
 });
 
 test('invalid payload is rejected', () => {
