@@ -6,18 +6,18 @@ on:
     branches:
       - test
     paths:
-      - ".github/workflows/github-weekly.yml"
+      - ".github/workflows/hellogithub-latest.yml"
       - "package.json"
-      - "scripts/github-weekly-*.js"
-      - "source/_data/github_weekly*.json"
-      - "source/css/github-weekly.css"
-      - "source/github-weekly/**"
-      - "source/js/github-weekly.js"
-      - "themes/yun/layout/github-weekly.pug"
-      - "tools/github-weekly/**"
+      - "source/_data/hellogithub.json"
+      - "source/css/projects.css"
+      - "source/images/hellogithub/**"
+      - "source/images/interknot/**"
+      - "source/js/projects.js"
+      - "source/projects/**"
+      - "themes/yun/layout/projects.pug"
+      - "tools/hellogithub/**"
   schedule:
-    # Check every day at 09:15 in Asia/Shanghai (01:15 UTC).
-    # HelloGitHub normally publishes monthly; unchanged data creates no commit.
+    # 北京时间每天 09:15 检查；HelloGitHub 未发布新一期时不会产生提交。
     - cron: "15 1 * * *"
 
 concurrency:
@@ -28,7 +28,7 @@ permissions:
   contents: write
 
 jobs:
-  generate-and-build:
+  sync-and-build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run HelloGitHub sync tests
+      - name: Test HelloGitHub sync
         run: npm run test:hellogithub
 
       - name: Sync latest HelloGitHub issue
@@ -58,19 +58,17 @@ jobs:
       - name: Build Hexo site
         run: npm run build
 
-      - name: Commit generated data
-        id: source-commit
+      - name: Commit updated issue
         shell: bash
         run: |
           git config user.name "hellogithub-sync[bot]"
           git config user.email "hellogithub-sync[bot]@users.noreply.github.com"
-          git add source/_data/github_weekly.json source/_data/github_weekly_archive.json
+          git add source/_data/hellogithub.json source/images/hellogithub
           if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "HelloGitHub is already current."
           else
             git commit -m "content: sync latest HelloGitHub issue"
             git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Checkout production Pages repository
@@ -79,15 +77,15 @@ jobs:
         with:
           repository: Wanglihan954/Wanglihan954.github.io
           token: ${{ env.WEBLOG_DEPLOY_TOKEN }}
-          path: .weekly-deploy
+          path: .hellogithub-deploy
           fetch-depth: 1
 
       - name: Publish generated site
         if: github.ref == 'refs/heads/main' && env.WEBLOG_DEPLOY_TOKEN != ''
         shell: bash
         run: |
-          rsync -a --delete --exclude='.git/' public/ .weekly-deploy/
-          cd .weekly-deploy
+          rsync -a --delete --exclude='.git/' public/ .hellogithub-deploy/
+          cd .hellogithub-deploy
           git config user.name "hellogithub-sync[bot]"
           git config user.email "hellogithub-sync[bot]@users.noreply.github.com"
           git add --all
