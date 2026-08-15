@@ -1,7 +1,567 @@
 {
   "version": 1,
-  "updatedAt": null,
-  "issues": [],
-  "editions": {},
-  "repositories": []
+  "updatedAt": "2026-08-16T01:26:22+08:00",
+  "issues": [
+    {
+      "issue": 1,
+      "week": "2026-W33",
+      "title": "GitHub 开源周报 · 第 1 期",
+      "date": "2026-08-16",
+      "projectCount": 15,
+      "path": "/github-weekly/2026-W33/"
+    }
+  ],
+  "editions": {
+    "2026-W33": {
+      "issue": 1,
+      "week": "2026-W33",
+      "title": "GitHub 开源周报 · 第 1 期",
+      "publishedAt": "2026-08-16T01:26:22+08:00",
+      "date": "2026-08-16",
+      "status": "published",
+      "method": "GitHub Trending Weekly + GitHub Search API",
+      "projectCount": 15,
+      "groups": [
+        {
+          "key": "weekly-161332dd",
+          "name": "人工智能",
+          "projects": [
+            {
+              "name": "prime-agent",
+              "repo": "PrimeIntellect-ai/prime-agent",
+              "url": "https://github.com/PrimeIntellect-ai/prime-agent",
+              "homepage": null,
+              "desc": "Prime Agent是基于RLM的自改进智能代理，面向编码工作流与长期自治任务，支持后台会话保活、子代理调度、技能迭代，采用MIT协议开源。",
+              "highlights": [
+                "支持长期自治任务运行，会话断开后可后台保持、后续重连",
+                "内置子代理调度能力，支持多代理间直接通信协作",
+                "可迭代优化技能、提示词等状态，支持历史快照回滚"
+              ],
+              "reason": "项目周星增量达10739，关注度攀升迅速，其面向长周期自治任务、多代理协作的特性在AI代理领域具备较高参考价值。",
+              "maturity": null,
+              "category": "人工智能",
+              "tags": [
+                "RLM",
+                "智能代理",
+                "编码辅助",
+                "自治任务"
+              ],
+              "language": "TypeScript",
+              "stars": 16201,
+              "forks": 1742,
+              "weeklyStars": 10739,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/148051844?v=4",
+              "cover": null,
+              "score": 344.9,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "60ba395468f8a760"
+            },
+            {
+              "name": "pi",
+              "repo": "earendil-works/pi",
+              "url": "https://github.com/earendil-works/pi",
+              "homepage": null,
+              "desc": "这是一款基于TypeScript开发的AI Agent工具集，提供统一多厂商LLM API、Agent运行时、交互式编码代理CLI、差分渲染终端UI等能力，采用MIT许可证。",
+              "highlights": [
+                "统一对接多厂商LLM API，覆盖OpenAI、Anthropic、Google等主流服务商",
+                "提供可自扩展的交互式编码代理CLI与完整Agent运行时，支持工具调用与状态管理",
+                "配套完善的供应链安全加固机制，保障依赖管理与版本发布流程安全"
+              ],
+              "reason": "周增星达5255，总星量已超9万，关注度高，项目提供完整的AI Agent落地相关能力，配套完善的供应链安全机制，迭代活跃。",
+              "maturity": null,
+              "category": "人工智能",
+              "tags": [
+                "LLM",
+                "AI Agent",
+                "编码代理",
+                "TypeScript"
+              ],
+              "language": "TypeScript",
+              "stars": 90840,
+              "forks": 11266,
+              "weeklyStars": 5255,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/207902832?v=4",
+              "cover": null,
+              "score": 344.8,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "0c558be2bc3b8ea3"
+            },
+            {
+              "name": "TencentDB-Agent-Memory",
+              "repo": "TencentCloud/TencentDB-Agent-Memory",
+              "url": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
+              "homepage": null,
+              "desc": "TencentDB Agent Memory是面向AI Agent的团队级记忆中枢，可将对话、文档、代码转化为四类可复用记忆资产，支持跨Agent框架共享、管控与分配。",
+              "highlights": [
+                "自动提取Chat Memory、Skill、LLM-Wiki、Code-Graph四类记忆资产",
+                "支持DeepSeek Harness、Claude Code等多Agent框架零代码接入",
+                "提供分层记忆管理、权限管控、团队资产共享与分配能力"
+              ],
+              "reason": "本周新增星数达4423，功能覆盖Agent记忆分层、多框架适配、团队协作等场景，实用性较强",
+              "maturity": "Beta",
+              "category": "人工智能",
+              "tags": [
+                "ai-agent",
+                "llm",
+                "long-term-memory",
+                "vector-search"
+              ],
+              "language": "TypeScript",
+              "stars": 21910,
+              "forks": 2006,
+              "weeklyStars": 4423,
+              "license": "NOASSERTION",
+              "avatar": "https://avatars.githubusercontent.com/u/20101770?v=4",
+              "cover": null,
+              "score": 341.33,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "38ae38ecf8df6cc8"
+            },
+            {
+              "name": "ragflow",
+              "repo": "infiniflow/ragflow",
+              "url": "https://github.com/infiniflow/ragflow",
+              "homepage": "https://ragflow.io",
+              "desc": "RAGFlow是开源检索增强生成（RAG）引擎，融合RAG与Agent能力为大语言模型提供优质上下文层，适配各规模企业的RAG工作流需求。",
+              "highlights": [
+                "支持深度文档理解，可处理复杂格式非结构化数据，无token长度限制",
+                "提供模板化智能分块能力，支持引用溯源，可降低大模型生成幻觉",
+                "兼容多类数据源，内置自动化RAG工作流，提供易用API方便业务集成"
+              ],
+              "reason": "本周新增Star达1357，累计Star超8.8万，社区活跃度高；近期新增多聊天渠道接入、主流大模型适配、多数据源同步等功能，迭代速度快。",
+              "maturity": "稳定版",
+              "category": "人工智能",
+              "tags": [
+                "rag",
+                "retrieval-augmented-generation",
+                "agentic-ai",
+                "llm-apps"
+              ],
+              "language": "Go",
+              "stars": 88541,
+              "forks": 10390,
+              "weeklyStars": 1357,
+              "license": "Apache-2.0",
+              "avatar": "https://avatars.githubusercontent.com/u/69962740?v=4",
+              "cover": null,
+              "score": 324.25,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "4efad711ca8cf220"
+            },
+            {
+              "name": "unsloth",
+              "repo": "unslothai/unsloth",
+              "url": "https://github.com/unslothai/unsloth",
+              "homepage": "https://unsloth.ai/docs",
+              "desc": "Unsloth是支持本地运行、训练LLM、扩散等多类AI模型的工具，提供桌面端、网页UI、代码版三种使用形式，适配多类硬件，支持微调、导出部署等能力。",
+              "highlights": [
+                "支持Qwen3.8、Kimi K3、Gemma 4、FLUX等多款主流AI模型",
+                "模型微调速度提升2倍，显存占用可降低70%",
+                "提供OpenAI兼容API，支持GGUF等多格式模型导出部署"
+              ],
+              "reason": "本周新增星数1744，累计星量超7.1万，功能覆盖AI模型运行、训练全流程，适配多系统多硬件，易用性较强。",
+              "maturity": "beta",
+              "category": "人工智能",
+              "tags": [
+                "LLM微调",
+                "本地AI",
+                "扩散模型",
+                "模型部署"
+              ],
+              "language": "Python",
+              "stars": 71894,
+              "forks": 6481,
+              "weeklyStars": 1744,
+              "license": "Apache-2.0",
+              "avatar": "https://avatars.githubusercontent.com/u/150920049?v=4",
+              "cover": null,
+              "score": 323.43,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "5ba4a50d51e91832"
+            },
+            {
+              "name": "semantica",
+              "repo": "semantica-agi/semantica",
+              "url": "https://github.com/semantica-agi/semantica",
+              "homepage": "https://getsemantica.ai",
+              "desc": "Semantica是面向可问责AI系统的图原生基础设施，可构建上下文图与知识图谱，提供决策溯源、可解释推理等能力，适配高合规要求场景。",
+              "highlights": [
+                "支持构建上下文图与知识图谱，内置决策溯源、可解释推理、AI治理等核心能力",
+                "原生适配Databricks、Snowflake等企业数据平台，支持多源数据接入处理",
+                "兼容多种图存储与向量存储方案，可自托管，无厂商锁定"
+              ],
+              "reason": "本周周增星达5135，涨势迅猛，是热门的可问责AI基础设施项目，可满足高监管领域的AI合规与溯源需求。",
+              "maturity": null,
+              "category": "人工智能",
+              "tags": [
+                "知识图谱",
+                "AI治理",
+                "可解释AI",
+                "Graph RAG"
+              ],
+              "language": "Python",
+              "stars": 7854,
+              "forks": 806,
+              "weeklyStars": 5135,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/213958577?v=4",
+              "cover": null,
+              "score": 320.99,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "5e0449f3d53329cd"
+            },
+            {
+              "name": "paperclip",
+              "repo": "paperclipai/paperclip",
+              "url": "https://github.com/paperclipai/paperclip",
+              "homepage": "https://paperclip.ing",
+              "desc": "Paperclip是基于TypeScript开发的开源工作场景AI Agent编排工具，提供Node.js服务端与React前端，可统一管理多Agent团队、分配目标、追踪工作与成本。",
+              "highlights": [
+                "支持接入OpenClaw、Claude Code等任意主流Agent运行时，可编排多Agent协同完成业务目标",
+                "内置预算管控、审计日志、组织架构等能力，可避免Token浪费与多Agent管理混乱问题",
+                "采用类任务管理器交互逻辑，支持移动端访问，使用门槛较低"
+              ],
+              "reason": "本周周星达2404，涨势迅猛，功能覆盖工作场景Agent编排全流程，开箱即可解决多Agent管理混乱、成本失控的常见痛点。",
+              "maturity": null,
+              "category": "人工智能",
+              "tags": [
+                "AI Agent编排",
+                "多Agent协同",
+                "成本管控",
+                "任务管理"
+              ],
+              "language": "TypeScript",
+              "stars": 78256,
+              "forks": 14354,
+              "weeklyStars": 2404,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/264498616?v=4",
+              "cover": null,
+              "score": 319.83,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "2d4d3afa6fb542f6"
+            },
+            {
+              "name": "ComfyUI",
+              "repo": "Comfy-Org/ComfyUI",
+              "url": "https://github.com/Comfy-Org/ComfyUI",
+              "homepage": "https://www.comfy.org/",
+              "desc": "ComfyUI是具备节点图交互界面的模块化扩散模型GUI、API与后端，支持图像、视频、3D、音频等多模态内容生成，适配多类操作系统与主流AI模型。",
+              "highlights": [
+                "提供可视化节点图操作界面，无需代码即可搭建、复用多模态内容生成工作流",
+                "原生兼容大量主流开源AI模型，支持自定义节点扩展能力",
+                "覆盖本地桌面端、便携式安装、云服务多部署方式，支持API接入生产管线"
+              ],
+              "reason": "该项目周增星达3050，社区关注度极高，持续迭代支持最新各类多模态生成模型，可满足不同场景的部署使用需求。",
+              "maturity": "成熟",
+              "category": "人工智能",
+              "tags": [
+                "stable-diffusion",
+                "多模态生成",
+                "Pytorch",
+                "节点工作流"
+              ],
+              "language": "Python",
+              "stars": 127748,
+              "forks": 15045,
+              "weeklyStars": 3050,
+              "license": "GPL-3.0",
+              "avatar": "https://avatars.githubusercontent.com/u/166579949?v=4",
+              "cover": null,
+              "score": 319.77,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "4218fbd48cabcdb6"
+            },
+            {
+              "name": "skills",
+              "repo": "anthropics/skills",
+              "url": "https://github.com/anthropics/skills",
+              "homepage": null,
+              "desc": "本项目是Anthropic官方推出的Claude Agent Skills公共仓库，包含多类技能示例、开发规范与模板，支持开发者为Claude定制专项任务处理能力。",
+              "highlights": [
+                "提供创意设计、技术开发、企业工作流、文档处理等多场景的Claude技能示例",
+                "包含官方Agent Skills开发规范与模板，降低自定义技能开发门槛",
+                "开放Claude生产级文档处理技能源码作为开发参考"
+              ],
+              "reason": "本周新增星数2693，总星数达16.9万，是Anthropic官方推出的Agent能力开发资源，参考价值高",
+              "maturity": null,
+              "category": "人工智能",
+              "tags": [
+                "Agent Skills",
+                "Claude",
+                "Python",
+                "AI Agent"
+              ],
+              "language": "Python",
+              "stars": 169532,
+              "forks": 20180,
+              "weeklyStars": 2693,
+              "license": null,
+              "avatar": "https://avatars.githubusercontent.com/u/76263028?v=4",
+              "cover": null,
+              "score": 318.26,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "f2db8404c222e36c"
+            }
+          ]
+        },
+        {
+          "key": "weekly-7521c50f",
+          "name": "开发者工具",
+          "projects": [
+            {
+              "name": "diagram-design",
+              "repo": "cathrynlavery/diagram-design",
+              "url": "https://github.com/cathrynlavery/diagram-design",
+              "homepage": null,
+              "desc": "这是适配Claude Code、Codex、Pi的编辑级图表生成工具，内置27种图表类型，输出自包含HTML+SVG，支持自定义品牌样式，无额外依赖。",
+              "highlights": [
+                "内置27种常用图表类型，输出无冗余的自包含HTML+SVG，无需构建步骤和外部依赖",
+                "可自动提取目标网站品牌样式，快速生成契合品牌风格的图表，支持多品牌配置",
+                "兼容多类AI编程助手，支持导入Mermaid等源文件重绘为指定格式的图表"
+              ],
+              "reason": "本周星数涨幅达13556，增长迅猛，解决了现有AI生成图表样式粗糙、适配品牌成本高的痛点",
+              "maturity": "稳定",
+              "category": "开发者工具",
+              "tags": [
+                "图表生成",
+                "Claude插件",
+                "SVG",
+                "无依赖"
+              ],
+              "language": "HTML",
+              "stars": 18340,
+              "forks": 1103,
+              "weeklyStars": 13556,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/50469282?v=4",
+              "cover": null,
+              "score": 351.54,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "231c4b191ae0f4ae"
+            },
+            {
+              "name": "public-apis",
+              "repo": "public-apis/public-apis",
+              "url": "https://github.com/public-apis/public-apis",
+              "homepage": "https://APILayer.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo",
+              "desc": "该项目是由社区人工维护的免费公开API集合，覆盖动物、金融、天气等数十个领域，可帮助开发者快速找到适配需求的API资源。",
+              "highlights": [
+                "分类梳理数十个领域的公开API，检索便捷",
+                "标注各API的认证要求、HTTPS及CORS支持状态",
+                "社区持续维护更新，资源覆盖广实用性强"
+              ],
+              "reason": "本周星量增长4388，累计星标超45万，是广受开发者欢迎的公开API汇总项目，资源丰富更新稳定。",
+              "maturity": "高",
+              "category": "开发者工具",
+              "tags": [
+                "API",
+                "公开API",
+                "开发资源",
+                "开发者工具"
+              ],
+              "language": "Python",
+              "stars": 459791,
+              "forks": 50823,
+              "weeklyStars": 4388,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/51121562?v=4",
+              "cover": null,
+              "score": 335.58,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "fa7dc4680dc18bbd"
+            },
+            {
+              "name": "orca",
+              "repo": "stablyai/orca",
+              "url": "https://github.com/stablyai/orca",
+              "homepage": "https://onOrca.dev",
+              "desc": "Orca是面向并行AI代理集群的ADE开发环境，支持桌面、移动、VPS多端使用，可对接各类CLI编码代理，内置多项开发提效功能。",
+              "highlights": [
+                "支持对接所有CLI类型编码AI代理，可同时运行多个代理并隔离在独立git工作树中",
+                "覆盖桌面、移动端、VPS多端，支持移动端远程监控、操控运行中的代理",
+                "内置终端拆分、设计模式、GitHub/Linear原生对接等开发辅助功能"
+              ],
+              "reason": "该项目周增星量达6099，近期热度较高，支持对接数十款主流CLI编码代理，覆盖多端使用场景，可有效提升AI辅助开发效率。",
+              "maturity": "Beta",
+              "category": "开发者工具",
+              "tags": [
+                "AI代理",
+                "ADE",
+                "并行编排",
+                "开发工具"
+              ],
+              "language": "TypeScript",
+              "stars": 46006,
+              "forks": 3214,
+              "weeklyStars": 6099,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/127256420?v=4",
+              "cover": null,
+              "score": 333.45,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "89dc44e4b1b40fac"
+            },
+            {
+              "name": "firecrawl",
+              "repo": "firecrawl/firecrawl",
+              "url": "https://github.com/firecrawl/firecrawl",
+              "homepage": "https://firecrawl.dev",
+              "desc": "Firecrawl是可规模化实现网页搜索、抓取、交互的API，支持输出LLM友好的Markdown、结构化数据等格式，适配AI代理，开源同时提供托管服务。",
+              "highlights": [
+                "支持网页搜索、抓取、整站爬取、交互等多类网页数据采集场景",
+                "自动处理代理、速率限制、JS渲染等问题，无需额外配置",
+                "输出适配LLM的干净格式，可快速对接各类AI代理"
+              ],
+              "reason": "本周新增星标4810，功能覆盖网页数据采集全场景，支持多语言SDK，对接AI代理便捷，使用门槛低",
+              "maturity": "稳定",
+              "category": "开发者工具",
+              "tags": [
+                "web-scraping",
+                "LLM",
+                "API",
+                "数据提取"
+              ],
+              "language": "TypeScript",
+              "stars": 167709,
+              "forks": 9393,
+              "weeklyStars": 4810,
+              "license": "AGPL-3.0",
+              "avatar": "https://avatars.githubusercontent.com/u/135057108?v=4",
+              "cover": null,
+              "score": 329.01,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "7491830dc8888f7f"
+            },
+            {
+              "name": "agent-skills",
+              "repo": "addyosmani/agent-skills",
+              "url": "https://github.com/addyosmani/agent-skills",
+              "homepage": "https://skills.addy.ie",
+              "desc": "本项目是面向AI编程代理的生产级工程技能库，封装资深工程师的开发工作流、质量校验规则与最佳实践，支持适配70余款主流AI编码工具。",
+              "highlights": [
+                "内置8条对应开发生命周期的slash命令，可自动激活对应开发技能",
+                "共包含24项结构化技能，覆盖需求定义到上线的全开发流程",
+                "支持适配Claude Code、Cursor、Codex等70+主流AI编码工具"
+              ],
+              "reason": "本周新增星标3845，总星标超8.7万，覆盖全开发流程的规范技能可有效提升AI代码产出质量，适配范围广。",
+              "maturity": "生产可用",
+              "category": "开发者工具",
+              "tags": [
+                "agent-skills",
+                "AI编码",
+                "开发工作流",
+                "Claude Code"
+              ],
+              "language": "JavaScript",
+              "stars": 87439,
+              "forks": 9376,
+              "weeklyStars": 3845,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/110953?v=4",
+              "cover": null,
+              "score": 325.01,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "1b1a194f4fbb088b"
+            },
+            {
+              "name": "manim",
+              "repo": "3b1b/manim",
+              "url": "https://github.com/3b1b/manim",
+              "homepage": null,
+              "desc": "Manim是3Blue1Brown推出的Python编程式动画引擎，专为制作数学讲解类视频设计，分为原作者维护的ManimGL与社区版两个版本。",
+              "highlights": [
+                "支持通过代码生成高精度的数学科普类动画内容",
+                "兼容多操作系统，支持自定义输出配置与多种CLI参数",
+                "配套官方示例与中文社区文档，降低用户上手门槛"
+              ],
+              "reason": "项目周增星达1919，关注度高，是知名的科普动画制作工具，长期应用于3Blue1Brown系列数学科普视频的生产。",
+              "maturity": "成熟",
+              "category": "开发者工具",
+              "tags": [
+                "manim",
+                "动画引擎",
+                "数学可视化",
+                "Python"
+              ],
+              "language": "Python",
+              "stars": 91205,
+              "forks": 7547,
+              "weeklyStars": 1919,
+              "license": "MIT",
+              "avatar": "https://avatars.githubusercontent.com/u/11601040?v=4",
+              "cover": null,
+              "score": 314.78,
+              "sources": [
+                "trending"
+              ],
+              "aiGenerated": true,
+              "slug": "cfaa806580b087b9"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "repositories": [
+    "PrimeIntellect-ai/prime-agent",
+    "earendil-works/pi",
+    "TencentCloud/TencentDB-Agent-Memory",
+    "infiniflow/ragflow",
+    "unslothai/unsloth",
+    "semantica-agi/semantica",
+    "paperclipai/paperclip",
+    "Comfy-Org/ComfyUI",
+    "anthropics/skills",
+    "cathrynlavery/diagram-design",
+    "public-apis/public-apis",
+    "stablyai/orca",
+    "firecrawl/firecrawl",
+    "addyosmani/agent-skills",
+    "3b1b/manim"
+  ]
 }
