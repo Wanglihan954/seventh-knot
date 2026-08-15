@@ -7,6 +7,7 @@ on:
       - test
     paths:
       - ".github/workflows/hellogithub-latest.yml"
+      - "_config.yun.yml"
       - "package.json"
       - "source/_data/hellogithub.json"
       - "source/css/projects.css"

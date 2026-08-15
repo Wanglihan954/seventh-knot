@@ -165,7 +165,7 @@ pages:
   - name: 项目终端
     url: /projects/
     icon: ri:radar-line
-    color: '#f6ff00'
+    color: '#ffffff'
 
 wordcount:
   enable: true
