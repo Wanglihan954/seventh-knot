@@ -116,7 +116,7 @@ Output: 目标 bbox B
 
 #### 整体流程
 
-UTPTrack 以 OSTrack（RGB）与 SUTrack（统一）为基座：RGB 输入序列为 `[Ex; Esz; Edz]`，统一跟踪额外拼 `Etext`（CLIP-L 编码文本描述得到的单 token，缺文本用固定 dummy 句，缺 D/T/E 通道用 RGB 通道复制填充）。剪枝发生在 encoder 的选定层内——token 从序列中真正移除（而非 mask），从而降低后续层 O(N²) 计算；head 前把保留 token 恢复到原始索引并对被剪 slot 零填充，保住空间布局（见 Fig. 2 的 Token Padding）。DT 推理时每 25 帧按置信度阈值 0.7 更新（STARK 策略）。
+UTPTrack 以 OSTrack（RGB）与 SUTrack（统一）为基座：RGB 输入序列为 $[E_x; E_{sz}; E_{dz}]$，统一跟踪额外拼 $E_{\text{text}}$（CLIP-L 编码文本描述得到的单 token，缺文本用固定 dummy 句，缺 D/T/E 通道用 RGB 通道复制填充）。剪枝发生在 encoder 的选定层内——token 从序列中真正移除（而非 mask），从而降低后续层 O(N²) 计算；head 前把保留 token 恢复到原始索引并对被剪 slot 零填充，保住空间布局（见 Fig. 2 的 Token Padding）。DT 推理时每 25 帧按置信度阈值 0.7 更新（STARK 策略）。
 
 ---
 
@@ -124,14 +124,14 @@ UTPTrack 以 OSTrack（RGB）与 SUTrack（统一）为基座：RGB 输入序列
 
 #### 为什么需要？
 
-单流架构把三类 token 拼进同一个序列做 dense attention。这带来跨 token 交互红利，但也制造冗余：搜索区背景 patch 大量互相关性低却占满计算；模板区可能含目标框外的背景噪声；DT 因漂移/遮挡/外观变化而带噪。三类 token 的冗余**相互纠缠**——例如 DT 的噪声会经 `QdzKx^T` 污染 SR，ST 的背景 token 会经 `QszKx^T`、`QszKdz^T` 干扰目标响应（论文 Eq. 2 的 attention 分块矩阵是分析这些串扰的出发点）。只剪 SR 的做法（OSTrack-CE）无法处理模板侧冗余，更无法利用"组件间冗余可互相补偿"这一特性。
+单流架构把三类 token 拼进同一个序列做 dense attention。这带来跨 token 交互红利，但也制造冗余：搜索区背景 patch 大量互相关性低却占满计算；模板区可能含目标框外的背景噪声；DT 因漂移/遮挡/外观变化而带噪。三类 token 的冗余**相互纠缠**——例如 DT 的噪声会经 $Q_{dz}K_x^T$ 污染 SR，ST 的背景 token 会经 $Q_{sz}K_x^T$、$Q_{sz}K_{dz}^T$ 干扰目标响应（论文 Eq. 2 的 attention 分块矩阵是分析这些串扰的出发点）。只剪 SR 的做法（OSTrack-CE）无法处理模板侧冗余，更无法利用"组件间冗余可互相补偿"这一特性。
 
 #### 核心做法
 
-对整个拼接序列 `[Ex; Esz; Edz]` 定义注意力分块矩阵（Eq. 2，见 3.3），逐组件剪枝：
-- **SR（Candidate Elimination）**：每个 SR token 的重要性 = 它与 ST 中心 token 的注意力相似度 `ωx = softmax(Qsz'Kx^T/√dk)`，保留 top-k，其余剪掉——背景干扰被系统性剔除；
-- **DT（Dynamic Template Elimination）**：同样的相似度评分 `ωdz = softmax(Qsz'Kdz^T/√dk)`——DT 中漂移/遮挡污染的 token 与 ST 相关性低，自然被剪；
-- **ST（Static Template Elimination）**：`ωsz = softmax(Qsz'Ksz^T/√dk)`，中心 token 永远保留，并叠加 bbox 空间先验 bonus（见 3.3 的 token type-aware 策略）防止误剪前景。
+对整个拼接序列 $[E_x; E_{sz}; E_{dz}]$ 定义注意力分块矩阵（Eq. 2，见 3.3），逐组件剪枝：
+- **SR（Candidate Elimination）**：每个 SR token 的重要性 = 它与 ST 中心 token 的注意力相似度 $\omega_x = \operatorname{softmax}(Q_{sz}'K_x^T/\sqrt{d_k})$，保留 top-k，其余剪掉——背景干扰被系统性剔除；
+- **DT（Dynamic Template Elimination）**：同样的相似度评分 $\omega_{dz} = \operatorname{softmax}(Q_{sz}'K_{dz}^T/\sqrt{d_k})$——DT 中漂移/遮挡污染的 token 与 ST 相关性低，自然被剪；
+- **ST（Static Template Elimination）**：$\omega_{sz} = \operatorname{softmax}(Q_{sz}'K_{sz}^T/\sqrt{d_k})$，中心 token 永远保留，并叠加 bbox 空间先验 bonus（见 3.3 的 token type-aware 策略）防止误剪前景。
 
 三者的评分复用 transformer 已算出的 attention 权重，**不引入任何额外计算与额外参数**（对比 DynamicViT 需要训练 saliency 预测头）。
 
@@ -141,7 +141,7 @@ $$\text{Attention}(Q,K,V) = \text{Softmax}\left(\frac{[Q_x;Q_{sz};Q_{dz}][K_x;K_
 
 $$A = \text{Softmax}\left(\frac{1}{\sqrt{d_k}} \begin{bmatrix} Q_xK_x^T & Q_xK_{sz}^T & Q_xK_{dz}^T \\ Q_{sz}K_x^T & Q_{sz}K_{sz}^T & Q_{sz}K_{dz}^T \\ Q_{dz}K_x^T & Q_{dz}K_{sz}^T & Q_{dz}K_{dz}^T \end{bmatrix}\right) \tag{2}$$
 
-论文用 Eq. 2 的分块结构论证剪枝必要性：`QxKx^T` 使背景 token 互相注意、`QszKx^T` / `QdzKx^T` 使模板 token 被噪声搜索 token 污染，因此需要按组件剪枝。
+论文用 Eq. 2 的分块结构论证剪枝必要性：$Q_xK_x^T$ 使背景 token 互相注意、$Q_{sz}K_x^T$ / $Q_{dz}K_x^T$ 使模板 token 被噪声搜索 token 污染，因此需要按组件剪枝。
 
 #### 我的理解
 
@@ -159,13 +159,13 @@ $$A = \text{Softmax}\left(\frac{1}{\sqrt{d_k}} \begin{bmatrix} Q_xK_x^T & Q_xK_{
 
 #### 3.3.2 注意力引导的剪枝评分（SR / DT / ST）
 
-如 3.2 所述：`ωx`、`ωdz`、`ωsz` 三个 softmax 相似度分别驱动三类 token 的 top-k 保留。关键设计点：query 固定用 **ST 的中心 token**（`Qsz'`），因为它是最稳定的目标锚点；每类 token 的保留数量由固定保留比例 r 决定（Fig. 1 中的 r），论文未给出各组件 r 的显式取值（由消融中的 token 数可反推：RGB 高分辨率下总 token 384→135，约保留 35%）。
+如 3.2 所述：$\omega_x$、$\omega_{dz}$、$\omega_{sz}$ 三个 softmax 相似度分别驱动三类 token 的 top-k 保留。关键设计点：query 固定用 **ST 的中心 token**（$Q_{sz}'$），因为它是最稳定的目标锚点；每类 token 的保留数量由固定保留比例 r 决定（Fig. 1 中的 r），论文未给出各组件 r 的显式取值（由消融中的 token 数可反推：RGB 高分辨率下总 token 384→135，约保留 35%）。
 
 #### 3.3.3 Token Type-Aware 剪枝：bbox 空间先验保护前景
 
 **为什么需要？** ST 由目标框外扩得到，框内可能混入背景 patch，而相似度评分只看语义、不看位置——前景 token 若外观与中心 token 差异大（目标外观多变），可能在剪枝排序中被误杀。Motivated by token-type embedding [6, 26]，论文给 ST 剪枝加空间先验。
 
-**核心做法** 由 bbox B 构造二值 mask `M(i,j)=1 if (i,j) inside B`（Eq. 3），划分成 P×P 非重叠 patch，每个 patch 的前景分数作为 **bonus 直接加到注意力分数上参与排序**。三种变体（Eq. 4-6）：full（patch 全部像素在框内才为 1）、soft（patch 内 mask 均值，默认）、all（任一像素在框内即为 1）。默认 soft。
+**核心做法** 由 bbox B 构造二值 mask $M(i,j)=1 \text{ if } (i,j) \in B$（Eq. 3），划分成 P×P 非重叠 patch，每个 patch 的前景分数作为 **bonus 直接加到注意力分数上参与排序**。三种变体（Eq. 4-6）：full（patch 全部像素在框内才为 1）、soft（patch 内 mask 均值，默认）、all（任一像素在框内即为 1）。默认 soft。
 
 $$M(i,j) = 1 \ \text{if}\ (i,j)\ \text{is inside}\ B, \quad 0\ \text{otherwise} \tag{3}$$
 
@@ -175,9 +175,9 @@ $$b^{(k)}_{all} = 1\ \text{if}\ \exists (i,j)\in M^{(k)}_{patch}: M(i,j)=1,\ 0\ 
 
 #### 3.3.4 多模态与语言引导剪枝（统一框架扩展）
 
-**视觉多模态（RGB-D/T/E）**：aux 通道与 RGB 拼成 6 通道输入，投影到统一嵌入空间后 token 维度翻倍（`E ∈ R^{N×2D}`）但**空间布局不变**，因此基于 ST 中心 token 的注意力剪枝原样可用——无需任何模态专属改动（共享嵌入空间剪枝）。
+**视觉多模态（RGB-D/T/E）**：aux 通道与 RGB 拼成 6 通道输入，投影到统一嵌入空间后 token 维度翻倍（$E \in \mathbb{R}^{N \times 2D}$）但**空间布局不变**，因此基于 ST 中心 token 的注意力剪枝原样可用——无需任何模态专属改动（共享嵌入空间剪枝）。
 
-**RGB-Language**：文本描述经 CLIP-L 编码成单 token `Et`，与视觉 token 一起进 transformer，注意力矩阵扩展为 4×4 分块（Eq. 7，含 `QxKt^T`、`QtKx^T` 等双向交互）。语言引导剪枝把重要性分数改成 ST 中心 token 与文本 token 两个 query 的 softmax 相似度之和：
+**RGB-Language**：文本描述经 CLIP-L 编码成单 token $E_t$，与视觉 token 一起进 transformer，注意力矩阵扩展为 4×4 分块（Eq. 7，含 $Q_xK_t^T$、$Q_tK_x^T$ 等双向交互）。语言引导剪枝把重要性分数改成 ST 中心 token 与文本 token 两个 query 的 softmax 相似度之和：
 
 $$\omega_x = \phi\left(\text{softmax}\left(\frac{Q_{sz'}K_x^T}{\sqrt{d_k}}\right) + \text{softmax}\left(\frac{Q_{t}K_x^T}{\sqrt{d_k}}\right)\right) \tag{8}$$
 
@@ -196,7 +196,7 @@ $$\omega_x = \phi\left(\text{softmax}\left(\frac{Q_{sz'}K_x^T}{\sqrt{d_k}}\right
 
 |Paper Module|预期 Code 位置（推断）|预期类 / 函数|作用|
 |---|---|---|---|
-|CTEM（Candidate Elimination）|models/ctem.py 或 encoder 内嵌|`CandidateEliminationModule`|SR 剪枝：`ωx = softmax(Qsz'Kx^T/√dk)` 保留 top-k|
+|CTEM（Candidate Elimination）|models/ctem.py 或 encoder 内嵌|`CandidateEliminationModule`|SR 剪枝：$\omega_x = \operatorname{softmax}(Q_{sz}'K_x^T/\sqrt{d_k})$ 保留 top-k|
 |CTEM（Template Elimination）|同上|`TemplateEliminationModule`|DT / ST 剪枝，ST 侧叠加 bbox bonus|
 |Token Type-Aware 剪枝|同上|`token_type_bonus` / mask 构造|Eq. 3-6，三种 bonus 策略（默认 soft）|
 |文本引导剪枝|tracking 代码的 text 分支|`text_guided_score`|Eq. 8 双 query 求和打分|
@@ -361,7 +361,7 @@ GPU: 训练 4× NVIDIA A100（论文 Sec. 4.1）；推理单张 1080 Ti / Xeon G
 
 ### 可以迁移到我的研究中的部分
 
-- **DAM4SAM 的记忆帧选择 ↔ DT 剪枝信号**：UTPTrack 的 `ωdz = softmax(Qsz'Kdz^T/√dk)` 度量"DT 与 ST 的锚定相似度"，这恰好是一个零成本的**模板漂移/记忆过时检测器**——我可以用同款打分给 SAM2 的记忆帧/原型算"与首帧锚点的相关性"，低于阈值才触发 DAM4SAM 的记忆写入与刷新，把记忆管理从"每帧全量写"变成"事件驱动写"。
+- **DAM4SAM 的记忆帧选择 ↔ DT 剪枝信号**：UTPTrack 的 $\omega_{dz} = \operatorname{softmax}(Q_{sz}'K_{dz}^T/\sqrt{d_k})$ 度量"DT 与 ST 的锚定相似度"，这恰好是一个零成本的**模板漂移/记忆过时检测器**——我可以用同款打分给 SAM2 的记忆帧/原型算"与首帧锚点的相关性"，低于阈值才触发 DAM4SAM 的记忆写入与刷新，把记忆管理从"每帧全量写"变成"事件驱动写"。
 - **SAM2 长视频记忆编码器加速**：CTEM 的"复用注意力权重、物理移除 token、head 前零填充恢复空间布局"三步可平移到 SAM2 的 memory attention：对 memory bank token 先按与首帧 mask 中心 token 的注意力做 top-k 保留，长视频场景记忆 token 数量是主要计算瓶颈，这与 UTPTrack 剪 DT 的动机同构（长期记忆≈ST，近期帧≈DT）。
 - **语言引导剪枝的"注入位置"结论**：Tab. 7 表明语义线索应注入**前景浓度最高的组件（DT）**而非搜索区——这个设计原则可直接用于 cross_view_vtuav 的文本辅助追踪（如"the white vehicle"描述）：语义引导应作用在模板/目标侧而不是盲扫整个搜索区；同理 RGB-T 的"目标热度"先验应注入 DT 而非 SR。
 - **bbox 空间先验的泛化**：token type-aware 的"空间先验直接加到注意力分数上参与排序"这一软偏置机制，可以替换成我的研究里任意"目标性先验"——比如 RGB-T 中用热红外显著性图代替 bbox mask 作为 bonus（跨模态先验），或跨视角中用另一视角的投影区域作为 bonus。
@@ -371,7 +371,7 @@ GPU: 训练 4× NVIDIA A100（论文 Sec. 4.1）；推理单张 1080 Ti / Xeon G
 1. **剪枝率即在线健康度指标（Pruning-Ratio-as-Confidence）**：每帧记录 DT/SR 被剪比例与 ω 分数的均值/方差——目标丢失/被遮挡时，DT 与 ST 的相似度会整体塌缩，剪枝率突变。这构成一个几乎零成本（注意力权重已算出）的目标丢失检测器，可触发 DAM4SAM 的恢复/重初始化与记忆回滚，不用等 25 帧的置信度阈值。
 2. **记忆级 token 剪枝（Memory-Bank Token Pruning for SAM2）**：在 SAM2 memory attention 前用 mask 引导的锚点 token 对 memory bank 做 top-k 剪枝 + 时序零填充保持帧对齐；配合 OPG 式原型（CamSAM2 的 k-means 原型）可再压一档——"剪枝 + 原型压缩"双层记忆经济。
 3. **跨模态 bonus（Modality-Bonus Pruning）**：把 UTPTrack 的 bbox mask 换成热红外显著图（RGB-T）或深度前景图（RGB-D），在共享嵌入空间里用模态先验偏置可见光 token 的剪枝排序——直接复用其"bonus 加在注意力分数上"的软机制，不需要任何架构改动。
-4. **双锚点剪枝**：针对其单锚点脆弱性，给 SR/DT 剪枝加第二个 query——DT 中被保留的高分 token 的平均（在线目标外观），用 `ω = softmax(Qsz'K^T) + softmax(Qdt-mean K^T)` 替代 Eq. 8 的文本双 query 模式，在不增加模块的前提下缓解遮挡时中心 token 失效问题。
+4. **双锚点剪枝**：针对其单锚点脆弱性，给 SR/DT 剪枝加第二个 query——DT 中被保留的高分 token 的平均（在线目标外观），用 $\omega = \operatorname{softmax}(Q_{sz}'K^T) + \operatorname{softmax}(Q_{\mathrm{dt\text{-}mean}}K^T)$ 替代 Eq. 8 的文本双 query 模式，在不增加模块的前提下缓解遮挡时中心 token 失效问题。
 
 ---
 

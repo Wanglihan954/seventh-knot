@@ -111,6 +111,38 @@ function normalizeHeadings(body) {
     .join('\n');
 }
 
+const inlineMathReplacements = new Map([
+  ['[Ex; Esz; Edz]', '[E_x; E_{sz}; E_{dz}]'],
+  ['E ∈ R^{N×2D}', 'E \\in \\mathbb{R}^{N \\times 2D}'],
+  ['Et', 'E_t'],
+  ['Etext', 'E_{\\text{text}}'],
+  ['M(i,j)=1 if (i,j) inside B', 'M(i,j)=1 \\text{ if } (i,j) \\in B'],
+  ['QdzKx^T', 'Q_{dz}K_x^T'],
+  ["Qsz'", "Q_{sz}'"],
+  ['QszKdz^T', 'Q_{sz}K_{dz}^T'],
+  ['QszKx^T', 'Q_{sz}K_x^T'],
+  ['QtKx^T', 'Q_tK_x^T'],
+  ['QxKt^T', 'Q_xK_t^T'],
+  ['QxKx^T', 'Q_xK_x^T'],
+  ['ωdz', '\\omega_{dz}'],
+  ["ωdz = softmax(Qsz'Kdz^T/√dk)", "\\omega_{dz} = \\operatorname{softmax}(Q_{sz}'K_{dz}^T/\\sqrt{d_k})"],
+  ['ωsz', '\\omega_{sz}'],
+  ["ωsz = softmax(Qsz'Ksz^T/√dk)", "\\omega_{sz} = \\operatorname{softmax}(Q_{sz}'K_{sz}^T/\\sqrt{d_k})"],
+  ['ωx', '\\omega_x'],
+  ["ωx = softmax(Qsz'Kx^T/√dk)", "\\omega_x = \\operatorname{softmax}(Q_{sz}'K_x^T/\\sqrt{d_k})"],
+  [
+    "ω = softmax(Qsz'K^T) + softmax(Qdt-mean K^T)",
+    "\\omega = \\operatorname{softmax}(Q_{sz}'K^T) + \\operatorname{softmax}(Q_{\\mathrm{dt\\text{-}mean}}K^T)",
+  ],
+]);
+
+function normalizeInlineMath(body) {
+  return body.replace(/`([^`\r\n]+)`/g, (match, content) => {
+    const formula = inlineMathReplacements.get(content);
+    return formula ? `$${formula}$` : match;
+  });
+}
+
 function polishBody(body, slug) {
   body = body.replace(/\r\n/g, '\n');
   body = body.replace(/^# 📥 增量导入记录[\s\S]*$/m, '');
@@ -126,6 +158,7 @@ function polishBody(body, slug) {
     '方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。',
   );
   body = body.replace(/^暂无 Zotero 标注.*$/gm, '本节暂无额外阅读标注。');
+  body = normalizeInlineMath(body);
   body = body.replace(/\n## 论文图示（截图）\s*\n\s*## 论文图示（截图）/g, '\n## 论文图示（截图）');
   body = body.replace(
     /!\[([^\n]*?)\]\(assets\/([^/]+)\/([^)]+?)\.(?:png|jpg|jpeg)\)/gi,
