@@ -120,6 +120,7 @@ function polishBody(body, slug) {
     .filter((line) => !/^\*\*[^:]+:\*\*\s*—(?:\s*\|\s*—)?\s*$/.test(line))
     .join('\n');
   body = body.replace(/^> \[!important\]\s*$/gm, '> **阅读说明**');
+  body = body.replace(/^> \[!warning\]\s*$/gm, '> **注意**');
   body = body.replace(
     /有官方代码时，Method 必须结合源码理解；没有代码时按照论文 Method 和 Supplementary 整理。/g,
     '方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。',
@@ -131,6 +132,12 @@ function polishBody(body, slug) {
     (_match, alt, assetSlug, filename) =>
       `![${alt}](${publicImageBase}/${assetSlug}/${filename}.webp)`,
   );
+  // Keep display math in a single Markdown text node. Otherwise Markdown turns
+  // physical newlines into <br> elements before the math renderer can see it.
+  body = body.replace(/\$\$([\s\S]*?)\$\$/g, (_match, formula) => {
+    const normalizedFormula = formula.replace(/\s*\n\s*/g, ' ').trim();
+    return `$$${normalizedFormula}$$`;
+  });
   body = body.replace(
     /(## Abstract\s*\n[\s\S]*?\n)(---\s*\n)/,
     '$1<!-- more -->\n\n$2',
@@ -224,6 +231,7 @@ for (const filename of noteFiles) {
     ...tags.map((tag) => `  - ${yamlQuote(tag)}`),
     `description: ${yamlQuote(description)}`,
     'readmore: true',
+    'mathjax: true',
     `date: ${publicationTime}`,
     `updated: ${updated} 23:00:00`,
     '---',

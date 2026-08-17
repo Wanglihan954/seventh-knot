@@ -14,6 +14,7 @@ description: >-
   Cutie 是一个采用 object-level memory reading 的 VOS 网络，把记忆中的物体表征"放回"分割结果。现有方法用
   bottom-up 的 pixel-level memory reading，在干扰物（distractor）存在时匹配噪声大，在困难数据上表现差。…
 readmore: true
+mathjax: true
 abbrlink: ef5e6d24
 date: 2026-08-15 20:10:00
 updated: 2026-08-15 23:00:00
@@ -138,23 +139,13 @@ Pixel readout R0 是逐像素独立匹配的产物，干扰物场景下前景 qu
 #### 关键公式
 
 标准 cross-attention 带残差：
-$$
-X'_l = \text{softmax}(Q_l K_l^\top) V_l + X_l
-$$
+$$X'_l = \text{softmax}(Q_l K_l^\top) V_l + X_l$$
 
 加入前/背景 mask 后：
-$$
-X'_l = \text{softmax}(M_l + Q_l K_l^\top) V_l + X_l
-$$
+$$X'_l = \text{softmax}(M_l + Q_l K_l^\top) V_l + X_l$$
 
 其中 mask 矩阵 $M_l \in \{0,-\infty\}^{N\times HW}$：
-$$
-M_l(q,i) = \begin{cases}
-0, & q \le N/2 \text{ 且 } \hat{M}_l(i) \ge 0.5 \quad (\text{前景 query 只注意前景})\\
-0, & q > N/2 \text{ 且 } \hat{M}_l(i) < 0.5 \quad (\text{背景 query 只注意背景})\\
--\infty, & \text{otherwise}
-\end{cases}
-$$
+$$M_l(q,i) = \begin{cases} 0, & q \le N/2 \text{ 且 } \hat{M}_l(i) \ge 0.5 \quad (\text{前景 query 只注意前景})\\ 0, & q > N/2 \text{ 且 } \hat{M}_l(i) < 0.5 \quad (\text{背景 query 只注意背景})\\ -\infty, & \text{otherwise} \end{cases}$$
 $\hat{M}_l$ 是当前层 pixel 特征线性投影+sigmoid 得到的辅助 mask 预测（每层更新，带 0.01 权重的辅助损失）。
 
 #### 代码对应
@@ -190,23 +181,13 @@ object memory S ∈ R^{N×C} 是 N 个目标高层摘要向量，由 mask encode
 #### 关键公式
 
 第 q 个 object memory 向量（mask-pooling）：
-$$
-S_q = \frac{\sum_{i=1}^{THW} U^{(i)} W_q^{(i)}}{\sum_{i=1}^{THW} W_q^{(i)}}
-$$
+$$S_q = \frac{\sum_{i=1}^{THW} U^{(i)} W_q^{(i)}}{\sum_{i=1}^{THW} W_q^{(i)}}$$
 
 pooling mask（含前/背景分离与位置编码）：
-$$
-W_q(i) = \begin{cases}
-0, & q \le N/2 \text{ 且 } \hat{M}(i) < 0.5\\
-0, & q > N/2 \text{ 且 } \hat{M}(i) \ge 0.5\\
-\sigma\big(f_{\text{PoolWeight}}(F^{(i)} + R_{\sin}(i))\big), & \text{otherwise}
-\end{cases}
-$$
+$$W_q(i) = \begin{cases} 0, & q \le N/2 \text{ 且 } \hat{M}(i) < 0.5\\ 0, & q > N/2 \text{ 且 } \hat{M}(i) \ge 0.5\\ \sigma\big(f_{\text{PoolWeight}}(F^{(i)} + R_{\sin}(i))\big), & \text{otherwise} \end{cases}$$
 
 object queries 初始化与位置编码（动态融合 object memory）：
-$$
-X_0 = X + S, \qquad P_X = E_X + f_{\text{ObjEmbed}}(S), \qquad P_R = R_{\sin} + f_{\text{PixEmbed}}(R_0)
-$$
+$$X_0 = X + S, \qquad P_X = E_X + f_{\text{ObjEmbed}}(S), \qquad P_R = R_{\sin} + f_{\text{PixEmbed}}(R_0)$$
 
 #### 代码对应
 

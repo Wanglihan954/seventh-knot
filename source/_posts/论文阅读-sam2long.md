@@ -17,6 +17,7 @@ description: >-
   记忆来提示当前帧预测，但其贪婪选择（greedy）记忆设计存在"error accumulation"问题：一帧出错/漏检会级联影响后续帧。SAM2Long
   提出完全免训练的改进：把每帧的分割不确定性纳入考虑，用受限树搜索（constrained tree search）在多条分割路径中选择视频级最优结果。…
 readmore: true
+mathjax: true
 abbrlink: e0d67dbc
 date: 2026-08-15 20:55:00
 updated: 2026-08-15 23:00:00
@@ -137,9 +138,7 @@ Mask Decoder 每条生成 3 个候选 mask（含 predicted IoU 与 occlusion sco
 #### 关键公式
 
 累计分数更新（每候选分支）：
-$$
-S_{p,k}[t] = S_p[t-1] + \log(\text{IoU}_{p,k}^t + \varepsilon)
-$$
+$$S_{p,k}[t] = S_p[t-1] + \log(\text{IoU}_{p,k}^t + \varepsilon)$$
 
 剪枝：每步保留 $\underset{\text{top-}P}{\arg\max}\, S_{p,k}[t]$ 的 P 条路径；最终输出 $\underset{p}{\arg\max}\, S_p[T]$。
 
@@ -194,14 +193,10 @@ SAM 2 原始记忆库是"最近 N 帧 FIFO"，遮挡/低质量帧照样入库并
 #### 关键公式
 
 标准权重（线性分布）+ 按 occlusion 排序后分配：
-$$
-W^{std}_i = w_{low} + \frac{i-1}{N}(w_{high} - w_{low}), \qquad o_{I_1} \le o_{I_2} \le \cdots \le o_{I_{N+1}},\qquad w_{I_i} = W^{std}_i
-$$
+$$W^{std}_i = w_{low} + \frac{i-1}{N}(w_{high} - w_{low}), \qquad o_{I_1} \le o_{I_2} \le \cdots \le o_{I_{N+1}},\qquad w_{I_i} = W^{std}_i$$
 
 调制后的记忆 key 参与 cross-attention：
-$$
-M^\tau_{\text{f}} = w_\tau \cdot M_\tau, \qquad \tau \in \mathcal{I}
-$$
+$$M^\tau_{\text{f}} = w_\tau \cdot M_\tau, \qquad \tau \in \mathcal{I}$$
 
 #### 代码对应
 

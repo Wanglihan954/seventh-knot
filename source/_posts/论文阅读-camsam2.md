@@ -15,6 +15,7 @@ description: >-
   虽然推动了视频分割的进展，但其特征优化偏向自然场景，在伪装视频上表现欠佳，尤其是只给 point / box 等简单 prompt 时。本文提出
   CamSAM2：在不修改 SAM2 任何参数的前提下，引入一个可学习的 decamouflaged token 提供特征调整的灵活性；…
 readmore: true
+mathjax: true
 abbrlink: 3b40772a
 date: 2026-08-15 20:00:00
 updated: 2026-08-15 23:00:00
@@ -126,9 +127,7 @@ SAM2 的 memory-conditioned 特征只来自图像编码器最深层的高层语�
 
 #### 关键公式
 
-$$
-F^{iof}_t = C_0(F^0_t) + C_1(F^1_t) + C_2(F^{mem}_t), \qquad C_j(\cdot) = \text{Conv}(\cdot) + \text{up}
-$$
+$$F^{iof}_t = C_0(F^0_t) + C_1(F^1_t) + C_2(F^{mem}_t), \qquad C_j(\cdot) = \text{Conv}(\cdot) + \text{up}$$
 
 #### 代码对应
 
@@ -161,19 +160,11 @@ IOF 本质是"**把 SAM2 扔掉的高分辨率信息接回来**"，且通过可�
 
 #### 关键公式
 
-$$
-F^{eof}_t = \text{Conv}([F^{iof}_t; R_t]), \qquad
-F^{attn}_t = \text{Attn}(F^{eof}_t,\ P_t,\ P_t)
-$$
+$$F^{eof}_t = \text{Conv}([F^{iof}_t; R_t]), \qquad F^{attn}_t = \text{Attn}(F^{eof}_t,\ P_t,\ P_t)$$
 
-$$
-F^{eof'}_t = F^{attn}_t + \text{Conv}(F^{mask}_t), \qquad
-R^c_t = \text{MLP}(T') \cdot F^{eof'}_t
-$$
+$$F^{eof'}_t = F^{attn}_t + \text{Conv}(F^{mask}_t), \qquad R^c_t = \text{MLP}(T') \cdot F^{eof'}_t$$
 
-$$
-P_t = \{P^i_t \mid 1\le i\le k\} = F_p(F^{eof}_t, R^c_t) \quad (\text{FPS} + 1\text{-iter k-means, cosine})
-$$
+$$P_t = \{P^i_t \mid 1\le i\le k\} = F_p(F^{eof}_t, R^c_t) \quad (\text{FPS} + 1\text{-iter k-means, cosine})$$
 
 #### 代码对应
 

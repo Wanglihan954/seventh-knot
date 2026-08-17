@@ -14,6 +14,7 @@ description: >-
   分割当前帧。但 softmax 匹配的二次复杂度带来显存瓶颈，限制了视频长度与分辨率扩展。LiVOS 提出轻量记忆网络：用 linear attention
   把记忆匹配重写为递归过程，将二次大小的注意力矩阵压缩为常数大小的时空无关 2D state；…
 readmore: true
+mathjax: true
 abbrlink: b7f6f8ca
 date: 2026-08-15 20:25:00
 updated: 2026-08-15 23:00:00
@@ -137,25 +138,15 @@ softmax 匹配需存储 T·HW × HW 的注意力矩阵（OOM 根源）；线性�
 
 Softmax 匹配经核函数 φ(·) 线性化（结合律）：
 
-$$
-V_{t+1} = \frac{\varphi(K_{t+1}) \sum_{i=1}^{t} \varphi(K_i)^{\top} V_i}
-              {\varphi(K_{t+1}) \sum_{i=1}^{t} \varphi(K_i)^{\top} \mathbf{1}}
-$$
+$$V_{t+1} = \frac{\varphi(K_{t+1}) \sum_{i=1}^{t} \varphi(K_i)^{\top} V_i} {\varphi(K_{t+1}) \sum_{i=1}^{t} \varphi(K_i)^{\top} \mathbf{1}}$$
 
 递归形式（常数大小 state，核心）：
 
-$$
-S_t = S_{t-1} + \varphi(K_t)^{\top} V_t, \qquad
-Z_t = Z_{t-1} + \varphi(K_t)^{\top} \mathbf{1}, \qquad
-V_{t+1} = \frac{\varphi(K_{t+1}) S_t}{\varphi(K_{t+1}) Z_t}
-$$
+$$S_t = S_{t-1} + \varphi(K_t)^{\top} V_t, \qquad Z_t = Z_{t-1} + \varphi(K_t)^{\top} \mathbf{1}, \qquad V_{t+1} = \frac{\varphi(K_{t+1}) S_t}{\varphi(K_{t+1}) Z_t}$$
 
 Gated linear matching（门控，核心创新）：
 
-$$
-S_t = G_t \odot S_{t-1} + \varphi(K_t)^{\top} V_t, \qquad
-G_t = \alpha_t \mathbf{1}^{\top},\; \alpha_t \in (0,1)^{C_k}
-$$
+$$S_t = G_t \odot S_{t-1} + \varphi(K_t)^{\top} V_t, \qquad G_t = \alpha_t \mathbf{1}^{\top},\; \alpha_t \in (0,1)^{C_k}$$
 
 #### 代码对应
 
@@ -193,9 +184,7 @@ state_BNCC = state_gated_BNCC + this_state_BNCC    # S_t = G_t ⊙ S_{t-1} + φ(
 
 Sensory 更新（GRU 式 forget/update gate）：
 
-$$
-h^{\text{new}} = f_g \odot h \odot (1 - u_g) + u_g \odot \tanh(v_{\text{new}})
-$$
+$$h^{\text{new}} = f_g \odot h \odot (1 - u_g) + u_g \odot \tanh(v_{\text{new}})$$
 
 #### 代码对应
 

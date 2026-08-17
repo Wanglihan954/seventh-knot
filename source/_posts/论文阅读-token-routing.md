@@ -16,6 +16,7 @@ description: >-
   与带宽，实时性被限制在高端 GPU。本文提出 ADTrack 平衡精度与效率：(1) Adaptive Early-Exit (AEE) ：给
   backbone 挂 anytime heads，配一个置信度校准的早退策略，在最早的可信层停止推理，跳过冗余计算；…
 readmore: true
+mathjax: true
 abbrlink: 23d67125
 date: 2026-08-16 20:20:00
 updated: 2026-08-16 23:00:00
@@ -141,21 +142,11 @@ ADTrack 是双流架构：RGB 与热红外各走一条轻量 ViT 骨干（Method
 
 #### 关键公式
 
-$$
-r_l = \frac{\max(S_l)}{\sum_i S_{l,i}}, \qquad r^{*} = \frac{\max(S_L)}{\sum_i S_{L,i}} \tag{1}
-$$
+$$r_l = \frac{\max(S_l)}{\sum_i S_{l,i}}, \qquad r^{*} = \frac{\max(S_L)}{\sum_i S_{L,i}} \tag{1}$$
 
-$$
-\mathcal{L}_{AEE} = \sum_l \left[ \mathcal{L}_{pred}(S_l, y) + |r_l - r^{*}| + M(r_l, r^{*}, \tau) \right] \tag{2}
-$$
+$$\mathcal{L}_{AEE} = \sum_l \left[ \mathcal{L}_{pred}(S_l, y) + |r_l - r^{*}| + M(r_l, r^{*}, \tau) \right] \tag{2}$$
 
-$$
-M(r_l, r^{*}, \tau) =
-\begin{cases}
-(\tau - r_l)_+, & \text{if } r^{*} > \tau \\
-(r_l - \tau)_+, & \text{otherwise}
-\end{cases}
-$$
+$$M(r_l, r^{*}, \tau) = \begin{cases} (\tau - r_l)_+, & \text{if } r^{*} > \tau \\ (r_l - \tau)_+, & \text{otherwise} \end{cases}$$
 
 其中 S_L 是最深层的最终 score map；`(·)₊ = max(·, 0)`。第一个 term 保证每个中间头能独立定位；第二个 term 对齐置信度随深度演化的单调性；第三个 term 定义停止边界的软惩罚。训练时还配合**随机深度截断**（random depth truncation），鼓励模型在多种深度下都稳健，而非只依赖最深配置。
 
@@ -182,13 +173,9 @@ $$
 
 #### 关键公式
 
-$$
-h_k = \sum_{i=1}^{N_t} \left( f_k(x_i) \odot x_i \right), \qquad k = 1, \dots, K \tag{3}
-$$
+$$h_k = \sum_{i=1}^{N_t} \left( f_k(x_i) \odot x_i \right), \qquad k = 1, \dots, K \tag{3}$$
 
-$$
-Z = \text{TransformerBlock}([H_n : X_m]) \tag{4}
-$$
+$$Z = \text{TransformerBlock}([H_n : X_m]) \tag{4}$$
 
 其中 f_k(·) 是生成第 k 个 token 自适应权重的轻量 MLP；H_n 是模态 n 的 K 个 holistic tokens（源），X_m 是模态 m 的 N 个特征 tokens（目标）；传播后前 K 个位置被删除，剩余 N 个构成精炼序列 X_m'。
 

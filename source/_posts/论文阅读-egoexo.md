@@ -15,6 +15,7 @@ description: >-
   EEC）是智能助手指引等应用的基础，但面临极端视角差异、遮挡与小目标等挑战。直接套用 SAM2 时，由于 ego-exo
   特征融合低效且长期记忆容量不足（长视频中尤为明显），表现很差。…
 readmore: true
+mathjax: true
 abbrlink: a17d3727
 date: 2026-08-15 20:20:00
 updated: 2026-08-15 23:00:00
@@ -132,19 +133,11 @@ SAM2 用"相加"融合 prompt 与 memory 特征，但 ego 与 exo 的分布差�
 
 #### 关键公式
 
-$$
-w^c_{mem/view} = \text{MLP}_{1/2}\big(\text{Avg}(\text{Concat}(F_{mem}, F_{view}))\big), \qquad
-\dot{F}_{mem/view} = w^c_{mem/view} \otimes F_{mem/view} + F_{mem/view}
-$$
+$$w^c_{mem/view} = \text{MLP}_{1/2}\big(\text{Avg}(\text{Concat}(F_{mem}, F_{view}))\big), \qquad \dot{F}_{mem/view} = w^c_{mem/view} \otimes F_{mem/view} + F_{mem/view}$$
 
-$$
-w^s_{mem/view} = \text{Conv}_{1/2}\big(\text{Concat}(\dot{F}_{mem}, \dot{F}_{view})\big), \qquad
-\ddot{F}_{mem/view} = w^s_{mem/view} \otimes \dot{F}_{mem/view} + \dot{F}_{mem/view}
-$$
+$$w^s_{mem/view} = \text{Conv}_{1/2}\big(\text{Concat}(\dot{F}_{mem}, \dot{F}_{view})\big), \qquad \ddot{F}_{mem/view} = w^s_{mem/view} \otimes \dot{F}_{mem/view} + \dot{F}_{mem/view}$$
 
-$$
-F_{tar} = \ddot{F}_{mem} + \ddot{F}_{view}
-$$
+$$F_{tar} = \ddot{F}_{mem} + \ddot{F}_{view}$$
 
 #### 代码对应
 
@@ -187,14 +180,9 @@ MV-MoE 本质是**双输入的双重注意力门控融合**：通道门控捕捉
 
 #### 关键公式
 
-$$
-d^t_i = \text{Euclid}(f^t_i,\ f^{t+1}_i), \quad t\in[1,M],\ i\in[1,P]; \qquad
-k = \arg\min_t (d^t_i)
-$$
+$$d^t_i = \text{Euclid}(f^t_i,\ f^{t+1}_i), \quad t\in[1,M],\ i\in[1,P]; \qquad k = \arg\min_t (d^t_i)$$
 
-$$
-f^k_i \leftarrow \frac{f^k_i + f^{k+1}_i}{2} \quad \text{（按位置逐点加权平均，合并最冗余的相邻帧）}
-$$
+$$f^k_i \leftarrow \frac{f^k_i + f^{k+1}_i}{2} \quad \text{（按位置逐点加权平均，合并最冗余的相邻帧）}$$
 
 #### 代码对应
 

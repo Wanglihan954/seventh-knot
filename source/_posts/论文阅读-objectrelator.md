@@ -16,6 +16,7 @@ description: >-
   本文研究 Ego-Exo Object Correspondence 任务：给定一个视角（如 ego）中的目标 mask 查询，在另一个视角（如
   exo）中分割出同一目标。多数分割模型只处理单视角，PSALM 是少数具备该任务零样本能力的模型，但在视角剧变、背景复杂、外观变化大时仍会定位/分割错误。…
 readmore: true
+mathjax: true
 abbrlink: b48da836
 date: 2026-08-15 20:35:00
 updated: 2026-08-15 23:00:00
@@ -131,13 +132,9 @@ ego 文本嵌入 E→txt（1×D）广播后作为 **query**，ego 视觉区域�
 
 #### 关键公式
 
-$$
-CA_{fuse} = \text{CrossAtt}(E_{\rightarrow txt} W_Q,\ E_{\rightarrow vis} W_K,\ E_{\rightarrow vis} W_V)
-$$
+$$CA_{fuse} = \text{CrossAtt}(E_{\rightarrow txt} W_Q,\ E_{\rightarrow vis} W_K,\ E_{\rightarrow vis} W_V)$$
 
-$$
-E_{\rightarrow con} = k_{lea} \cdot E_{\rightarrow vis} + (1 - k_{lea}) \cdot CA_{fuse}, \qquad 0 < k_{lea} < 1
-$$
+$$E_{\rightarrow con} = k_{lea} \cdot E_{\rightarrow vis} + (1 - k_{lea}) \cdot CA_{fuse}, \qquad 0 < k_{lea} < 1$$
 
 #### 代码对应
 
@@ -171,13 +168,9 @@ MCFuse 的公式其实很简单：**cross-attention 负责"文本怎么引导视
 
 #### 关键公式
 
-$$
-L_{XObj} = \text{Dist}(E_{\rightarrow vis},\ E_{vis}) = \frac{1}{N}\sum_i \| E_{\rightarrow vis}^i - E_{vis}^i \|_2
-$$
+$$L_{XObj} = \text{Dist}(E_{\rightarrow vis},\ E_{vis}) = \frac{1}{N}\sum_i \| E_{\rightarrow vis}^i - E_{vis}^i \|_2$$
 
-$$
-L = L_{mask} + L_{XObj}
-$$
+$$L = L_{mask} + L_{XObj}$$
 
 #### 代码对应
 

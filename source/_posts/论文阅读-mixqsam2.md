@@ -16,6 +16,7 @@ description: >-
   Importance-driven Mixed-Precision Quantization——用 Weight-Activation Importance
   Score 分析每层对量化的敏感度，按重要性分配位宽，关键层保留高精度；…
 readmore: true
+mathjax: true
 abbrlink: f09a6a41
 date: 2026-08-15 20:30:00
 updated: 2026-08-15 23:00:00
@@ -134,25 +135,15 @@ Frame t → Image Encoder → 特征（与 memory bank cross-attention）→ Mas
 
 仿射量化（b 为位宽，S 为 scale，Z 为 zero-point）：
 
-$$
-x_q = \text{clamp}\!\left(\text{round}\!\left(\frac{x}{S} + Z\right),\; 0,\; 2^b - 1\right)
-$$
+$$x_q = \text{clamp}\!\left(\text{round}\!\left(\frac{x}{S} + Z\right),\; 0,\; 2^b - 1\right)$$
 
 输入通道重要性（校准集平均能量）、重要性矩阵与层重要性（与 OBS 的 λ→0 对角近似等价）：
 
-$$
-A_j^{(l)} = \left(\sum_{n=1}^{N} \left(X_{n,j}^{(l)}\right)^2\right)^{\frac{1}{2}}, \qquad
-H_{i,j}^{(l)} = |W_{i,j}^{(l)}| \cdot A_j^{(l)}, \qquad
-S_l = \frac{1}{C_{\text{out}}\cdot C_{\text{in}}} \sum_{i,j} H_{i,j}^{(l)} \;\propto\; \left(|W_{ij}| \cdot \|X_j\|_2\right)^2
-$$
+$$A_j^{(l)} = \left(\sum_{n=1}^{N} \left(X_{n,j}^{(l)}\right)^2\right)^{\frac{1}{2}}, \qquad H_{i,j}^{(l)} = |W_{i,j}^{(l)}| \cdot A_j^{(l)}, \qquad S_l = \frac{1}{C_{\text{out}}\cdot C_{\text{in}}} \sum_{i,j} H_{i,j}^{(l)} \;\propto\; \left(|W_{ij}| \cdot \|X_j\|_2\right)^2$$
 
 位宽分配（约束优化 + 贪心求解，p_l 为层参数量，E(b_l) ∝ 2^{-b_l} 单调误差模型）：
 
-$$
-\min_{b_l \in \mathcal{B}} \sum_{l \in \mathcal{L}} S_l \cdot E(b_l)
-\quad \text{s.t.} \quad
-\frac{\sum_{l} b_l \cdot p_l}{\sum_{l} p_l} \leq B_{\text{avg}}
-$$
+$$\min_{b_l \in \mathcal{B}} \sum_{l \in \mathcal{L}} S_l \cdot E(b_l) \quad \text{s.t.} \quad \frac{\sum_{l} b_l \cdot p_l}{\sum_{l} p_l} \leq B_{\text{avg}}$$
 
 #### 代码对应
 
@@ -181,10 +172,7 @@ Function: 贪心迭代位宽调整（按重要性排名初始化 → 逐层降/�
 
 SIS 合成（F_i、s_i 为第 i 个最冗余帧的特征与相似度分数，w 为 softmax 权重）：
 
-$$
-F_{\text{synth}} = \sum_{i=1}^{k} w_i \cdot F_i, \qquad
-w = \text{softmax}(\{s_1, \dots, s_k\}),\quad s_i = \text{cosine}(F_i, F_{t-1})
-$$
+$$F_{\text{synth}} = \sum_{i=1}^{k} w_i \cdot F_i, \qquad w = \text{softmax}(\{s_1, \dots, s_k\}),\quad s_i = \text{cosine}(F_i, F_{t-1})$$
 
 #### 代码对应
 

@@ -14,6 +14,7 @@ description: >-
   模型在输入退化（噪声、模糊、低照度、恶劣天气）下性能大幅下降，阻碍了其在安全关键领域的部署。本文首次系统性研究 RobustPVOS：构建包含 351
   个真实视频片段、2500+ 物体掩码的两个真实世界评测数据集；同时用 8 种带时间变化的退化对现有 VOS 数据集合成训练数据。…
 readmore: true
+mathjax: true
 abbrlink: 6ceb3d59
 date: 2026-08-15 20:45:00
 updated: 2026-08-15 23:00:00
@@ -137,24 +138,15 @@ Mask Decoder (SAM2, 冻结)
 
 低秩适配器分解（R 个 rank-1 分量）与门控 logits（τ 为温度，G_i ~ Gumbel(0,1)）：
 
-$$
-\Delta W = BA = \sum_{i=1}^{R} b_i a_i^{\top}, \qquad
-\alpha_o = \text{MLP}(m_o), \qquad
-\tilde{z}_{o,i} = \sigma\!\left(\frac{1}{\tau}(\alpha_{o,i} + G_i)\right)
-$$
+$$\Delta W = BA = \sum_{i=1}^{R} b_i a_i^{\top}, \qquad \alpha_o = \text{MLP}(m_o), \qquad \tilde{z}_{o,i} = \sigma\!\left(\frac{1}{\tau}(\alpha_{o,i} + G_i)\right)$$
 
 训练时硬门控 + straight-through estimator，以及 MoGA 前向传播（对象专属适配器，共享分量）：
 
-$$
-z_{o,i} = \begin{cases} \mathbb{I}[\tilde{z}_{o,i} > 0.5] & \text{(forward)} \\ \tilde{z}_{o,i} & \text{(backward)} \end{cases}, \qquad
-h = W_0 x + \frac{1}{O}\sum_{o=1}^{O} \left( \sum_{i=1}^{R} z_{o,i} \cdot b_i a_i^{\top} \right) x
-$$
+$$z_{o,i} = \begin{cases} \mathbb{I}[\tilde{z}_{o,i} > 0.5] & \text{(forward)} \\ \tilde{z}_{o,i} & \text{(backward)} \end{cases}, \qquad h = W_0 x + \frac{1}{O}\sum_{o=1}^{O} \left( \sum_{i=1}^{R} z_{o,i} \cdot b_i a_i^{\top} \right) x$$
 
 训练损失（focal + dice，门控无直接监督）：
 
-$$
-\mathcal{L}_{\text{total}} = \frac{1}{T \cdot O}\sum_{t=1}^{T}\sum_{o=1}^{O} \mathcal{L}_{\text{seg}}(y_{o,t}, \hat{y}_{o,t})
-$$
+$$\mathcal{L}_{\text{total}} = \frac{1}{T \cdot O}\sum_{t=1}^{T}\sum_{o=1}^{O} \mathcal{L}_{\text{seg}}(y_{o,t}, \hat{y}_{o,t})$$
 
 #### 代码对应
 
@@ -182,10 +174,7 @@ MoGA 本质上是把"鲁棒化适配器"变成了一个**由对象记忆驱动�
 
 8 种退化 + 时域调制（细节见论文第 3 节，无显式公式，此处给出评测指标）：
 
-$$
-J = \frac{1}{N}\sum_{i} \frac{|M_i \cap G_i|}{|M_i \cup G_i|}, \qquad
-J\&F = \frac{1}{2}(J + F)
-$$
+$$J = \frac{1}{N}\sum_{i} \frac{|M_i \cap G_i|}{|M_i \cup G_i|}, \qquad J\&F = \frac{1}{2}(J + F)$$
 
 其中 M_i、G_i 分别为预测与真值掩码，F 为轮廓相似度（基于边界像素的 precision/recall）。
 

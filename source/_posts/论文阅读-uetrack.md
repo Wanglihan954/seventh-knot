@@ -17,6 +17,7 @@ description: >-
   UETrack：一个统一且高效的单目标跟踪框架，一次训练即可高效处理 RGB、Depth、Thermal、Event、Language
   五种模态，填补高效多模态跟踪的空白。…
 readmore: true
+mathjax: true
 abbrlink: d33a56e4
 date: 2026-08-16 20:25:00
 updated: 2026-08-16 23:00:00
@@ -141,15 +142,9 @@ Loss: L_S = L_c + λ_g L_g + λ_l1 L_l1 + L_t + α(λ_kd L_kd + λ_f L_f)   （�
 
 #### 关键公式（论文公式 1）
 
-$$
-T_e = \text{Embed}(\text{Aggre}(T_{in})), \qquad
-T_a = \text{Split}\big(\text{Softmax}(T_{in} T_e^\top)^\top T_{in}\big)
-$$
+$$T_e = \text{Embed}(\text{Aggre}(T_{in})), \qquad T_a = \text{Split}\big(\text{Softmax}(T_{in} T_e^\top)^\top T_{in}\big)$$
 
-$$
-O_e = \text{Merge}\Big(\{\text{Expert}_i(T_a^i)\}_{i=1}^{E}\Big), \qquad
-O = \text{Softmax}(T_{in} T_e^\top)\, O_e
-$$
+$$O_e = \text{Merge}\Big(\{\text{Expert}_i(T_a^i)\}_{i=1}^{E}\Big), \qquad O = \text{Softmax}(T_{in} T_e^\top)\, O_e$$
 
 其中 Aggre(·) 为局部聚合、Embed(·) 为专家嵌入、Split(·) 按专家数顺序分组、Merge(·) 合并各专家输出。
 
@@ -177,16 +172,11 @@ Adaptive Net 本身用 **surrogate prediction 策略**训练（公式 3-4）：�
 
 #### 关键公式（论文公式 2-4）
 
-$$
-L_S = L_c(\hat p_s, p) + \lambda_g L_g(\hat p_s, p) + \lambda_{l1} L_{l1}(\hat p_s, p) + L_t(\hat p_s, p) + \alpha\big(\lambda_{kd} L_{kd}(\hat p_s, \hat p_t) + \lambda_f L_f(\hat p_s, \hat p_t)\big)
-$$
+$$L_S = L_c(\hat p_s, p) + \lambda_g L_g(\hat p_s, p) + \lambda_{l1} L_{l1}(\hat p_s, p) + L_t(\hat p_s, p) + \alpha\big(\lambda_{kd} L_{kd}(\hat p_s, \hat p_t) + \lambda_f L_f(\hat p_s, \hat p_t)\big)$$
 
 其中 L_c / L_g / L_l1 / L_t / L_kd / L_f 分别为分类、GIoU、L1、任务、KL、MSE 损失；λ_g=2，λ_l1=5，λ_kd=5，λ_f=0.002；α 为 Adaptive Net 输出（1 蒸馏 / 0 不蒸馏）。
 
-$$
-\hat p_a^i = \begin{cases} \hat p_t^i & \text{if } \alpha = 1 \\ \hat p_s^i & \text{if } \alpha = 0 \end{cases}, \qquad
-L_A = L_c(\hat p_a, p) + \lambda_g L_g(\hat p_a, p) + \lambda_{l1} L_{l1}(\hat p_a, p) + L_t(\hat p_a, p)
-$$
+$$\hat p_a^i = \begin{cases} \hat p_t^i & \text{if } \alpha = 1 \\ \hat p_s^i & \text{if } \alpha = 0 \end{cases}, \qquad L_A = L_c(\hat p_a, p) + \lambda_g L_g(\hat p_a, p) + \lambda_{l1} L_{l1}(\hat p_a, p) + L_t(\hat p_a, p)$$
 
 学生与 Adaptive Net 分开更新：学生用公式 (2)（α 门控蒸馏项），Adaptive Net 用公式 (4)（surrogate 损失）。
 

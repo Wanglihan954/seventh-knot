@@ -16,6 +16,7 @@ description: >-
   跟踪落地真实场景的关键挑战。现有方法往往同时估计全部跨模态对齐参数（空间偏移与尺度变化），存在两大局限：1) 难以自适应跟踪过程中不同程度的对齐难度；2)
   通常需要复杂模型处理挑战场景，计算负担大。…
 readmore: true
+mathjax: true
 abbrlink: f29ce84e
 date: 2026-08-16 20:00:00
 updated: 2026-08-16 23:00:00
@@ -134,13 +135,9 @@ Stage 3 (深层, 高层语义)
 
 给定模板特征 Z^M ∈ R^{Lz×D} 与搜索特征 X^M ∈ R^{Lx×D}（M ∈ {V, I} 分别指可见光与红外），第 i 个 Transformer 层处的阶段预测为：
 
-$$
-P_k = E([Z^V_i, X^V_i], [Z^I_i, X^I_i]), \quad k \in \{center, scale, refine\} \tag{1}
-$$
+$$P_k = E([Z^V_i, X^V_i], [Z^I_i, X^I_i]), \quad k \in \{center, scale, refine\} \tag{1}$$
 
-$$
-P_{center} = [dx, dy], \quad P_{scale} = [\Delta dx, \Delta dy, sx, sy], \quad P_{refine} = [\Delta dx, \Delta dy, \Delta sx, \Delta sy]
-$$
+$$P_{center} = [dx, dy], \quad P_{scale} = [\Delta dx, \Delta dy, sx, sy], \quad P_{refine} = [\Delta dx, \Delta dy, \Delta sx, \Delta sy]$$
 
 其中 dx, dy 为两模态中心偏移差，sx, sy 为两模态尺度比，Δ* 为残差预测。
 
@@ -168,29 +165,19 @@ $$
 
 #### 关键公式
 
-$$
-R^M = \phi((Z^M W^M) \cdot (X^M W^M)^\top) \in \mathbb{R}^{L_z \times L_x} \tag{2}
-$$
+$$R^M = \phi((Z^M W^M) \cdot (X^M W^M)^\top) \in \mathbb{R}^{L_z \times L_x} \tag{2}$$
 
-$$
-T^* = \arg\min_{T \ge 0,\ T\mathbf{1}=a,\ T^\top\mathbf{1}=b} \langle T, C \rangle, \quad C_{ij} = \lVert p_i - p_j \rVert_2^2 \tag{3}
-$$
+$$T^* = \arg\min_{T \ge 0,\ T\mathbf{1}=a,\ T^\top\mathbf{1}=b} \langle T, C \rangle, \quad C_{ij} = \lVert p_i - p_j \rVert_2^2 \tag{3}$$
 
 （a、b 分别为 RGB/TIR 响应的概率分布，C 为响应位置间几何距离成本矩阵）
 
-$$
-X^M_l = A_k^l(X^M), \quad X^M_h = X^M - A_k^h(X^M) \tag{4}
-$$
+$$X^M_l = A_k^l(X^M), \quad X^M_h = X^M - A_k^h(X^M) \tag{4}$$
 
 （A_k 为核大小 k 的平均池化，分离低/高频分量）
 
-$$
-P = \sum_{e} r_e P_e, \quad e \in \{t, c, d\} \tag{5}
-$$
+$$P = \sum_{e} r_e P_e, \quad e \in \{t, c, d\} \tag{5}$$
 
-$$
-L_{CPESL} = \sum_e r_e \ell_e + \lambda_{cost} \sum_e r_e c_e, \quad \lambda_{cost} = 0.01 \tag{6}
-$$
+$$L_{CPESL} = \sum_e r_e \ell_e + \lambda_{cost} \sum_e r_e c_e, \quad \lambda_{cost} = 0.01 \tag{6}$$
 
 #### 我的理解
 
@@ -210,9 +197,7 @@ DMAE 是"**难度自适应的 MoE**"：TRE 最轻（响应点积 + OT 求解）�
 
 #### 关键公式
 
-$$
-G_{h,k} = p_t + \Delta H_h + \Delta L_{h,k}, \qquad \hat{v}_h = \sum_k A_{h,k} S(G_{h,k}) \tag{7}
-$$
+$$G_{h,k} = p_t + \Delta H_h + \Delta L_{h,k}, \qquad \hat{v}_h = \sum_k A_{h,k} S(G_{h,k}) \tag{7}$$
 
 （G 为第 h 头第 k 个采样点位置；ΔL 为 MLP 学习的局部偏移；S 为源特征）
 

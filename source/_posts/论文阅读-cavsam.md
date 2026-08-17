@@ -19,6 +19,7 @@ description: >-
   meta-learning，需要海量数据和巨大算力。本文提出 Correspondence As Video for SAM
   (CAV-SAM)：把参考-目标图像对之间的内在对应关系"当作"一段伪视频，从而用具备交互式视频分割（iVOS）能力的 SAM2 以轻量方式适配下游任务。…
 readmore: true
+mathjax: true
 abbrlink: a53981
 date: 2026-08-15 20:05:00
 updated: 2026-08-15 23:00:00
@@ -143,13 +144,9 @@ iVOS 模型跟踪的是"同实例、语义随时间一致"的物体，而参考�
 
 LoRA 参数插值（Eq.1）与潜噪声球面插值（Eq.2）：
 
-$$
-\Delta\theta_{\alpha} = (1-\alpha)\Delta\theta_{r} + \alpha\Delta\theta_{t}
-$$
+$$\Delta\theta_{\alpha} = (1-\alpha)\Delta\theta_{r} + \alpha\Delta\theta_{t}$$
 
-$$
-z^{T}_{\alpha} = \frac{\sin((1-\alpha)\varphi)}{\sin\varphi} z^{T}_{r} + \frac{\sin(\alpha\varphi)}{\sin\varphi} z^{T}_{t}
-$$
+$$z^{T}_{\alpha} = \frac{\sin((1-\alpha)\varphi)}{\sin\varphi} z^{T}_{r} + \frac{\sin(\alpha\varphi)}{\sin\varphi} z^{T}_{t}$$
 
 随后用参数化为 $\epsilon_{\theta + \Delta\theta_{\alpha}}$ 的噪声预测网络按 DDIM 调度去噪 $z^{T}_{\alpha}$，得到中间帧 $I^{v}_{1}, \dots, I^{v}_{N_{v}}$。
 
@@ -211,13 +208,9 @@ DBST 本质是"参数空间 + 潜空间双插值"：LoRA 参数插值负责语�
 
 Masked Average Pooling 原型（Eq.3）、cosine 相似度 + Otsu 阈值（Eq.4-5）、ACC 双损失（Eq.6-8）：
 
-$$
-p_{r} = \frac{\sum_{i}^{H}\sum_{j}^{W} F_{r}[i,j,:]\cdot M_{r}[i,j]}{\sum_{i}^{H}\sum_{j}^{W} M_{r}[i,j]}, \quad S_{t} = \frac{F_{t}\cdot p_{r}}{\lVert F_{t}\rVert_{2}\,\lVert p_{r}\rVert_{2}}, \quad \hat{M}_{t} = \mathbb{I}(S_{t} > \tau),\; \tau = \text{otsu}(S_{t})
-$$
+$$p_{r} = \frac{\sum_{i}^{H}\sum_{j}^{W} F_{r}[i,j,:]\cdot M_{r}[i,j]}{\sum_{i}^{H}\sum_{j}^{W} M_{r}[i,j]}, \quad S_{t} = \frac{F_{t}\cdot p_{r}}{\lVert F_{t}\rVert_{2}\,\lVert p_{r}\rVert_{2}}, \quad \hat{M}_{t} = \mathbb{I}(S_{t} > \tau),\; \tau = \text{otsu}(S_{t})$$
 
-$$
-\mathcal{L}_{aug} = \text{BCE}(\text{sigmoid}(S^{aug}_{r}), M^{aug}_{r}), \quad \mathcal{L}_{cyc} = \text{BCE}(\text{sigmoid}(S_{r}), M_{r}), \quad \mathcal{L} = \mathcal{L}_{aug} + \mathcal{L}_{cyc}
-$$
+$$\mathcal{L}_{aug} = \text{BCE}(\text{sigmoid}(S^{aug}_{r}), M^{aug}_{r}), \quad \mathcal{L}_{cyc} = \text{BCE}(\text{sigmoid}(S_{r}), M_{r}), \quad \mathcal{L} = \mathcal{L}_{aug} + \mathcal{L}_{cyc}$$
 
 #### 代码对应
 

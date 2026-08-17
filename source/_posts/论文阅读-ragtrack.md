@@ -18,6 +18,7 @@ description: >-
   跟踪器仅依赖首帧视觉信息进行目标建模,由于缺少语言引导,无法适应目标的外观变化;同时,现有方法存在搜索区域冗余与异质模态差异(heterogeneous
   modality gaps),导致背景干扰。…
 readmore: true
+mathjax: true
 abbrlink: 87c2401d
 date: 2026-08-16 20:05:00
 updated: 2026-08-16 23:00:00
@@ -156,24 +157,11 @@ RGB-Thermal(RGBT)跟踪旨在通过融合可见光与热红外两种模态,在�
 
 #### 关键公式
 
-$$
-\hat{\mathbf{H}}^t = \mathcal{T}(\mathbf{H}^t), \qquad \mathbf{H}^t = [\mathbf{E}_t, \mathbf{L}_t]
-\tag{1}
-$$
+$$\hat{\mathbf{H}}^t = \mathcal{T}(\mathbf{H}^t), \qquad \mathbf{H}^t = [\mathbf{E}_t, \mathbf{L}_t] \tag{1}$$
 
-$$
-\mathbf{F}_m^0 = [\mathbf{R}_m^t;\ \hat{\mathbf{H}}^t;\ \hat{\mathbf{Z}}_m^t;\ \hat{\mathbf{X}}_m^t]
-\tag{2}
-$$
+$$\mathbf{F}_m^0 = [\mathbf{R}_m^t;\ \hat{\mathbf{H}}^t;\ \hat{\mathbf{Z}}_m^t;\ \hat{\mathbf{X}}_m^t] \tag{2}$$
 
-$$
-\begin{aligned}
-\hat{\mathbf{F}}_m^{l-1} &= \mathrm{MHSA}(\mathbf{F}_m^{l-1},\mathbf{F}_m^{l-1},\mathbf{F}_m^{l-1}), \\
-\tilde{\mathbf{F}}_m^{l-1} &= \mathbf{F}_m^{l-1} + \mathrm{LN}(\delta_1 \cdot \hat{\mathbf{F}}_m^{l-1}), \\
-\mathbf{F}_m^{l} &= \tilde{\mathbf{F}}_m^{l-1} + \mathrm{LN}(\delta_2 \cdot \mathrm{MLP}(\tilde{\mathbf{F}}_m^{l-1}))
-\end{aligned}
-\tag{3}
-$$
+$$\begin{aligned} \hat{\mathbf{F}}_m^{l-1} &= \mathrm{MHSA}(\mathbf{F}_m^{l-1},\mathbf{F}_m^{l-1},\mathbf{F}_m^{l-1}), \\ \tilde{\mathbf{F}}_m^{l-1} &= \mathbf{F}_m^{l-1} + \mathrm{LN}(\delta_1 \cdot \hat{\mathbf{F}}_m^{l-1}), \\ \mathbf{F}_m^{l} &= \tilde{\mathbf{F}}_m^{l-1} + \mathrm{LN}(\delta_2 \cdot \mathrm{MLP}(\tilde{\mathbf{F}}_m^{l-1})) \end{aligned} \tag{3}$$
 
 #### 我的理解
 
@@ -196,25 +184,13 @@ MTE 本质上把语言当作"第三个模态的 token"塞进统一自注意力�
 
 #### 关键公式
 
-$$
-\mathbf{A}_m^{x2o} = \mathrm{Softmax}\left(\frac{\mathbf{Q}_m^x(\mathbf{K}_m^o)^{\mathrm{T}}}{\sqrt{d}}\right),\quad o \in \{r, h, z, x\}
-\tag{4}
-$$
+$$\mathbf{A}_m^{x2o} = \mathrm{Softmax}\left(\frac{\mathbf{Q}_m^x(\mathbf{K}_m^o)^{\mathrm{T}}}{\sqrt{d}}\right),\quad o \in \{r, h, z, x\} \tag{4}$$
 
-$$
-\mathbf{A}_m^{\mathrm{total}} = \mathbf{A}_m^{x2r} + \mathbf{A}_m^{x2h} + \mathbf{A}_m^{x2z} + \mathbf{A}_m^{x2x}
-\tag{5}
-$$
+$$\mathbf{A}_m^{\mathrm{total}} = \mathbf{A}_m^{x2r} + \mathbf{A}_m^{x2h} + \mathbf{A}_m^{x2z} + \mathbf{A}_m^{x2x} \tag{5}$$
 
-$$
-\mathbf{S} = \left((\mathbf{F}_B^l)^{\mathrm{T}}\mathbf{W}_B^l\right)\left((\mathbf{F}_R^l)^{\mathrm{T}}\mathbf{W}_R^l\right)^{\mathrm{T}}
-\tag{6}
-$$
+$$\mathbf{S} = \left((\mathbf{F}_B^l)^{\mathrm{T}}\mathbf{W}_B^l\right)\left((\mathbf{F}_R^l)^{\mathrm{T}}\mathbf{W}_R^l\right)^{\mathrm{T}} \tag{6}$$
 
-$$
-[\mathbf{F}_B^l;\ \mathbf{F}_R^l] \xrightarrow{\ \mathcal{M}\ (\mathrm{MLP})\ } \mathbf{F}_B^l,\ \mathbf{F}_R^l
-\tag{7}
-$$
+$$[\mathbf{F}_B^l;\ \mathbf{F}_R^l] \xrightarrow{\ \mathcal{M}\ (\mathrm{MLP})\ } \mathbf{F}_B^l,\ \mathbf{F}_R^l \tag{7}$$
 
 #### 我的理解
 
@@ -237,39 +213,17 @@ ATF 的两个动作分别对应两类问题:token 选择消"搜索冗余",通道
 
 #### 关键公式
 
-$$
-\max_{\hat{\mathbf{H}}_m^i \in \mathbf{D}_m} \frac{\hat{\mathbf{H}}_m^t \cdot \hat{\mathbf{H}}_m^i}{\|\hat{\mathbf{H}}_m^t\|_2 \|\hat{\mathbf{H}}_m^i\|_2} < \lambda
-\tag{8}
-$$
+$$\max_{\hat{\mathbf{H}}_m^i \in \mathbf{D}_m} \frac{\hat{\mathbf{H}}_m^t \cdot \hat{\mathbf{H}}_m^i}{\|\hat{\mathbf{H}}_m^t\|_2 \|\hat{\mathbf{H}}_m^i\|_2} < \lambda \tag{8}$$
 
-$$
-\mathbf{V}_m = \mathcal{O}(\hat{\mathbf{H}}_m^t, \mathbf{D}_m),\qquad |\mathbf{V}_m| = k
-\tag{9}
-$$
+$$\mathbf{V}_m = \mathcal{O}(\hat{\mathbf{H}}_m^t, \mathbf{D}_m),\qquad |\mathbf{V}_m| = k \tag{9}$$
 
-$$
-\bar{\mathbf{X}}_m^t = \hat{\mathbf{X}}_m^t + \Phi(\hat{\mathbf{X}}_m^t, \mathbf{V}_m)
-\tag{10}
-$$
+$$\bar{\mathbf{X}}_m^t = \hat{\mathbf{X}}_m^t + \Phi(\hat{\mathbf{X}}_m^t, \mathbf{V}_m) \tag{10}$$
 
-$$
-\bar{\mathbf{R}}_m^{t}, \bar{\mathbf{H}}_m^t, \bar{\mathbf{Z}}_m^t = \mathcal{P}(\mathbf{R}_m^{t}, \hat{\mathbf{H}}_m^t, \hat{\mathbf{Z}}_m^t)
-\tag{11}
-$$
+$$\bar{\mathbf{R}}_m^{t}, \bar{\mathbf{H}}_m^t, \bar{\mathbf{Z}}_m^t = \mathcal{P}(\mathbf{R}_m^{t}, \hat{\mathbf{H}}_m^t, \hat{\mathbf{Z}}_m^t) \tag{11}$$
 
-$$
-\mathbf{R}_m^{t+1} = \mathcal{G}(\bar{\mathbf{R}}_m^{t}, \bar{\mathbf{H}}_m^t, \bar{\mathbf{Z}}_m^t)
-\tag{12}
-$$
+$$\mathbf{R}_m^{t+1} = \mathcal{G}(\bar{\mathbf{R}}_m^{t}, \bar{\mathbf{H}}_m^t, \bar{\mathbf{Z}}_m^t) \tag{12}$$
 
-$$
-\begin{aligned}
-\hat{\mathbf{R}}_m^{t+1} &= \mathbf{R}_m^{t+1} + \Phi(\mathbf{R}_m^{t+1}, \bar{\mathbf{X}}_m^t), \\
-\tilde{\mathbf{R}}_m^{t+1} &= \hat{\mathbf{R}}_m^{t+1} + \mathrm{MLP}(\hat{\mathbf{R}}_m^{t+1}), \\
-\tilde{\mathbf{X}}_m^t &= \bar{\mathbf{X}}_m^t \otimes (\tilde{\mathbf{R}}_m^{t+1})^{\mathrm{T}} \odot \bar{\mathbf{X}}_m^t
-\end{aligned}
-\tag{13}
-$$
+$$\begin{aligned} \hat{\mathbf{R}}_m^{t+1} &= \mathbf{R}_m^{t+1} + \Phi(\mathbf{R}_m^{t+1}, \bar{\mathbf{X}}_m^t), \\ \tilde{\mathbf{R}}_m^{t+1} &= \hat{\mathbf{R}}_m^{t+1} + \mathrm{MLP}(\hat{\mathbf{R}}_m^{t+1}), \\ \tilde{\mathbf{X}}_m^t &= \bar{\mathbf{X}}_m^t \otimes (\tilde{\mathbf{R}}_m^{t+1})^{\mathrm{T}} \odot \bar{\mathbf{X}}_m^t \end{aligned} \tag{13}$$
 
 #### 我的理解
 

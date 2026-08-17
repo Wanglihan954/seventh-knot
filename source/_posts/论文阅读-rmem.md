@@ -15,6 +15,7 @@ description: >-
   deciphering"实验发现关键洞察：扩大记忆库看似有益，实际上因冗余信息混淆了 VOS
   模块解码相关特征的能力。把记忆库限制在少量关键帧内可显著提升精度；更新策略需平衡帧的 relevance 与 freshness；…
 readmore: true
+mathjax: true
 abbrlink: c4b9bce1
 date: 2026-08-15 20:40:00
 updated: 2026-08-15 23:00:00
@@ -129,19 +130,13 @@ baseline 更新（Eq.3）：满员时移除第 1 帧（保留帧 0 与最近帧�
 #### 关键公式
 
 baseline 更新（K_t = K 时）：
-$$
-M_{t+1} = \text{Concat}(M_t^0,\; M_t^{2:K_t-1},\; F_t)
-$$
+$$M_{t+1} = \text{Concat}(M_t^0,\; M_t^{2:K_t-1},\; F_t)$$
 
 解码与 relevance 定义（attention 分数按记忆帧求和）：
-$$
-F_t^D = \text{Attn}(Q=F_t, K=M_t, V=M_t), \qquad R_k = \text{sum}(S_t^k)
-$$
+$$F_t^D = \text{Attn}(Q=F_t, K=M_t, V=M_t), \qquad R_k = \text{sum}(S_t^k)$$
 
 UCB 淘汰分数（多臂老虎机启发）：
-$$
-O_j = R_j + \sqrt{\frac{2\log T}{t_j}}
-$$
+$$O_j = R_j + \sqrt{\frac{2\log T}{t_j}}$$
 $R_j$ = 帧 j 的 relevance；$t_j$ = 帧 j 在记忆中的停留次数（代码里 `frame_times`），$T$ = 各帧停留次数总和；代码中实际为 $O = \text{attn\_weight} + 1.5 \cdot \sqrt{\log(\sum t) / (t + 8)}$，并淘汰 argmin。
 
 #### 代码对应
@@ -181,17 +176,10 @@ relevance 用"解码时当前帧对每个记忆帧的平均注意力"是廉价�
 #### 关键公式
 
 记忆 temporal PE（K_t > K_train 时插值）：
-$$
-P_t^{0:K_t-1} = \begin{cases}
-Pe^{0:K_t-1}, & K_t \le K_{train}\\
-\text{Interp}(Pe^{0:K_{train}-1}, K_t), & K_t > K_{train}
-\end{cases}
-$$
+$$P_t^{0:K_t-1} = \begin{cases} Pe^{0:K_t-1}, & K_t \le K_{train}\\ \text{Interp}(Pe^{0:K_{train}-1}, K_t), & K_t > K_{train} \end{cases}$$
 
 加入 PE 后的记忆读取（query 加专用 PE P_q）：
-$$
-F_t^D = \text{Attn}(Q = F_t + P_q,\; K = M_t^{0:K_t-1} + P_t^{0:K_t-1},\; V = M_t^{0:K_t-1})
-$$
+$$F_t^D = \text{Attn}(Q = F_t + P_q,\; K = M_t^{0:K_t-1} + P_t^{0:K_t-1},\; V = M_t^{0:K_t-1})$$
 
 #### 代码对应
 

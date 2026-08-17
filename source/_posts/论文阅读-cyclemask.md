@@ -19,6 +19,7 @@ description: >-
   CDT），引导目标视频中对应物体的定位。引入循环一致性训练目标：目标视图预测的 mask 被投影回源视图以重建原始查询 mask，无需 GT
   标注即可提供强自监督信号，并支撑推理时的 test-time training (TTT)。…
 readmore: true
+mathjax: true
 abbrlink: bd23800
 date: 2026-08-15 20:15:00
 updated: 2026-08-15 23:00:00
@@ -145,10 +146,7 @@ Output: M̂t（训练）；推理时 TTT：只更新最后 K 层 transformer blo
 
 归一化 mask 与条件特征（Eq.1-2）：
 
-$$
-\tilde{M}_{s} = \frac{M_{s}}{\sum_{i,j} M_{s}[i,j] + \tau},\qquad
-z_{s} = \sum_{i}^{H}\sum_{j}^{W} \tilde{M}_{s}[i,j] \cdot F_{s}[:, i, j]
-$$
+$$\tilde{M}_{s} = \frac{M_{s}}{\sum_{i,j} M_{s}[i,j] + \tau},\qquad z_{s} = \sum_{i}^{H}\sum_{j}^{W} \tilde{M}_{s}[i,j] \cdot F_{s}[:, i, j]$$
 
 输入序列：$x_{input} = [CLS,\; CDT,\; x_{1}, \dots, x_{n}]$，其中 CDT 为 $z_s$ 的线性投影。
 
@@ -196,14 +194,9 @@ CDT 本质上就是"mask 池化的类原型"——与 CAV-SAM 的 prototype pr�
 
 总损失（Eq.1）与循环一致性损失（Eq.4）：
 
-$$
-\mathcal{L}_{total} = \mathcal{L}_{mask} + \lambda_{aux}\mathcal{L}_{aux} + \lambda_{cycle}\mathcal{L}_{cycle}
-$$
+$$\mathcal{L}_{total} = \mathcal{L}_{mask} + \lambda_{aux}\mathcal{L}_{aux} + \lambda_{cycle}\mathcal{L}_{cycle}$$
 
-$$
-\mathcal{L}_{cycle} = \mathcal{L}_{bce}(M_{s}, \hat{M}_{s}), \qquad
-\hat{M}_{s} = f\big(I_{s},\; \hat{M}_{t},\; I_{t}\big)
-$$
+$$\mathcal{L}_{cycle} = \mathcal{L}_{bce}(M_{s}, \hat{M}_{s}), \qquad \hat{M}_{s} = f\big(I_{s},\; \hat{M}_{t},\; I_{t}\big)$$
 
 mask 损失（Eq.2-3，BCE + Dice）：$\mathcal{L}_{mask} = \mathcal{L}_{bce}(M_{t}, \hat{M}_{t}) + \lambda_{dice}\mathcal{L}_{dice}(M_{t}, \hat{M}_{t})$
 
