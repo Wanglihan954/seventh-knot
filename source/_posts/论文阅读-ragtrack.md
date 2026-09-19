@@ -3,8 +3,7 @@ title: >-
   论文阅读｜RAGTrack: Language-aware RGBT Tracking with Retrieval-Augmented
   Generation
 categories:
-  - 文献阅读
-  - Tracking
+  - 视觉目标跟踪
 tags:
   - 文献笔记
   - AI论文
@@ -13,6 +12,7 @@ tags:
   - CVPR
   - 视频目标跟踪
   - Tracking
+  - 文献阅读
 description: >-
   RGB-Thermal(RGBT)跟踪旨在通过融合可见光与热红外两种模态,在不同环境条件下实现鲁棒的目标定位。然而,现有 RGBT
   跟踪器仅依赖首帧视觉信息进行目标建模,由于缺少语言引导,无法适应目标的外观变化;同时,现有方法存在搜索区域冗余与异质模态差异(heterogeneous

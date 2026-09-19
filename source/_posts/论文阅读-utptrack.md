@@ -1,8 +1,7 @@
 ---
 title: '论文阅读｜UTPTrack: Towards Simple and Unified Token Pruning for Visual Tracking'
 categories:
-  - 文献阅读
-  - Tracking
+  - 视觉目标跟踪
 tags:
   - 文献笔记
   - AI论文
@@ -11,6 +10,7 @@ tags:
   - CVPR
   - 视频目标跟踪
   - Tracking
+  - 文献阅读
 description: >-
   单流 Transformer 跟踪器性能先进但计算开销大。token
   剪枝是有效的效率途径，但现有方法各自孤立地剪搜索区（SR）、动态模板（DT）或静态模板（ST），忽略了组件间依赖。本文提出
@@ -137,9 +137,13 @@ UTPTrack 以 OSTrack（RGB）与 SUTrack（统一）为基座：RGB 输入序列
 
 #### 关键公式
 
+{% raw %}
 $$\text{Attention}(Q,K,V) = \text{Softmax}\left(\frac{[Q_x;Q_{sz};Q_{dz}][K_x;K_{sz};K_{dz}]^T}{\sqrt{d_k}}\right) \begin{bmatrix} V_x \\ V_{sz} \\ V_{dz} \end{bmatrix} \tag{1}$$
+{% endraw %}
 
+{% raw %}
 $$A = \text{Softmax}\left(\frac{1}{\sqrt{d_k}} \begin{bmatrix} Q_xK_x^T & Q_xK_{sz}^T & Q_xK_{dz}^T \\ Q_{sz}K_x^T & Q_{sz}K_{sz}^T & Q_{sz}K_{dz}^T \\ Q_{dz}K_x^T & Q_{dz}K_{sz}^T & Q_{dz}K_{dz}^T \end{bmatrix}\right) \tag{2}$$
+{% endraw %}
 
 论文用 Eq. 2 的分块结构论证剪枝必要性：$Q_xK_x^T$ 使背景 token 互相注意、$Q_{sz}K_x^T$ / $Q_{dz}K_x^T$ 使模板 token 被噪声搜索 token 污染，因此需要按组件剪枝。
 
@@ -167,11 +171,17 @@ $$A = \text{Softmax}\left(\frac{1}{\sqrt{d_k}} \begin{bmatrix} Q_xK_x^T & Q_xK_{
 
 **核心做法** 由 bbox B 构造二值 mask $M(i,j)=1 \text{ if } (i,j) \in B$（Eq. 3），划分成 P×P 非重叠 patch，每个 patch 的前景分数作为 **bonus 直接加到注意力分数上参与排序**。三种变体（Eq. 4-6）：full（patch 全部像素在框内才为 1）、soft（patch 内 mask 均值，默认）、all（任一像素在框内即为 1）。默认 soft。
 
+{% raw %}
 $$M(i,j) = 1 \ \text{if}\ (i,j)\ \text{is inside}\ B, \quad 0\ \text{otherwise} \tag{3}$$
+{% endraw %}
 
+{% raw %}
 $$b^{(k)}_{full} = 1\ \text{if}\ M(i,j)=1\ \forall (i,j)\in M^{(k)}_{patch},\ 0\ \text{otherwise};\qquad b^{(k)}_{soft} = \tfrac{1}{P^2}\sum_{(i,j)\in M^{(k)}_{patch}} M(i,j) \tag{4,5}$$
+{% endraw %}
 
+{% raw %}
 $$b^{(k)}_{all} = 1\ \text{if}\ \exists (i,j)\in M^{(k)}_{patch}: M(i,j)=1,\ 0\ \text{otherwise} \tag{6}$$
+{% endraw %}
 
 #### 3.3.4 多模态与语言引导剪枝（统一框架扩展）
 
@@ -179,7 +189,9 @@ $$b^{(k)}_{all} = 1\ \text{if}\ \exists (i,j)\in M^{(k)}_{patch}: M(i,j)=1,\ 0\ 
 
 **RGB-Language**：文本描述经 CLIP-L 编码成单 token $E_t$，与视觉 token 一起进 transformer，注意力矩阵扩展为 4×4 分块（Eq. 7，含 $Q_xK_t^T$、$Q_tK_x^T$ 等双向交互）。语言引导剪枝把重要性分数改成 ST 中心 token 与文本 token 两个 query 的 softmax 相似度之和：
 
+{% raw %}
 $$\omega_x = \phi\left(\text{softmax}\left(\frac{Q_{sz'}K_x^T}{\sqrt{d_k}}\right) + \text{softmax}\left(\frac{Q_{t}K_x^T}{\sqrt{d_k}}\right)\right) \tag{8}$$
+{% endraw %}
 
 φ 为跨 attention map 求和。同样原则适用于 DT 与 ST（Tab. 7 消融哪些组件该吃文本信号——结论是 DT 最优）。
 

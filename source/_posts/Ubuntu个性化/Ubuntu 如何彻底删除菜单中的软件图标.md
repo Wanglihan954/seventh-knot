@@ -1,7 +1,7 @@
 ---
 title: Ubuntu 如何彻底删除菜单中的软件图标？三种实用方法全解析
 categories:
-  - Ubuntu个性化
+  - Linux 系统与桌面
 tags:
   - Ubuntu
   - 桌面环境

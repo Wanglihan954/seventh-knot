@@ -1,8 +1,7 @@
 ---
 title: "论文阅读｜Group Orthogonal Low-Rank Adaptation for RGB-T Tracking"
 categories:
-  - 文献阅读
-  - Tracking
+  - 视觉目标跟踪
 tags:
   - "文献笔记"
   - "AI论文"
@@ -11,6 +10,7 @@ tags:
   - "LoRA"
   - "视频目标跟踪"
   - "Tracking"
+  - 文献阅读
 description: "RGB-T 跟踪常用参数高效微调：冻结预训练骨干，只训练少量低秩参数，以降低训练和部署开销。论文指出，LoRA 的低秩空间虽然参数量小，但多个 rank 的重要性高度不均衡，许多 rank 几乎没有贡献，导致模型难以学习应对低照度、遮挡、相似干扰等多样挑战。作者提出 GOLA（Group Orthogonal Low-Rank Adaptation） ：先对 LoRA 的参数矩阵做 SVD，估计 rank 重要性；…"
 readmore: true
 mathjax: true

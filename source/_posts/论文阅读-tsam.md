@@ -1,8 +1,7 @@
 ---
 title: "论文阅读｜Tracking and Segmenting Anything in Any Modality"
 categories:
-  - 文献阅读
-  - Tracking
+  - 跨视角与三维视觉
 tags:
   - "文献笔记"
   - "AI论文"
@@ -12,6 +11,7 @@ tags:
   - "RGB-T"
   - "视频目标跟踪与分割"
   - "Tracking"
+  - 文献阅读
 description: "[论文事实] 现有 tracking 与 segmentation 方法通常按任务或模态分别设计，导致架构、参数和训练流程重复。虽然 unified task 或 unified modality 方法已经出现，但仍分别忽略了跨模态数据的 distributional gap 与跨任务的 feature representation gap。…"
 readmore: true
 mathjax: true

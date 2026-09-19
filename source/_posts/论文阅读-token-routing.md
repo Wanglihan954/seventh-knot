@@ -1,8 +1,7 @@
 ---
 title: 论文阅读｜Adaptive Depth Lightweight RGB-T Tracking with Holistic Token Routing
 categories:
-  - 文献阅读
-  - Tracking
+  - 视觉目标跟踪
 tags:
   - 文献笔记
   - AI论文
@@ -11,6 +10,7 @@ tags:
   - CVPR
   - 视频目标跟踪
   - Tracking
+  - 文献阅读
 description: >-
   RGB-T 跟踪的价值在于：夜间、眩光、雾、部分遮挡下 RGB 失效时热红外仍可用。但近期架构强调深融合与大参数量，推高 FLOPs
   与带宽，实时性被限制在高端 GPU。本文提出 ADTrack 平衡精度与效率：(1) Adaptive Early-Exit (AEE) ：给
@@ -142,11 +142,17 @@ ADTrack 是双流架构：RGB 与热红外各走一条轻量 ViT 骨干（Method
 
 #### 关键公式
 
+{% raw %}
 $$r_l = \frac{\max(S_l)}{\sum_i S_{l,i}}, \qquad r^{*} = \frac{\max(S_L)}{\sum_i S_{L,i}} \tag{1}$$
+{% endraw %}
 
+{% raw %}
 $$\mathcal{L}_{AEE} = \sum_l \left[ \mathcal{L}_{pred}(S_l, y) + |r_l - r^{*}| + M(r_l, r^{*}, \tau) \right] \tag{2}$$
+{% endraw %}
 
+{% raw %}
 $$M(r_l, r^{*}, \tau) = \begin{cases} (\tau - r_l)_+, & \text{if } r^{*} > \tau \\ (r_l - \tau)_+, & \text{otherwise} \end{cases}$$
+{% endraw %}
 
 其中 S_L 是最深层的最终 score map；`(·)₊ = max(·, 0)`。第一个 term 保证每个中间头能独立定位；第二个 term 对齐置信度随深度演化的单调性；第三个 term 定义停止边界的软惩罚。训练时还配合**随机深度截断**（random depth truncation），鼓励模型在多种深度下都稳健，而非只依赖最深配置。
 
@@ -173,9 +179,13 @@ $$M(r_l, r^{*}, \tau) = \begin{cases} (\tau - r_l)_+, & \text{if } r^{*} > \tau 
 
 #### 关键公式
 
+{% raw %}
 $$h_k = \sum_{i=1}^{N_t} \left( f_k(x_i) \odot x_i \right), \qquad k = 1, \dots, K \tag{3}$$
+{% endraw %}
 
+{% raw %}
 $$Z = \text{TransformerBlock}([H_n : X_m]) \tag{4}$$
+{% endraw %}
 
 其中 f_k(·) 是生成第 k 个 token 自适应权重的轻量 MLP；H_n 是模态 n 的 K 个 holistic tokens（源），X_m 是模态 m 的 N 个特征 tokens（目标）；传播后前 K 个位置被删除，剩余 N 个构成精炼序列 X_m'。
 

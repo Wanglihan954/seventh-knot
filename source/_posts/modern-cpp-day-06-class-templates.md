@@ -1,27 +1,34 @@
 ---
-title: C++ Day 6 - Class Templates
+title: "C++ Day 6 - Class Templates"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - Template
-  - Tensor
-description: 以 Tensor<T> 为例理解类模板、实例化、函数模板与模板定义通常放在 header 的原因。
+  - "C++"
+  - "Modern C++"
+  - "Template"
+  - "Tensor"
+  - "学习笔记"
+  - "CS106L"
+  - "Templates"
+  - "Class-Template"
+description: "以 Tensor<T> 为例理解类模板、实例化、函数模板与模板定义通常放在 header 的原因。"
 readmore: true
-abbrlink: aca26b45
-date: 2026-08-30 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-30
+updated: 2026-09-18 16:57:51
+abbrlink: "aca26b45"
 ---
 > **学习信息**
 > **学习日期：** 2026-08-30（周日）
 > **重点：** Class Template、类型参数、模板实例化、Function Template、模板定义的可见性
-> **所属计划：** 14 天 C++ 学习计划 · Day 6
-> **前置笔记：** C++ Day 4 - Classes & Const Correctness、C++ Day 3 - Containers & Iterator
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 6" %}
+> **前置笔记：** {% post_link modern-cpp-day-04-classes-const-correctness "C++ Day 4 - Classes & Const Correctness" %}、{% post_link modern-cpp-day-03-containers-iterator "C++ Day 3 - Containers & Iterator" %}
+
+> **快速复习路径**
+> **类型参数** → **模板实例化** → **`Tensor<T>`** → **Header 中保留定义**
 
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 解释 Template 与具体类型的关系；
@@ -264,6 +271,14 @@ int main() {
     std::cout << add<double>(2, 0.5) << '\n';
 }
 ```
+
+## 对话补充：Concepts、参数包与 TMP
+
+模板内部使用的操作对 T 有实际要求，例如 `<`、复制或输出；自定义结构体需要自己提供相应能力。C++20 Concepts 可以把要求写在接口上。
+
+`typename... Args` 表示类型参数包；TMP 则利用模板进行编译期类型选择或计算。编译期确定操作序列，不等于对运行时对象的操作也提前执行了。
+
+完整示例与 Ranges 的衔接见 {% post_link cs106l-concepts-tmp-ranges "CS106L 对话补充 - Concepts、TMP 与 Ranges" %}。
 
 ## 8. 易错点速查
 

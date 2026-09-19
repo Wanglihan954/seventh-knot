@@ -1,7 +1,7 @@
 ---
 title: 利用阿里云ECS、Frp内网穿透与VSCode Remote-SSH实现远程开发
 categories:
-  - Ubuntu个性化
+  - 网络与远程开发
 tags:
   - Ubuntu
   - FRP

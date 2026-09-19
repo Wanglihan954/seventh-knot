@@ -3,14 +3,14 @@ title: >-
   论文阅读｜Mix-QSAM2: Mixed-Precision Quantization for High Fidelity Segmentation in
   Resource Constrained Scenarios
 categories:
-  - 文献阅读
-  - Tracking
+  - 视频目标分割
 tags:
   - 文献笔记
   - AI论文
   - SAM2
   - 视频目标分割
   - Tracking
+  - 文献阅读
 description: >-
   SAM2 在精度上树立了新标杆，但计算与显存需求阻碍其在资源受限设备上的部署。本文提出一个统一的"重要性驱动"优化框架：1)
   Importance-driven Mixed-Precision Quantization——用 Weight-Activation Importance

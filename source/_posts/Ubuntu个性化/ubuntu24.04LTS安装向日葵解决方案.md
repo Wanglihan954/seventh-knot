@@ -1,7 +1,7 @@
 ---
 title: ubuntu24.04LTS安装向日葵解决方案
 categories:
-  - Ubuntu个性化
+  - 网络与远程开发
 tags:
   - Ubuntu
   - 向日葵

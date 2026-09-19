@@ -1,8 +1,7 @@
 ---
 title: 论文阅读｜Putting the Object Back into Video Object Segmentation
 categories:
-  - 文献阅读
-  - Tracking
+  - 视频目标分割
 tags:
   - 文献笔记
   - AI论文
@@ -10,6 +9,7 @@ tags:
   - SAM2
   - 视频目标分割 (VOS)
   - Tracking
+  - 文献阅读
 description: >-
   Cutie 是一个采用 object-level memory reading 的 VOS 网络，把记忆中的物体表征"放回"分割结果。现有方法用
   bottom-up 的 pixel-level memory reading，在干扰物（distractor）存在时匹配噪声大，在困难数据上表现差。…

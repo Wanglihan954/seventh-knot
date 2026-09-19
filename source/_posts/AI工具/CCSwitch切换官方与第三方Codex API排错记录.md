@@ -1,13 +1,14 @@
 ---
 title: CC Switch 切换官方与第三方 Codex API 排错记录
 categories:
-  - AI工具
+  - 开发工具与协作
 tags:
   - Codex
   - CC Switch
   - API
   - Windows
   - PowerShell
+  - AI工具
 readmore: true
 hideTime: true
 abbrlink: 50fec4d3

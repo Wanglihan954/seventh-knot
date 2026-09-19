@@ -1,32 +1,38 @@
 ---
-title: 'C++ Day 7 - Lambda, Algorithms & Associative Containers'
+title: "C++ Day 7 - Lambda, Algorithms & Associative Containers"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - Lambda
-  - Algorithm
-  - STL
-description: 结合 sort、find、transform 与 map、unordered_map、set，掌握 STL 的协作方式。
+  - "C++"
+  - "Modern C++"
+  - "Lambda"
+  - "Algorithm"
+  - "STL"
+  - "学习笔记"
+  - "CS106L"
+  - "unordered_map"
+description: "结合 sort、find、transform 与 map、unordered_map、set，掌握 STL 的协作方式。"
 readmore: true
-abbrlink: 9a90668a
-date: 2026-08-31 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-31
+updated: 2026-09-18 16:57:52
+abbrlink: "9a90668a"
 ---
 > **学习信息**
 > **学习日期：** 2026-08-31（周一）
 > **重点：** Lambda、Capture、`sort/find/transform`、`map/unordered_map/set`
-> **所属计划：** 14 天 C++ 学习计划 · Day 7
-> **前置笔记：** C++ Day 3 - Containers & Iterator、C++ Day 6 - Class Templates
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 7" %}
+> **前置笔记：** {% post_link modern-cpp-day-03-containers-iterator "C++ Day 3 - Containers & Iterator" %}、{% post_link modern-cpp-day-06-class-templates "C++ Day 6 - Class Templates" %}
 
 ![STL 的四个协作部分：Containers、Iterators、Functors 与 Algorithms](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/cs106l-2026/day7-stl-lambda.png)
 
 > 图源：Stanford CS106L Spring 2026，[Functions & Lambdas Slides](https://web.stanford.edu/class/cs106l/lectures/2026Spring-11-LambdasAndFunctors.pdf) 第 63 页。Lambda 是 Algorithm 接收的可调用规则；它与 Container、Iterator 一起构成 STL 的协作关系。
 
+> **快速复习路径**
+> **Iterator Range** → **Lambda** → **Algorithm** → **关联容器选择**
+
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 拆解 Lambda 的 capture、参数和 body。
@@ -177,6 +183,28 @@ std::transform(scores.begin(), scores.end(), ratios.begin(),
 
 这里的初始化捕获在 Lambda 创建时保存当前最高分副本。
 
+## 对话补充：Predicate、Functor 与 Lambda
+
+Predicate 是返回可作真假判断结果的可调用规则；Functor 是重载 operator() 的对象，可以持有状态。Lambda 产生闭包对象，可用下面的类比理解按值捕获：
+
+```cpp
+struct LessThan {
+    int limit;
+    bool operator()(int x) const { return x < limit; }
+};
+int n = 10;
+auto lambda = [n](int x) { return x < n; };
+LessThan functor{n}; // 二者都保存此时 n 的值
+```
+
+按引用捕获借用外部对象，闭包被保存或返回后仍要检查其寿命。mutable 允许修改按值捕获的闭包状态，不会把捕获副本变成外部变量的引用。
+
+vector 的 push_back 在末尾追加，insert 可以指定位置；set 的 insert 按比较规则定位并按等价关系去重，没有 push_back。
+
+函数按值返回 iterator 的 vector 是可行的，但这个 vector 的存活不保证迭代器所指的数据仍存活。若迭代器指向已销毁的局部容器，仍然悬空。
+
+关于 view 是否为函数、惰性计算是否改动原数据、ranges::to 与 C++ 版本的区别，见 {% post_link cs106l-concepts-tmp-ranges "CS106L 对话补充 - Concepts、TMP 与 Ranges" %}。
+
 ## 7. 易错点
 
 | 易错认识 | 正确理解 |
@@ -200,4 +228,4 @@ std::transform(scores.begin(), scores.end(), ratios.begin(),
 
 ## 下一步
 
-> C++ Day 8 - Special Member Functions & Copy Semantics：对象拥有资源时，复制究竟意味着复制什么？
+> {% post_link modern-cpp-day-08-copy-semantics "C++ Day 8 - Special Member Functions & Copy Semantics" %}：对象拥有资源时，复制究竟意味着复制什么？

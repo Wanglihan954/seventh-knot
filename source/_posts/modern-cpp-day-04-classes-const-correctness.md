@@ -1,27 +1,33 @@
 ---
-title: C++ Day 4 - Classes & Const Correctness
+title: "C++ Day 4 - Classes & Const Correctness"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - Class
-  - const
-description: 通过 Tensor 小类理解封装、构造与析构、初始化列表、this 以及 const overload。
+  - "C++"
+  - "Modern C++"
+  - "Class"
+  - "const"
+  - "学习笔记"
+  - "CS106L"
+  - "Const-Correctness"
+description: "通过 Tensor 小类理解封装、构造与析构、初始化列表、this 以及 const overload。"
 readmore: true
-abbrlink: 4c84084c
-date: 2026-08-29 10:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-29
+updated: 2026-09-18 16:55:51
+abbrlink: "4c84084c"
 ---
 > **学习信息**
 > **学习日期：** 2026-08-29（周六，提前完成）
 > **重点：** Class、Constructor、Destructor、`this`、Const Member Function、Const Overload
-> **所属计划：** 14 天 C++ 学习计划 · Day 4
-> **前置笔记：** C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory、C++ Day 3 - Containers & Iterator
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 4" %}
+> **前置笔记：** {% post_link modern-cpp-day-02-const-lifetime-memory "C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory" %}、{% post_link modern-cpp-day-03-containers-iterator "C++ Day 3 - Containers & Iterator" %}
+
+> **快速复习路径**
+> **封装与不变量** → **构造 / 析构** → **`this`** → **const Interface**
 
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 理解 Class 如何封装数据、操作和访问规则
@@ -195,7 +201,8 @@ const Tensor tensor(10);
 tensor.size(); // 合法，因为 size() 是 const
 ```
 
-> **> 这是 Shallow Const：它限制通过当前对象修改非 `mutable` 成员，但不会递归冻结 Pointer 指向的外部对象。**
+> [!note]
+> 这是 Shallow Const：它限制通过当前对象修改非 `mutable` 成员，但不会递归冻结 Pointer 指向的外部对象。
 
 ## 6. Const Overload
 
@@ -324,6 +331,27 @@ int main() {
 
 同一个对象经普通或 Const 访问路径会选择不同 Overload，并返回相应可修改性的 Reference。
 
+## 对话补充：初始化、浅层 const 与 friend
+
+`int n = 3;` 中的等号属于初始化语法；对象已经存在后执行 `n = 3;` 才是赋值。成员初始化列表在进入构造函数体前工作，初始化顺序由成员声明顺序决定。
+
+`std::vector<int> v(3, 7)` 生成三个 7；`std::vector<int> v{3, 7}` 生成两个元素 3、7。括号与花括号不能无条件互换。
+
+const 成员函数限制通过 `this` 修改非 mutable 成员。若成员是 `int* p`，不能在该函数里给成员 `p` 重新赋地址，但可能通过 `*p` 修改一个非 const 的外部对象；这叫浅层 const，具体代码仍需保证指针有效。
+
+```cpp
+class StudentID {
+    int id_;
+public:
+    explicit StudentID(int id) : id_(id) {}
+    friend bool operator<(const StudentID& a, const StudentID& b) {
+        return a.id_ < b.id_;
+    }
+};
+```
+
+这里的友元 `operator<` 是非成员函数，却被授权访问私有成员。friend 写在授予权限的类中，不自动双向、传递或继承。
+
 ## 9. 易错点
 
 1. Constructor 没有返回类型，连 `void` 也不能写。
@@ -348,4 +376,4 @@ int main() {
 
 ## 下一步
 
-> C++ Day 5 - Inheritance & Polymorphism：通过 Base Interface 统一管理具有不同行为的 Derived 对象。
+> {% post_link modern-cpp-day-05-inheritance-polymorphism "C++ Day 5 - Inheritance & Polymorphism" %}：通过 Base Interface 统一管理具有不同行为的 Derived 对象。

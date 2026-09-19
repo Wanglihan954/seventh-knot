@@ -1,7 +1,7 @@
 ---
 title: WPS for Linux 字体配置(字体缺失解决办法)
 categories:
-  - Ubuntu个性化
+  - Linux 系统与桌面
 tags:
   - Ubuntu
 readmore: true

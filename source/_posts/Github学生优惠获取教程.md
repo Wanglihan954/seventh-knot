@@ -1,9 +1,12 @@
 ---
 title: Github学生优惠获取教程
+categories:
+  - 开发工具与协作
 tags:
   - Agent
   - Github
   - LLM
+  - 资源获取
 aplayer: true
 abbrlink: 70d8eb1
 date: 2025-12-12 21:31:43

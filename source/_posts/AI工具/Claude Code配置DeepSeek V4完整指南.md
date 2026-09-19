@@ -1,12 +1,13 @@
 ---
 title: Claude Code 配置 DeepSeek V4 完整指南
 categories:
-  - AI工具
+  - 开发工具与协作
 tags:
   - Claude Code
   - DeepSeek
   - AI Coding
   - API
+  - AI工具
 readmore: true
 hideTime: true
 abbrlink: 51b59eff

@@ -1,31 +1,38 @@
 ---
-title: C++ Day 12 - CMake & C++ Project Structure
+title: "C++ Day 12 - CMake & C++ Project Structure"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - CMake
-  - Build System
-  - 工程化
-description: 从编译链接流程到 Target 设计，搭建可维护的多文件 CMake C++ 项目。
+  - "C++"
+  - "CMake"
+  - "Build System"
+  - "工程化"
+  - "学习笔记"
+  - "Build-System"
+  - "CppProject"
+  - "Makefile"
+description: "从编译链接流程到 Target 设计，搭建可维护的多文件 CMake C++ 项目。"
 readmore: true
-abbrlink: 2e8b54aa
-date: 2026-09-05 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-09-05
+updated: 2026-09-18 16:55:59
+abbrlink: "2e8b54aa"
 ---
 > **学习信息**
 > **学习日期：** 2026-09-05（周六）
 > **重点：** 编译流程、Header/Source、Target、CMake、Out-of-source Build
-> **所属计划：** 14 天 C++ 学习计划 · Day 12
-> **前置笔记：** C++ Day 6 - Class Templates、C++ Day 10 - RAII & unique_ptr
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 12" %}
+> **前置笔记：** {% post_link modern-cpp-day-06-class-templates "C++ Day 6 - Class Templates" %}、{% post_link modern-cpp-day-10-raii-unique-ptr "C++ Day 10 - RAII & unique_ptr" %}
 
 ![CMake 是生成原生构建系统的跨平台工具](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/cs106l-2026/day12-cmake.png)
 
 > 图源：Stanford CS106L Spring 2026，[RAII & Smart Pointers Slides](https://web.stanford.edu/class/cs106l/lectures/2026Spring-16-RAII-SmartPointers.pdf) 第 91 页。CMake 负责描述 Target 与依赖，并生成 Makefile 或 Ninja 等原生构建文件；它不是编译器。
 
+> **快速复习路径**
+> **编译与链接** → **Header / Source** → **Target** → **Out-of-source Build**
+
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 解释预处理、编译、汇编、链接。
@@ -139,6 +146,34 @@ main.o: main.cpp
 
 它的关键价值是增量构建：只改 tensor.cpp 时，重编 tensor.o 后再链接，无须全量重编。CMake 的价值是用更高层、跨平台的方式生成此类规则。
 
+## 对话补充：头文件可见性与增量构建
+
+`#include "Player.hpp"` 提供声明及类定义，不会执行或自动编入 Player.cpp。创建 `Player p;` 需要知道对象布局，通常要看到完整类定义；仅声明 `Player* p;` 可以使用前置声明。普通成员函数的定义由链接阶段连接，模板隐式实例化通常需要可见定义。
+
+下面是 GNU Make 的最小增量构建例子，适用于 GNU 工具链和兼容的命令环境。命令行开头必须是实际 Tab：
+
+```makefile
+CXX = g++
+CXXFLAGS = -std=c++20 -Wall -Wextra -MMD -MP
+OBJS = main.o player.o
+
+.PHONY: all clean
+all: app
+
+app: $(OBJS)
+	$(CXX) $(OBJS) -o $@
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+-include $(OBJS:.o=.d)
+
+clean:
+	rm -f app $(OBJS) $(OBJS:.o=.d)
+```
+
+`$@` 是目标，`$<` 是首个依赖；编译器生成的 .d 文件让 make 跟踪头文件依赖。仅把“编译所有 cpp”的一条命令塞进 all，并不等于实现了逐目标文件的增量构建。在 Windows 项目中仍优先沿用本笔记的 CMake 命令。
+
 ## 7. 易错点
 
 | 易错认识 | 正确理解 |
@@ -161,4 +196,4 @@ main.o: main.cpp
 
 ## 下一步
 
-> C++ Day 13 - KuiperInfer Source Reading：把前 12 天的 C++ 机制映射到真实推理框架。
+> {% post_link modern-cpp-day-13-kuiperinfer-source-reading "C++ Day 13 - KuiperInfer Source Reading" %}：把前 12 天的 C++ 机制映射到真实推理框架。

@@ -3,8 +3,7 @@ title: >-
   论文阅读｜SAM2Long: Enhancing SAM 2 for Long Video Segmentation with a
   Training-Free Memory Tree
 categories:
-  - 文献阅读
-  - Tracking
+  - 视频目标分割
 tags:
   - 文献笔记
   - AI论文
@@ -12,6 +11,7 @@ tags:
   - SAM2
   - 视频目标分割 (VOS)
   - Tracking
+  - 文献阅读
 description: >-
   SAM 2 的视频分割靠 memory module 用前序帧的 object-aware
   记忆来提示当前帧预测，但其贪婪选择（greedy）记忆设计存在"error accumulation"问题：一帧出错/漏检会级联影响后续帧。SAM2Long
@@ -138,7 +138,9 @@ Mask Decoder 每条生成 3 个候选 mask（含 predicted IoU 与 occlusion sco
 #### 关键公式
 
 累计分数更新（每候选分支）：
+{% raw %}
 $$S_{p,k}[t] = S_p[t-1] + \log(\text{IoU}_{p,k}^t + \varepsilon)$$
+{% endraw %}
 
 剪枝：每步保留 $\underset{\text{top-}P}{\arg\max}\, S_{p,k}[t]$ 的 P 条路径；最终输出 $\underset{p}{\arg\max}\, S_p[T]$。
 
@@ -193,10 +195,14 @@ SAM 2 原始记忆库是"最近 N 帧 FIFO"，遮挡/低质量帧照样入库并
 #### 关键公式
 
 标准权重（线性分布）+ 按 occlusion 排序后分配：
+{% raw %}
 $$W^{std}_i = w_{low} + \frac{i-1}{N}(w_{high} - w_{low}), \qquad o_{I_1} \le o_{I_2} \le \cdots \le o_{I_{N+1}},\qquad w_{I_i} = W^{std}_i$$
+{% endraw %}
 
 调制后的记忆 key 参与 cross-attention：
+{% raw %}
 $$M^\tau_{\text{f}} = w_\tau \cdot M_\tau, \qquad \tau \in \mathcal{I}$$
+{% endraw %}
 
 #### 代码对应
 

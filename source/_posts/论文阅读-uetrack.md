@@ -1,8 +1,7 @@
 ---
 title: '论文阅读｜UETrack: A Unified and Efficient Framework for Single Object Tracking'
 categories:
-  - 文献阅读
-  - Tracking
+  - 视觉目标跟踪
 tags:
   - 文献笔记
   - AI论文
@@ -11,6 +10,7 @@ tags:
   - CVPR
   - 视频目标跟踪
   - Tracking
+  - 文献阅读
 description: >-
   单目标跟踪（SOT）中，高效跟踪器大多局限于 RGB
   输入，在多模态场景下力不从心；而现有多模态跟踪方法设计复杂、模型笨重，难以在资源受限设备上部署。本文提出
@@ -142,9 +142,13 @@ Loss: L_S = L_c + λ_g L_g + λ_l1 L_l1 + L_t + α(λ_kd L_kd + λ_f L_f)   （�
 
 #### 关键公式（论文公式 1）
 
+{% raw %}
 $$T_e = \text{Embed}(\text{Aggre}(T_{in})), \qquad T_a = \text{Split}\big(\text{Softmax}(T_{in} T_e^\top)^\top T_{in}\big)$$
+{% endraw %}
 
+{% raw %}
 $$O_e = \text{Merge}\Big(\{\text{Expert}_i(T_a^i)\}_{i=1}^{E}\Big), \qquad O = \text{Softmax}(T_{in} T_e^\top)\, O_e$$
+{% endraw %}
 
 其中 Aggre(·) 为局部聚合、Embed(·) 为专家嵌入、Split(·) 按专家数顺序分组、Merge(·) 合并各专家输出。
 
@@ -172,11 +176,15 @@ Adaptive Net 本身用 **surrogate prediction 策略**训练（公式 3-4）：�
 
 #### 关键公式（论文公式 2-4）
 
+{% raw %}
 $$L_S = L_c(\hat p_s, p) + \lambda_g L_g(\hat p_s, p) + \lambda_{l1} L_{l1}(\hat p_s, p) + L_t(\hat p_s, p) + \alpha\big(\lambda_{kd} L_{kd}(\hat p_s, \hat p_t) + \lambda_f L_f(\hat p_s, \hat p_t)\big)$$
+{% endraw %}
 
 其中 L_c / L_g / L_l1 / L_t / L_kd / L_f 分别为分类、GIoU、L1、任务、KL、MSE 损失；λ_g=2，λ_l1=5，λ_kd=5，λ_f=0.002；α 为 Adaptive Net 输出（1 蒸馏 / 0 不蒸馏）。
 
+{% raw %}
 $$\hat p_a^i = \begin{cases} \hat p_t^i & \text{if } \alpha = 1 \\ \hat p_s^i & \text{if } \alpha = 0 \end{cases}, \qquad L_A = L_c(\hat p_a, p) + \lambda_g L_g(\hat p_a, p) + \lambda_{l1} L_{l1}(\hat p_a, p) + L_t(\hat p_a, p)$$
+{% endraw %}
 
 学生与 Adaptive Net 分开更新：学生用公式 (2)（α 门控蒸馏项），Adaptive Net 用公式 (4)（surrogate 损失）。
 

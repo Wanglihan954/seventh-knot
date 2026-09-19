@@ -1,24 +1,43 @@
 ---
-title: 20260827-20260909 C++ 学习计划
+title: "Modern C++ 学习笔记总览：从语言基础到 MiniInfer"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - 学习计划
-  - AI工程
-description: 14 天完成面向 AI/CV 工程的 Modern C++ 第一轮学习：从对象模型、STL 到 RAII、CMake 与 MiniInfer。
+  - "C++"
+  - "Modern C++"
+  - "AI工程"
+  - "学习路线"
+  - "学习笔记"
+  - "learning-plan"
+  - "cpp"
+  - "modern-cpp"
+  - "CV工程"
+description: "已完成的 14 天 Modern C++ 学习笔记导航：从指针、对象模型和 STL，走到所有权、CMake、KuiperInfer 与 MiniInfer。"
 readmore: true
-abbrlink: 2e7b53dc
-date: 2026-08-26 08:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-26
+updated: 2026-09-18 16:57:55
+abbrlink: "2e7b53dc"
 ---
 > **最终进度**
 > Day 1～14 已完成。前半程因 Iterator、Class、Inheritance 掌握较快而压缩；节省的时间投入了 Copy / Move、RAII、智能指针、CMake、KuiperInfer 与 MiniInfer。基础阶段测试为 29 / 30，最终综合测试为 35 / 35。
 
+> **学习档案**
+> **周期：** 2026-08-27 → 2026-09-09　|　**状态：** ✅ 已毕业　|　**总评：** 35 / 35
+>
+> **主线：** 语言基础 → 对象模型 → 资源语义 → 工程构建 → 源码阅读 → MiniInfer
+
+![14 天 C++ 学习路线 Excalidraw 风格图](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@img/img/cpp-study-roadmap-excalidraw.svg)
+
+> **一张图记住路线**
+> 从“能安全访问数据”开始，经过对象设计、泛型与资源语义，最后把知识落到可构建、可阅读的推理小工程。
+
 
 <!-- more -->
+
+## 课程讨论复习入口
+
+2026-09-19 根据课程问答补充了返回值与引用、初始化、动态多态、移动选择、异常清理与构建细节。按问题查阅 {% post_link cs106l-dialogue-review-index "CS106L 对话复习索引" %}；进阶内容见 {% post_link cs106l-concepts-tmp-ranges "CS106L 对话补充 - Concepts、TMP 与 Ranges" %}。原 Day 日期和测试记录保持历史含义，新增内容可按需自测。
+
 ## 最终目标
 
 在 2026-09-09 前完成 **AI/CV 工程所需的核心 Modern C++ 第一轮学习**。
@@ -41,14 +60,14 @@ updated: 2026-09-09 23:41:00
 - [x] Sequence Container 与 Vector Reallocation
 - [x] Class / Constructor / Destructor / `this`
 - [x] Inheritance / Virtual / Polymorphism
-- [ ] Class Template / Function Template
-- [ ] Lambda / Algorithm / Associative Container 补丁
-- [ ] Special Member Functions / Copy
-- [ ] Move Semantics
-- [ ] RAII / Smart Pointer / Ownership
-- [ ] CMake / C++ Project Structure
-- [ ] KuiperInfer 源码阅读
-- [ ] MiniInfer / Final Test
+- [x] Class Template / Function Template
+- [x] Lambda / Algorithm / Associative Container 补丁
+- [x] Special Member Functions / Copy
+- [x] Move Semantics
+- [x] RAII / Smart Pointer / Ownership
+- [x] CMake / C++ Project Structure
+- [x] KuiperInfer 源码阅读
+- [x] MiniInfer / Final Test
 
 ## 为什么调整计划
 
@@ -116,11 +135,11 @@ Tensor → Layer → Operator → Runtime → Conv
 
 关联已有笔记：
 
-- 第1课 深度学习推理框架基础
-- 第2课 张量的设计
-- 第3课 计算图的设计
-- 第4课 计算图的构建
-- 第5课 算子和算子注册器的设计与实现
+- {% post_link "第1课 深度学习推理框架基础" "第1课 深度学习推理框架基础" %}
+- {% post_link "第2课 张量的设计" "第2课 张量的设计" %}
+- {% post_link "第3课 计算图的设计" "第3课 计算图的设计" %}
+- {% post_link "第4课 计算图的构建" "第4课 计算图的构建" %}
+- {% post_link "第5课 算子和算子注册器的设计与实现" "第5课 算子和算子注册器的设计与实现" %}
 
 ## 执行规则
 
@@ -144,31 +163,37 @@ Tensor → Layer → Operator → Runtime → Conv
 
 三个问题至少通过两个才能进入下一 Day；否则只补测薄弱点，不重刷整节课。
 
-## 新版总览
+## 学习路线总览
 
-| 状态  | 实际/建议日期     |    Day | 主题                                     | 核心产出                  |
-| --- | ----------- | -----: | -------------------------------------- | --------------------- |
-| [x] | 08-27 周四       |      1 | Pointer / Reference / Iterator         | 参数传递与 Iterator 心智模型   |
-| [x] | 08-28 周五       |      2 | Const / Lifetime / Dynamic Memory      | 生命周期与悬空访问实验           |
-| [x] | 08-29 周六（压缩完成） |      3 | Containers + Vector                    | Scores 统计与扩容模型        |
-| [x] | 08-29 周六（提前完成） |      4 | Classes + Const Correctness            | `Tensor` Class        |
-| [x] | 08-29 周六（提前完成） |      5 | Inheritance + Polymorphism             | `Layer` 多态体系          |
-| [ ] | 08-30 周日       |      6 | Class Template                         | `Tensor<T>`           |
-| [ ] | 08-31 周一       |      7 | Function Template / Lambda / Algorithm | Algorithm + STL 补丁    |
-| [ ] | 09-01 周二       |      8 | Special Member Functions               | Deep Copy 实验          |
-| [ ] | 09-02 周三       |      9 | Move Semantics                         | Move Constructor 实验   |
-| [ ] | 09-03 周四       |     10 | RAII + `unique_ptr`                    | 独占 Ownership Layer    |
-| [ ] | 09-04 周五       |     11 | `shared_ptr` + `weak_ptr`              | 引用计数与 Cycle 实验        |
-| [ ] | 09-05 周六       |     12 | CMake + Project Structure              | 多文件 C++ 工程            |
-| [ ] | 09-06 周日       | Buffer | 补缺 / 复测                                | 不新增必学主题               |
-| [ ] | 09-07 周一～09-08 周二 |     13 | KuiperInfer                            | Tensor → Runtime 源码阅读 |
-| [ ] | 09-09 周三       |     14 | MiniInfer + Final Test                 | 项目、构建与毕业考试            |
+> **使用方式**
+> 这张表是复习入口：点击 Day 即可跳到对应笔记；先按阶段回忆主线，再进入单篇笔记查细节。
+
+| 阶段 | 日期 | Day | 主题 | 可交付成果 |
+|:--|:--|:--:|:--|:--|
+| 🧭 **基础与访问** | 08-27 | 01 | Pointer / Reference / Iterator | 参数传递与 Iterator 心智模型 |
+| 🧭 **基础与访问** | 08-28 | 02 | Const / Lifetime / Dynamic Memory | 生命周期与悬空访问实验 |
+| 📦 **STL 与对象** | 08-29 | 03 | Containers + Vector | Scores 统计与扩容模型 |
+| 📦 **STL 与对象** | 08-29 | 04 | Classes + Const Correctness | `Tensor` Class |
+| 📦 **STL 与对象** | 08-29 | 05 | Inheritance + Polymorphism | `Layer` 多态体系 |
+| 🧩 **泛型与 STL** | 08-30 | 06 | Class Template | `Tensor<T>` |
+| 🧩 **泛型与 STL** | 08-31 | 07 | Function Template / Lambda / Algorithm | Algorithm + STL 补丁 |
+| 🔁 **资源语义** | 09-01 | 08 | Special Member Functions | Deep Copy 实验 |
+| 🔁 **资源语义** | 09-02 | 09 | Move Semantics | Move Constructor 实验 |
+| 🔐 **资源语义** | 09-03 | 10 | RAII + `unique_ptr` | 独占 Ownership Layer |
+| 🔐 **资源语义** | 09-04 | 11 | `shared_ptr` + `weak_ptr` | 引用计数与 Cycle 实验 |
+| 🏗️ **工程化** | 09-05 | 12 | CMake + Project Structure | 多文件 C++ 工程 |
+| 🔎 **工程化** | 09-06 | **Buffer** | 补缺 / 复测 | 不新增必学主题 |
+| 🔎 **工程化** | 09-07 ～ 09-08 | 13 | KuiperInfer | Tensor → Runtime 源码阅读 |
+| 🚀 **毕业项目** | 09-09 | 14 | MiniInfer + Final Test | 项目、构建与毕业考试 |
+
+> **完成情况**
+> **14 / 14 Day 完成** · **Buffer 已用于复测** · **系统刷课已结束，后续采用项目驱动复习。**
 
 ## 已完成：Day 1～5
 
 ### Day 1｜Pointer / Reference / Iterator ✅
 
-**笔记：** C++ Day 1 - Pointer, Reference & Iterator
+**笔记：** {% post_link modern-cpp-day-01-pointer-reference-iterator "C++ Day 1 - Pointer, Reference & Iterator" %}
 
 - [x] `T`、`T*`、`T&`、`const T&`
 - [x] `p`、`*p`、`&p` 与 `T**`
@@ -178,7 +203,7 @@ Tensor → Layer → Operator → Runtime → Conv
 
 ### Day 2｜Const / Lifetime / Dynamic Memory ✅
 
-**笔记：** C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory
+**笔记：** {% post_link modern-cpp-day-02-const-lifetime-memory "C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory" %}
 
 - [x] `const int*`、`int* const`、`const int* const`
 - [x] Const Reference 与 Const Member Function
@@ -188,7 +213,7 @@ Tensor → Layer → Operator → Runtime → Conv
 
 ### Day 3｜Containers + Iterator ✅
 
-**笔记：** C++ Day 3 - Containers & Iterator
+**笔记：** {% post_link modern-cpp-day-03-containers-iterator "C++ Day 3 - Containers & Iterator" %}
 
 - [x] `vector`、`string` 与常用接口
 - [x] `size`、`capacity`、`reserve`、Reallocation
@@ -197,7 +222,7 @@ Tensor → Layer → Operator → Runtime → Conv
 
 ### Day 4｜Classes + Const Correctness ✅
 
-**笔记：** C++ Day 4 - Classes & Const Correctness
+**笔记：** {% post_link modern-cpp-day-04-classes-const-correctness "C++ Day 4 - Classes & Const Correctness" %}
 
 - [x] `public/private`、Constructor、Destructor、`this`
 - [x] Member Initializer List
@@ -207,7 +232,7 @@ Tensor → Layer → Operator → Runtime → Conv
 
 ### Day 5｜Inheritance + Polymorphism ✅
 
-**笔记：** C++ Day 5 - Inheritance & Polymorphism
+**笔记：** {% post_link modern-cpp-day-05-inheritance-polymorphism "C++ Day 5 - Inheritance & Polymorphism" %}
 
 - [x] Base / Derived 与 Upcast
 - [x] `virtual`、`override`、Dynamic Dispatch
@@ -220,7 +245,7 @@ Tensor → Layer → Operator → Runtime → Conv
 
 ### Day 6｜08-30｜Class Template ✅
 
-**笔记：** C++ Day 6 - Class Templates
+**笔记：** {% post_link modern-cpp-day-06-class-templates "C++ Day 6 - Class Templates" %}
 
 #### 学习
 
@@ -273,7 +298,7 @@ private:
 
 ### Day 7｜08-31｜Function Template + Lambda + Algorithm ✅
 
-**笔记：** C++ Day 7 - Lambda, Algorithms & Associative Containers
+**笔记：** {% post_link modern-cpp-day-07-lambda-algorithms-containers "C++ Day 7 - Lambda, Algorithms & Associative Containers" %}
 
 这一天同时补回原计划中被压缩的 Associative Container 与 Algorithm，不再单独占两天。
 
@@ -318,7 +343,7 @@ private:
 
 ### Day 8｜09-01｜Special Member Functions ✅
 
-**笔记：** C++ Day 8 - Special Member Functions & Copy Semantics
+**笔记：** {% post_link modern-cpp-day-08-copy-semantics "C++ Day 8 - Special Member Functions & Copy Semantics" %}
 
 #### 学习
 
@@ -352,7 +377,7 @@ private:
 
 ### Day 9｜09-02｜Move Semantics ✅
 
-**笔记：** C++ Day 9 - Move Semantics
+**笔记：** {% post_link modern-cpp-day-09-move-semantics "C++ Day 9 - Move Semantics" %}
 
 #### 学习
 
@@ -385,7 +410,7 @@ private:
 
 ### Day 10｜09-03｜RAII + `unique_ptr` ✅
 
-**笔记：** C++ Day 10 - RAII & unique_ptr
+**笔记：** {% post_link modern-cpp-day-10-raii-unique-ptr "C++ Day 10 - RAII & unique_ptr" %}
 
 #### 学习
 
@@ -418,7 +443,7 @@ private:
 
 ### Day 11｜09-04｜`shared_ptr` + `weak_ptr` ✅
 
-**笔记：** C++ Day 11 - shared_ptr, weak_ptr & Ownership
+**笔记：** {% post_link modern-cpp-day-11-smart-pointer-ownership "C++ Day 11 - shared_ptr, weak_ptr & Ownership" %}
 
 #### 学习
 
@@ -457,7 +482,7 @@ weak_ptr   → 不拥有，只观察
 
 ### Day 12｜09-05｜CMake + C++ Project Structure ✅
 
-**笔记：** C++ Day 12 - CMake & C++ Project Structure
+**笔记：** {% post_link modern-cpp-day-12-cmake-project-structure "C++ Day 12 - CMake & C++ Project Structure" %}
 
 这是新版计划新增的完整工程日。
 
@@ -511,7 +536,7 @@ cmake --build build
 
 ### Buffer｜09-06｜补缺与复测
 
-> **不新增必学主题**
+> [!note] 不新增必学主题
 > 只处理 Day 6～12 中未通过的过关条件；若全部通过，休息或提前搭建 MiniInfer 目录。
 
 - [ ] 列出仍不能独立解释的三个概念
@@ -523,9 +548,9 @@ cmake --build build
 
 ### Day 13｜09-07～09-08｜KuiperInfer ✅
 
-**笔记：** C++ Day 13 - KuiperInfer Source Reading
+**笔记：** {% post_link modern-cpp-day-13-kuiperinfer-source-reading "C++ Day 13 - KuiperInfer Source Reading" %}
 
-> **禁止从仓库入口逐文件乱读**
+> [!danger] 禁止从仓库入口逐文件乱读
 > 按 `Tensor → Layer → Operator → Runtime → Conv` 追踪类型、接口与 Ownership。
 
 #### 阅读顺序
@@ -561,9 +586,9 @@ cmake --build build
 
 ### Day 14｜09-09｜MiniInfer + Final Test ✅
 
-**笔记：** C++ Day 14 - MiniInfer & Final Review
+**笔记：** {% post_link modern-cpp-day-14-mini-infer-final-review "C++ Day 14 - MiniInfer & Final Review" %}
 
-> **今天禁止继续刷 C++ 视频**
+> [!danger] 今天禁止继续刷 C++ 视频
 > 只完成工程、构建、运行和毕业测试。
 
 #### 项目结构
@@ -604,20 +629,19 @@ MiniInfer/
 
 ## Modern C++ 检查点
 
-Day 11 后，不看资料解释：
+> **复测结果**
+> Buffer Day 与最终复盘已覆盖以下十项。它们不是孤立知识点，而是 MiniInfer 资源设计与源码阅读的共同语言。
 
-- [ ] `template<typename T>`
-- [ ] Function Template
-- [ ] Lambda Capture
-- [ ] Copy Constructor / Copy Assignment
-- [ ] `T&&` / `std::move`
-- [ ] RAII / Ownership
-- [ ] `unique_ptr`
-- [ ] `shared_ptr`
-- [ ] `weak_ptr`
-- [ ] Shared Cycle
+- [x] `template<typename T>` / Function Template
+- [x] Lambda Capture 与 Algorithm
+- [x] Copy Constructor / Copy Assignment
+- [x] `T&&` / `std::move`
+- [x] RAII / Ownership
+- [x] `unique_ptr`
+- [x] `shared_ptr` / `weak_ptr`
+- [x] Shared Cycle
 
-**目标：** 至少 `8/10`，未通过项在 Buffer Day 补测。
+**结果：** `10 / 10`；之后遇到陌生写法，以实际项目为入口反查本页对应 Day。
 
 ## 最终毕业考试
 
@@ -625,24 +649,14 @@ Day 11 后，不看资料解释：
 
 | 内容 | 当前状态 |
 |---|:---:|
-| Pointer | ✅ |
-| Reference | ✅ |
-| const | ✅ |
-| Stack / Heap | ✅ |
-| Lifetime | ✅ |
-| vector | ✅ |
-| unordered_map | ⬜ |
-| iterator | ✅ |
-| Class | ✅ |
-| Polymorphism | ✅ |
-| Template | ⬜ |
-| Copy | ⬜ |
-| Move | ⬜ |
-| RAII | ⬜ |
-| Smart Pointer | ⬜ |
+| Pointer / Reference / const | ✅ |
+| Stack / Heap / Lifetime | ✅ |
+| `vector` / `unordered_map` / iterator | ✅ |
+| Class / Polymorphism | ✅ |
+| Template / Copy / Move | ✅ |
+| RAII / Smart Pointer | ✅ |
 
-**当前进度：** `9/15` <br>
-**毕业要求：** `12/15`，且 MiniInfer 能通过 CMake 构建运行。
+**最终结果：** `15 / 15` · **综合选择题：** `35 / 35` · **MiniInfer：** 可由 CMake 构建运行。
 
 > **退出条件**
 > 达到毕业要求后，立刻停止系统学习 C++，进入：

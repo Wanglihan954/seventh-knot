@@ -1,7 +1,7 @@
 ---
 title: 从 Theme Yun 到 Seventh Knot：我的 Hexo 博客重构计划
 categories:
-  - Seventh Knot
+  - 博客开发
 tags:
   - Hexo
   - Theme Yun

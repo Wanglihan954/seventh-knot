@@ -1,10 +1,11 @@
 ---
 title: x86、x64、AMD64、ARM是什么？
 categories:
-  - Ubuntu个性化
+  - Linux 系统与桌面
 tags:
   - 操作系统
   - 硬件
+  - Ubuntu
 readmore: true
 hideTime: true
 date: '2026-05-10 00:09'

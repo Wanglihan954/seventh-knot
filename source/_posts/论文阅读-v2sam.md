@@ -3,8 +3,7 @@ title: >-
   论文阅读｜V²-SAM: Marrying SAM2 with Multi-Prompt Experts for Cross-View Object
   Correspondence
 categories:
-  - 文献阅读
-  - Tracking
+  - 跨视角与三维视觉
 tags:
   - 文献笔记
   - AI论文
@@ -14,6 +13,7 @@ tags:
   - Ego-Exo
   - 跨视角目标对应
   - Tracking
+  - 文献阅读
 description: >-
   跨视角目标对应（cross-view object correspondence），以 ego–exo 对应为代表任务，由于视角与外观差异剧烈，SAM2
   等分割模型难以直接应用。V²-SAM 通过两个互补的 prompt 生成器把 SAM2 从单视角分割适配到跨视角对应：Cross-View Anchor
@@ -151,9 +151,13 @@ SAM2 的 decoder 靠坐标类 prompt 定位；跨视角场景中目标在目标�
 
 稠密匹配（Eq.1）与分层采样（Eq.2）：
 
+{% raw %}
 $$H_{ij} = \frac{\varphi(I_{q})_{i}^{\top}\varphi(I_{t})_{j}}{\lVert\varphi(I_{q})_{i}\rVert_{2}\,\lVert\varphi(I_{t})_{j}\rVert_{2}}, \qquad j^{*} = \arg\max_{j} H_{ij}$$
+{% endraw %}
 
+{% raw %}
 $$P'_{t} = \{\, p_{i} \mid \lVert p_{i} - p_{j}\rVert_{2} > \tau,\; \forall j < i \,\}$$
+{% endraw %}
 
 #### 代码对应
 
@@ -210,9 +214,13 @@ V2-Anchor 的可靠性来自"质量担保链"：前景约束（mask 投影到 pa
 
 总损失（Eq.5）与结构分支的 FiLM 调制（Eq.4）：
 
+{% raw %}
 $$\mathcal{L} = \lambda_{1}\mathcal{L}_{v}(\hat{v}_{c}, v_{t}) + \lambda_{2}\mathcal{L}_{s}(\hat{M}_{c}, M_{t}) + \lambda_{3}\mathcal{L}_{m}(\hat{M}_{t}, M_{t})$$
+{% endraw %}
 
+{% raw %}
 $$\tilde{m} = m_{prior} \odot \big(1 + \tanh(\gamma)\big) + \beta + F_{mask}(M_{q}), \qquad \hat{M}_{c} = F_{dec}(\tilde{m})$$
+{% endraw %}
 
 #### 代码对应
 

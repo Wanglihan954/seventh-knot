@@ -3,8 +3,7 @@ title: >-
   论文阅读｜ObjectRelator: Enabling Cross-View Object Relation Understanding Across
   Ego-Centric and Exo-Centric Perspectives
 categories:
-  - 文献阅读
-  - Tracking
+  - 跨视角与三维视觉
 tags:
   - 文献笔记
   - AI论文
@@ -12,6 +11,7 @@ tags:
   - 跨视角
   - 跨视角目标分割
   - Tracking
+  - 文献阅读
 description: >-
   本文研究 Ego-Exo Object Correspondence 任务：给定一个视角（如 ego）中的目标 mask 查询，在另一个视角（如
   exo）中分割出同一目标。多数分割模型只处理单视角，PSALM 是少数具备该任务零样本能力的模型，但在视角剧变、背景复杂、外观变化大时仍会定位/分割错误。…

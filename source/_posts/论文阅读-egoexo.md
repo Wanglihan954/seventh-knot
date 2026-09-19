@@ -1,8 +1,7 @@
 ---
 title: 论文阅读｜Robust Ego-Exo Correspondence with Long-Term Memory
 categories:
-  - 文献阅读
-  - Tracking
+  - 跨视角与三维视觉
 tags:
   - 文献笔记
   - AI论文
@@ -10,6 +9,7 @@ tags:
   - 跨视角
   - 跨视角目标分割
   - Tracking
+  - 文献阅读
 description: >-
   在 ego（第一人称）与 exo（第三人称）视角之间建立目标级对应（Ego-Exo Correspondence,
   EEC）是智能助手指引等应用的基础，但面临极端视角差异、遮挡与小目标等挑战。直接套用 SAM2 时，由于 ego-exo
@@ -133,11 +133,17 @@ SAM2 用"相加"融合 prompt 与 memory 特征，但 ego 与 exo 的分布差�
 
 #### 关键公式
 
+{% raw %}
 $$w^c_{mem/view} = \text{MLP}_{1/2}\big(\text{Avg}(\text{Concat}(F_{mem}, F_{view}))\big), \qquad \dot{F}_{mem/view} = w^c_{mem/view} \otimes F_{mem/view} + F_{mem/view}$$
+{% endraw %}
 
+{% raw %}
 $$w^s_{mem/view} = \text{Conv}_{1/2}\big(\text{Concat}(\dot{F}_{mem}, \dot{F}_{view})\big), \qquad \ddot{F}_{mem/view} = w^s_{mem/view} \otimes \dot{F}_{mem/view} + \dot{F}_{mem/view}$$
+{% endraw %}
 
+{% raw %}
 $$F_{tar} = \ddot{F}_{mem} + \ddot{F}_{view}$$
+{% endraw %}
 
 #### 代码对应
 
@@ -180,9 +186,13 @@ MV-MoE 本质是**双输入的双重注意力门控融合**：通道门控捕捉
 
 #### 关键公式
 
+{% raw %}
 $$d^t_i = \text{Euclid}(f^t_i,\ f^{t+1}_i), \quad t\in[1,M],\ i\in[1,P]; \qquad k = \arg\min_t (d^t_i)$$
+{% endraw %}
 
+{% raw %}
 $$f^k_i \leftarrow \frac{f^k_i + f^{k+1}_i}{2} \quad \text{（按位置逐点加权平均，合并最冗余的相邻帧）}$$
+{% endraw %}
 
 #### 代码对应
 

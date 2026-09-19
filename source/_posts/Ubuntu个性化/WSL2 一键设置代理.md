@@ -1,7 +1,7 @@
 ---
 title: 为 WSL2 一键设置代理
 categories:
-  - Ubuntu个性化
+  - 网络与远程开发
 tags:
   - Ubuntu
 readmore: true

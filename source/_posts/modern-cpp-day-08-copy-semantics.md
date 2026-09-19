@@ -1,31 +1,39 @@
 ---
-title: C++ Day 8 - Special Member Functions & Copy Semantics
+title: "C++ Day 8 - Special Member Functions & Copy Semantics"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - Copy
-  - Rule of Five
-description: 区分 copy constructor 与 copy assignment，理解 shallow/deep copy 和 Rule of 3/5/0。
+  - "C++"
+  - "Modern C++"
+  - "Copy"
+  - "Rule of Five"
+  - "学习笔记"
+  - "CS106L"
+  - "Rule-of-Three"
+  - "Rule-of-Five"
+  - "Rule-of-Zero"
+description: "区分 copy constructor 与 copy assignment，理解 shallow/deep copy 和 Rule of 3/5/0。"
 readmore: true
-abbrlink: 2ab8fe9f
-date: 2026-09-01 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-09-01
+updated: 2026-09-18 16:55:54
+abbrlink: "2ab8fe9f"
 ---
 > **学习信息**
 > **学习日期：** 2026-09-01（周二）
 > **重点：** Copy Constructor、Copy Assignment、Shallow/Deep Copy、Rule of 3/5/0
-> **所属计划：** 14 天 C++ 学习计划 · Day 8
-> **前置笔记：** C++ Day 4 - Classes & Const Correctness、C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 8" %}
+> **前置笔记：** {% post_link modern-cpp-day-04-classes-const-correctness "C++ Day 4 - Classes & Const Correctness" %}、{% post_link modern-cpp-day-02-const-lifetime-memory "C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory" %}
 
 ![指针成员复制需要明确深拷贝语义](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/cs106l-2026/day8-deep-copy.png)
 
 > 图源：Stanford CS106L Spring 2026，[Special Member Functions Slides](https://web.stanford.edu/class/cs106l/lectures/2026Spring-13-SpecialMemberFunctions.pdf) 第 40 页。资源型成员若只复制地址，会让多个对象错误地共享同一份资源。
 
+> **快速复习路径**
+> **对象复制时机** → **Shallow Copy 风险** → **Deep Copy** → **Rule of 3 / 5 / 0**
+
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 区分 Copy Constructor 与 Copy Assignment。
@@ -44,7 +52,7 @@ Widget(Widget&&);                  // Move Constructor
 Widget& operator=(Widget&&);       // Move Assignment
 ```
 
-本节先聚焦 Copy 相关成员；Move 在 C++ Day 9 - Move Semantics 继续。
+本节先聚焦 Copy 相关成员；Move 在 {% post_link modern-cpp-day-09-move-semantics "C++ Day 9 - Move Semantics" %} 继续。
 
 ## 2. “出生时复制”与“出生后赋值”
 
@@ -133,6 +141,12 @@ public:
 
 这比“让编译器在深处报错”更清晰。
 
+## 对话补充：operator= 为什么返回自身引用
+
+典型接口是 `Widget& operator=(const Widget& rhs)`，执行赋值后 `return *this;`。参数的 `const&` 表示借用来源；返回的 `Widget&` 表示左侧目标本身，二者职责独立。
+
+`a = b = c` 按 `a = (b = c)` 结合。返回值即使是 Widget 副本，也可能让这条链编译，但会改变结果对象的身份并增加复制风险。`(a = b) = c` 更直观：返回引用时第二次赋值仍修改 a，返回值时可能只修改临时对象。
+
 ## 7. 易错点
 
 | 易错认识 | 正确理解 |
@@ -156,4 +170,4 @@ public:
 
 ## 下一步
 
-> C++ Day 9 - Move Semantics：当资源不必复制时，如何安全地转移所有权？
+> {% post_link modern-cpp-day-09-move-semantics "C++ Day 9 - Move Semantics" %}：当资源不必复制时，如何安全地转移所有权？

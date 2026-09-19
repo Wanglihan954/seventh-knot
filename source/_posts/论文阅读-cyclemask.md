@@ -3,8 +3,7 @@ title: >-
   论文阅读｜Learning Cross-View Object Correspondence via Cycle-Consistent Mask
   Prediction
 categories:
-  - 文献阅读
-  - Tracking
+  - 跨视角与三维视觉
 tags:
   - 文献笔记
   - AI论文
@@ -14,6 +13,7 @@ tags:
   - Test-Time Training
   - 跨视角目标对应
   - Tracking
+  - 文献阅读
 description: >-
   研究视频中跨视角（ego↔exo）的物体级视觉对应。提出一个基于条件二值分割的简单有效框架：把查询视图的物体 mask 编码成潜在表示（单一条件 token
   CDT），引导目标视频中对应物体的定位。引入循环一致性训练目标：目标视图预测的 mask 被投影回源视图以重建原始查询 mask，无需 GT
@@ -146,7 +146,9 @@ Output: M̂t（训练）；推理时 TTT：只更新最后 K 层 transformer blo
 
 归一化 mask 与条件特征（Eq.1-2）：
 
+{% raw %}
 $$\tilde{M}_{s} = \frac{M_{s}}{\sum_{i,j} M_{s}[i,j] + \tau},\qquad z_{s} = \sum_{i}^{H}\sum_{j}^{W} \tilde{M}_{s}[i,j] \cdot F_{s}[:, i, j]$$
+{% endraw %}
 
 输入序列：$x_{input} = [CLS,\; CDT,\; x_{1}, \dots, x_{n}]$，其中 CDT 为 $z_s$ 的线性投影。
 
@@ -194,9 +196,13 @@ CDT 本质上就是"mask 池化的类原型"——与 CAV-SAM 的 prototype pr�
 
 总损失（Eq.1）与循环一致性损失（Eq.4）：
 
+{% raw %}
 $$\mathcal{L}_{total} = \mathcal{L}_{mask} + \lambda_{aux}\mathcal{L}_{aux} + \lambda_{cycle}\mathcal{L}_{cycle}$$
+{% endraw %}
 
+{% raw %}
 $$\mathcal{L}_{cycle} = \mathcal{L}_{bce}(M_{s}, \hat{M}_{s}), \qquad \hat{M}_{s} = f\big(I_{s},\; \hat{M}_{t},\; I_{t}\big)$$
+{% endraw %}
 
 mask 损失（Eq.2-3，BCE + Dice）：$\mathcal{L}_{mask} = \mathcal{L}_{bce}(M_{t}, \hat{M}_{t}) + \lambda_{dice}\mathcal{L}_{dice}(M_{t}, \hat{M}_{t})$
 

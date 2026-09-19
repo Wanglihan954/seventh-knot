@@ -1,7 +1,7 @@
 ---
 title: Ubuntu 24.04 安装 Parsec 及解决视频解码器 -10 错误
 categories:
-  - Ubuntu个性化
+  - 网络与远程开发
 tags:
   - Ubuntu
   - Parsec

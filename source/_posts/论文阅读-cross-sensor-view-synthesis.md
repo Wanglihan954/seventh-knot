@@ -3,8 +3,7 @@ title: >-
   论文阅读｜No Calibration, No Depth, No Problem: Cross-Sensor View Synthesis with 3D
   Consistency
 categories:
-  - 文献阅读
-  - 红外-可见光配准
+  - 跨视角与三维视觉
 tags:
   - 文献笔记
   - AI论文
@@ -15,6 +14,7 @@ tags:
   - 3DGS
   - DySPN
   - 红外-可见光图像配准
+  - 文献阅读
 description: >-
   跨传感器视图合成（cross-sensor view synthesis）的"输入是像素级对齐的 RGB-X
   对"这个前提，实际获取时极其昂贵：需要标定、同步、相对位姿与 metric depth。本文提出 match-densify-consolidate 方法：
@@ -181,7 +181,9 @@ Stage 3: Consolidate
 
 把 $N$ 帧的 X 关键点堆叠到对应 RGB 坐标上，得到稀疏 X-map $X_m$：
 
+{% raw %}
 $$X_m[p] = \frac{\sum_n \mathbb{1}[p = p_I^n]\; X[p_X^n]}{\sum_n \mathbb{1}[p = p_I^n]},$$
+{% endraw %}
 
 其中 $n \in N$，$\mathbb{1}[\cdot]$ 是指示函数。若对所有 $n$ 都有 $p \neq p_I^n$，则 $X_m[p] = -1$，表示该处是 void（空）。
 
@@ -196,7 +198,9 @@ $$X_m[p] = \frac{\sum_n \mathbb{1}[p = p_I^n]\; X[p_X^n]}{\sum_n \mathbb{1}[p = 
 2. 用 RGB-X 对应点估出的 **Homography** 把 X 图像 warp 到 RGB 视角，得到 $X_W$；
 3. 只在"掩码内且仍是 void"的位置**均匀采样 5% 的点**：
 
+{% raw %}
 $$X_m[p] = X_W[p], \quad p \sim U\left(\{p \mid M(p)=1 \land X_m[p] = -1\}\right),$$
+{% endraw %}
 
 其中 $U$ 是均匀采样，$X_W$ 是 warp 到 RGB 视角的 X 图像，$M$ 是区域掩码。
 
@@ -219,7 +223,9 @@ $$X_m[p] = X_W[p], \quad p \sim U\left(\{p \mid M(p)=1 \land X_m[p] = -1\}\right
 
 DySPN 把稠密化看成循环传播：已知 X 值逐步扩散到未知区域。原始形式（论文中称为原始 DySPN）：
 
+{% raw %}
 $$L^{t+1} = (1 - C_s)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s X_m,$$
+{% endraw %}
 
 其中：
 
@@ -237,7 +243,9 @@ $$L^{t+1} = (1 - C_s)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s X_m,$$
 
 匹配出的对应点可靠性不同。论文把匹配置信度 $c$ 聚合成**置信度图 $C_m$**，插入 DySPN 迭代：
 
+{% raw %}
 $$L^{t+1} = (1 - C_s C_m)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s C_m X_m,$$
+{% endraw %}
 
 对比原始式 (3)，把 $C_s$ 换成 $C_s C_m$：
 
@@ -256,12 +264,16 @@ $$L^{t+1} = (1 - C_s C_m)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s C_
 
 **做法：** 用 $K$ 个置信度阈值 $\delta_k$（实现里 $K=3$，$\delta=0.15, 0.3, 0.5$），分别得到阈值化关键点 $X_{m,k}$ 和各自稠密化的结果 $\hat{X}_{d,k}$：
 
+{% raw %}
 $$X_{m,1}, X_{m,2}, X_{m,3} \xrightarrow{D} \hat{X}_{d,1}, \hat{X}_{d,2}, \hat{X}_{d,3} \xrightarrow{F + \text{mean-pool}} X_d.$$
+{% endraw %}
 
 **融合块 $F$：** 先在单图增强任务上预训练（降噪、去模糊、锐化边缘，用 DIV2K），再用自监督损失训练：
 - **余弦相似度损失（Eq.5）：** 用 SigLIP2 图像编码器约束 RGB 与稠密 X 特征图相似：
 
+{% raw %}
 $$L_{cos}(I, X_d) = 1 - \frac{f_{SigLIP}(I)^\top f_{SigLIP}(X_d)}{\|f_{SigLIP}(I)\|_2 \|f_{SigLIP}(X_d)\|_2},$$
+{% endraw %}
 
   物理意义：同一场景的 RGB 和 X 应该能被匹配到相同语义描述，因此特征图应相似。
 
@@ -279,13 +291,17 @@ $$L_{cos}(I, X_d) = 1 - \frac{f_{SigLIP}(I)^\top f_{SigLIP}(X_d)}{\|f_{SigLIP}(I
 
 **构造：** 从 transformer matcher（XoFTR）的 coarse matching 层取 RGB/X 的 patch 特征 $F_I, F_X$，计算 scaled dot-product 相似矩阵：
 
+{% raw %}
 $$A = \frac{F_I F_X^{\top}}{\tau},$$
+{% endraw %}
 
 其中 $\tau$ 是缩放因子。理想情况 $A \approx I$（单位阵）。
 
 **训练损失（Eq.7）：** 最大化对角线、最小化非对角线：
 
+{% raw %}
 $$L_{sim}(A) = -\frac{\text{Tr}(A)}{\|A\|_F} + \lambda \frac{\|A \odot (\hat{1} - I)\|_1}{\|A\|_F},$$
+{% endraw %}
 
 其中 $\|A\|_F$ 是 Frobenius 范数，$\text{Tr}(\cdot)$ 是迹，$I$ 是单位阵，$\hat{1}$ 是全 1 矩阵，$\lambda$ 是权重（实现 $\lambda=0.1$）。
 
@@ -295,7 +311,9 @@ $$L_{sim}(A) = -\frac{\text{Tr}(A)}{\|A\|_F} + \lambda \frac{\|A \odot (\hat{1} 
 
 **过滤（论文做法）：** 看 $A$ 的对角线，定义集中度
 
+{% raw %}
 $$q = \frac{Q_{50}(A)}{Q_{99}(A)},$$
+{% endraw %}
 
 其中 $Q(\cdot)$ 是分位数函数。$q$ 高 → self-matching 结果强 → 需要拒绝的 patch 少；$q$ 低 → 反之。论文取 $A$ 对角线的 $(1-q)$ 分位数作为阈值，过滤掉分数更低的 patch。
 

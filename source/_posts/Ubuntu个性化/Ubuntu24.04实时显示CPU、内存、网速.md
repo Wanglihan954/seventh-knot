@@ -1,7 +1,7 @@
 ---
 title: Ubuntu24.04实时显示CPU、内存、网速
 categories:
-  - Ubuntu个性化
+  - Linux 系统与桌面
 tags:
   - Ubuntu
   - 系统监控

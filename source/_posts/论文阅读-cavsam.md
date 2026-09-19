@@ -3,8 +3,7 @@ title: >-
   论文阅读｜Correspondence as Video: Test-Time Adaption on SAM2 for Reference
   Segmentation in the Wild
 categories:
-  - 文献阅读
-  - Tracking
+  - 跨视角与三维视觉
 tags:
   - 文献笔记
   - AI论文
@@ -14,6 +13,7 @@ tags:
   - Test-Time Adaptation
   - 跨视角目标对应
   - Tracking
+  - 文献阅读
 description: >-
   参考分割（reference segmentation）利用参考图像及其 mask 向大视觉模型（如 SAM）注入新类别/新域知识，但现有方法依赖
   meta-learning，需要海量数据和巨大算力。本文提出 Correspondence As Video for SAM
@@ -144,9 +144,13 @@ iVOS 模型跟踪的是"同实例、语义随时间一致"的物体，而参考�
 
 LoRA 参数插值（Eq.1）与潜噪声球面插值（Eq.2）：
 
+{% raw %}
 $$\Delta\theta_{\alpha} = (1-\alpha)\Delta\theta_{r} + \alpha\Delta\theta_{t}$$
+{% endraw %}
 
+{% raw %}
 $$z^{T}_{\alpha} = \frac{\sin((1-\alpha)\varphi)}{\sin\varphi} z^{T}_{r} + \frac{\sin(\alpha\varphi)}{\sin\varphi} z^{T}_{t}$$
+{% endraw %}
 
 随后用参数化为 $\epsilon_{\theta + \Delta\theta_{\alpha}}$ 的噪声预测网络按 DDIM 调度去噪 $z^{T}_{\alpha}$，得到中间帧 $I^{v}_{1}, \dots, I^{v}_{N_{v}}$。
 
@@ -208,9 +212,13 @@ DBST 本质是"参数空间 + 潜空间双插值"：LoRA 参数插值负责语�
 
 Masked Average Pooling 原型（Eq.3）、cosine 相似度 + Otsu 阈值（Eq.4-5）、ACC 双损失（Eq.6-8）：
 
+{% raw %}
 $$p_{r} = \frac{\sum_{i}^{H}\sum_{j}^{W} F_{r}[i,j,:]\cdot M_{r}[i,j]}{\sum_{i}^{H}\sum_{j}^{W} M_{r}[i,j]}, \quad S_{t} = \frac{F_{t}\cdot p_{r}}{\lVert F_{t}\rVert_{2}\,\lVert p_{r}\rVert_{2}}, \quad \hat{M}_{t} = \mathbb{I}(S_{t} > \tau),\; \tau = \text{otsu}(S_{t})$$
+{% endraw %}
 
+{% raw %}
 $$\mathcal{L}_{aug} = \text{BCE}(\text{sigmoid}(S^{aug}_{r}), M^{aug}_{r}), \quad \mathcal{L}_{cyc} = \text{BCE}(\text{sigmoid}(S_{r}), M_{r}), \quad \mathcal{L} = \mathcal{L}_{aug} + \mathcal{L}_{cyc}$$
+{% endraw %}
 
 #### 代码对应
 

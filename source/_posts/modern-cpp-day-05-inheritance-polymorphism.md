@@ -1,28 +1,36 @@
 ---
-title: C++ Day 5 - Inheritance & Polymorphism
+title: "C++ Day 5 - Inheritance & Polymorphism"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - 继承
-  - 多态
-  - virtual
-description: 用 Layer、Conv 与 ReLU 的例子理解继承、虚函数、动态多态和 object slicing。
+  - "C++"
+  - "Modern C++"
+  - "继承"
+  - "多态"
+  - "virtual"
+  - "学习笔记"
+  - "CS106L"
+  - "Inheritance"
+  - "Polymorphism"
+  - "Virtual"
+description: "用 Layer、Conv 与 ReLU 的例子理解继承、虚函数、动态多态和 object slicing。"
 readmore: true
-abbrlink: 96a2e48
-date: 2026-08-29 11:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-29
+updated: 2026-09-18 16:55:52
+abbrlink: "96a2e48"
 ---
 > **学习信息**
 > **学习日期：** 2026-08-29（周六，提前完成）
 > **重点：** Inheritance、`virtual/override`、Abstract Class、Runtime Polymorphism、Virtual Destructor、Object Slicing
-> **所属计划：** 14 天 C++ 学习计划 · Day 5
-> **前置笔记：** C++ Day 4 - Classes & Const Correctness
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 5" %}
+> **前置笔记：** {% post_link modern-cpp-day-04-classes-const-correctness "C++ Day 4 - Classes & Const Correctness" %}
+
+> **快速复习路径**
+> **Is-a 关系** → **Base Interface** → **virtual Dispatch** → **安全析构与 Slicing**
 
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 理解 Base Class 与 Derived Class 的 Is-a 关系
@@ -158,7 +166,8 @@ ReLU forward
 
 同一个 Base Interface 根据对象的动态类型产生不同运行行为，这就是 Runtime Polymorphism。`Layer` 含有 Pure Virtual Function，因此不能直接实例化。
 
-> **> `vptr/vtable` 是 Dynamic Dispatch 的常见实现模型，不是 C++ 标准规定的唯一实现方式。**
+> [!note]
+> `vptr/vtable` 是 Dynamic Dispatch 的常见实现模型，不是 C++ 标准规定的唯一实现方式。
 
 ## 4. `override` 与 Pure Virtual Function
 
@@ -371,6 +380,23 @@ int main() {
 ```
 
 输出应为 `Base normal` 与 `Derived dynamic`：非 Virtual Call 依据静态类型解析，Virtual Call 根据对象动态类型分派。
+
+## 对话补充：基类指针并没有切掉对象
+
+| 写法 | 是否新建基类对象 | 访问与调用规则 |
+|---|---|---|
+| `Base b = derived;` | 是 | 若 Base 可实例化且可复制，会发生切片 |
+| `Base* p = &derived;` | 否 | 原派生对象完整存在，通过 Base 接口访问 |
+| `Base& r = derived;` | 否 | 同样保留原对象，通过 Base 接口访问 |
+| `auto* p = &derived;` | 否 | 推导为派生类型指针，可访问其公开成员 |
+
+静态类型决定“能否写这个成员访问”；对虚函数的调用再由动态类型决定执行哪个覆盖版本。因此 `Base*` 不能直接访问派生类新增的 `vx`，但可以通过 Base 已声明的虚函数执行使用 `vx` 的派生实现。指针访问用 `->`。
+
+抽象类不能创建独立对象，所以 `Base b = derived;` 会编译失败。纯虚函数可以有类外定义，`= 0` 的重点是接口的抽象性，并非绝对禁止函数体。
+
+### 组合与继承的工程判断
+
+`ReLU is a Layer` 适合 public 继承；`Network has layers` 适合组合，例如成员 `std::vector<std::unique_ptr<Layer>>`。不要为了复用几个函数，把“拥有某个部件”写成继承关系。
 
 ## 9. 易错点
 

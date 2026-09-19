@@ -1,13 +1,14 @@
 ---
 title: A Gentle Introduction to HiPPO and its Friends
 categories:
-  - Mamba
+  - Mamba 与状态空间模型
 author: 宁翰
 email: 314375980@qq.com
 tags:
   - python
   - Mamba
   - DeepLearning
+  - 学习笔记
 readmore: true
 hideTime: true
 mathjax: true

@@ -1,32 +1,38 @@
 ---
-title: 'C++ Day 11 - shared_ptr, weak_ptr & Ownership'
+title: "C++ Day 11 - shared_ptr, weak_ptr & Ownership"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - shared_ptr
-  - weak_ptr
-  - Ownership
-description: 比较 unique_ptr、shared_ptr 和 weak_ptr，理解引用计数、观察关系与循环引用。
+  - "C++"
+  - "Modern C++"
+  - "shared_ptr"
+  - "weak_ptr"
+  - "Ownership"
+  - "学习笔记"
+  - "CS106L"
+  - "RAII"
+description: "比较 unique_ptr、shared_ptr 和 weak_ptr，理解引用计数、观察关系与循环引用。"
 readmore: true
-abbrlink: 1390f9f3
-date: 2026-09-04 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-09-04
+updated: 2026-09-18 16:55:58
+abbrlink: "1390f9f3"
 ---
 > **学习信息**
 > **学习日期：** 2026-09-04（周五）
 > **重点：** Shared Ownership、Reference Count、weak_ptr、Cycle、复杂类型从内向外拆解
-> **所属计划：** 14 天 C++ 学习计划 · Day 11
-> **前置笔记：** C++ Day 10 - RAII & unique_ptr
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 11" %}
+> **前置笔记：** {% post_link modern-cpp-day-10-raii-unique-ptr "C++ Day 10 - RAII & unique_ptr" %}
 
 ![互相持有 shared_ptr 会形成无法释放的环](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/cs106l-2026/day11-weakptr-cycle.png)
 
 > 图源：Stanford CS106L Spring 2026，[RAII & Smart Pointers Slides](https://web.stanford.edu/class/cs106l/lectures/2026Spring-16-RAII-SmartPointers.pdf) 第 74 页。两个对象互持 `shared_ptr` 时计数无法归零；观察关系应用 `weak_ptr` 表达。
 
+> **快速复习路径**
+> **唯一所有权优先** → **共享计数** → **弱观察关系** → **打破 Cycle**
+
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 选择 unique_ptr、shared_ptr 与 weak_ptr。
@@ -153,6 +159,25 @@ Layer ─weak_ptr→ RuntimeOperator
 
 Layer 回指 RuntimeOperator 时若只为取得上下文、不负责其生命周期，weak_ptr 可以避免双方互相拥有。
 
+## 对话补充：控制块与对象有两种生命周期
+
+复制 shared_ptr 通常共享同一个控制块，而不是复制其管理的对象。最后一个强拥有者释放时销毁被管理对象；weak_ptr 可能让控制块继续存活，以便检查对象是否还存在。使用 make_shared 时，对象已析构与合并分配的内存最终归还也可能发生在不同时刻。
+
+```cpp
+std::weak_ptr<int> observer;
+{
+    auto owner = std::make_shared<int>(42);
+    observer = owner;
+    if (auto hold = observer.lock()) {
+        // hold 在此作用域内维持对象存活
+        std::cout << *hold;
+    }
+}
+// owner 已销毁；此处 observer.lock() 返回空 shared_ptr
+```
+
+`expired()` 只是检查时刻的状态，不能保证下一次访问仍安全；应使用一次 lock 并检查返回结果。weak_ptr 适合观察者、缓存、父子关系中的非拥有回边，不会延长对象生命周期。不要用同一个裸指针分别构造两个独立 shared_ptr，否则可能重复释放。
+
 ## 7. 易错点
 
 | 易错认识 | 正确理解 |
@@ -175,4 +200,4 @@ Layer 回指 RuntimeOperator 时若只为取得上下文、不负责其生命周
 
 ## 下一步
 
-> C++ Day 12 - CMake & C++ Project Structure：把对象与接口组织成可重复构建的多文件项目。
+> {% post_link modern-cpp-day-12-cmake-project-structure "C++ Day 12 - CMake & C++ Project Structure" %}：把对象与接口组织成可重复构建的多文件项目。

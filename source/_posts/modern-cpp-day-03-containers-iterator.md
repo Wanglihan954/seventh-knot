@@ -1,28 +1,34 @@
 ---
-title: C++ Day 3 - Containers & Iterator
+title: "C++ Day 3 - Containers & Iterator"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - STL
-  - vector
-  - Iterator
-description: 梳理 vector、string、容量扩张与 iterator/reference/pointer 失效规则。
+  - "C++"
+  - "Modern C++"
+  - "STL"
+  - "vector"
+  - "Iterator"
+  - "学习笔记"
+  - "CS106L"
+  - "Containers"
+description: "梳理 vector、string、容量扩张与 iterator/reference/pointer 失效规则。"
 readmore: true
-abbrlink: a8615ab1
-date: 2026-08-29 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-29
+updated: 2026-09-09 17:13:05
+abbrlink: "a8615ab1"
 ---
 > **学习信息**
 > **学习日期：** 2026-08-29（周六，压缩完成）
 > **重点：** `std::vector`、`std::string`、`size/capacity`、扩容与访问路径失效
-> **所属计划：** 14 天 C++ 学习计划 · Day 3
-> **前置笔记：** C++ Day 1 - Pointer, Reference & Iterator、C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 3" %}
+> **前置笔记：** {% post_link modern-cpp-day-01-pointer-reference-iterator "C++ Day 1 - Pointer, Reference & Iterator" %}、{% post_link modern-cpp-day-02-const-lifetime-memory "C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory" %}
+
+> **快速复习路径**
+> **Container 选择** → **vector 布局** → **容量变化** → **Iterator 失效规则**
 
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 理解 STL Container 的作用和常见底层结构
@@ -168,7 +174,7 @@ values.push_back(20);
 
 > 图源：[Stanford CS106L Spring 2026 · Lecture 6 — Iterators](https://web.stanford.edu/class/cs106l/lectures/2026Spring-06-Iterators.pdf)
 
-Iterator 的基础见 Day 1；本节只需把它与 `vector` 的 Reallocation 联系起来。Algorithm 应用见 C++ Day 7 - Lambda, Algorithms & Associative Containers。
+Iterator 的基础见 Day 1；本节只需把它与 `vector` 的 Reallocation 联系起来。Algorithm 应用见 {% post_link modern-cpp-day-07-lambda-algorithms-containers "C++ Day 7 - Lambda, Algorithms & Associative Containers" %}。
 
 ## 6. 代码实验
 
@@ -261,4 +267,4 @@ int main() {
 
 ## 下一步
 
-> C++ Day 4 - Classes & Const Correctness：把 Container 封装成具有清晰生命周期与 Const Interface 的对象。
+> {% post_link modern-cpp-day-04-classes-const-correctness "C++ Day 4 - Classes & Const Correctness" %}：把 Container 封装成具有清晰生命周期与 Const Interface 的对象。

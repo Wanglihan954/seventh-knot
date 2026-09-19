@@ -1,7 +1,7 @@
 ---
 title: Linux命令
 categories:
-  - Ubuntu个性化
+  - Linux 系统与桌面
 tags:
   - Ubuntu
   - Linux

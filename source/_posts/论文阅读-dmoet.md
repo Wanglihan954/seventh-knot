@@ -1,8 +1,7 @@
 ---
 title: "论文阅读｜Unified Multimodal Visual Tracking with Dual Mixture-of-Experts"
 categories:
-  - 文献阅读
-  - Tracking
+  - 视觉目标跟踪
 tags:
   - "文献笔记"
   - "AI论文"
@@ -12,6 +11,7 @@ tags:
   - "Mixture-of-Experts"
   - "视频目标跟踪"
   - "Tracking"
+  - 文献阅读
 description: "多模态视觉目标跟踪按输入划分为 RGB 与 RGB+X（Depth、Thermal、Event、Language 等）任务。已有方法通常为每种模态单独训练，或先训练 RGB 模型再向新模态微调，因而带来多阶段训练、任务专用结构、参数不统一、缺失模态脆弱和特征冲突等问题。本文提出 OneTrackerV2 ：使用一次端到端训练、共享架构和统一参数处理多种模态。 Meta Merger 将 RGB 与辅助模态映射到共同空间；…"
 readmore: true
 mathjax: true

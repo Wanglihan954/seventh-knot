@@ -1,8 +1,7 @@
 ---
 title: '论文阅读｜CamSAM2: Segment Anything Accurately in Camouflaged Videos'
 categories:
-  - 文献阅读
-  - Tracking
+  - 视频目标分割
 tags:
   - 文献笔记
   - AI论文
@@ -10,6 +9,7 @@ tags:
   - 跨视角
   - 视频目标分割
   - Tracking
+  - 文献阅读
 description: >-
   视频伪装目标分割（Video Camouflaged Object Segmentation, VCOS）旨在分割与环境融为一体的伪装目标。SAM2
   虽然推动了视频分割的进展，但其特征优化偏向自然场景，在伪装视频上表现欠佳，尤其是只给 point / box 等简单 prompt 时。本文提出

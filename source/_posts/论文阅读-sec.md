@@ -3,8 +3,7 @@ title: >-
   论文阅读｜SeC: Advancing Complex Video Object Segmentation via Progressive Concept
   Construction
 categories:
-  - 文献阅读
-  - Tracking
+  - 视频目标分割
 tags:
   - 文献笔记
   - AI论文
@@ -15,6 +14,7 @@ tags:
   - ICLR
   - 视频目标分割 (VOS)
   - Tracking
+  - 文献阅读
 description: >-
   现有视频目标分割（VOS）主要通过像素级外观匹配传播首帧掩码，一旦目标跨镜头发生剧烈视角、外观、语境变化，或消失后重新出现，低层相似性便不足以维持身份。SeC
   将 VOS 从“外观匹配”推进到“概念驱动分割”：维护稀疏关键帧库，用 InternVL 2.5

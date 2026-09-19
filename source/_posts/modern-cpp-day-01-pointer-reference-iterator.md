@@ -1,28 +1,33 @@
 ---
-title: 'C++ Day 1 - Pointer, Reference & Iterator'
+title: "C++ Day 1 - Pointer, Reference & Iterator"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - Pointer
-  - Reference
-  - Iterator
-description: 从值、地址和解引用出发，建立 Pointer、Reference、参数传递与 Iterator 的统一心智模型。
+  - "C++"
+  - "Modern C++"
+  - "Pointer"
+  - "Reference"
+  - "Iterator"
+  - "学习笔记"
+  - "CS106L"
+description: "从值、地址和解引用出发，建立 Pointer、Reference、参数传递与 Iterator 的统一心智模型。"
 readmore: true
-abbrlink: 6d8b75a2
-date: 2026-08-27 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-27
+updated: 2026-09-18 16:55:48
+abbrlink: "6d8b75a2"
 ---
 > **学习信息**
 > **学习日期：** 2026-08-27（周四）
 > **课程：** Stanford CS106L 2026 L3、L6
 > **重点：** Reference、Pointer、参数传递、二级指针、Iterator
-> **所属计划：** 14 天 C++ 学习计划 · Day 1
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 1" %}
+
+> **快速复习路径**
+> **值与地址** → **Reference 别名** → **参数传递** → **Iterator 区间**
 
 
 <!-- more -->
+
 ## 本节目标
 
 - 区分值、地址与解引用；
@@ -165,6 +170,21 @@ for (auto it = v.begin(); it != v.end(); ++it) {
 ```
 
 这就是 `[begin, end)`：包含 `begin`，不包含 `end`。空容器统一表示为 `begin() == end()`。
+
+## 对话补充：引用要在每一层保留
+
+函数参数是引用，不代表函数内部的循环变量也是引用：
+
+```cpp
+// nums 是 std::vector<std::pair<int, int>>&
+for (auto [a, b] : nums) { a = 0; }        // 修改元素副本
+for (auto& [a, b] : nums) { a = 0; }       // 修改原元素
+for (const auto& [a, b] : nums) { /* 只读 */ }
+```
+
+`auto it = c.begin()` 得到迭代器；`*it` 才访问元素。迭代器可能是裸指针，也可能是重载了 `* / ++ / ==` 的类对象。复制迭代器后移动其中一个，不会自动移动另一个；容器操作却可能使二者同时失效。
+
+指针类型决定如何解引用、允许访问哪些成员，以及指针算术的元素步长。保存地址并不意味着可以忽略类型。
 
 ## 7. 易错点速查
 

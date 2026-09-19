@@ -1,32 +1,43 @@
 ---
-title: C++ Day 10 - RAII & unique_ptr
+title: "C++ Day 10 - RAII & unique_ptr"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - RAII
-  - unique_ptr
-  - Ownership
-description: 以异常安全和多态 Layer 管理为线索，掌握 RAII、unique_ptr 与唯一所有权。
+  - "C++"
+  - "Modern C++"
+  - "RAII"
+  - "unique_ptr"
+  - "Ownership"
+  - "学习笔记"
+  - "CS106L"
+  - "Exception-Safety"
+description: "以异常安全和多态 Layer 管理为线索，掌握 RAII、unique_ptr 与唯一所有权。"
 readmore: true
-abbrlink: b85144b7
-date: 2026-09-03 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-09-03
+updated: 2026-09-18 16:55:56
+abbrlink: "b85144b7"
 ---
 > **学习信息**
 > **学习日期：** 2026-09-03（周四）
 > **重点：** RAII、异常安全、唯一所有权、make_unique、多态对象管理
-> **所属计划：** 14 天 C++ 学习计划 · Day 10
-> **前置笔记：** C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory、C++ Day 9 - Move Semantics
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 10" %}
+> **前置笔记：** {% post_link modern-cpp-day-02-const-lifetime-memory "C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory" %}、{% post_link modern-cpp-day-09-move-semantics "C++ Day 9 - Move Semantics" %}
 
 ![lock_guard 以对象作用域自动释放锁的 RAII 示例](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/cs106l-2026/day10-raii-lockguard.png)
 
 > 图源：Stanford CS106L Spring 2026，[RAII & Smart Pointers Slides](https://web.stanford.edu/class/cs106l/lectures/2026Spring-16-RAII-SmartPointers.pdf) 第 44 页。`lock_guard` 把锁的获取与释放绑在对象生命周期上，是 RAII 的典型例子。
 
+![RAII 与唯一所有权 Excalidraw 风格图](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@img/img/cpp-raii-ownership-excalidraw.svg)
+
+> **图解**
+> 把资源交给对象持有：对象离开作用域时释放资源；`unique_ptr` 则让所有权只能沿一个明确方向转移。
+
+> **快速复习路径**
+> **资源绑定对象** → **异常路径析构** → **唯一所有权** → **`make_unique`**
+
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 用对象生命周期解释 RAII。
@@ -142,6 +153,29 @@ Network 销毁时，vector 销毁每个 unique_ptr；每个指针再正确销毁
 | unique_ptr 不能传参 | 可以按值传入并 std::move 接管 |
 | release() 是普通取值操作 | 它放弃所有权，应少用且明确谁负责释放 |
 
+## 对话补充：异常退出为何不等于进程结束
+
+异常可被外层 catch 捕获，程序随后继续运行。若局部裸指针指向 new 出来的对象，指针变量离开作用域不代表其指向的对象被 delete。RAII 让栈展开时调用的析构函数承担清理。
+
+```cpp
+#include <mutex>
+#include <stdexcept>
+
+void update(std::mutex& mutex) {
+    std::lock_guard<std::mutex> guard(mutex);
+    throw std::runtime_error("update failed");
+} // 向外层 catch 展开栈时，guard 析构并解锁
+```
+
+`std::ifstream` 本身已经是 RAII 类型；即使没有执行显式 close，正常析构时仍会关闭文件。不能拿它举例证明“异常必然泄漏文件”。
+
+对于 `if (a() || b())`，短路求值有三条路线：a 真而跳过 b、a 假而 b 真、二者都假。可能抛异常的调用还引入额外退出路径，这就是只在函数末尾手写清理容易遗漏的原因。
+
+> **RAII 的保证不是“所有终止方式都析构”**
+> 正常作用域退出、向匹配的 catch 栈展开时会清理已构造的局部对象。没有匹配 handler 或异常越过 noexcept 边界导致 terminate 时，不能依赖完整栈展开；强制结束进程也不能依赖析构。
+
+依据：[C++ 工作草案：异常终止与栈展开](https://eel.is/c++draft/except.terminate)。
+
 ## 7. 过关自测
 
 - [x] 能说明 RAII 为什么在异常时仍能清理资源。
@@ -155,4 +189,4 @@ Network 销毁时，vector 销毁每个 unique_ptr；每个指针再正确销毁
 
 ## 下一步
 
-> C++ Day 11 - shared_ptr, weak_ptr & Ownership：当唯一所有权不适用时，如何表达共享与观察？
+> {% post_link modern-cpp-day-11-smart-pointer-ownership "C++ Day 11 - shared_ptr, weak_ptr & Ownership" %}：当唯一所有权不适用时，如何表达共享与观察？

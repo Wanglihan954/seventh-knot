@@ -1,28 +1,37 @@
 ---
-title: 'C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory'
+title: "C++ Day 2 - Const Correctness, Lifetime & Dynamic Memory"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - const
-  - 内存管理
-  - RAII
-description: 理解 const correctness、对象生命周期、动态内存及现代 C++ 为何以 RAII 取代裸 new/delete。
+  - "C++"
+  - "Modern C++"
+  - "const"
+  - "内存管理"
+  - "RAII"
+  - "学习笔记"
+  - "CS106L"
+  - "lifetime"
+  - "pointer"
+  - "memory"
+  - "KuiperInfer"
+description: "理解 const correctness、对象生命周期、动态内存及现代 C++ 为何以 RAII 取代裸 new/delete。"
 readmore: true
-abbrlink: '7387e265'
-date: 2026-08-28 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-08-28
+updated: 2026-09-18 16:55:49
+abbrlink: "7387e265"
 ---
 > **学习信息**
 > **学习日期：** 2026-08-28（周五）
 > **课程：** Stanford CS106L 2026
 > **Lecture：** L3 References、L6 Pointers、L9 Const Correctness、L16 RAII
-> **所属计划：** 14 天 C++ 学习计划 · Day 2
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 2" %}
+
+> **快速复习路径**
+> **const 承诺** → **对象生命周期** → **Stack / Heap** → **RAII 替代手动资源管理**
 
 
 <!-- more -->
+
 ## 今日目标
 
 - 区分普通 `const`、const Reference 和三种 const Pointer；
@@ -259,6 +268,32 @@ std::cout << *p << '\n';
 delete p;
 p = nullptr;
 ```
+
+## 对话补充：返回值与接收方式共同决定是否复制
+
+```cpp
+struct Box {
+    int value = 10;
+    int getValue() const { return value; }
+    int& getRef() { return value; }
+};
+
+Box box;
+int a = box.getRef();        // 即使返回引用，这里仍复制一个 int
+int& b = box.getRef();       // 保留对 box.value 的引用
+b = 4;                      // box.value == 4，a == 10
+const int& c = box.getValue(); // 绑定返回的临时值并延长其生命周期
+// int& d = box.getValue();  // 错误：普通左值引用不能绑定该临时值
+```
+
+按值返回不等于“返回函数栈上某个马上被 delete 的变量”。返回结果按语言规则初始化调用者的对象；现代 C++ 还可能直接在目标位置构造。按引用返回则要求被引用对象仍存活，不能返回局部变量的引用。接收时 `auto` 通常去掉引用，`auto&` 才保留它。
+
+> **生命周期延长有边界**
+> `const int& x = getValue();` 可以延长直接绑定的临时结果的生命周期；如果函数已经返回悬空引用，外面再加 `const&` 不能救活对象。
+
+### Python 类比的边界
+
+Python 的 `a = 10; b = a; b = 20` 是重新绑定 `b`，`a` 仍为 10；列表的 `b.append(...)` 则可能修改共同引用的对象。不要把 mutable 等同于 C++ 引用、immutable 等同于复制，也不要把 Python 名字绑定硬套成 `const T*`。
 
 ## 9. 易错点
 

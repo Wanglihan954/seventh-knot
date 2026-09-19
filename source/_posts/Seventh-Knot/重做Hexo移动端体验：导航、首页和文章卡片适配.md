@@ -1,13 +1,14 @@
 ---
 title: 重做 Hexo 移动端体验：导航、首页和文章卡片适配
 categories:
-  - Seventh Knot
+  - 博客开发
 tags:
   - 移动端适配
   - 响应式设计
   - CSS
   - JavaScript
   - Hexo
+  - Seventh Knot
 readmore: true
 hideTime: true
 abbrlink: e18d8be0

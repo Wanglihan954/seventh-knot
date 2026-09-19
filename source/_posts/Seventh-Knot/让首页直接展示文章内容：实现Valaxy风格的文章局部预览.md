@@ -1,13 +1,14 @@
 ---
 title: 让首页直接展示文章内容：实现 Valaxy 风格的文章局部预览
 categories:
-  - Seventh Knot
+  - 博客开发
 tags:
   - Hexo Helper
   - 文章预览
   - Valaxy
   - Pug
   - SEO
+  - Seventh Knot
 readmore: true
 hideTime: true
 abbrlink: 92c71573

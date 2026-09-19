@@ -1,8 +1,7 @@
 ---
 title: '论文阅读｜Segment Anything Across Shots: A Method and Benchmark'
 categories:
-  - 文献阅读
-  - Tracking
+  - 视频目标分割
 tags:
   - 文献笔记
   - AI论文
@@ -11,6 +10,7 @@ tags:
   - 跨镜头
   - 视频目标分割 (MVOS)
   - Tracking
+  - 文献阅读
 description: >-
   本文研究多镜头半监督视频目标分割 (MVOS)：给定首帧掩码提示，在整个含多个镜头切换的视频中持续分割目标。现有 VOS
   方法只关注单镜头视频，难以处理镜头不连续性。作者提出 TMA
@@ -138,7 +138,9 @@ TMA 本质是"数据层面的转场合成器"：把单镜头视频通过编辑�
 转场发生时标准 SAM2 记忆匹配必然失效，必须先定位转场帧才能路由策略——这是整个管线的开关。受镜头边界检测（TransNet 系列）启发，用**扩张卷积金字塔**（dilation 1/2/4/8）构成轻量检测器。每帧输出转场概率 `p̂_tr`：低于阈值 `τ_tr` 走标准 SAM2 流程（记忆存入 B_adj）；高于阈值走转场分割策略（记忆存入 B_scene，供 TCH 建立场景理解）。TDM 先在 IACC.3 + ClipShots 镜头边界数据集上预训练，主训练阶段保持冻结，推理开销极小。
 
 #### 关键公式
+{% raw %}
 $$\hat{p}_{i,tr} = \text{Sigmoid}(\mathcal{F}_{TDM}(F^t, \{F^{t-i}\}_{i=1,2,...,N}))$$
+{% endraw %}
 
 #### 代码对应
 ```text
@@ -161,7 +163,9 @@ TDM 把"检测转场"降维成轻量二分类：先验预训练 + 推理固定�
 4. **注意力聚合器**：解码 Q_i 细化上一镜头记忆 `M^{t-1}_adj`，与 B_cond、B_local 拼接后送入 SAM2 memory attention——与 SAM2 预训练分割头无缝兼容。
 
 #### 关键公式
+{% raw %}
 $$Q^n_i = \text{Attn}(\text{Attn}(Q^{n-1}_i, F'^t_{l3}), F^{t-1}_{l3}), \quad Q^0_i = Q_{init}$$
+{% endraw %}
 
 Attention 层 = 多头交叉注意力 + 多头自注意力 + FFN（带 RoPE 位置编码）。
 
@@ -261,7 +265,9 @@ Hardware: 训练 4× RTX-A6000 48G；推理单卡
 
 **Jt 跨镜头指标**：对每个镜头 S_i，分别计算转场帧 I_tir 与目标首次出现帧 I_app（delayed cut-in 时若目标未出现则以首帧计）的 IoU 取平均：
 
+{% raw %}
 $$J_t = \frac{1}{|S|} \sum_{i \in |S|} \frac{\text{IoU}(\hat{M}_{t_{ir}}, M_{t_{ir}}) + \text{IoU}(\hat{M}_{a_{pp}}, M_{a_{pp}})}{2}$$
+{% endraw %}
 
 **Cut-VOS 转场体系**：9 种类型 = 存在型（cut in、cut away、delayed cut in）+ 视角型（close up/distant view、pitch、horizon、scene change、insignificance），存在型与视角型可共存。62% actors + 38% 静态目标；EAcc 44.7% → 38.8%（较 YouMVOS），难度差距显著。
 

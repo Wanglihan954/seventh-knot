@@ -1,31 +1,39 @@
 ---
-title: C++ Day 9 - Move Semantics
+title: "C++ Day 9 - Move Semantics"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - Modern C++
-  - Move
-  - Rvalue Reference
-description: '从值类别到 move constructor，厘清 std::move、资源转移和 moved-from object。'
+  - "C++"
+  - "Modern C++"
+  - "Move"
+  - "Rvalue Reference"
+  - "学习笔记"
+  - "CS106L"
+  - "Rvalue-Reference"
+  - "std-move"
+  - "noexcept"
+description: "从值类别到 move constructor，厘清 std::move、资源转移和 moved-from object。"
 readmore: true
-abbrlink: 8c6bcbeb
-date: 2026-09-02 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-09-02
+updated: 2026-09-18 16:55:55
+abbrlink: "8c6bcbeb"
 ---
 > **学习信息**
 > **学习日期：** 2026-09-02（周三）
 > **重点：** T&&、lvalue/rvalue、Move Constructor、Move Assignment、std::move、moved-from state
-> **所属计划：** 14 天 C++ 学习计划 · Day 9
-> **前置笔记：** C++ Day 8 - Special Member Functions & Copy Semantics
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 9" %}
+> **前置笔记：** {% post_link modern-cpp-day-08-copy-semantics "C++ Day 8 - Special Member Functions & Copy Semantics" %}
 
 ![Copy 与 Move Constructor 的资源处理对比](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/cs106l-2026/day9-copy-move.png)
 
 > 图源：Stanford CS106L Spring 2026，[Move Semantics Slides](https://web.stanford.edu/class/cs106l/lectures/2026Spring-14-MoveSemantics.pdf) 第 68 页。Copy 创建独立资源；Move 转交资源并使来源对象保持可析构的有效状态。
 
+> **快速复习路径**
+> **值类别** → **`std::move` 转换** → **资源转交** → **moved-from 状态**
+
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 区分 Copy 与 Move 的资源语义。
@@ -109,6 +117,26 @@ void consume(Tensor&& value) {
 
 noexcept 表示移动不抛异常。标准容器扩容时通常更愿意使用 noexcept move，因为它更容易维持异常安全保证。
 
+## 对话补充：编译器怎样选择 Copy、Move 或直接构造
+
+假设 T 有可访问的 `T(const T&)` 和 `T(T&&)`：
+
+| 初始化 | 关键规则 |
+|---|---|
+| `T b = a;` | a 是左值，选择 Copy |
+| `T b = std::move(a);` | 非 const a 转成 xvalue，通常选择 Move |
+| `T b = std::move(const_a);` | const 未被移除，普通 Move 不匹配，通常 Copy |
+| `T b = T{};` | C++17 起，同类型 prvalue 直接构造 b，无需 Copy/Move |
+
+`T takePhoto();` 是函数声明；`takePhoto()` 是调用；`T{}` 是用类型构造值。函数按值返回与“模板实例化”是不同概念。
+
+对于 `T f() { T local; return local; }`，可实施 NRVO；未实施时再按返回规则考虑移动。不要惯性写 `return std::move(local);`，它会阻碍 NRVO。
+
+`const T&` 能绑定临时对象，但常规资源转移需要修改源对象的管理状态，因此不能替代可修改的 `T&&`。单独调用 `std::move(a)` 不转移资源；没有合适的 Move 时可能 Copy，也可能编译失败。
+
+> **移动后的保证取决于类型**
+> 标准库类型通常保证有效但值未指定，某些类型有更强保证，例如被移走的 unique_ptr 为空。自定义类的 Move 必须自行维护不变量；“一定清空”不是通用规则。
+
 ## 7. 易错点
 
 | 易错认识 | 正确理解 |
@@ -132,4 +160,4 @@ noexcept 表示移动不抛异常。标准容器扩容时通常更愿意使用 n
 
 ## 下一步
 
-> C++ Day 10 - RAII & unique_ptr：把资源释放从手工协议变成对象生命周期的自然结果。
+> {% post_link modern-cpp-day-10-raii-unique-ptr "C++ Day 10 - RAII & unique_ptr" %}：把资源释放从手工协议变成对象生命周期的自然结果。

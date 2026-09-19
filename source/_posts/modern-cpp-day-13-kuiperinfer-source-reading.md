@@ -1,28 +1,40 @@
 ---
-title: C++ Day 13 - KuiperInfer Source Reading
+title: "C++ Day 13 - KuiperInfer Source Reading"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - KuiperInfer
-  - 源码阅读
-  - Tensor
-  - Ownership
-description: 沿 Tensor、Layer、Operator、Runtime 到 Conv 的对象关系阅读 KuiperInfer 源码。
+  - "C++"
+  - "KuiperInfer"
+  - "源码阅读"
+  - "Tensor"
+  - "Ownership"
+  - "学习笔记"
+  - "Source-Reading"
+  - "Layer"
+  - "Runtime"
+description: "沿 Tensor、Layer、Operator、Runtime 到 Conv 的对象关系阅读 KuiperInfer 源码。"
 readmore: true
-abbrlink: f9df1e66
-date: 2026-09-07 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-09-07
+updated: 2026-09-13 06:47:14
+abbrlink: "f9df1e66"
 ---
 > **学习信息**
 > **学习日期：** 2026-09-07（周一）至 2026-09-08（周二）
 > **重点：** 按对象关系阅读真实工程，而不是逐文件漫游
-> **所属计划：** 14 天 C++ 学习计划 · Day 13
-> **关联课程：** 自制深度学习推理框架/第2课 张量的设计、自制深度学习推理框架/第5课 算子和算子注册器的设计与实现
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 13" %}
+> **关联课程：** {% post_link "第2课 张量的设计" "第2课 张量的设计" %}、{% post_link "第5课 算子和算子注册器的设计与实现" "第5课 算子和算子注册器的设计与实现" %}
+
+![KuiperInfer 对象关系 Excalidraw 风格图](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@img/img/kuiperinfer-relationship-excalidraw.svg)
+
+> **阅读视角**
+> 先沿对象关系建立地图，再回到代码确认职责、所有权和数据流；不要一开始就逐目录浏览。
+
+> **快速复习路径**
+> **Tensor** → **Layer** → **Operator** → **Runtime** → **真实对象关系**
 
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 按 Tensor → Layer → Operator → Runtime → Conv 的顺序阅读。
@@ -40,7 +52,9 @@ flowchart LR
     L --> O[RuntimeOperator / Registry]
     O --> R[RuntimeGraph]
     R --> C[Conv / ReLU 等实现]
+    linkStyle 0,1,2,3 stroke:#ff8f82,stroke-width:3px
 ```
+
 
 这张图表示阅读路线，不是调用方向。运行时通常由 `RuntimeGraph` 调度 `RuntimeOperator`，再调用具体 `Layer` 读写 `Tensor`。
 
@@ -161,14 +175,4 @@ Tensor output
 
 ## 下一步
 
-> C++ Day 14 - MiniInfer & Final Review：用一个最小工程回收所有关键机制。
-
-## 延伸阅读
-
-本篇聚焦阅读路径、对象职责与所有权关系；具体实现细节可结合既有 KuiperInfer 系列阅读：
-
-- [第 1 课：深度学习推理框架基础](/posts/6a42c494/)
-- [第 2 课：张量（Tensor）的设计](/posts/78f76b7a/)
-- [第 3 课：计算图的设计](/posts/c04b0c1f/)
-- [第 4 课：计算图的构建](/posts/5d9c34a6/)
-- [第 5 课：算子和算子注册器的设计与实现](/posts/e52053c3/)
+> {% post_link modern-cpp-day-14-mini-infer-final-review "C++ Day 14 - MiniInfer & Final Review" %}：用一个最小工程回收所有关键机制。

@@ -1,7 +1,7 @@
 ---
 title: Visual Studio Code (vscode)配置LaTeX
 categories:
-  - Ubuntu个性化
+  - 开发工具与协作
 tags:
   - Ubuntu
   - VSCode

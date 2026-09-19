@@ -1,32 +1,39 @@
 ---
-title: C++ Day 14 - MiniInfer & Final Review
+title: "C++ Day 14 - MiniInfer & Final Review"
 categories:
-  - 学习笔记
-  - C++
+  - 现代 C++
 tags:
-  - C++
-  - MiniInfer
-  - Modern C++
-  - CMake
-  - RAII
-description: 用一个最小推理网络串联模板、多态、RAII、所有权和 CMake，完成 Modern C++ 第一轮复盘。
+  - "C++"
+  - "MiniInfer"
+  - "Modern C++"
+  - "CMake"
+  - "RAII"
+  - "学习笔记"
+  - "Final-Review"
+  - "Template"
+  - "Polymorphism"
+description: "用一个最小推理网络串联模板、多态、RAII、所有权和 CMake，完成 Modern C++ 第一轮复盘。"
 readmore: true
-abbrlink: 5106fc02
-date: 2026-09-09 09:00:00
-updated: 2026-09-09 23:41:00
+date: 2026-09-09
+updated: 2026-09-13 06:47:14
+abbrlink: "5106fc02"
 ---
 > **学习信息**
 > **学习日期：** 2026-09-09（周三）
 > **重点：** MiniInfer 设计、知识回收、最终测试、工程驱动学习入口
-> **所属计划：** 14 天 C++ 学习计划 · Day 14
-> **前置笔记：** C++ Day 13 - KuiperInfer Source Reading
+> **所属计划：** {% post_link modern-cpp-14-day-learning-plan "14 天 C++ 学习计划 · Day 14" %}
+> **前置笔记：** {% post_link modern-cpp-day-13-kuiperinfer-source-reading "C++ Day 13 - KuiperInfer Source Reading" %}
 
 ![课程回顾：RAII、Makefile 与 CMake](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/cs106l-2026/day14-cpp-recap.png)
 
 > 图源：Stanford CS106L Spring 2026，[RAII & Smart Pointers Slides](https://web.stanford.edu/class/cs106l/lectures/2026Spring-16-RAII-SmartPointers.pdf) 第 98 页。这三个主题正好连接 MiniInfer 的资源管理与构建实践。
 
+> **快速复习路径**
+> **`Tensor<T>`** → **Layer 多态** → **RAII Ownership** → **CMake 构建** → **项目驱动学习**
+
 
 <!-- more -->
+
 ## 今日目标
 
 - [x] 用最小推理网络串联 Template、Polymorphism、RAII 与 Move。
@@ -181,7 +188,9 @@ flowchart TD
     R --> N
     N --> K[CMake Project]
     K --> Q[KuiperInfer 源码阅读]
+    linkStyle 0,1,2,3,4,5,6,7,8 stroke:#ff8f82,stroke-width:3px
 ```
+
 
 | 模块 | 在 MiniInfer 的落点 |
 | --- | --- |

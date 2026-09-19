@@ -1,8 +1,7 @@
 ---
 title: '论文阅读｜RMem: Restricted Memory Banks Improve Video Object Segmentation'
 categories:
-  - 文献阅读
-  - Tracking
+  - 视频目标分割
 tags:
   - 文献笔记
   - AI论文
@@ -10,6 +9,7 @@ tags:
   - SAM2
   - 视频目标分割 (VOS)
   - Tracking
+  - 文献阅读
 description: >-
   随着 VOS 基准向困难场景演化，本文重新审视一个简单却被忽视的策略： 限制记忆库的大小 。作者设计"memory
   deciphering"实验发现关键洞察：扩大记忆库看似有益，实际上因冗余信息混淆了 VOS

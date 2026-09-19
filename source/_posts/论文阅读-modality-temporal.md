@@ -1,8 +1,7 @@
 ---
 title: "论文阅读｜Exploring Modality-Aware Fusion and Decoupled Temporal Propagation for Multi-Modal Object Tracking"
 categories:
-  - 文献阅读
-  - Tracking
+  - 视觉目标跟踪
 tags:
   - "文献笔记"
   - "AI论文"
@@ -12,6 +11,7 @@ tags:
   - "MoE"
   - "视频目标跟踪"
   - "Tracking"
+  - 文献阅读
 description: "多模态目标跟踪常把 RGB、红外（IR）、事件（Event）和深度（Depth）视为同质输入，采用统一融合模块；同时又把不同模态的历史 token 混在同一条时间传播路径中。前者忽略模态间的信号、噪声和语义差异，后者把 RGB 的外观变化与 X-modal 的热稳定性、事件极性或几何一致性纠缠在一起。…"
 readmore: true
 mathjax: true
