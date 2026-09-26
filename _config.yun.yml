@@ -139,6 +139,9 @@ menu:
     - title: 项目终端
       path: /projects/
       icon: ri:radar-line
+    - title: 论文中心
+      path: /papers/
+      icon: ri:file-paper-2-line
   actions:
     theme:
       title: 切换主题
@@ -166,6 +169,10 @@ pages:
     url: /projects/
     icon: ri:radar-line
     color: '#ffffff'
+  - name: 论文中心
+    url: /papers/
+    icon: ri:file-paper-2-line
+    color: '#d7ff19'
 
 wordcount:
   enable: true

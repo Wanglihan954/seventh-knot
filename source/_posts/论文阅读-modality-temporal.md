@@ -16,7 +16,7 @@ description: "多模态目标跟踪常把 RGB、红外（IR）、事件（Event�
 readmore: true
 mathjax: true
 date: 2026-08-21 20:15:00
-updated: 2026-08-21 23:00:00
+updated: 2026-09-26 22:00:00
 abbrlink: "3a9bee1d"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
@@ -26,7 +26,8 @@ abbrlink: "3a9bee1d"
 
 **Title:** Exploring Modality-Aware Fusion and Decoupled Temporal Propagation for Multi-Modal Object Tracking  
 **Authors:** Shilei Wang, Pujian Lai, Dong Gao, Jifeng Ning, Gong Cheng  
-**Venue:** arXiv preprint, arXiv:2603.09287v1（论文首页标注 2026-03-10）  
+**Venue:** AAAI 2026（正式论文集，Vol. 40 No. 12，pp. 10065–10073）
+**DOI:** 10.1609/aaai.v40i12.37973
 **GitHub:** https://github.com/wsumel/MDTrack（论文摘要声称公开；本笔记未核验仓库）  
 
 ### 摘要
@@ -41,7 +42,8 @@ abbrlink: "3a9bee1d"
 
 - **Zotero:** 未提供
 - **PDF:** [本地 PDF](../.papers/modality-temporal.pdf)
-- **Paper:** [arXiv:2603.09287v1](http://arxiv.org/abs/2603.09287v1)
+- **Paper:** [AAAI Proceedings](https://ojs.aaai.org/index.php/AAAI/article/view/37973)
+- **Preprint:** [arXiv:2603.09287](https://arxiv.org/abs/2603.09287)
 - **GitHub:** [MDTrack](https://github.com/wsumel/MDTrack)（论文声称公开；未核验）
 
 ---

@@ -17,7 +17,7 @@ description: "RGB-T 跟踪利用可见光（RGB）与热红外（TIR）的互补
 readmore: true
 mathjax: true
 date: 2026-08-21 20:00:00
-updated: 2026-08-21 23:00:00
+updated: 2026-09-26 22:00:00
 abbrlink: "b319daec"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
@@ -27,7 +27,8 @@ abbrlink: "b319daec"
 
 **Title:** CADTrack: Learning Contextual Aggregation with Deformable Alignment for Robust RGBT Tracking  
 **Authors:** Hao Li、Yuhao Wang、Xiantao Hu、Wenning Hao、Pingping Zhang、Dong Wang、Huchuan Lu  
-**Venue:** arXiv preprint，2025（arXiv:2511.17967v1）  
+**Venue:** AAAI 2026（正式论文集，Vol. 40 No. 8，pp. 6109–6117）
+**DOI:** 10.1609/aaai.v40i8.37535
 **GitHub:** https://github.com/IdolLab/CADTrack（论文正文声明已发布）  
 
 ### 摘要
@@ -42,7 +43,8 @@ RGB-T 跟踪利用可见光（RGB）与热红外（TIR）的互补信息，在�
 
 - **Zotero:** 本地材料未提供 Zotero 条目
 - **PDF:** [Open local PDF](.papers/cadtrack.pdf)
-- **Paper:** [arXiv 2511.17967v1](http://arxiv.org/abs/2511.17967v1)
+- **Paper:** [AAAI Proceedings](https://ojs.aaai.org/index.php/AAAI/article/view/37535)
+- **Preprint:** [arXiv 2511.17967](https://arxiv.org/abs/2511.17967)
 - **GitHub:** https://github.com/IdolLab/CADTrack（论文正文给出的地址；本工作树没有代码 checkout）
 
 ---

@@ -23,7 +23,7 @@ readmore: true
 mathjax: true
 abbrlink: d4aa8ed7
 date: 2026-08-23 20:00:00
-updated: 2026-08-23 23:00:00
+updated: 2026-09-26 23:10:00
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -32,7 +32,8 @@ updated: 2026-08-23 23:00:00
 
 **Title:** No Calibration, No Depth, No Problem: Cross-Sensor View Synthesis with 3D Consistency
 **Authors:** Cho-Ying Wu, Zixun Huang, Xinyu Huang, Liu Ren（Bosch Research North America & Bosch Center for AI）
-**Venue:** CVPR 2026（Main Conference，据 Zotero 注释）
+**Venue:** CVPR 2026（正式论文集，pp. 21836–21848）
+**Official Paper:** https://openaccess.thecvf.com/content/CVPR2026/html/Wu_No_Calibration_No_Depth_No_Problem_Cross-Sensor_View_Synthesis_with_3D_Consistency_CVPR_2026_paper.html
 **arXiv:** 2602.23559v1（2026-02-27）
 **DOI:** 10.48550/arXiv.2602.23559
 **Project Page:** https://choyingw.github.io/3d-rgbx.github.io/

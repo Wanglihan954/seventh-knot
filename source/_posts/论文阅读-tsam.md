@@ -16,7 +16,7 @@ description: "[论文事实] 现有 tracking 与 segmentation 方法通常按任
 readmore: true
 mathjax: true
 date: 2026-08-21 20:25:00
-updated: 2026-08-21 23:00:00
+updated: 2026-09-26 22:00:00
 abbrlink: "61183517"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
@@ -26,12 +26,13 @@ abbrlink: "61183517"
 
 **Title:** Tracking and Segmenting Anything in Any Modality
 **Authors:** Tianlu Zhang、Qiang Zhang、Guiguang Ding、Jungong Han
-**Venue:** arXiv preprint, arXiv:2511.19475v1（2025）
+**Venue:** AAAI 2026（正式论文集，Vol. 40 No. 15，pp. 12762–12770）
+**DOI:** 10.1609/aaai.v40i15.38273
 **GitHub:** 论文与 `paper_meta.json` 未提供官方代码仓库
 
 > [来源事实] 本笔记的论文事实来自 `学习/文献阅读/.papers_fulltext/tsam.txt` 与 `学习/文献阅读/paper_meta.json`。论文原文声称 SATA 在 18 个 benchmark、4 种输入组合和 4 类任务上使用同一套模型架构与参数；以下凡标为“论文事实”的内容均按原文整理。
 >
-> [我的分析] 论文是 arXiv v1，且没有可核验的官方代码、checkpoint 或运行命令。代码映射表因此只记录论文模块与可复现接口，不虚构文件名、行号或实现细节。
+> [核验更新] 论文已于 2026-03-14 收录进 AAAI-26 正式论文集。当前仍未发现作者提供的官方代码、checkpoint 或运行命令；代码映射表因此只记录论文模块与可复现接口，不虚构文件名、行号或实现细节。
 
 ### 摘要
 
@@ -47,7 +48,8 @@ abbrlink: "61183517"
 
 - **Zotero:** 未提供
 - **PDF:** [arXiv PDF](https://arxiv.org/pdf/2511.19475v1)
-- **Paper:** [arXiv:2511.19475v1](https://arxiv.org/abs/2511.19475v1)
+- **Paper:** [AAAI Proceedings](https://ojs.aaai.org/index.php/AAAI/article/view/38273)
+- **Preprint:** [arXiv:2511.19475](https://arxiv.org/abs/2511.19475)
 - **GitHub:** 论文与元数据未提供官方仓库
 
 ---

@@ -14,7 +14,7 @@ description: "HiHR 面向空中—地面行人重识别中极端视角、尺度�
 readmore: true
 mathjax: true
 date: 2026-09-17 21:26:15
-updated: 2026-09-19 22:16:27
+updated: 2026-09-26 22:00:00
 abbrlink: "a0936075"
 ---
 > 本文基于论文、公开代码与本地阅读笔记整理；论文插图仅用于学习与讨论。
@@ -24,6 +24,7 @@ abbrlink: "a0936075"
 **Authors:** Qiwei Yang, Pingping Zhang  
 **Venue:** arXiv  
 **DOI:** 10.48550/arXiv.2607.09186  
+**Publication status:** 截至 2026-09-26，作者代码仓库标注为 ECCV 2026，但 arXiv 仍仅登记为预印本，且尚未在 ECCV 官方初步录用列表中检索到同题记录；暂不按正式会议论文计。
 **GitHub:** https://github.com/YangQiWei3/HiHR  
 **IF/Level:** Preprint | Aerial-Ground Person Re-ID
 

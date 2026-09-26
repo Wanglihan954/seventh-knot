@@ -15,7 +15,7 @@ description: "RGB-T 跟踪常用参数高效微调：冻结预训练骨干，只
 readmore: true
 mathjax: true
 date: 2026-08-21 20:10:00
-updated: 2026-08-21 23:00:00
+updated: 2026-09-26 22:00:00
 abbrlink: "b7b236b0"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
@@ -25,8 +25,8 @@ abbrlink: "b7b236b0"
 
 **Title:** Group Orthogonal Low-Rank Adaptation for RGB-T Tracking
 **Authors:** Zekai Shao、Yufan Hu、Jingyuan Liu、Bin Fan、Hongmin Liu（University of Science and Technology Beijing）
-**Venue:** arXiv preprint（arXiv:2512.05359v2）
-**Date:** `paper_meta.json` 记录为 2025；全文页眉显示 v2 日期为 2026-04-25，二者未进一步核对
+**Venue:** AAAI 2026（正式论文集，Vol. 40 No. 11，pp. 8887–8895）
+**DOI:** 10.1609/aaai.v40i11.37843
 **GitHub:** https://github.com/MelanTech/GOLA（全文给出的地址；本地未克隆核验）
 
 ### 摘要
@@ -41,12 +41,13 @@ RGB-T 跟踪常用参数高效微调：冻结预训练骨干，只训练少量�
 
 - **Zotero:** 未在本地证据中核验是否导入
 - **PDF:** [本地 PDF](../.papers/golor.pdf)
-- **Paper:** [arXiv abstract](http://arxiv.org/abs/2512.05359v2)
+- **Paper:** [AAAI Proceedings](https://ojs.aaai.org/index.php/AAAI/article/view/37843)
+- **Preprint:** [arXiv abstract](https://arxiv.org/abs/2512.05359)
 - **PDF URL:** [arXiv PDF](https://arxiv.org/pdf/2512.05359v2)
 - **GitHub:** https://github.com/MelanTech/GOLA（仅记录全文中的地址，不代表本次已检查仓库内容）
 
 > **注意**
-> 本笔记只使用本地 `golor.txt`、`paper_meta.json` 以及相邻的 CamSAM2 / token-routing 笔记。没有联网核验 GitHub，也没有把论文参考文献扩写成新的外部事实；数值均以全文中可读到的表格或文字为边界。
+> 本笔记的方法与实验内容仍以本地 `golor.txt`、`paper_meta.json` 及原论文为边界；发表信息已在 2026-09-26 对照 AAAI 官方论文集重新核验。
 
 ---
 

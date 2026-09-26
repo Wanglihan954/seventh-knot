@@ -16,7 +16,7 @@ description: "多模态视觉目标跟踪按输入划分为 RGB 与 RGB+X（Dept
 readmore: true
 mathjax: true
 date: 2026-08-21 20:05:00
-updated: 2026-08-21 23:00:00
+updated: 2026-09-26 22:00:00
 abbrlink: "e2332df8"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
@@ -26,7 +26,8 @@ abbrlink: "e2332df8"
 
 **Title:** Unified Multimodal Visual Tracking with Dual Mixture-of-Experts
 **Authors:** Lingyi Hong, Jinglun Li, Xinyu Zhou, Kaixun Jiang, Pinxue Guo, Zhaoyu Chen, Runze Li, Xingdong Sheng, Wenqiang Zhang
-**Venue:** ICML 2026（arXiv preprint，论文页标注 PMLR 306，2026）
+**Venue:** ICML 2026（官方日程 Poster）
+**Publication status:** 已由 ICML 2026 官方日程确认录用；当前笔记保留 arXiv 版本作为全文入口。
 **GitHub:** —（提供的 fulltext / metadata 未给出代码仓库）
 
 ### 摘要

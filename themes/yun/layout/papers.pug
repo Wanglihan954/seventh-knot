@@ -1,0 +1,161 @@
+extends _partial/layout.pug
+
+block content
+  - var allPosts = site.posts && site.posts.data ? site.posts.data : []
+  - function tagNames(post) { return post.tags && post.tags.data ? post.tags.data.map(function(tag) { return tag.name }) : [] }
+  - function categoryName(post) { return post.categories && post.categories.data && post.categories.data[0] ? post.categories.data[0].name : '其他研究' }
+  - function cleanTitle(post) { return String(post.title || '').replace(/^论文阅读[｜|]\s*/, '') }
+  - function cleanText(value) { return strip_html(String(value || '')).replace(/\s+/g, ' ').trim() }
+  - function labeledText(html, label) { var match = String(html || '').match(new RegExp('<strong>' + label + ':?<\\/strong>\\s*([^<\\n]+)', 'i')); return match ? cleanText(match[1]) : '' }
+  - function labeledUrl(html, label) { var match = String(html || '').match(new RegExp('<strong>' + label + ':?<\\/strong>\\s*<a[^>]+href="([^"]+)"', 'i')); return match ? match[1] : '' }
+  - function conferenceName(venue) { var value = String(venue || ''); var known = ['CVPR', 'ICCV', 'ECCV', 'NeurIPS', 'ICLR', 'ICML', 'AAAI', 'WACV', 'ACM MM', 'TPAMI', 'TIP', 'TMM']; for (var i = 0; i < known.length; i += 1) { if (new RegExp('(^|[^A-Z])' + known[i].replace(' ', '\\s*') + '([^A-Z]|$)', 'i').test(value)) return known[i]; } return /arxiv|preprint/i.test(value) ? 'arXiv' : '其他' }
+  - function publicationStatus(title, conference) { if (/^HiHR:/.test(title)) return { code: 'pending', label: '预印本 · ECCV 待复核' }; if (conference === 'ICML') return { code: 'accepted', label: '官方已录用' }; if (conference === 'arXiv' || conference === '其他') return { code: 'preprint', label: '预印本' }; return { code: 'published', label: '正式论文集' } }
+  - function methodFigure(html) { var source = String(html || ''); var headings = /<h([2-4])[^>]*>[\s\S]*?<\/h\1>/gi; var heading; while ((heading = headings.exec(source))) { var label = cleanText(heading[0]); if (!/(方法|Methodology|Methods?|Approach)/i.test(label)) continue; var section = source.slice(headings.lastIndex); var nextSection = section.search(/<h2[^>]*>/i); if (nextSection >= 0) section = section.slice(0, nextSection); var image = /<img[^>]+src="([^"]+)"[^>]*>/i.exec(section); if (!image) continue; var alt = /alt="([^"]*)"/i.exec(image[0]); return { src: image[1], alt: alt ? cleanText(alt[1]) : '论文方法图' }; } return null }
+  - function postTime(value) { return value && value.valueOf ? value.valueOf() : 0 }
+  - var papers = allPosts.filter(function(post) { var tags = tagNames(post); return /^论文阅读[｜|]/.test(String(post.title || '')) || tags.indexOf('文献笔记') !== -1 || tags.indexOf('AI论文') !== -1 }).sort(function(a, b) { return postTime(b.updated || b.date) - postTime(a.updated || a.date) })
+  - var categories = Array.from(new Set(papers.map(categoryName))).sort(function(a, b) { return a.localeCompare(b, 'zh-CN') })
+  - var paperRecords = papers.map(function(post) { var html = post.content || ''; var title = cleanTitle(post); var tags = tagNames(post); var venue = labeledText(html, 'Venue') || labeledText(html, 'IF/Level') || '未标注'; var conference = conferenceName(venue); var venueYear = venue.match(/20\d{2}/); var year = venueYear ? venueYear[0] : String((post.date && post.date.year && post.date.year()) || ''); var paperUrl = labeledUrl(html, 'Paper'); var doi = labeledText(html, 'DOI'); if (!paperUrl && doi && doi !== '—') paperUrl = 'https://doi.org/' + doi; return { post: post, title: title, category: categoryName(post), tags: tags, venue: venue, conference: conference, publication: publicationStatus(title, conference), year: year, paperUrl: paperUrl, codeUrl: labeledUrl(html, 'GitHub'), figure: methodFigure(html), description: cleanText(post.description || post.excerpt || '').slice(0, 260), updated: postTime(post.updated || post.date) } })
+  - var codeCount = paperRecords.filter(function(record) { return Boolean(record.codeUrl) }).length
+  - var years = Array.from(new Set(paperRecords.map(function(record) { return record.year }).filter(Boolean))).sort().reverse()
+  - var conferenceOrder = ['CVPR', 'ICCV', 'ECCV', 'NeurIPS', 'ICLR', 'ICML', 'AAAI', 'WACV', 'ACM MM', 'TPAMI', 'TIP', 'TMM', 'arXiv', '其他']
+  - var conferences = Array.from(new Set(paperRecords.map(function(record) { return record.conference }))).sort(function(a, b) { return conferenceOrder.indexOf(a) - conferenceOrder.indexOf(b) })
+  - var marqueeLine = 'RESEARCH NODE // PAPER ARCHIVE // '.repeat(4)
+  link(rel='stylesheet', href=url_for('/css/papers.css?v=20260926-2'))
+  #page.papers-page.ik-papers
+    .ik-papers-marquee(aria-hidden='true')
+      .ik-papers-marquee__track
+        span= marqueeLine
+        span= marqueeLine
+
+    header.ik-papers-hero
+      .ik-papers-hero__eyebrow
+        span.ik-papers-signal
+        | INTER-KNOT / RESEARCH ARCHIVE
+      h1 论文研究中心
+      p 把散落的阅读笔记连接成可检索、可比较、可继续生长的研究节点。
+      .ik-papers-hero__actions
+        a(href=url_for('/'), aria-label='返回首页')
+          +icon('ri:arrow-left-line')
+          span 返回首页
+        a(href=url_for('/categories/'), aria-label='浏览所有分类')
+          +icon('ri:folder-2-line')
+          span 分类总览
+
+    section.ik-papers-stats(aria-label='论文统计')
+      article
+        small TOTAL PAPERS
+        strong= paperRecords.length
+        span 已收录论文笔记
+      article
+        small RESEARCH AREAS
+        strong= categories.length
+        span 个研究方向
+      article
+        small OPEN SOURCE
+        strong= codeCount
+        span 篇附带代码
+      article
+        small LATEST UPDATE
+        strong= paperRecords[0] ? date(paperRecords[0].post.updated || paperRecords[0].post.date, 'MM-DD') : '--'
+        span= paperRecords[0] ? '最近整理节点' : '暂无记录'
+
+    section.ik-papers-console(aria-label='论文筛选工具')
+      .ik-papers-search
+        +icon('ri:search-line')
+        input#papers-search(type='search', placeholder='搜索论文、方法、数据集或标签…', aria-label='搜索论文', autocomplete='off')
+        kbd /
+      .ik-papers-selects
+        label
+          span 年份
+          select#papers-year(aria-label='按年份筛选')
+            option(value='all') 全部年份
+            each year in years
+              option(value=year)= year
+        label
+          span 会议
+          select#papers-conference(aria-label='按会议筛选')
+            option(value='all') 全部会议
+            each conference in conferences
+              option(value=conference)= conference
+        label
+          span 代码
+          select#papers-code(aria-label='按代码状态筛选')
+            option(value='all') 全部
+            option(value='yes') 有代码
+            option(value='no') 无代码
+        label
+          span 排序
+          select#papers-sort(aria-label='论文排序')
+            option(value='updated') 最近更新
+            option(value='year') 发表年份
+            option(value='title') 标题顺序
+      nav.ik-papers-channels(aria-label='研究方向')
+        button.is-active(type='button', data-paper-category='all', aria-pressed='true') 全部
+        each category in categories
+          button(type='button', data-paper-category=category, aria-pressed='false')= category
+
+    .ik-papers-resultbar
+      div
+        span.ik-papers-signal
+        strong#papers-result-count= '正在显示 ' + paperRecords.length + ' 篇论文'
+      button#papers-reset(type='button')
+        +icon('ri:restart-line')
+        span 重置筛选
+
+    section#papers-grid.ik-papers-grid(aria-label='论文列表')
+      each record, index in paperRecords
+        article.ik-paper-card(
+          data-paper-category=record.category,
+          data-paper-year=record.year,
+          data-paper-conference=record.conference,
+          data-paper-code=record.codeUrl ? 'yes' : 'no',
+          data-paper-title=record.title,
+          data-paper-updated=record.updated,
+          data-paper-search=`${record.title} ${record.category} ${record.venue} ${record.conference} ${record.year} ${record.tags.join(' ')} ${record.description}`.toLowerCase()
+        )
+          .ik-paper-card__rail(aria-hidden='true')
+          header.ik-paper-card__header
+            span.ik-paper-card__serial= 'P-' + String(index + 1).padStart(3, '0')
+            span.ik-paper-card__status
+              i
+              | READ
+          if record.figure
+            a.ik-paper-card__figure(href=url_for(record.post.path), aria-label='查看“' + record.title + '”的方法图与笔记')
+              img(src=url_for(record.figure.src), alt=record.figure.alt, loading='lazy', decoding='async')
+              span METHOD MAP
+          .ik-paper-card__meta
+            span= record.category
+            if record.year
+              span= record.year
+            span= record.venue
+            span.ik-paper-card__publication(class='is-' + record.publication.code)= record.publication.label
+          h2
+            a(href=url_for(record.post.path))= record.title
+          p.ik-paper-card__description= record.description || '这篇论文笔记暂时没有摘要。'
+          if record.tags.length
+            .ik-paper-card__tags
+              each tag in record.tags.filter(function(tag) { return tag !== '文献笔记' && tag !== 'AI论文' && tag !== '文献阅读' }).slice(0, 5)
+                span= tag
+          footer.ik-paper-card__footer
+            time(datetime=date_xml(record.post.updated || record.post.date))= '更新 ' + date(record.post.updated || record.post.date, 'YYYY-MM-DD')
+            nav(aria-label='论文链接')
+              a.ik-paper-card__primary(href=url_for(record.post.path), title='阅读笔记')
+                +icon('ri:article-line')
+                span 笔记
+              if record.paperUrl
+                a(href=record.paperUrl, target='_blank', rel='noopener', title='打开论文')
+                  +icon('ri:file-paper-2-line')
+                  span 论文
+              if record.codeUrl
+                a(href=record.codeUrl, target='_blank', rel='noopener', title='打开代码仓库')
+                  +icon('ri:github-line')
+                  span 代码
+
+    .ik-papers-empty(hidden)
+      strong 没找到对应的论文节点
+      p 换一个关键词或重置筛选试试。
+
+    footer.ik-papers-footer
+      span DATA SOURCE / SEVENTH KNOT NOTES
+      strong= paperRecords.length + ' PAPERS · ' + categories.length + ' AREAS'
+  script(src=url_for('/js/papers.js?v=20260926-2'), defer)
