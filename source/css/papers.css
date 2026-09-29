@@ -1,7 +1,7 @@
 /* 优设标题黑：优设网免费商用字体 https://www.uisdc.com/uisdc-first-free-font */
 @font-face {
   font-family: "YouSheBiaoTiHei";
-  src: url("/fonts/YouSheBiaoTiHei.ttf") format("truetype");
+  src: url("/fonts/YouSheBiaoTiHei.ttf?v=20260930-2") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -161,7 +161,10 @@ body.is-papers-page #footer {
   margin: 18px 0 14px;
   color: #fff;
   font: 400 clamp(42px, 7vw, 88px)/1.05 "YouSheBiaoTiHei", "Microsoft YaHei", sans-serif;
-  letter-spacing: 0.01em;
+  font-family: "YouSheBiaoTiHei", "Microsoft YaHei", sans-serif !important;
+  font-weight: 400 !important;
+  font-synthesis: none;
+  letter-spacing: 0.01em !important;
 }
 
 .ik-papers-hero p {

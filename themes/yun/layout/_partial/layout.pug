@@ -21,6 +21,8 @@ html(lang=config.language, class=theme.mode === 'dark' ? 'dark' : '')
     include ../_third-party/cdn.pug
     include head.pug
     include extended.pug
+    if page.layout === 'papers'
+      link(rel='preload', href=url_for('/fonts/YouSheBiaoTiHei.ttf?v=20260930-2'), as='font', type='font/ttf', crossorigin='anonymous')
     block preconnect
     script.
       (function() {
