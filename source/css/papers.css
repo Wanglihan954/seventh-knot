@@ -1,3 +1,12 @@
+/* 优设标题黑：优设网免费商用字体 https://www.uisdc.com/uisdc-first-free-font */
+@font-face {
+  font-family: "YouSheBiaoTiHei";
+  src: url("/fonts/YouSheBiaoTiHei.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 body.is-papers-page {
   --paper-accent: #d7ff19;
   --paper-blue: #19a7ff;
@@ -151,8 +160,8 @@ body.is-papers-page #footer {
   max-width: 920px;
   margin: 18px 0 14px;
   color: #fff;
-  font: 900 clamp(42px, 7vw, 88px)/0.98 "Microsoft YaHei", sans-serif;
-  letter-spacing: -0.07em;
+  font: 400 clamp(42px, 7vw, 88px)/1.05 "YouSheBiaoTiHei", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0.01em;
 }
 
 .ik-papers-hero p {
@@ -633,7 +642,7 @@ body.is-papers-page #footer {
 @media (max-width: 680px) {
   .ik-papers { padding: 92px 14px 40px; }
   .ik-papers-hero { padding: 34px 4px 34px; }
-  .ik-papers-hero h1 { letter-spacing: -0.05em; }
+  .ik-papers-hero h1 { letter-spacing: 0.01em; }
   .ik-papers-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ik-papers-stats article { min-height: 104px; padding: 18px 16px; }
   .ik-papers-stats strong { font-size: 27px; }

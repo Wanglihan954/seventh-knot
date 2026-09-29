@@ -20,7 +20,7 @@ block content
   - var conferenceOrder = ['CVPR', 'ICCV', 'ECCV', 'NeurIPS', 'ICLR', 'ICML', 'AAAI', 'WACV', 'ACM MM', 'TPAMI', 'TIP', 'TMM', 'arXiv', '其他']
   - var conferences = Array.from(new Set(paperRecords.map(function(record) { return record.conference }))).sort(function(a, b) { return conferenceOrder.indexOf(a) - conferenceOrder.indexOf(b) })
   - var marqueeLine = 'RESEARCH NODE // PAPER ARCHIVE // '.repeat(4)
-  link(rel='stylesheet', href=url_for('/css/papers.css?v=20260926-2'))
+  link(rel='stylesheet', href=url_for('/css/papers.css?v=20260930-font-1'))
   #page.papers-page.ik-papers
     .ik-papers-marquee(aria-hidden='true')
       .ik-papers-marquee__track
