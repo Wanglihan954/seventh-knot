@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - test
-      - main
     paths:
       - ".github/workflows/hellogithub-latest.yml"
       - "_config.yun.yml"
@@ -24,7 +23,7 @@ on:
     - cron: "15 1 * * *"
 
 concurrency:
-  group: hellogithub-latest-${{ github.ref }}
+  group: hellogithub-latest-production
   cancel-in-progress: false
 
 permissions:
@@ -42,6 +41,7 @@ jobs:
       - name: Checkout weblog source
         uses: actions/checkout@v6
         with:
+          ref: test
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -76,7 +76,7 @@ jobs:
           fi
 
       - name: Checkout production Pages repository
-        if: github.ref == 'refs/heads/main' && env.WEBLOG_DEPLOY_TOKEN != ''
+        if: env.WEBLOG_DEPLOY_TOKEN != ''
         uses: actions/checkout@v6
         with:
           repository: Wanglihan954/Wanglihan954.github.io
@@ -85,7 +85,7 @@ jobs:
           fetch-depth: 1
 
       - name: Publish generated site
-        if: github.ref == 'refs/heads/main' && env.WEBLOG_DEPLOY_TOKEN != ''
+        if: env.WEBLOG_DEPLOY_TOKEN != ''
         shell: bash
         run: |
           rsync -a --delete --exclude='.git/' public/ .hellogithub-deploy/
@@ -101,5 +101,5 @@ jobs:
           fi
 
       - name: Explain skipped production deployment
-        if: github.ref == 'refs/heads/main' && env.WEBLOG_DEPLOY_TOKEN == ''
+        if: env.WEBLOG_DEPLOY_TOKEN == ''
         run: echo "WEBLOG_DEPLOY_TOKEN is not configured; source data was updated but production deployment was skipped."
