@@ -1,29 +1,24 @@
 ---
-title: >-
-  论文阅读｜No Calibration, No Depth, No Problem: Cross-Sensor View Synthesis with 3D
-  Consistency
+title: "论文阅读｜No Calibration, No Depth, No Problem: Cross-Sensor View Synthesis with 3D Consistency"
 categories:
-  - 跨视角与三维视觉
-tags:
-  - 文献笔记
-  - AI论文
-  - 红外-可见光配准
-  - RGB-X
-  - 跨模态匹配
-  - 视图合成
-  - 3DGS
-  - DySPN
-  - 红外-可见光图像配准
   - 文献阅读
-description: >-
-  跨传感器视图合成（cross-sensor view synthesis）的"输入是像素级对齐的 RGB-X
-  对"这个前提，实际获取时极其昂贵：需要标定、同步、相对位姿与 metric depth。本文提出 match-densify-consolidate 方法：
-  1. match ：RGB-X 图像匹配 + 引导式点稠密化；…
+  - "红外-可见光配准"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "红外-可见光配准"
+  - "RGB-X"
+  - "跨模态匹配"
+  - "视图合成"
+  - "3DGS"
+  - "DySPN"
+  - "红外-可见光图像配准"
+description: "跨传感器视图合成（cross-sensor view synthesis）的\"输入是像素级对齐的 RGB-X 对\"这个前提，实际获取时极其昂贵：需要标定、同步、相对位姿与 metric depth。本文提出 match-densify-consolidate 方法： 1. match ：RGB-X 图像匹配 + 引导式点稠密化；…"
 readmore: true
 mathjax: true
-abbrlink: d4aa8ed7
 date: 2026-08-23 20:00:00
-updated: 2026-09-26 23:10:00
+updated: 2026-08-23 23:00:00
+abbrlink: "d4aa8ed7"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -32,8 +27,7 @@ updated: 2026-09-26 23:10:00
 
 **Title:** No Calibration, No Depth, No Problem: Cross-Sensor View Synthesis with 3D Consistency
 **Authors:** Cho-Ying Wu, Zixun Huang, Xinyu Huang, Liu Ren（Bosch Research North America & Bosch Center for AI）
-**Venue:** CVPR 2026（正式论文集，pp. 21836–21848）
-**Official Paper:** https://openaccess.thecvf.com/content/CVPR2026/html/Wu_No_Calibration_No_Depth_No_Problem_Cross-Sensor_View_Synthesis_with_3D_Consistency_CVPR_2026_paper.html
+**Venue:** CVPR 2026（Main Conference，据 Zotero 注释）
 **arXiv:** 2602.23559v1（2026-02-27）
 **DOI:** 10.48550/arXiv.2602.23559
 **Project Page:** https://choyingw.github.io/3d-rgbx.github.io/
@@ -69,7 +63,7 @@ updated: 2026-09-26 23:10:00
 
 先看论文的 Problem Setup 图：
 
-![Figure 1: Problem Setup. Given unpaired RGB-X images from sensors, the task is to synthesize X-images that are pixel-wise aligned with the RGB views.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig1.webp)
+![Figure 1: Problem Setup. Given unpaired RGB-X images from sensors, the task is to synthesize X-images that are pixel-wise aligned with the RGB views.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig1.webp?v=mt5xxoe5)
 
 **输入是什么：** unpaired（未配准的）RGB-X 图像序列。
 **输出是什么：** 与每个 RGB 视角像素级对齐的 X 图像。
@@ -99,7 +93,7 @@ updated: 2026-09-26 23:10:00
 - **COLMAP 只对 RGB 有效：** 低纹理传感器（热成像）几乎没有可稳定提取的纹理特征点，跨模态 SfM 基本失败。
 - **Homography 是平面假设：** 见 Fig 2，当场景有明显前后景深度层时（如雕像前景、背景），homography warp 只能把视图当平面做剪切/形变，无法产生带视差的 3D 效果。
 
-![Figure 2: Homography warping assumes 3D planar structures and causes visible misalignment (statue areas) when the scene contains distinct fore-/background layers.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig2.webp)
+![Figure 2: Homography warping assumes 3D planar structures and causes visible misalignment (statue areas) when the scene contains distinct fore-/background layers.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig2.webp?v=mt5xxof1)
 
 - **纯图像生成（RGB→X translation）不真实：** 例如 StyleBooth 做 RGB→thermal，外观与温度有内在歧义（一杯水冷热从外观无法判断），生成结果无法保证与真实 X 值一致。
 - **跨模态匹配存在但只用于估计位姿/Homography：** XoFTR、MINIMA 等可以匹配 RGB↔X 关键点，但通常仍陷入"估计 H → 平面 warp"的路线，被 Homography 假设束缚。
@@ -135,7 +129,7 @@ updated: 2026-09-26 23:10:00
 
 ### 3.1 总体流程（论文 Fig 3）
 
-![Figure 3: Method Overview. Match-Densify-Consolidate 三阶段。](/images/ir-vis-reg/cross-sensor-view-synthesis/fig3.webp)
+![Figure 3: Method Overview. Match-Densify-Consolidate 三阶段。](/images/ir-vis-reg/cross-sensor-view-synthesis/fig3.webp?v=mt5xxogz)
 
 论文将流程组织为三个阶段：
 
@@ -182,9 +176,7 @@ Stage 3: Consolidate
 
 把 $N$ 帧的 X 关键点堆叠到对应 RGB 坐标上，得到稀疏 X-map $X_m$：
 
-{% raw %}
 $$X_m[p] = \frac{\sum_n \mathbb{1}[p = p_I^n]\; X[p_X^n]}{\sum_n \mathbb{1}[p = p_I^n]},$$
-{% endraw %}
 
 其中 $n \in N$，$\mathbb{1}[\cdot]$ 是指示函数。若对所有 $n$ 都有 $p \neq p_I^n$，则 $X_m[p] = -1$，表示该处是 void（空）。
 
@@ -199,9 +191,7 @@ $$X_m[p] = \frac{\sum_n \mathbb{1}[p = p_I^n]\; X[p_X^n]}{\sum_n \mathbb{1}[p = 
 2. 用 RGB-X 对应点估出的 **Homography** 把 X 图像 warp 到 RGB 视角，得到 $X_W$；
 3. 只在"掩码内且仍是 void"的位置**均匀采样 5% 的点**：
 
-{% raw %}
 $$X_m[p] = X_W[p], \quad p \sim U\left(\{p \mid M(p)=1 \land X_m[p] = -1\}\right),$$
-{% endraw %}
 
 其中 $U$ 是均匀采样，$X_W$ 是 warp 到 RGB 视角的 X 图像，$M$ 是区域掩码。
 
@@ -224,9 +214,7 @@ $$X_m[p] = X_W[p], \quad p \sim U\left(\{p \mid M(p)=1 \land X_m[p] = -1\}\right
 
 DySPN 把稠密化看成循环传播：已知 X 值逐步扩散到未知区域。原始形式（论文中称为原始 DySPN）：
 
-{% raw %}
 $$L^{t+1} = (1 - C_s)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s X_m,$$
-{% endraw %}
 
 其中：
 
@@ -244,9 +232,7 @@ $$L^{t+1} = (1 - C_s)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s X_m,$$
 
 匹配出的对应点可靠性不同。论文把匹配置信度 $c$ 聚合成**置信度图 $C_m$**，插入 DySPN 迭代：
 
-{% raw %}
 $$L^{t+1} = (1 - C_s C_m)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s C_m X_m,$$
-{% endraw %}
 
 对比原始式 (3)，把 $C_s$ 换成 $C_s C_m$：
 
@@ -265,16 +251,12 @@ $$L^{t+1} = (1 - C_s C_m)\sum_r\sum_{(a,b)} w_{r,a,b} \cdot L^{t}_{a,b} + C_s C_
 
 **做法：** 用 $K$ 个置信度阈值 $\delta_k$（实现里 $K=3$，$\delta=0.15, 0.3, 0.5$），分别得到阈值化关键点 $X_{m,k}$ 和各自稠密化的结果 $\hat{X}_{d,k}$：
 
-{% raw %}
 $$X_{m,1}, X_{m,2}, X_{m,3} \xrightarrow{D} \hat{X}_{d,1}, \hat{X}_{d,2}, \hat{X}_{d,3} \xrightarrow{F + \text{mean-pool}} X_d.$$
-{% endraw %}
 
 **融合块 $F$：** 先在单图增强任务上预训练（降噪、去模糊、锐化边缘，用 DIV2K），再用自监督损失训练：
 - **余弦相似度损失（Eq.5）：** 用 SigLIP2 图像编码器约束 RGB 与稠密 X 特征图相似：
 
-{% raw %}
 $$L_{cos}(I, X_d) = 1 - \frac{f_{SigLIP}(I)^\top f_{SigLIP}(X_d)}{\|f_{SigLIP}(I)\|_2 \|f_{SigLIP}(X_d)\|_2},$$
-{% endraw %}
 
   物理意义：同一场景的 RGB 和 X 应该能被匹配到相同语义描述，因此特征图应相似。
 
@@ -292,17 +274,13 @@ $$L_{cos}(I, X_d) = 1 - \frac{f_{SigLIP}(I)^\top f_{SigLIP}(X_d)}{\|f_{SigLIP}(I
 
 **构造：** 从 transformer matcher（XoFTR）的 coarse matching 层取 RGB/X 的 patch 特征 $F_I, F_X$，计算 scaled dot-product 相似矩阵：
 
-{% raw %}
 $$A = \frac{F_I F_X^{\top}}{\tau},$$
-{% endraw %}
 
 其中 $\tau$ 是缩放因子。理想情况 $A \approx I$（单位阵）。
 
 **训练损失（Eq.7）：** 最大化对角线、最小化非对角线：
 
-{% raw %}
 $$L_{sim}(A) = -\frac{\text{Tr}(A)}{\|A\|_F} + \lambda \frac{\|A \odot (\hat{1} - I)\|_1}{\|A\|_F},$$
-{% endraw %}
 
 其中 $\|A\|_F$ 是 Frobenius 范数，$\text{Tr}(\cdot)$ 是迹，$I$ 是单位阵，$\hat{1}$ 是全 1 矩阵，$\lambda$ 是权重（实现 $\lambda=0.1$）。
 
@@ -312,9 +290,7 @@ $$L_{sim}(A) = -\frac{\text{Tr}(A)}{\|A\|_F} + \lambda \frac{\|A \odot (\hat{1} 
 
 **过滤（论文做法）：** 看 $A$ 的对角线，定义集中度
 
-{% raw %}
 $$q = \frac{Q_{50}(A)}{Q_{99}(A)},$$
-{% endraw %}
 
 其中 $Q(\cdot)$ 是分位数函数。$q$ 高 → self-matching 结果强 → 需要拒绝的 patch 少；$q$ 低 → 反之。论文取 $A$ 对角线的 $(1-q)$ 分位数作为阈值，过滤掉分数更低的 patch。
 
@@ -376,19 +352,19 @@ Ours 在所有指标上最优：Icos 0.69，p30/p50/p70/p90 = 31.18/34.39/36.43/
 
 Train view 平均 1.70/1.21，Novel view 平均 1.12/0.80，几乎全序列最优。
 
-![Figure 4: Visual Results on METU-VisTIR-Cloudy. Our results attain much clearer, sharper, and smoother surface for rendering.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig4.webp)
+![Figure 4: Visual Results on METU-VisTIR-Cloudy. Our results attain much clearer, sharper, and smoother surface for rendering.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig4.webp?v=mt5xxoli)
 
 #### 时间一致性（Table 2, MEt3R ↓）
 
 Ours 0.171 mean vs StyleBooth 0.297——纯生成无法保证时间一致，因为温度-外观有歧义；Ours 用真实锚点稠密化，一致性更好。
 
-![Figure 5: Temporal Consistency comparison. StyleBooth generation for thermal cannot guarantee temporal consistency, while ours densification creates more consistent multi-views.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig5.webp)
+![Figure 5: Temporal Consistency comparison. StyleBooth generation for thermal cannot guarantee temporal consistency, while ours densification creates more consistent multi-views.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig5.webp?v=mt5xxonx)
 
 #### RGB-NIR（RGB-NIR-Stereo, Table 4）
 
 Ours：PSNR 21.152 / SSIM 0.581 / LPIPS 0.344，全面最优。PixNext（生成）虽与可见光谱更接近，但强度仍不正确。
 
-![Figure 7: Visual Results on RGB-NIR-Stereo. Our view synthesis showcases better structures closer to the groundtruth (GT).](/images/ir-vis-reg/cross-sensor-view-synthesis/fig7.webp)
+![Figure 7: Visual Results on RGB-NIR-Stereo. Our view synthesis showcases better structures closer to the groundtruth (GT).](/images/ir-vis-reg/cross-sensor-view-synthesis/fig7.webp?v=mt5xxotf)
 
 #### RGB-SAR（DDHR-HK, Table 7）
 
@@ -415,7 +391,7 @@ Ours：PSNR 17.102 / SSIM 0.302 / LPIPS 0.339，全部最优。SAR 信号跨模�
 
 因为稠密化的热成像更清晰，用它做 3D consolidation 时 **RGB 视图合成质量也略提升**——X 侧质量反哺 RGB 侧。
 
-![Figure 6: With the aid of sharper and clearer thermal images, the RGB view synthesis quality is also slightly enhanced.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig6.webp)
+![Figure 6: With the aid of sharper and clearer thermal images, the RGB view synthesis quality is also slightly enhanced.](/images/ir-vis-reg/cross-sensor-view-synthesis/fig6.webp?v=mushbmtj)
 
 ---
 

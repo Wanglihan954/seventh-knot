@@ -14,7 +14,7 @@ description: "HiHR 面向空中—地面行人重识别中极端视角、尺度�
 readmore: true
 mathjax: true
 date: 2026-09-17 21:26:15
-updated: 2026-09-26 22:00:00
+updated: 2026-09-19 22:16:27
 abbrlink: "a0936075"
 ---
 > 本文基于论文、公开代码与本地阅读笔记整理；论文插图仅用于学习与讨论。
@@ -24,7 +24,6 @@ abbrlink: "a0936075"
 **Authors:** Qiwei Yang, Pingping Zhang  
 **Venue:** arXiv  
 **DOI:** 10.48550/arXiv.2607.09186  
-**Publication status:** 截至 2026-09-26，作者代码仓库标注为 ECCV 2026，但 arXiv 仍仅登记为预印本，且尚未在 ECCV 官方初步录用列表中检索到同题记录；暂不按正式会议论文计。
 **GitHub:** https://github.com/YangQiWei3/HiHR  
 **IF/Level:** Preprint | Aerial-Ground Person Re-ID
 
@@ -54,7 +53,7 @@ abbrlink: "a0936075"
 
 ### 3. 技术路线 (Methodology)
 > **补充说明｜核心架构图（Fig. 2，已按图体裁剪）**
-> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/hihr-fig2-framework-v2.png)
+> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@294d37ae0e0cd5de15ef47824a6cef5aeec8427e/img/hihr-fig2-framework-v2.png)
 
 - **MFE：** 以 CLIP ViT-B/16 为骨干，跨深度抽取 class token 与 patch token；中层补充局部结构，高层提供身份语义。
 - **双层提示：** view-agnostic prompt 强调共享身份证据，view-aware prompt 显式承载 aerial/ground 条件。
@@ -303,7 +302,7 @@ $$f_{\mathrm{test}}= \left[ \frac{\log_o^\tau(z^p)}{s_1}; \frac{\log_o^\tau(z^c)
 
 ### 4. 实验结论 (Results)
 > **实验结果｜主结果（Table 1，表格局部）**
-> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/hihr-table1-results-v2.png)
+> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@294d37ae0e0cd5de15ef47824a6cef5aeec8427e/img/hihr-table1-results-v2.png)
 
 - **数据集与指标：** AG-ReID v1、AG-ReID v2、LAGPeR、CARGO；使用 mAP 与 CMC Rank-1。
 - **AG-ReID v1：** A→G 为 **79.21 mAP / 86.06 R1**，G→A 为 **81.28 / 87.94**。

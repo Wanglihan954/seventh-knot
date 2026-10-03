@@ -475,6 +475,24 @@ body.is-papers-page #footer {
   transition: transform 220ms ease;
 }
 
+.ik-paper-card__figure.is-placeholder {
+  display: grid;
+  place-content: center;
+  color: #606970;
+  text-align: center;
+}
+
+.ik-paper-card__figure.is-placeholder b {
+  font: 900 18px/1.2 ui-monospace, monospace;
+  letter-spacing: 0.12em;
+}
+
+.ik-paper-card__figure.is-placeholder em {
+  margin-top: 9px;
+  font: normal 12px/1.4 system-ui, sans-serif;
+  letter-spacing: 0.08em;
+}
+
 .ik-paper-card:hover .ik-paper-card__figure img {
   transform: scale(1.025);
 }

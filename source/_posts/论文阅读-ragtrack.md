@@ -1,27 +1,22 @@
 ---
-title: >-
-  论文阅读｜RAGTrack: Language-aware RGBT Tracking with Retrieval-Augmented
-  Generation
+title: "论文阅读｜RAGTrack: Language-aware RGBT Tracking with Retrieval-Augmented Generation"
 categories:
-  - 视觉目标跟踪
-tags:
-  - 文献笔记
-  - AI论文
-  - 追踪
-  - RGB-T
-  - CVPR
-  - 视频目标跟踪
-  - Tracking
   - 文献阅读
-description: >-
-  RGB-Thermal(RGBT)跟踪旨在通过融合可见光与热红外两种模态,在不同环境条件下实现鲁棒的目标定位。然而,现有 RGBT
-  跟踪器仅依赖首帧视觉信息进行目标建模,由于缺少语言引导,无法适应目标的外观变化;同时,现有方法存在搜索区域冗余与异质模态差异(heterogeneous
-  modality gaps),导致背景干扰。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "追踪"
+  - "RGB-T"
+  - "CVPR"
+  - "视频目标跟踪"
+  - "Tracking"
+description: "RGB-Thermal(RGBT)跟踪旨在通过融合可见光与热红外两种模态,在不同环境条件下实现鲁棒的目标定位。然而,现有 RGBT 跟踪器仅依赖首帧视觉信息进行目标建模,由于缺少语言引导,无法适应目标的外观变化;同时,现有方法存在搜索区域冗余与异质模态差异(heterogeneous modality gaps),导致背景干扰。…"
 readmore: true
 mathjax: true
-abbrlink: 87c2401d
-date: 2026-08-16 20:05:00
+date: 2026-08-16 20:00:00
 updated: 2026-08-16 23:00:00
+abbrlink: "87c2401d"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -72,7 +67,7 @@ RGB-Thermal(RGBT)跟踪旨在通过融合可见光与热红外两种模态,在�
 
 **论文图示**
 
-![Figure 1: Figure 1. Comparison with different RGBT tracking paradigms. (a) Existing RGBT trackers suffer from inadequate appearance modeling, searc...](https://20020730.xyz/images/tracking/ragtrack/fig1.webp)
+![Figure 1: Figure 1. Comparison with different RGBT tracking paradigms. (a) Existing RGBT trackers suffer from inadequate appearance modeling, searc...](/images/tracking/ragtrack/fig1.webp?v=msvt48e2)
 
 ## 2. 主要贡献
 
@@ -89,12 +84,10 @@ RGB-Thermal(RGBT)跟踪旨在通过融合可见光与热红外两种模态,在�
 
 ## 3. 方法
 
-> **阅读说明**
-> 本文 GitHub 仓库 (https://github.com/IdolLab/RAGTrack) 在写作时因网络受限无法访问核验,以下 Method 完全依据论文全文整理;Paper↔Code 表标注为"未核验"。
-
+> **阅读说明｜> 本文 GitHub 仓库 (https://github.com/IdolLab/RAGTrack) 在写作时因网络受限无法访问核验,以下 Method 完全依据论文全文整理;Paper↔Code 表标注为"未核验"。**
 ### 3.1 整体框架
 
-![Figure 2: Figure 2. Overall framework. Our method begins by tokenizing input texts and images with reasoning tokens. MTE then performs unified visu...](https://20020730.xyz/images/tracking/ragtrack/fig2.webp)
+![Figure 2: Figure 2. Overall framework. Our method begins by tokenizing input texts and images with reasoning tokens. MTE then performs unified visu...](/images/tracking/ragtrack/fig2.webp?v=msvt48js)
 
 
 **核心架构图**(对应论文 Figure 2)
@@ -231,7 +224,7 @@ CRM 是**"语言版记忆 bank"**:知识库存的是历史**文本特征**而非
 
 **论文机制图**
 
-![Figure 3: Details of our proposed ATF.](https://20020730.xyz/images/tracking/ragtrack/fig3.webp)
+![Figure 3: Details of our proposed ATF.](/images/tracking/ragtrack/fig3.webp?v=msvt48m1)
 
 #### 论文与代码对照
 
@@ -338,9 +331,9 @@ Hardware: 训练 4× NVIDIA V100(batch 16)
 
 ### 论文图示（截图）
 
-![Figure 4: Figure 4. Attribute-based evaluations on the LasHeR dataset.](https://20020730.xyz/images/tracking/ragtrack/fig4.webp)
-![Figure 6: Figure 6. Visualization of attention maps.](https://20020730.xyz/images/tracking/ragtrack/fig6.webp)
-![Figure 5: Figure 5. Comparison with different hyper-parameters.](https://20020730.xyz/images/tracking/ragtrack/fig5.webp)
+![Figure 4: Figure 4. Attribute-based evaluations on the LasHeR dataset.](/images/tracking/ragtrack/fig4.webp?v=mushtfw5)
+![Figure 6: Figure 6. Visualization of attention maps.](/images/tracking/ragtrack/fig6.webp?v=msvt48t4)
+![Figure 5: Figure 5. Comparison with different hyper-parameters.](/images/tracking/ragtrack/fig5.webp?v=msvt48ub)
 
 ## 5. 复现指南
 

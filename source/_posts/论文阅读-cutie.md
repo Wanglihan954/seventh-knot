@@ -1,23 +1,21 @@
 ---
-title: 论文阅读｜Putting the Object Back into Video Object Segmentation
+title: "论文阅读｜Putting the Object Back into Video Object Segmentation"
 categories:
-  - 视频目标分割
-tags:
-  - 文献笔记
-  - AI论文
-  - VOS
-  - SAM2
-  - 视频目标分割 (VOS)
-  - Tracking
   - 文献阅读
-description: >-
-  Cutie 是一个采用 object-level memory reading 的 VOS 网络，把记忆中的物体表征"放回"分割结果。现有方法用
-  bottom-up 的 pixel-level memory reading，在干扰物（distractor）存在时匹配噪声大，在困难数据上表现差。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "VOS"
+  - "SAM2"
+  - "视频目标分割 (VOS)"
+  - "Tracking"
+description: "Cutie 是一个采用 object-level memory reading 的 VOS 网络，把记忆中的物体表征\"放回\"分割结果。现有方法用 bottom-up 的 pixel-level memory reading，在干扰物（distractor）存在时匹配噪声大，在困难数据上表现差。…"
 readmore: true
 mathjax: true
-abbrlink: ef5e6d24
 date: 2026-08-15 20:10:00
 updated: 2026-08-15 23:00:00
+abbrlink: "ef5e6d24"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -69,7 +67,7 @@ Cutie 是一个采用 object-level memory reading 的 VOS 网络，把记忆中�
 
 **论文图示**
 
-![Figure 1: Comparison of pixel-level memory reading v.s. object- level memory reading. In each box, the left is the reference frame, and t...](https://20020730.xyz/images/tracking/cutie/fig1.webp)
+![Figure 1: Comparison of pixel-level memory reading v.s. object- level memory reading. In each box, the left is the reference frame, and t...](/images/tracking/cutie/fig1.webp?v=msvt3zgx)
 
 ## 2. 主要贡献
 
@@ -85,12 +83,10 @@ Cutie 是一个采用 object-level memory reading 的 VOS 网络，把记忆中�
 
 ## 3. 方法
 
-> **阅读说明**
-> 有官方代码（repo: `F:\Code\Projects\Tracking\Cutie`），Method 已结合源码核对。
-
+> **阅读说明｜> 有官方代码（repo: `F:\Code\Projects\Tracking\Cutie`），Method 已结合源码核对。**
 ### 3.1 整体框架
 
-![Figure 2: Overview of Cutie. We store pixel memory F and object memory S representations from past segmented (memory) frames. Pixel memor...](https://20020730.xyz/images/tracking/cutie/fig2.webp)
+![Figure 2: Overview of Cutie. We store pixel memory F and object memory S representations from past segmented (memory) frames. Pixel memor...](/images/tracking/cutie/fig2.webp?v=msvt3zm3)
 
 
 **核心架构图**
@@ -310,8 +306,8 @@ Hardware: V100（论文）; BURST 上最大显存 small-FIFO 1.35G / small-LT 2.
 
 ### 论文图示（截图）
 
-![Figure 3: Visualization of cross-attention weights (rows of AL) in the object transformer. The middle cat is the target object. Top: with...](https://20020730.xyz/images/tracking/cutie/fig3.webp)
-![Figure 4: Visualization of auxiliary masks (Ml) at different layers of the object transformer. At every layer, noises are suppressed (pin...](https://20020730.xyz/images/tracking/cutie/fig4.webp)
+![Figure 3: Visualization of cross-attention weights (rows of AL) in the object transformer. The middle cat is the target object. Top: with...](/images/tracking/cutie/fig3.webp?v=msvt3zp2)
+![Figure 4: Visualization of auxiliary masks (Ml) at different layers of the object transformer. At every layer, noises are suppressed (pin...](/images/tracking/cutie/fig4.webp?v=mushieol)
 
 ## 5. 复现指南
 

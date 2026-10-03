@@ -1,25 +1,22 @@
 ---
-title: '论文阅读｜SEATrack: Simple, Efficient, and Adaptive Multimodal Tracker'
+title: "论文阅读｜SEATrack: Simple, Efficient, and Adaptive Multimodal Tracker"
 categories:
-  - 视觉目标跟踪
-tags:
-  - 文献笔记
-  - AI论文
-  - 追踪
-  - RGB-T
-  - CVPR
-  - 视频目标跟踪
-  - Tracking
   - 文献阅读
-description: >-
-  多模态跟踪中的参数高效微调（PEFT）出现了一个令人担忧的趋势：最近的性能提升往往以膨胀的参数预算为代价，这从根本上侵蚀了 PEFT 的效率承诺。本文提出
-  SEATrack，一个 Simple、Efficient、Adaptive 的双流多模态跟踪器，从两个互补的视角解决这一性能-效率困境。首先，我们优先考虑
-  匹配响应的跨模态对齐 ——一个被忽视但关键的因素，我们论证它对打破这一权衡至关重要。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "追踪"
+  - "RGB-T"
+  - "CVPR"
+  - "视频目标跟踪"
+  - "Tracking"
+description: "多模态跟踪中的参数高效微调（PEFT）出现了一个令人担忧的趋势：最近的性能提升往往以膨胀的参数预算为代价，这从根本上侵蚀了 PEFT 的效率承诺。本文提出 SEATrack，一个 Simple、Efficient、Adaptive 的双流多模态跟踪器，从两个互补的视角解决这一性能-效率困境。首先，我们优先考虑 匹配响应的跨模态对齐 ——一个被忽视但关键的因素，我们论证它对打破这一权衡至关重要。…"
 readmore: true
 mathjax: true
-abbrlink: 8731bb69
-date: 2026-08-16 20:10:00
+date: 2026-08-16 20:05:00
 updated: 2026-08-16 23:00:00
+abbrlink: "8731bb69"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -84,9 +81,9 @@ updated: 2026-08-16 23:00:00
 
 ### 3.1 整体框架
 
-![Figure 1: Figure 1. Previous frameworks v.s. SEATrack. (a) The previous one-stream method [54] suffers from attention shifting when per- forming in...](https://20020730.xyz/images/tracking/seatrack/fig1.webp)
-![Figure 2: Figure 2. Overall pipeline of SEATrack. Input tokens from each modality are processed by stacked shared ViT encoders for intra-modal targ...](https://20020730.xyz/images/tracking/seatrack/fig2.webp)
-![Figure 3: Figure 3. Architecture details of HMoE configured with e = 4 experts, each containing h = 2 heads.](https://20020730.xyz/images/tracking/seatrack/fig3.webp)
+![Figure 1: Figure 1. Previous frameworks v.s. SEATrack. (a) The previous one-stream method [54] suffers from attention shifting when per- forming in...](/images/tracking/seatrack/fig1.webp?v=msvt4eaz)
+![Figure 2: Figure 2. Overall pipeline of SEATrack. Input tokens from each modality are processed by stacked shared ViT encoders for intra-modal targ...](/images/tracking/seatrack/fig2.webp?v=msvt4el4)
+![Figure 3: Figure 3. Architecture details of HMoE configured with e = 4 experts, each containing h = 2 heads.](/images/tracking/seatrack/fig3.webp?v=msvt4en4)
 
 
 **核心架构图**
@@ -128,13 +125,9 @@ SEATrack 以 OSTrack [46] ViT-Base 为 foundation tracker：RGB 模板-搜索区
 
 #### 关键公式
 
-{% raw %}
 $$\tilde{K} = \mathbf{H}_* W_k + \mathbf{H}_* AB, \qquad \tilde{\textbf{attn}}_* = \frac{(\mathbf{H}_* W_q)\tilde{K}}{\sqrt{D}} \tag{2}$$
-{% endraw %}
 
-{% raw %}
 $$\textbf{attn}_{rgb} = \tilde{\textbf{attn}}_{rgb} + w_{X}(\tilde{\textbf{attn}}_{X}-\tilde{\textbf{attn}}_{rgb}), \qquad \textbf{attn}_{X} = \tilde{\textbf{attn}}_{X} + w_{rgb}(\tilde{\textbf{attn}}_{rgb}-\tilde{\textbf{attn}}_{X}) \tag{4}$$
-{% endraw %}
 
 其中 H_* 为任意模态的拼接 token，att̃tn_* 为 softmax 前的未归一化匹配注意力图；插值发生在 softmax 之前。
 
@@ -162,21 +155,13 @@ HMoE 在 Attention 与 FFN 子层之后插入（Fig.2），处理模板对或候
 
 #### 关键公式
 
-{% raw %}
 $$\textbf{X}_{split} = \mathcal{F}_s(\textbf{X}_{in}) \tag{5}$$
-{% endraw %}
 
-{% raw %}
 $$\textbf{X}_{mix} = \mathrm{softmax}(\textbf{X}_{split}\boldsymbol{\Phi},\ \text{dim}=0)^{\mathsf{T}}\textbf{X}_{split} \tag{6}$$
-{% endraw %}
 
-{% raw %}
 $$\textbf{Y}^{i,j}_{head} = f_i(\textbf{X}^{i,j}_{mix}),\quad i\in\{1,\dots,e\},\ j\in\{1,\dots,h\}, \qquad \textbf{Y}_{expert} = \mathcal{F}_m(\textbf{Y}_{head}) \tag{8}$$
-{% endraw %}
 
-{% raw %}
 $$\textbf{A} = \mathrm{softmax}(\mathcal{F}_{p}(\textbf{X}_{split}\boldsymbol{\Phi}),\ \text{dim}=1), \qquad \textbf{Y}_{out} = \textbf{A}\textbf{Y}_{expert} \tag{9, 10}$$
-{% endraw %}
 
 #### 我的理解
 
@@ -187,13 +172,11 @@ HMoE 的"全局感受野"来自式 (6)：X_mix 的每一列是**全部 N·h 个 
 
 **论文机制图**
 
-![Figure 4: Figure 4. LoRA v.s. AMG-LoRA across 19 challenging attributes on LasHeR [25].](https://20020730.xyz/images/tracking/seatrack/fig4.webp)
+![Figure 4: Figure 4. LoRA v.s. AMG-LoRA across 19 challenging attributes on LasHeR [25].](/images/tracking/seatrack/fig4.webp?v=msvt4eqg)
 
 ### 3.4 论文与代码对照
 
-> **阅读说明**
-> 论文正文仅声明 "Code is available"，未给出仓库地址与任何代码文件路径；本次阅读未核对源码。下表为按论文描述的模块→预期代码映射（基于用户提供的 GitHub 仓库），**待复现时核对确认**，与 CamSAM2 笔记的源码级对照不同。
-
+> **阅读说明｜> 论文正文仅声明 "Code is available"，未给出仓库地址与任何代码文件路径；本次阅读未核对源码。下表为按论文描述的模块→预期代码映射（基于用户提供的 GitHub 仓库），**待复现时核对确认**，与 CamSAM2 笔记的源码级对照不同。**
 |Paper Module|论文描述|预期代码位置（未确认）|作用|
 |---|---|---|---|
 |共享 LoRA 旁路|Wk/Wv 挂低秩旁路 AB，双流共享，推理可合并|基础模型改动/attention 层注入逻辑|域自适应 + 隐式对齐（0.14M 的一部分）|
@@ -310,9 +293,9 @@ SEATrack 用全场最小参数（0.6M）拿到全 PEFT 最高的 LasHeR PR 与 D
 
 ### 论文图示（截图）
 
-![Figure 5: Figure 5. LoRA (left) vs. AMG-LoRA (right) under a modality- missing scenario. (a) Missing RGB frame. (b) RGB attention map. (c) Thermal ...](https://20020730.xyz/images/tracking/seatrack/fig5.webp)
-![Figure 6: Figure 6. Comprehensive visualization of AMG-LoRA’s adaptability. The results of “Pre-train” row are directly inferred from the frozen fo...](https://20020730.xyz/images/tracking/seatrack/fig6.webp)
-![Figure 7: Figure 7. Prediction-level comparison of SEATrack with two well- established PEFT-based multimodal trackers.](https://20020730.xyz/images/tracking/seatrack/fig7.webp)
+![Figure 5: Figure 5. LoRA (left) vs. AMG-LoRA (right) under a modality- missing scenario. (a) Missing RGB frame. (b) RGB attention map. (c) Thermal ...](/images/tracking/seatrack/fig5.webp?v=mushtfks)
+![Figure 6: Figure 6. Comprehensive visualization of AMG-LoRA’s adaptability. The results of “Pre-train” row are directly inferred from the frozen fo...](/images/tracking/seatrack/fig6.webp?v=msvt4f23)
+![Figure 7: Figure 7. Prediction-level comparison of SEATrack with two well- established PEFT-based multimodal trackers.](/images/tracking/seatrack/fig7.webp?v=mushtfs7)
 
 ## 5. 复现指南
 

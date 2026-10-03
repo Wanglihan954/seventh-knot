@@ -1,23 +1,20 @@
 ---
-title: 论文阅读｜Robust Promptable Video Object Segmentation
+title: "论文阅读｜Robust Promptable Video Object Segmentation"
 categories:
-  - 视频目标分割
-tags:
-  - 文献笔记
-  - AI论文
-  - SAM2
-  - 视频目标分割
-  - Tracking
   - 文献阅读
-description: >-
-  Promptable video object segmentation (PVOS)
-  模型在输入退化（噪声、模糊、低照度、恶劣天气）下性能大幅下降，阻碍了其在安全关键领域的部署。本文首次系统性研究 RobustPVOS：构建包含 351
-  个真实视频片段、2500+ 物体掩码的两个真实世界评测数据集；同时用 8 种带时间变化的退化对现有 VOS 数据集合成训练数据。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "SAM2"
+  - "视频目标分割"
+  - "Tracking"
+description: "Promptable video object segmentation (PVOS) 模型在输入退化（噪声、模糊、低照度、恶劣天气）下性能大幅下降，阻碍了其在安全关键领域的部署。本文首次系统性研究 RobustPVOS：构建包含 351 个真实视频片段、2500+ 物体掩码的两个真实世界评测数据集；同时用 8 种带时间变化的退化对现有 VOS 数据集合成训练数据。…"
 readmore: true
 mathjax: true
-abbrlink: 6ceb3d59
-date: 2026-08-15 20:45:00
+date: 2026-08-15 20:30:00
 updated: 2026-08-15 23:00:00
+abbrlink: "6ceb3d59"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -80,13 +77,11 @@ Promptable video object segmentation (PVOS) 模型在输入退化（噪声、模
 
 ## 3. 方法
 
-> **阅读说明**
-> 无官方代码，按论文 Method 整理。MoGA 建立在 SAM2 架构之上，属于对 SAM2 的轻量改造。
-
+> **阅读说明｜> 无官方代码，按论文 Method 整理。MoGA 建立在 SAM2 架构之上，属于对 SAM2 的轻量改造。**
 ### 3.1 整体框架
 
-![Figure 1: Overview of (a) RobustPVOS and (b) our benchmark. RobustPVOS is the task of tracking and segmenting objects, indi- cated by ini...](https://20020730.xyz/images/tracking/robustpvos/fig1.webp)
-![Figure 3: Overview of MoGA integrated into SAM2 [37]. Top: an example input video under adverse weather conditions. Frames with orange ou...](https://20020730.xyz/images/tracking/robustpvos/fig3.webp)
+![Figure 1: Overview of (a) RobustPVOS and (b) our benchmark. RobustPVOS is the task of tracking and segmenting objects, indi- cated by ini...](/images/tracking/robustpvos/fig1.webp?v=msvt49hz)
+![Figure 3: Overview of MoGA integrated into SAM2 [37]. Top: an example input video under adverse weather conditions. Frames with orange ou...](/images/tracking/robustpvos/fig3.webp?v=msvt4acm)
 
 
 **核心架构图**
@@ -138,21 +133,15 @@ Mask Decoder (SAM2, 冻结)
 
 低秩适配器分解（R 个 rank-1 分量）与门控 logits（τ 为温度，G_i ~ Gumbel(0,1)）：
 
-{% raw %}
 $$\Delta W = BA = \sum_{i=1}^{R} b_i a_i^{\top}, \qquad \alpha_o = \text{MLP}(m_o), \qquad \tilde{z}_{o,i} = \sigma\!\left(\frac{1}{\tau}(\alpha_{o,i} + G_i)\right)$$
-{% endraw %}
 
 训练时硬门控 + straight-through estimator，以及 MoGA 前向传播（对象专属适配器，共享分量）：
 
-{% raw %}
 $$z_{o,i} = \begin{cases} \mathbb{I}[\tilde{z}_{o,i} > 0.5] & \text{(forward)} \\ \tilde{z}_{o,i} & \text{(backward)} \end{cases}, \qquad h = W_0 x + \frac{1}{O}\sum_{o=1}^{O} \left( \sum_{i=1}^{R} z_{o,i} \cdot b_i a_i^{\top} \right) x$$
-{% endraw %}
 
 训练损失（focal + dice，门控无直接监督）：
 
-{% raw %}
 $$\mathcal{L}_{\text{total}} = \frac{1}{T \cdot O}\sum_{t=1}^{T}\sum_{o=1}^{O} \mathcal{L}_{\text{seg}}(y_{o,t}, \hat{y}_{o,t})$$
-{% endraw %}
 
 #### 代码对应
 
@@ -180,9 +169,7 @@ MoGA 本质上是把"鲁棒化适配器"变成了一个**由对象记忆驱动�
 
 8 种退化 + 时域调制（细节见论文第 3 节，无显式公式，此处给出评测指标）：
 
-{% raw %}
 $$J = \frac{1}{N}\sum_{i} \frac{|M_i \cap G_i|}{|M_i \cup G_i|}, \qquad J\&F = \frac{1}{2}(J + F)$$
-{% endraw %}
 
 其中 M_i、G_i 分别为预测与真值掩码，F 为轮廓相似度（基于边界像素的 precision/recall）。
 
@@ -297,10 +284,10 @@ Hardware: 训练显存 22GB（全微调需 25GB）
 
 ### 论文图示（截图）
 
-![Figure 2: Example images and annotated object masks of the real-world evaluation dataset.](https://20020730.xyz/images/tracking/robustpvos/fig2.webp)
-![Figure 4: Qualitative results on the real-world corrupted sequences of our benchmark. Each color indicates tracked objects: red for vehic...](https://20020730.xyz/images/tracking/robustpvos/fig4.webp)
-![Figure 5: Visualization of gating masks over time. Left: input video frames from a nighttime driving sequence. Right: cor- responding bin...](https://20020730.xyz/images/tracking/robustpvos/fig5.webp)
-![Figure 6: Quantitative and qualitative results during inference. Top: J &F scores across real-world nighttime frames. Bottom: qualitative...](https://20020730.xyz/images/tracking/robustpvos/fig6.webp)
+![Figure 2: Example images and annotated object masks of the real-world evaluation dataset.](/images/tracking/robustpvos/fig2.webp?v=msvt49zt)
+![Figure 4: Qualitative results on the real-world corrupted sequences of our benchmark. Each color indicates tracked objects: red for vehic...](/images/tracking/robustpvos/fig4.webp?v=msvt4awa)
+![Figure 5: Visualization of gating masks over time. Left: input video frames from a nighttime driving sequence. Right: cor- responding bin...](/images/tracking/robustpvos/fig5.webp?v=mushdo0h)
+![Figure 6: Quantitative and qualitative results during inference. Top: J &F scores across real-world nighttime frames. Bottom: qualitative...](/images/tracking/robustpvos/fig6.webp?v=msvt4bdt)
 
 ## 5. 复现指南
 

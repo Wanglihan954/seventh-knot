@@ -1,7 +1,8 @@
 ---
 title: "论文阅读｜Unified Multimodal Visual Tracking with Dual Mixture-of-Experts"
 categories:
-  - 视觉目标跟踪
+  - 文献阅读
+  - "Tracking"
 tags:
   - "文献笔记"
   - "AI论文"
@@ -11,12 +12,11 @@ tags:
   - "Mixture-of-Experts"
   - "视频目标跟踪"
   - "Tracking"
-  - 文献阅读
 description: "多模态视觉目标跟踪按输入划分为 RGB 与 RGB+X（Depth、Thermal、Event、Language 等）任务。已有方法通常为每种模态单独训练，或先训练 RGB 模型再向新模态微调，因而带来多阶段训练、任务专用结构、参数不统一、缺失模态脆弱和特征冲突等问题。本文提出 OneTrackerV2 ：使用一次端到端训练、共享架构和统一参数处理多种模态。 Meta Merger 将 RGB 与辅助模态映射到共同空间；…"
 readmore: true
 mathjax: true
-date: 2026-08-21 20:05:00
-updated: 2026-09-26 22:00:00
+date: 2026-08-21 20:00:00
+updated: 2026-08-21 23:00:00
 abbrlink: "e2332df8"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
@@ -26,8 +26,7 @@ abbrlink: "e2332df8"
 
 **Title:** Unified Multimodal Visual Tracking with Dual Mixture-of-Experts
 **Authors:** Lingyi Hong, Jinglun Li, Xinyu Zhou, Kaixun Jiang, Pinxue Guo, Zhaoyu Chen, Runze Li, Xingdong Sheng, Wenqiang Zhang
-**Venue:** ICML 2026（官方日程 Poster）
-**Publication status:** 已由 ICML 2026 官方日程确认录用；当前笔记保留 arXiv 版本作为全文入口。
+**Venue:** ICML 2026（arXiv preprint，论文页标注 PMLR 306，2026）
 **GitHub:** —（提供的 fulltext / metadata 未给出代码仓库）
 
 ### 摘要
@@ -90,9 +89,9 @@ abbrlink: "e2332df8"
 
 ### 3.1 Overall Architecture
 
-![Figure 1: Comparison of separated trackers, OneTracker, and OneTrackerV2](/images/tracking/dmoet/fig1.webp)
+![Figure 1: Comparison of separated trackers, OneTracker, and OneTrackerV2](/images/tracking/dmoet/fig1.webp?v=msvt415e)
 
-![Figure 2: OneTrackerV2 architecture](/images/tracking/dmoet/fig2.webp)
+![Figure 2: OneTrackerV2 architecture](/images/tracking/dmoet/fig2.webp?v=mushbn2n)
 
 **输入与主干流程**
 
@@ -175,7 +174,7 @@ $F_{\mathrm{meta}}$ 是信息中枢：吸收、对齐并重新分配 RGB 与 X �
 
 ### 3.3 Core Module 2 — Dual Mixture-of-Experts
 
-![Figure 3: Meta Merger and Dual Mixture-of-Experts](/images/tracking/dmoet/fig3.webp)
+![Figure 3: Meta Merger and Dual Mixture-of-Experts](/images/tracking/dmoet/fig3.webp?v=msvt417t)
 
 #### 3.3.1 DMoE 结构
 
@@ -223,7 +222,7 @@ L_cluster = L_same + L_diff
 
 论文将 motion information 与 modality features 视为两类异质信息。单一 MoE 让两类信息竞争同一组专家，可能产生 feature entanglement；简单堆叠两个 MoE 也不足以保证角色分工。DMoE 的结构分离、$L_{\mathrm{dis}}$ 和 $L_{\mathrm{cluster}}$ 是一个组合，而不是单纯增加专家数。
 
-![Figure 4: T-MoE routing changes with motion speed and M-MoE routing changes with modality](/images/tracking/dmoet/fig4.webp)
+![Figure 4: T-MoE routing changes with motion speed and M-MoE routing changes with modality](/images/tracking/dmoet/fig4.webp?v=mushbn3d)
 
 论文的路由可视化显示：
 
@@ -394,7 +393,7 @@ Expert rank r: 16
 - 单一 MoE 只带来中等提升；朴素 Dual MoE 的额外增益有限，加入 Expert Decoupling 与 Router Cluster 后效果明显提高。
 - DMoE 相比 baseline 增加约 **14.6% 参数、3.5% FLOPs**；其 FPS 从 95 降至 72，不能把“稀疏激活”理解为完全没有实际速度代价。
 
-![Figure 5: Shared Expert, T-MoE, and M-MoE visualization](/images/tracking/dmoet/fig5.webp)
+![Figure 5: Shared Expert, T-MoE, and M-MoE visualization](/images/tracking/dmoet/fig5.webp?v=mushbn4p)
 
 可视化中 shared expert 主要捕获通用表示，T-MoE 更偏向 motion information，M-MoE 更偏向 modality-specific cues。这个解释与 router 图一致，但仍属于模型行为分析而非严格因果验证。
 
@@ -405,7 +404,7 @@ Expert rank r: 16
 - 增大 rank 初期提升性能，但超过 16 后性能略降，推理速度继续下降；论文选 $r=16$ 作为精度-效率折衷。
 - 增大专家数通常提升表示空间，但过大将带来高参数和计算成本；论文最终采用 **8 experts**。
 
-![Figure 6: Analysis of expert rank and number of experts](/images/tracking/dmoet/fig6.webp)
+![Figure 6: Analysis of expert rank and number of experts](/images/tracking/dmoet/fig6.webp?v=msvt41hu)
 
 ### 4.6 Compression
 

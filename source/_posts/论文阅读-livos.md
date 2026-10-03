@@ -1,23 +1,20 @@
 ---
-title: '论文阅读｜LiVOS: Light Video Object Segmentation with Gated Linear Matching'
+title: "论文阅读｜LiVOS: Light Video Object Segmentation with Gated Linear Matching"
 categories:
-  - 视频目标分割
-tags:
-  - 文献笔记
-  - AI论文
-  - SAM2
-  - 视频目标分割
-  - Tracking
   - 文献阅读
-description: >-
-  半监督 VOS 主要由 space-time memory (STM) 网络驱动，它把过去帧特征存为时空记忆，通过 softmax attention
-  分割当前帧。但 softmax 匹配的二次复杂度带来显存瓶颈，限制了视频长度与分辨率扩展。LiVOS 提出轻量记忆网络：用 linear attention
-  把记忆匹配重写为递归过程，将二次大小的注意力矩阵压缩为常数大小的时空无关 2D state；…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "SAM2"
+  - "视频目标分割"
+  - "Tracking"
+description: "半监督 VOS 主要由 space-time memory (STM) 网络驱动，它把过去帧特征存为时空记忆，通过 softmax attention 分割当前帧。但 softmax 匹配的二次复杂度带来显存瓶颈，限制了视频长度与分辨率扩展。LiVOS 提出轻量记忆网络：用 linear attention 把记忆匹配重写为递归过程，将二次大小的注意力矩阵压缩为常数大小的时空无关 2D state；…"
 readmore: true
 mathjax: true
-abbrlink: b7f6f8ca
-date: 2026-08-15 20:25:00
+date: 2026-08-15 20:20:00
 updated: 2026-08-15 23:00:00
+abbrlink: "b7f6f8ca"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -68,7 +65,7 @@ updated: 2026-08-15 23:00:00
 
 **论文图示**
 
-![Figure 1: Top: Conceptual comparison of softmax vs. linear matching in video object segmentation. Bottom: Softmax match- ing suffers from...](https://20020730.xyz/images/tracking/livos/fig1.webp)
+![Figure 1: Top: Conceptual comparison of softmax vs. linear matching in video object segmentation. Bottom: Softmax match- ing suffers from...](/images/tracking/livos/fig1.webp?v=mushbnbx)
 
 ## 2. 主要贡献
 
@@ -84,12 +81,10 @@ updated: 2026-08-15 23:00:00
 
 ## 3. 方法
 
-> **阅读说明**
-> 有官方代码（GitHub: uncbiag/LiVOS），本节结合源码理解。
-
+> **阅读说明｜> 有官方代码（GitHub: uncbiag/LiVOS），本节结合源码理解。**
 ### 3.1 整体框架
 
-![Figure 4: LiVOS Overview. Given a query frame, we first extract its key using an image encoder and retrieve its value via gated linear ma...](https://20020730.xyz/images/tracking/livos/fig4.webp)
+![Figure 4: LiVOS Overview. Given a query frame, we first extract its key using an image encoder and retrieve its value via gated linear ma...](/images/tracking/livos/fig4.webp?v=msvt46n0)
 
 
 **核心架构图**
@@ -203,7 +198,7 @@ LiVOS 对这两个外部记忆是"拿来主义"——它们与线性匹配正交
 
 **论文机制图**
 
-![Figure 3: Masks of thin structures at different resolutions. Thin structures may lose fine details at 480p, the standard resolution for V...](https://20020730.xyz/images/tracking/livos/fig3.webp)
+![Figure 3: Masks of thin structures at different resolutions. Thin structures may lose fine details at 480p, the standard resolution for V...](/images/tracking/livos/fig3.webp?v=msvt46h1)
 
 ### 3.4 论文与代码对照
 
@@ -303,7 +298,7 @@ Hardware: 推理显存 LVOS 503MB/575MB；1024p 2.0GB, 2048p 7.7GB, 4096p 30.4GB
 
 ### 论文图示（截图）
 
-![Figure 2: CPU latency comparison between softmax matching and linear matching. Softmax attention scales linearly over time (i.e., the num...](https://20020730.xyz/images/tracking/livos/fig2.webp)
+![Figure 2: CPU latency comparison between softmax matching and linear matching. Softmax attention scales linearly over time (i.e., the num...](/images/tracking/livos/fig2.webp?v=msvt46fi)
 
 ## 5. 复现指南
 

@@ -1,25 +1,21 @@
 ---
-title: >-
-  论文阅读｜ObjectRelator: Enabling Cross-View Object Relation Understanding Across
-  Ego-Centric and Exo-Centric Perspectives
+title: "论文阅读｜ObjectRelator: Enabling Cross-View Object Relation Understanding Across Ego-Centric and Exo-Centric Perspectives"
 categories:
-  - 跨视角与三维视觉
-tags:
-  - 文献笔记
-  - AI论文
-  - SAM2
-  - 跨视角
-  - 跨视角目标分割
-  - Tracking
   - 文献阅读
-description: >-
-  本文研究 Ego-Exo Object Correspondence 任务：给定一个视角（如 ego）中的目标 mask 查询，在另一个视角（如
-  exo）中分割出同一目标。多数分割模型只处理单视角，PSALM 是少数具备该任务零样本能力的模型，但在视角剧变、背景复杂、外观变化大时仍会定位/分割错误。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "SAM2"
+  - "跨视角"
+  - "跨视角目标分割"
+  - "Tracking"
+description: "本文研究 Ego-Exo Object Correspondence 任务：给定一个视角（如 ego）中的目标 mask 查询，在另一个视角（如 exo）中分割出同一目标。多数分割模型只处理单视角，PSALM 是少数具备该任务零样本能力的模型，但在视角剧变、背景复杂、外观变化大时仍会定位/分割错误。…"
 readmore: true
 mathjax: true
-abbrlink: b48da836
-date: 2026-08-15 20:35:00
+date: 2026-08-15 20:25:00
 updated: 2026-08-15 23:00:00
+abbrlink: "b48da836"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -69,7 +65,7 @@ updated: 2026-08-15 23:00:00
 
 **论文图示**
 
-![Figure 1: Illustration of the Ego-Exo Object Correspondence Task (example shown: Ego2Exo).](https://20020730.xyz/images/tracking/objectrelator/fig1.webp)
+![Figure 1: Illustration of the Ego-Exo Object Correspondence Task (example shown: Ego2Exo).](/images/tracking/objectrelator/fig1.webp?v=msvt47uj)
 
 ## 2. 主要贡献
 
@@ -85,13 +81,11 @@ updated: 2026-08-15 23:00:00
 
 ## 3. 方法
 
-> **阅读说明**
-> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。
-
+> **阅读说明｜> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。**
 ### 3.1 整体框架
 
-![Figure 2: Overview of ObjectRelator. Ego2Exo is used as an example. Our method builds on the PSALM baseline (pink blocks) and tailors it ...](https://20020730.xyz/images/tracking/objectrelator/fig2.webp)
-![Figure 3: Architecture of our Multimodal Condition Fusion (MC- Fuse) module. All learnable sub-modules are denoted by ﬁre icon.](https://20020730.xyz/images/tracking/objectrelator/fig3.webp)
+![Figure 2: Overview of ObjectRelator. Ego2Exo is used as an example. Our method builds on the PSALM baseline (pink blocks) and tailors it ...](/images/tracking/objectrelator/fig2.webp?v=msvt47yb)
+![Figure 3: Architecture of our Multimodal Condition Fusion (MC- Fuse) module. All learnable sub-modules are denoted by ﬁre icon.](/images/tracking/objectrelator/fig3.webp?v=msvt47zg)
 
 
 **核心架构图**
@@ -289,8 +283,8 @@ Hardware: 训练用 DeepSpeed ZeRO-2 多卡（GPU 细节见 Supp. Mat.）
 
 ### 论文图示（截图）
 
-![Figure 5: ObjectRelator vs. PSALM Visualization Results.](https://20020730.xyz/images/tracking/objectrelator/fig5.webp)
-![Figure 4: ObjectRelator Visualization for Ego2Exo and Exo2Ego.](https://20020730.xyz/images/tracking/objectrelator/fig4.webp)
+![Figure 5: ObjectRelator vs. PSALM Visualization Results.](/images/tracking/objectrelator/fig5.webp?v=msvt487y)
+![Figure 4: ObjectRelator Visualization for Ego2Exo and Exo2Ego.](/images/tracking/objectrelator/fig4.webp?v=mushif7j)
 
 ## 5. 复现指南
 

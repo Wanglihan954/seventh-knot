@@ -1,28 +1,23 @@
 ---
-title: >-
-  论文阅读｜V²-SAM: Marrying SAM2 with Multi-Prompt Experts for Cross-View Object
-  Correspondence
+title: "论文阅读｜V²-SAM: Marrying SAM2 with Multi-Prompt Experts for Cross-View Object Correspondence"
 categories:
-  - 跨视角与三维视觉
-tags:
-  - 文献笔记
-  - AI论文
-  - SAM2
-  - 跨视角
-  - 多专家
-  - Ego-Exo
-  - 跨视角目标对应
-  - Tracking
   - 文献阅读
-description: >-
-  跨视角目标对应（cross-view object correspondence），以 ego–exo 对应为代表任务，由于视角与外观差异剧烈，SAM2
-  等分割模型难以直接应用。V²-SAM 通过两个互补的 prompt 生成器把 SAM2 从单视角分割适配到跨视角对应：Cross-View Anchor
-  Prompt Generator (V2-Anchor) 基于 DINOv3 特征建立几何感知对应，首次在跨视角场景解锁 SA…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "SAM2"
+  - "跨视角"
+  - "多专家"
+  - "Ego-Exo"
+  - "跨视角目标对应"
+  - "Tracking"
+description: "跨视角目标对应（cross-view object correspondence），以 ego–exo 对应为代表任务，由于视角与外观差异剧烈，SAM2 等分割模型难以直接应用。V²-SAM 通过两个互补的 prompt 生成器把 SAM2 从单视角分割适配到跨视角对应：Cross-View Anchor Prompt Generator (V2-Anchor) 基于 DINOv3 特征建立几何感知对应，首次在跨视角场景解锁 SA…"
 readmore: true
 mathjax: true
-abbrlink: fb492e08
-date: 2026-08-15 21:00:00
+date: 2026-08-15 20:40:00
 updated: 2026-08-15 23:00:00
+abbrlink: "fb492e08"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -76,7 +71,7 @@ updated: 2026-08-15 23:00:00
 
 **论文图示**
 
-![Figure 1: Comparison of SAM variants in segmentation capabil- ity. Our proposed V²-SAM supports coordinate-point and visual- reference pr...](https://20020730.xyz/images/tracking/v2sam/fig1.webp)
+![Figure 1: Comparison of SAM variants in segmentation capabil- ity. Our proposed V²-SAM supports coordinate-point and visual- reference pr...](/images/tracking/v2sam/fig1.webp?v=msvt4oc2)
 
 ## 2. 主要贡献
 
@@ -94,12 +89,10 @@ updated: 2026-08-15 23:00:00
 
 ## 3. 方法
 
-> **阅读说明**
-> 官方代码基于 mmengine。注意：仓库发布的是 V2-Visual（`projects/v2sam_visual`）与 V2-Fusion（`projects/v2sam_fusion`）两个工程（README 说明通过改目录名切换）；V2-Anchor 专家与 PCCS 选择器**未作为独立模块发布**（见 3.4 不一致处）。
-
+> **阅读说明｜> 官方代码基于 mmengine。注意：仓库发布的是 V2-Visual（`projects/v2sam_visual`）与 V2-Fusion（`projects/v2sam_fusion`）两个工程（README 说明通过改目录名切换）；V2-Anchor 专家与 PCCS 选择器**未作为独立模块发布**（见 3.4 不一致处）。**
 ### 3.1 整体框架
 
-![Figure 2: Overview of V2-SAM. Given a query–target image pair (Iq, It) and the query object mask Mq, we generate two cross-view prompts: ...](https://20020730.xyz/images/tracking/v2sam/fig2.webp)
+![Figure 2: Overview of V2-SAM. Given a query–target image pair (Iq, It) and the query object mask Mq, we generate two cross-view prompts: ...](/images/tracking/v2sam/fig2.webp?v=msvt4omk)
 
 
 **核心架构图**
@@ -151,13 +144,9 @@ SAM2 的 decoder 靠坐标类 prompt 定位；跨视角场景中目标在目标�
 
 稠密匹配（Eq.1）与分层采样（Eq.2）：
 
-{% raw %}
 $$H_{ij} = \frac{\varphi(I_{q})_{i}^{\top}\varphi(I_{t})_{j}}{\lVert\varphi(I_{q})_{i}\rVert_{2}\,\lVert\varphi(I_{t})_{j}\rVert_{2}}, \qquad j^{*} = \arg\max_{j} H_{ij}$$
-{% endraw %}
 
-{% raw %}
 $$P'_{t} = \{\, p_{i} \mid \lVert p_{i} - p_{j}\rVert_{2} > \tau,\; \forall j < i \,\}$$
-{% endraw %}
 
 #### 代码对应
 
@@ -197,7 +186,7 @@ V2-Anchor 的可靠性来自"质量担保链"：前景约束（mask 投影到 pa
 
 ---
 
-### 3.3 Core Module 2 — `V2-Visual + VPMatcher：Cross-View Visual Prompt Generator`
+### 3.3 Core Module 2 — $V2-Visual + VPMatcher：Cross-View Visual Prompt Generator$
 
 #### 为什么需要？
 
@@ -214,13 +203,9 @@ V2-Anchor 的可靠性来自"质量担保链"：前景约束（mask 投影到 pa
 
 总损失（Eq.5）与结构分支的 FiLM 调制（Eq.4）：
 
-{% raw %}
 $$\mathcal{L} = \lambda_{1}\mathcal{L}_{v}(\hat{v}_{c}, v_{t}) + \lambda_{2}\mathcal{L}_{s}(\hat{M}_{c}, M_{t}) + \lambda_{3}\mathcal{L}_{m}(\hat{M}_{t}, M_{t})$$
-{% endraw %}
 
-{% raw %}
 $$\tilde{m} = m_{prior} \odot \big(1 + \tanh(\gamma)\big) + \beta + F_{mask}(M_{q}), \qquad \hat{M}_{c} = F_{dec}(\tilde{m})$$
-{% endraw %}
 
 #### 代码对应
 
@@ -257,7 +242,7 @@ VPMatcher 用双分支把"特征对齐"和"结构重建"拆开：特征分支学
 |SAM2 基础（encoder/decoder）|`projects/v2sam_fusion/models/sam2.py`|`SAM2` / `get_sam2_embeddings` / `inject_language_embd`|冻结 SAM2 encoder，视觉 prompt 经语言通道注入 decoder|
 |V2-Anchor: DINOv3 匹配|`projects/v2sam_fusion/models/sparse_correspondence.py`|`SparseCorrespondenceMatcher._extract_features` / `_compute_distances_l2`|Eq.1 稠密匹配|
 |V2-Anchor: 分层采样|`projects/v2sam_fusion/models/sparse_correspondence.py`|`_stratify_points`|Eq.2 防聚集采样|
-|V2-Anchor: 坐标变换|`projects/v2sam_fusion/models/v2sam.py`|`V2SAM._prep_sparse_correspondence_points`|原始坐标 → SAM2 1024 规范坐标|
+|V2-Anchor: 坐标变换|`projects/v2sam_fusion/models/v2sam.py`|$V2SAM._prep_sparse_correspondence_{\mathrm{points}}$|原始坐标 → SAM2 1024 规范坐标|
 |V2-Visual: mask pooling|`projects/v2sam_fusion/models/region_pooling.py`|`RegionPooling.extract_region_feature`|Eq.3 区域特征提取|
 |V2-Visual: VPMatcher|`projects/v2sam_fusion/models/vp_matcher.py`|`VPFeatureMatcher.forward`|特征分支 + 结构分支（FiLM）|
 |专家融合 + 损失|`projects/v2sam_fusion/models/v2sam.py`|`V2SAM.forward` / `get_contr_loss`|多专家训练、对比损失、mask/dice 损失|
@@ -268,7 +253,7 @@ VPMatcher 用双分支把"特征对齐"和"结构重建"拆开：特征分支学
 
 - **PCCS 未发布**：仓库中搜不到 PCCS / cyclic consistency / expert selector 相关实现（`grep -rli pccs` 无结果）。论文称推理时三专家并行 + PCCS 选择，但发布的测试流程（`tools/test.py` + config）直接加载单个训练好的模型推理，没有三专家并行与点级循环一致性选择。复现论文 Table 1 的 Multi-Experts 48.0 Total IoU 需要自行实现 PCCS。
 - **Anchor 专家未发布**：README 说明"V²-Anchor 无需训练（用 SAM2 官方 decoder checkpoint）"，但仓库没有独立的 anchor-only 推理工程；实际代码中 Anchor 的对应点以 `sparse_points_dict` 形式注入 Fusion 模型（训练与推理共用），即"锚点提示被融合进单一模型"，与论文"三个独立专家"的架构表述不完全一致。
-- **backbone 型号差异**：论文写 DINOv3 ViT-L/16，代码 `sparse_correspondence.py` 的 `image_size=768`、`n_layers=24` 与论文一致；但 README 权重下载示例同时给出 `dinov2_vitg14_reg4`，config 里实际用 `dinov3_vitl16`。
+- **backbone 型号差异**：论文写 DINOv3 ViT-L/16，代码 `sparse_correspondence.py` 的 `image_size=768`、$n_{\mathrm{layers}}=24$ 与论文一致；但 README 权重下载示例同时给出 `dinov2_vitg14_reg4`，config 里实际用 `dinov3_vitl16`。
 - **训练配置差异**：论文"batch size per GPU = 16"，config 为 `batch_size=16, accumulative_counts=4`（即每 GPU 16、梯度累积 4），max_epochs 24（fusion）/12（visual）；论文未提 epoch 数，只说 8×H 系列 GPU。
 - **训练损失细节**：论文 λ1:λ2:λ3 = 1:1:10 且前 4K 步 λ1=100；代码中对比损失权重正是 `_constr_step >= 4000` 前后 100→1 切换，mask/dice 均乘 10（对应 λ3），与论文一致。结构约束损失 Ls 在代码中表现为对 VPMatcher 的 `pred_masks_tensor` 施加的 `small_loss_mask`/`small_loss_dice`。
 
@@ -349,10 +334,10 @@ Hardware: 8×H100 训练；单卡推理（SAM2-HieraLarge + DINOv3 ViT-L/16）
 
 ### 论文图示（截图）
 
-![Figure 3: The structure of Visual Prompt Matcher. The Struc- tural Mapping Branch is built upon a lightweight CNN-based mask encoder and ...](https://20020730.xyz/images/tracking/v2sam/fig3.webp)
-![Figure 5: Ego2Exo qualitative results. From left to right: query view, predictions from the Anchor Expert, Visual Expert, and Fu- sion Ex...](https://20020730.xyz/images/tracking/v2sam/fig5.webp)
-![Figure 4: Comparison of Anchor, Visual, and Fusion Experts across different scenes. Left: per-scene IoU radar plot for the three experts....](https://20020730.xyz/images/tracking/v2sam/fig4.webp)
-![Figure 6: Exo2Ego qualitative results. From left to right: query view, predictions from the Anchor Expert, Visual Expert, and Fu- sion Ex...](https://20020730.xyz/images/tracking/v2sam/fig6.webp)
+![Figure 3: The structure of Visual Prompt Matcher. The Struc- tural Mapping Branch is built upon a lightweight CNN-based mask encoder and ...](/images/tracking/v2sam/fig3.webp?v=msvt4oot)
+![Figure 5: Ego2Exo qualitative results. From left to right: query view, predictions from the Anchor Expert, Visual Expert, and Fu- sion Ex...](/images/tracking/v2sam/fig5.webp?v=msvt4p1m)
+![Figure 4: Comparison of Anchor, Visual, and Fusion Experts across different scenes. Left: per-scene IoU radar plot for the three experts....](/images/tracking/v2sam/fig4.webp?v=mushbo9b)
+![Figure 6: Exo2Ego qualitative results. From left to right: query view, predictions from the Anchor Expert, Visual Expert, and Fu- sion Ex...](/images/tracking/v2sam/fig6.webp?v=msvt4p52)
 
 ## 5. 复现指南
 

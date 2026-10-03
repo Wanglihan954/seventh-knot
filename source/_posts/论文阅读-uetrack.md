@@ -1,26 +1,22 @@
 ---
-title: '论文阅读｜UETrack: A Unified and Efficient Framework for Single Object Tracking'
+title: "论文阅读｜UETrack: A Unified and Efficient Framework for Single Object Tracking"
 categories:
-  - 视觉目标跟踪
-tags:
-  - 文献笔记
-  - AI论文
-  - 追踪
-  - RGB-T
-  - CVPR
-  - 视频目标跟踪
-  - Tracking
   - 文献阅读
-description: >-
-  单目标跟踪（SOT）中，高效跟踪器大多局限于 RGB
-  输入，在多模态场景下力不从心；而现有多模态跟踪方法设计复杂、模型笨重，难以在资源受限设备上部署。本文提出
-  UETrack：一个统一且高效的单目标跟踪框架，一次训练即可高效处理 RGB、Depth、Thermal、Event、Language
-  五种模态，填补高效多模态跟踪的空白。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "追踪"
+  - "RGB-T"
+  - "CVPR"
+  - "视频目标跟踪"
+  - "Tracking"
+description: "单目标跟踪（SOT）中，高效跟踪器大多局限于 RGB 输入，在多模态场景下力不从心；而现有多模态跟踪方法设计复杂、模型笨重，难以在资源受限设备上部署。本文提出 UETrack：一个统一且高效的单目标跟踪框架，一次训练即可高效处理 RGB、Depth、Thermal、Event、Language 五种模态，填补高效多模态跟踪的空白。…"
 readmore: true
 mathjax: true
-abbrlink: d33a56e4
-date: 2026-08-16 20:25:00
+date: 2026-08-16 20:20:00
 updated: 2026-08-16 23:00:00
+abbrlink: "d33a56e4"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -71,7 +67,7 @@ updated: 2026-08-16 23:00:00
 
 **论文图示**
 
-![Figure 1: Figure 1. UETrack vs. Other Trackers. (a) compares UETrack with current efficient and multi-modal trackers; (b) presents a comparison of ...](https://20020730.xyz/images/tracking/uetrack/fig1.webp)
+![Figure 1: Figure 1. UETrack vs. Other Trackers. (a) compares UETrack with current efficient and multi-modal trackers; (b) presents a comparison of ...](/images/tracking/uetrack/fig1.webp?v=msvt4m5u)
 
 ## 2. 主要贡献
 
@@ -87,14 +83,12 @@ updated: 2026-08-16 23:00:00
 
 ## 3. 方法
 
-> **阅读说明**
-> 论文声明有官方代码（github.com/kangben258/UETrack），但本次阅读未能访问源码；Method 严格按论文正文、公式（1）-（4）与图 2-4 整理，未做代码级核对。
-
+> **阅读说明｜> 论文声明有官方代码（github.com/kangben258/UETrack），但本次阅读未能访问源码；Method 严格按论文正文、公式（1）-（4）与图 2-4 整理，未做代码级核对。**
 ### 3.1 整体框架
 
-![Figure 2: Figure 2. Architecture of UETrack. The training pipeline consists of a teacher model, a student model, and an Adaptive Net for adaptive d...](https://20020730.xyz/images/tracking/uetrack/fig2.webp)
-![Figure 4: Figure 4. Architecture of Adaptive Net.](https://20020730.xyz/images/tracking/uetrack/fig4.webp)
-![Figure 3: Figure 3. TP-MoE architecture diagram.](https://20020730.xyz/images/tracking/uetrack/fig3.webp)
+![Figure 2: Figure 2. Architecture of UETrack. The training pipeline consists of a teacher model, a student model, and an Adaptive Net for adaptive d...](/images/tracking/uetrack/fig2.webp?v=msvt4m8t)
+![Figure 4: Figure 4. Architecture of Adaptive Net.](/images/tracking/uetrack/fig4.webp?v=msvt4mao)
+![Figure 3: Figure 3. TP-MoE architecture diagram.](/images/tracking/uetrack/fig3.webp?v=msvt4mbl)
 
 
 Fig. 2 展示了 UETrack 的总体架构（训练管线 = 冻结教师 + 学生 + Adaptive Net；推理只保留学生）。
@@ -142,13 +136,9 @@ Loss: L_S = L_c + λ_g L_g + λ_l1 L_l1 + L_t + α(λ_kd L_kd + λ_f L_f)   （�
 
 #### 关键公式（论文公式 1）
 
-{% raw %}
 $$T_e = \text{Embed}(\text{Aggre}(T_{in})), \qquad T_a = \text{Split}\big(\text{Softmax}(T_{in} T_e^\top)^\top T_{in}\big)$$
-{% endraw %}
 
-{% raw %}
 $$O_e = \text{Merge}\Big(\{\text{Expert}_i(T_a^i)\}_{i=1}^{E}\Big), \qquad O = \text{Softmax}(T_{in} T_e^\top)\, O_e$$
-{% endraw %}
 
 其中 Aggre(·) 为局部聚合、Embed(·) 为专家嵌入、Split(·) 按专家数顺序分组、Merge(·) 合并各专家输出。
 
@@ -176,15 +166,11 @@ Adaptive Net 本身用 **surrogate prediction 策略**训练（公式 3-4）：�
 
 #### 关键公式（论文公式 2-4）
 
-{% raw %}
 $$L_S = L_c(\hat p_s, p) + \lambda_g L_g(\hat p_s, p) + \lambda_{l1} L_{l1}(\hat p_s, p) + L_t(\hat p_s, p) + \alpha\big(\lambda_{kd} L_{kd}(\hat p_s, \hat p_t) + \lambda_f L_f(\hat p_s, \hat p_t)\big)$$
-{% endraw %}
 
 其中 L_c / L_g / L_l1 / L_t / L_kd / L_f 分别为分类、GIoU、L1、任务、KL、MSE 损失；λ_g=2，λ_l1=5，λ_kd=5，λ_f=0.002；α 为 Adaptive Net 输出（1 蒸馏 / 0 不蒸馏）。
 
-{% raw %}
 $$\hat p_a^i = \begin{cases} \hat p_t^i & \text{if } \alpha = 1 \\ \hat p_s^i & \text{if } \alpha = 0 \end{cases}, \qquad L_A = L_c(\hat p_a, p) + \lambda_g L_g(\hat p_a, p) + \lambda_{l1} L_{l1}(\hat p_a, p) + L_t(\hat p_a, p)$$
-{% endraw %}
 
 学生与 Adaptive Net 分开更新：学生用公式 (2)（α 门控蒸馏项），Adaptive Net 用公式 (4)（surrogate 损失）。
 
@@ -197,7 +183,7 @@ TAD 的本质是 **"先判别教师可靠性，再决定是否听教师的"**：
 
 **论文机制图**
 
-![Figure 5: Figure 5. EAO rank plots on VOT2021 Real-time.](https://20020730.xyz/images/tracking/uetrack/fig5.webp)
+![Figure 5: Figure 5. EAO rank plots on VOT2021 Real-time.](/images/tracking/uetrack/fig5.webp?v=mushbo5n)
 
 ### 3.4 论文与代码对照
 
@@ -305,8 +291,8 @@ UETrack-T: [2, [2], 2]（2 层、第 2 层、2 专家）           | 6M  | 1.8G 
 
 ### 论文图示（截图）
 
-![Figure 7: Figure 7. Visualization of adaptive distillation decisions made by TAD across different modalities.](https://20020730.xyz/images/tracking/uetrack/fig7.webp)
-![Figure 6: Figure 6. Visualization of attention distributions of TP-MoE ex- perts. The bright regions denote the attended areas. Each expert focuses...](https://20020730.xyz/images/tracking/uetrack/fig6.webp)
+![Figure 7: Figure 7. Visualization of adaptive distillation decisions made by TAD across different modalities.](/images/tracking/uetrack/fig7.webp?v=mushbo7v)
+![Figure 6: Figure 6. Visualization of attention distributions of TP-MoE ex- perts. The bright regions denote the attended areas. Each expert focuses...](/images/tracking/uetrack/fig6.webp?v=msvt4mli)
 
 ## 5. 复现指南
 

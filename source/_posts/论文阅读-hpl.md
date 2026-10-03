@@ -15,7 +15,7 @@ description: "HPL 试图用一个模型同时完成 image-to-image（I2I）与 t
 readmore: true
 mathjax: true
 date: 2026-09-17 21:26:16
-updated: 2026-09-17 21:26:16
+updated: 2026-09-19 22:16:27
 abbrlink: "22166495"
 ---
 > 本文基于论文、公开代码与本地阅读笔记整理；论文插图仅用于学习与讨论。
@@ -31,31 +31,30 @@ abbrlink: "22166495"
 > **摘要**
 > HPL 试图用一个模型同时完成 image-to-image（I2I）与 text-to-image（T2I）行人重识别。其关键是先用双分类 token 隔离任务偏好，再用身份级和实例级提示补足共享语义，最后通过跨模态提示正则化限制图像与文本伪提示的偏移，从而缓解朴素联合训练中的语义冲突。
 
+
 <!-- more -->
-
 ---
 
-## 论文资源
+## 快速导航
 - **Paper:** <https://arxiv.org/abs/2511.13575>
-
 ---
 
-## 论文大纲
+## 论文大纲 (AI Context)
 
-## 1. 动机与挑战 (Motivation & Challenges)
+### 1. 动机与挑战 (Motivation & Challenges)
 - **任务偏好不同：** I2I 依赖跨视角稳定的身份外观，T2I 需要对齐文本描述中的包、手机、颜色等实例细节。
 - **共享表示冲突：** 单个 CLS token 同时服务两任务时，梯度和注意区域相互干扰，联合训练可能不如单任务训练。
 - **监督粒度不足：** 只有身份标签或整句文本难以同时覆盖身份级共性与样本级差异。
 
-## 2. 核心贡献 (Key Contributions)
+### 2. 核心贡献 (Key Contributions)
 - [x] 提出 **Task-Routed Transformer（TRT）**，用双 CLS token 在共享视觉编码器内形成任务专属路径。
 - [x] 提出身份级 learnable token 与实例级 pseudo-text token 组成的 **Hierarchical Prompt Learning**。
 - [x] 通过视觉/文本反演网络产生实例提示，并以 **CMPR** 约束跨模态提示一致性。
 - [x] 在三个 T2I 与三个 I2I 基准上统一评估，同一模型兼顾两类检索。
 
-## 3. 技术路线 (Methodology)
-> **核心架构图（Fig. 2，已按图体裁剪）**
-> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/hpl-fig2-framework-v2.png)
+### 3. 技术路线 (Methodology)
+> **补充说明｜核心架构图（Fig. 2，已按图体裁剪）**
+> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@294d37ae0e0cd5de15ef47824a6cef5aeec8427e/img/hpl-fig2-framework-v2.png)
 
 - **TRT：** 在同一视觉 Transformer 中放入 I2I-CLS 与 T2I-CLS，既共享主干参数，又保留任务特定聚合路径。
 - **身份级提示：** 每个身份对应一组可学习 token，表达相对稳定的身份语义。
@@ -64,9 +63,9 @@ abbrlink: "22166495"
 - **CMPR：** 最小化图像引导提示与文本引导提示的 Frobenius 距离，防止两种实例提示在共享空间中漂移。
 - **训练细节：** 两阶段训练；第二阶段 60 epochs，前 5 epochs warm-up（$10^{-6}\rightarrow10^{-5}$）后 cosine annealing；每批 64 个图文对 + 64 张 I2I 图像；单卡 RTX 4090；$\lambda_1=0.4,\lambda_2=0.06$。
 
-## 4. 实验结论 (Results)
-> **主结果（Table 1，表格局部）**
-> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/hpl-table1-results-v2.png)
+### 4. 实验结论 (Results)
+> **实验结果｜主结果（Table 1，表格局部）**
+> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@294d37ae0e0cd5de15ef47824a6cef5aeec8427e/img/hpl-table1-results-v2.png)
 
 - **T2I 数据集：** CUHK-PEDES、ICFG-PEDES、RSTPReID；HPL 的 Rank-1/mAP 分别为 **76.28/70.90、66.61/44.14、64.00/53.13**。
 - **I2I 数据集：** Market1501、MSMT17、DukeMTMC；Rank-1/mAP 分别为 **95.99/89.82、91.04/79.01、90.35/82.93**。

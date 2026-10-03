@@ -22,6 +22,14 @@ const collectionConfig = {
 const imageRoot = path.join(repoRoot, 'source', 'images', collectionConfig.imageDirectory);
 const publicImageBase = `/images/${collectionConfig.imageDirectory}`;
 
+function resolveReferencedImage(ref) {
+  if (noteCollection === 'Tracking' && ref.replaceAll('\\', '/') === 'assets/saas/fig4.png') {
+    const curated = path.resolve(notesRoot, '..', 'assets', 'saas', 'fig4_tma.png');
+    if (fs.existsSync(curated)) return curated;
+  }
+  return path.resolve(notesRoot, ref);
+}
+
 const yamlQuote = (value) => JSON.stringify(String(value));
 
 function parseSourceFrontMatter(markdown) {
@@ -205,9 +213,12 @@ function polishBody(body, slug) {
   body = normalizeInlineMath(body);
   body = body.replace(/\n## 论文图示（截图）\s*\n\s*## 论文图示（截图）/g, '\n## 论文图示（截图）');
   body = body.replace(
-    /!\[([^\n]*?)\]\(assets\/([^/]+)\/([^)]+?)\.(?:png|jpg|jpeg)\)/gi,
-    (_match, alt, assetSlug, filename) =>
-      `![${alt}](${publicImageBase}/${assetSlug}/${filename}.webp)`,
+    /!\[([^\n]*?)\]\(assets\/([^/]+)\/([^)]+?)\.(png|jpg|jpeg)\)/gi,
+    (_match, alt, assetSlug, filename, extension) => {
+      const sourceImage = resolveReferencedImage(`assets/${assetSlug}/${filename}.${extension}`);
+      const version = fs.existsSync(sourceImage) ? Math.trunc(fs.statSync(sourceImage).mtimeMs).toString(36) : '1';
+      return `![${alt}](${publicImageBase}/${assetSlug}/${filename}.webp?v=${version})`;
+    },
   );
   // Keep display math in a single Markdown text node. Otherwise Markdown turns
   // physical newlines into <br> elements before the math renderer can see it.
@@ -328,11 +339,13 @@ for (const filename of noteFiles) {
 
   const imageRefs = [...new Set(referencedImages(body))];
   for (const ref of imageRefs) {
-    const source = path.resolve(notesRoot, ref);
-    if (!source.startsWith(path.resolve(notesRoot) + path.sep) || !fs.existsSync(source)) {
+    const source = resolveReferencedImage(ref);
+    const insideNotes = source.startsWith(path.resolve(notesRoot) + path.sep);
+    const insideSharedAssets = source.startsWith(path.resolve(notesRoot, '..', 'assets') + path.sep);
+    if ((!insideNotes && !insideSharedAssets) || !fs.existsSync(source)) {
       throw new Error(`Invalid or missing image reference in ${filename}: ${ref}`);
     }
-    const relative = path.relative(path.join(notesRoot, 'assets'), source);
+    const relative = ref.replace(/^assets[\\/]/, '');
     const destination = path.join(imageRoot, relative).replace(/\.(?:png|jpg|jpeg)$/i, '.webp');
     convertImage(source, destination);
     originalImageBytes += fs.statSync(source).size;

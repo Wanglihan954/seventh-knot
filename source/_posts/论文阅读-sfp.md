@@ -1,7 +1,8 @@
 ---
 title: "论文阅读｜Semantic Feature Purification for Adversarially-Aware RGB-T Tracking"
 categories:
-  - 视觉目标跟踪
+  - 文献阅读
+  - "Tracking"
 tags:
   - "文献笔记"
   - "AI论文"
@@ -11,11 +12,10 @@ tags:
   - "语义净化"
   - "视频目标跟踪"
   - "Tracking"
-  - 文献阅读
 description: "RGB-T 跟踪虽然利用 RGB 与热红外（TIR）的互补性改善了低照度和遮挡场景的表现，但跨模态不一致也使它容易受到细微输入扰动的攻击。本文提出 SFPT（Semantic Feature Purification framework） ，不在像素层面直接滤波，而是在特征空间引入由描述性语言生成的任务语义锚点，强化对扰动不敏感的线索。…"
 readmore: true
 mathjax: true
-date: 2026-08-21 20:20:00
+date: 2026-08-21 20:10:00
 updated: 2026-08-21 23:00:00
 abbrlink: "83f743b9"
 ---
@@ -93,13 +93,11 @@ RGB-T 跟踪虽然利用 RGB 与热红外（TIR）的互补性改善了低照度
 
 ## 3. 方法
 
-> **阅读说明**
-> 论文正文没有给出官方代码仓库、commit、文件路径或运行命令。下面的 Paper↔Code 表仅做概念映射，所有代码位置均明确标为**未核验**，不能当作真实实现路径。
-
+> **阅读说明｜> 论文正文没有给出官方代码仓库、commit、文件路径或运行命令。下面的 Paper↔Code 表仅做概念映射，所有代码位置均明确标为**未核验**，不能当作真实实现路径。**
 ### 3.1 Overall Pipeline：双分支文本引导防御
 
-![Figure 1: Figure 1: Comparison of different paradigm frameworks. (a) Previous adversarial defense tracking primarily focuses on RGB visual tracking...](/images/tracking/sfp/fig1.webp)
-![Figure 2: Figure 2: The overall structure of the proposed SFPT framework. This framework leverages text information to guide the defense network in...](/images/tracking/sfp/fig2.webp)
+![Figure 1: Figure 1: Comparison of different paradigm frameworks. (a) Previous adversarial defense tracking primarily focuses on RGB visual tracking...](/images/tracking/sfp/fig1.webp?v=msvt4fmh)
+![Figure 2: Figure 2: The overall structure of the proposed SFPT framework. This framework leverages text information to guide the defense network in...](/images/tracking/sfp/fig2.webp?v=msvt4hf9)
 
 
 [Figure 2 结构说明：原论文 Figure 2；本地未提供截图]
@@ -365,8 +363,8 @@ Table 2 在 ε=4/255 下比较 Gaussian、Uniform、Quantitative、Rayleigh、Ex
 
 ### 论文图示（截图）
 
-![Figure 3: Figure 3: The detailed structure of the proposed APG-CMF. It leverages the interaction between text prompts and visual features.](/images/tracking/sfp/fig3.webp)
-![Figure 4: Figure 4: Diagram of the proposed SFPT and its variants.](/images/tracking/sfp/fig4.webp)
+![Figure 3: Figure 3: The detailed structure of the proposed APG-CMF. It leverages the interaction between text prompts and visual features.](/images/tracking/sfp/fig3.webp?v=msvt4hsd)
+![Figure 4: Figure 4: Diagram of the proposed SFPT and its variants.](/images/tracking/sfp/fig4.webp?v=mushtfyv)
 
 ## 5. 复现指南
 

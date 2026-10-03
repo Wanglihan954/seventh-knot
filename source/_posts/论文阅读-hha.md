@@ -15,7 +15,7 @@ description: "HHA 处理视频可见光—红外行人重识别中的双重困�
 readmore: true
 mathjax: true
 date: 2026-09-17 21:26:14
-updated: 2026-09-17 21:26:14
+updated: 2026-09-19 22:16:27
 abbrlink: "15c246a1"
 ---
 > 本文基于论文、公开代码与本地阅读笔记整理；论文插图仅用于学习与讨论。
@@ -31,31 +31,30 @@ abbrlink: "15c246a1"
 > **摘要**
 > HHA 处理视频可见光—红外行人重识别中的双重困难：轨迹内部的姿态、遮挡和时间变化，以及两种成像模态之间的外观鸿沟。方法把时空聚合与跨模态对齐统一放入 Poincaré 球：HHSA 建立层级时空表示，GMA 再以模态中心和共享身份原型完成几何一致的对齐。
 
+
 <!-- more -->
-
 ---
 
-## 论文资源
+## 快速导航
 - **Paper:** <https://openreview.net/forum?id=l17gjYai4X>
-
 ---
 
-## 论文大纲
+## 论文大纲 (AI Context)
 
-## 1. 动机与挑战 (Motivation & Challenges)
+### 1. 动机与挑战 (Motivation & Challenges)
 - **轨迹内部变化：** 帧间姿态、遮挡和可见区域不断变化，简单平均会把不同层级线索混在一起。
 - **跨模态偏移：** visible 与 infrared 缺乏一致颜色和纹理，身份簇的中心存在系统性偏移。
 - **欧氏空间拥挤：** 多层时空线索及身份—模态关系具有树状结构，平坦空间容易产生 cue crowding 和结构失真。
 
-## 2. 核心贡献 (Key Contributions)
+### 2. 核心贡献 (Key Contributions)
 - [x] 提出 **Hyperbolic Hierarchical Spatio-Temporal Aggregator（HHSA）**。
 - [x] 设计 **HGI** 在双曲空间组织时序层级，设计 **DGF** 融合欧氏外观与双曲结构线索。
 - [x] 提出 **Geometry-Aware Modality Alignment（GMA）**，由 HMA 和 HPA 组成。
 - [x] 在 HITSZ-VCM 与 BUPTCampus 上取得强结果，并给出组件、几何选择、插入位置和复杂度分析。
 
-## 3. 技术路线 (Methodology)
-> **核心架构图（Fig. 2，已按图体裁剪）**
-> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/hha-fig2-framework-v2.png)
+### 3. 技术路线 (Methodology)
+> **补充说明｜核心架构图（Fig. 2，已按图体裁剪）**
+> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@294d37ae0e0cd5de15ef47824a6cef5aeec8427e/img/hha-fig2-framework-v2.png)
 
 - **ViT backbone：** 对每帧提取 patch 与 CLS token，并在若干 Transformer 层间插入 HHSA。
 - **HGI：** 将时序 token 映射到 Poincaré 球，通过双曲交互生成层级 token memory，减少时变线索纠缠。
@@ -64,9 +63,9 @@ abbrlink: "15c246a1"
 - **HPA：** 学习共享身份原型，将两种模态的中心拉向同一 prototype，进一步强化类间判别。
 - **训练细节：** CLIP ViT-B/16 全量微调；输入 288×144；AdamW，学习率 $2.5\times10^{-5}$；60 epochs，batch size 32；每身份每模态采 4 个序列、每序列 6 帧；单卡 H800；曲率 $c=1$，$\lambda_{hma}=\lambda_p=0.05$。
 
-## 4. 实验结论 (Results)
-> **主结果（Table 1，表格局部）**
-> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@main/img/hha-table1-results-v2.png)
+### 4. 实验结论 (Results)
+> **实验结果｜主结果（Table 1，表格局部）**
+> ![](https://cdn.jsdelivr.net/gh/Wanglihan954/Picture-bed@294d37ae0e0cd5de15ef47824a6cef5aeec8427e/img/hha-table1-results-v2.png)
 
 - **数据集与指标：** HITSZ-VCM、BUPTCampus；I2V/V2I 双向协议；CMC Rank-1/5/10 与 mAP。
 - **HITSZ-VCM（6 帧）：** I2V 为 **76.0 R1 / 63.2 mAP**，V2I 为 **77.5 / 60.8**；10 帧进一步达到 **77.5/64.7、78.1/62.8**。

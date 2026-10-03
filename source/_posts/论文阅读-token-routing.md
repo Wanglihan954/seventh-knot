@@ -1,25 +1,22 @@
 ---
-title: 论文阅读｜Adaptive Depth Lightweight RGB-T Tracking with Holistic Token Routing
+title: "论文阅读｜Adaptive Depth Lightweight RGB-T Tracking with Holistic Token Routing"
 categories:
-  - 视觉目标跟踪
-tags:
-  - 文献笔记
-  - AI论文
-  - 追踪
-  - RGB-T
-  - CVPR
-  - 视频目标跟踪
-  - Tracking
   - 文献阅读
-description: >-
-  RGB-T 跟踪的价值在于：夜间、眩光、雾、部分遮挡下 RGB 失效时热红外仍可用。但近期架构强调深融合与大参数量，推高 FLOPs
-  与带宽，实时性被限制在高端 GPU。本文提出 ADTrack 平衡精度与效率：(1) Adaptive Early-Exit (AEE) ：给
-  backbone 挂 anytime heads，配一个置信度校准的早退策略，在最早的可信层停止推理，跳过冗余计算；…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "追踪"
+  - "RGB-T"
+  - "CVPR"
+  - "视频目标跟踪"
+  - "Tracking"
+description: "RGB-T 跟踪的价值在于：夜间、眩光、雾、部分遮挡下 RGB 失效时热红外仍可用。但近期架构强调深融合与大参数量，推高 FLOPs 与带宽，实时性被限制在高端 GPU。本文提出 ADTrack 平衡精度与效率：(1) Adaptive Early-Exit (AEE) ：给 backbone 挂 anytime heads，配一个置信度校准的早退策略，在最早的可信层停止推理，跳过冗余计算；…"
 readmore: true
 mathjax: true
-abbrlink: 23d67125
-date: 2026-08-16 20:20:00
+date: 2026-08-16 20:15:00
 updated: 2026-08-16 23:00:00
+abbrlink: "23d67125"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -78,7 +75,7 @@ RGB-T 跟踪的价值在于：夜间、眩光、雾、部分遮挡下 RGB 失效
 
 **论文图示**
 
-![Figure 1: Figure 1. Comparison of our proposed ADTrack and state-of-the- art trackers under different attributes in the LasHeR dataset.](https://20020730.xyz/images/tracking/token-routing/fig1.webp)
+![Figure 1: Figure 1. Comparison of our proposed ADTrack and state-of-the- art trackers under different attributes in the LasHeR dataset.](/images/tracking/token-routing/fig1.webp?v=msvt4j40)
 
 ## 2. 主要贡献
 
@@ -94,9 +91,7 @@ RGB-T 跟踪的价值在于：夜间、眩光、雾、部分遮挡下 RGB 失效
 
 ## 3. 方法
 
-> **阅读说明**
-> 论文未开源代码（GitHub 检索无官方仓库），Method 部分仅按论文正文与图表整理；3.4 的 Paper↔Code 表改为"模块 ↔ 论文实现要点"，代码行号均无法提供。
-
+> **阅读说明｜> 论文未开源代码（GitHub 检索无官方仓库），Method 部分仅按论文正文与图表整理；3.4 的 Paper↔Code 表改为"模块 ↔ 论文实现要点"，代码行号均无法提供。**
 ### 3.1 整体框架
 
 <!-- 配图占位：Fig. 2 整体架构（左：HTGI；右：AEE）由脚本自动插入 -->
@@ -136,23 +131,17 @@ ADTrack 是双流架构：RGB 与热红外各走一条轻量 ViT 骨干（Method
 #### 核心做法
 
 1. **多出口自监督校准**：在骨干多个深度挂轻量预测头（与主解码器共享参数），每个头生成临时 score map S_l。
-2. **置信度度量**：`r_l = max(S_l) / Σ_i S_{l,i}`——score map 的峰值占比，越紧致（单峰）越高，是天然的定位可信度信号，**不需要额外置信分支**。
+2. **置信度度量**：$r_l = max(S_l) / Σ_i S_{l,i}$——score map 的峰值占比，越紧致（单峰）越高，是天然的定位可信度信号，**不需要额外置信分支**。
 3. **自校准损失**：每层的预测都要独立定位准确（L_pred）；|r_l − r*| 项强制各层置信度随深度单调递增地逼近最终层 r*；margin 项 M(r_l, r*, τ) 围绕停止阈值 τ 建立软边界——最终层收敛（r* > τ）时惩罚欠自信层（τ − r_l)₊，最终层不确定时惩罚过度自信层（r_l − τ)₊。
 4. **推理确定性早停**：每层计算同一置信度，一旦超过 τ 立即停止输出当前预测，无需任何外部监督决定何时停。
 
 #### 关键公式
 
-{% raw %}
 $$r_l = \frac{\max(S_l)}{\sum_i S_{l,i}}, \qquad r^{*} = \frac{\max(S_L)}{\sum_i S_{L,i}} \tag{1}$$
-{% endraw %}
 
-{% raw %}
 $$\mathcal{L}_{AEE} = \sum_l \left[ \mathcal{L}_{pred}(S_l, y) + |r_l - r^{*}| + M(r_l, r^{*}, \tau) \right] \tag{2}$$
-{% endraw %}
 
-{% raw %}
 $$M(r_l, r^{*}, \tau) = \begin{cases} (\tau - r_l)_+, & \text{if } r^{*} > \tau \\ (r_l - \tau)_+, & \text{otherwise} \end{cases}$$
-{% endraw %}
 
 其中 S_L 是最深层的最终 score map；`(·)₊ = max(·, 0)`。第一个 term 保证每个中间头能独立定位；第二个 term 对齐置信度随深度演化的单调性；第三个 term 定义停止边界的软惩罚。训练时还配合**随机深度截断**（random depth truncation），鼓励模型在多种深度下都稳健，而非只依赖最深配置。
 
@@ -179,13 +168,9 @@ $$M(r_l, r^{*}, \tau) = \begin{cases} (\tau - r_l)_+, & \text{if } r^{*} > \tau 
 
 #### 关键公式
 
-{% raw %}
 $$h_k = \sum_{i=1}^{N_t} \left( f_k(x_i) \odot x_i \right), \qquad k = 1, \dots, K \tag{3}$$
-{% endraw %}
 
-{% raw %}
 $$Z = \text{TransformerBlock}([H_n : X_m]) \tag{4}$$
-{% endraw %}
 
 其中 f_k(·) 是生成第 k 个 token 自适应权重的轻量 MLP；H_n 是模态 n 的 K 个 holistic tokens（源），X_m 是模态 m 的 N 个特征 tokens（目标）；传播后前 K 个位置被删除，剩余 N 个构成精炼序列 X_m'。
 
@@ -200,8 +185,8 @@ $$Z = \text{TransformerBlock}([H_n : X_m]) \tag{4}$$
 
 **论文机制图**
 
-![Figure 2: Figure 2. The tracker includes two main components. Left: the Holistic-Token-Guided Interaction Module, where compact holistic tokens fro...](https://20020730.xyz/images/tracking/token-routing/fig2.webp)
-![Figure 5: Figure 5. Structure of the Holistic Token Generator module. Holistic tokens extracted from one modality guide the refinement of the other...](https://20020730.xyz/images/tracking/token-routing/fig5.webp)
+![Figure 2: Figure 2. The tracker includes two main components. Left: the Holistic-Token-Guided Interaction Module, where compact holistic tokens fro...](/images/tracking/token-routing/fig2.webp?v=msvt4j8f)
+![Figure 5: Figure 5. Structure of the Holistic Token Generator module. Holistic tokens extracted from one modality guide the refinement of the other...](/images/tracking/token-routing/fig5.webp?v=msvt4jk0)
 
 ### 3.4 论文与代码对照
 
@@ -320,10 +305,10 @@ HTGI 新增参数: 37.3K × 3 ≈ 112K（< 模型总参数 0.2%）
 
 ### 论文图示（截图）
 
-![Figure 3: Figure 3. Score map evolution across layers. Left: Qualitative score maps for three sequences at Layers 1, 3, 6, 9, and 12, showing incre...](https://20020730.xyz/images/tracking/token-routing/fig3.webp)
-![Figure 4: Figure 4. Performance degradation on LasHeR when individual layers are removed from the 12-layer ViT backbone. The results show that even...](https://20020730.xyz/images/tracking/token-routing/fig4.webp)
-![Figure 7: Figure 7. Qualitative comparison between our method and other RGB-T trackers on four representative sequences from the LasHeR dataset.](https://20020730.xyz/images/tracking/token-routing/fig7.webp)
-![Figure 6: Figure 6. Comparison of ADTrack and SOTA trackers under dif- ferent attributes in the LasHeR dataset.](https://20020730.xyz/images/tracking/token-routing/fig6.webp)
+![Figure 3: Figure 3. Score map evolution across layers. Left: Qualitative score maps for three sequences at Layers 1, 3, 6, 9, and 12, showing incre...](/images/tracking/token-routing/fig3.webp?v=msvt4jg3)
+![Figure 4: Figure 4. Performance degradation on LasHeR when individual layers are removed from the 12-layer ViT backbone. The results show that even...](/images/tracking/token-routing/fig4.webp?v=mushbnx5)
+![Figure 7: Figure 7. Qualitative comparison between our method and other RGB-T trackers on four representative sequences from the LasHeR dataset.](/images/tracking/token-routing/fig7.webp?v=mushbo42)
+![Figure 6: Figure 6. Comparison of ADTrack and SOTA trackers under dif- ferent attributes in the LasHeR dataset.](/images/tracking/token-routing/fig6.webp?v=msvt4jvi)
 
 ## 5. 复现指南
 

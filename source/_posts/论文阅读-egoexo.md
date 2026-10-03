@@ -1,24 +1,21 @@
 ---
-title: 论文阅读｜Robust Ego-Exo Correspondence with Long-Term Memory
+title: "论文阅读｜Robust Ego-Exo Correspondence with Long-Term Memory"
 categories:
-  - 跨视角与三维视觉
-tags:
-  - 文献笔记
-  - AI论文
-  - SAM2
-  - 跨视角
-  - 跨视角目标分割
-  - Tracking
   - 文献阅读
-description: >-
-  在 ego（第一人称）与 exo（第三人称）视角之间建立目标级对应（Ego-Exo Correspondence,
-  EEC）是智能助手指引等应用的基础，但面临极端视角差异、遮挡与小目标等挑战。直接套用 SAM2 时，由于 ego-exo
-  特征融合低效且长期记忆容量不足（长视频中尤为明显），表现很差。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "SAM2"
+  - "跨视角"
+  - "跨视角目标分割"
+  - "Tracking"
+description: "在 ego（第一人称）与 exo（第三人称）视角之间建立目标级对应（Ego-Exo Correspondence, EEC）是智能助手指引等应用的基础，但面临极端视角差异、遮挡与小目标等挑战。直接套用 SAM2 时，由于 ego-exo 特征融合低效且长期记忆容量不足（长视频中尤为明显），表现很差。…"
 readmore: true
 mathjax: true
-abbrlink: a17d3727
-date: 2026-08-15 20:20:00
+date: 2026-08-15 20:15:00
 updated: 2026-08-15 23:00:00
+abbrlink: "a17d3727"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -68,7 +65,7 @@ updated: 2026-08-15 23:00:00
 
 **论文图示**
 
-![Figure 1: Left: Comparison of segmentation results between XView-XMem and our model, using exocentric videos as an example. Right: Quanti...](https://20020730.xyz/images/tracking/egoexo/fig1.webp)
+![Figure 1: Left: Comparison of segmentation results between XView-XMem and our model, using exocentric videos as an example. Right: Quanti...](/images/tracking/egoexo/fig1.webp?v=msvt41lm)
 
 ## 2. 主要贡献
 
@@ -84,13 +81,11 @@ updated: 2026-08-15 23:00:00
 
 ## 3. 方法
 
-> **阅读说明**
-> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。
-
+> **阅读说明｜> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。**
 ### 3.1 整体框架
 
-![Figure 2: Overview of our proposed model, which consists of three key components: multi-view encoding, dual memory compression, and objec...](https://20020730.xyz/images/tracking/egoexo/fig2.webp)
-![Figure 3: Overview of the proposed Memory-View Mixture-of-Experts (MV-MoE) module. Channel- and spatial-wise routers generate dynamic wei...](https://20020730.xyz/images/tracking/egoexo/fig3.webp)
+![Figure 2: Overview of our proposed model, which consists of three key components: multi-view encoding, dual memory compression, and objec...](/images/tracking/egoexo/fig2.webp?v=msvt41qh)
+![Figure 3: Overview of the proposed Memory-View Mixture-of-Experts (MV-MoE) module. Channel- and spatial-wise routers generate dynamic wei...](/images/tracking/egoexo/fig3.webp?v=msvt41sg)
 
 
 **核心架构图**
@@ -133,17 +128,11 @@ SAM2 用"相加"融合 prompt 与 memory 特征，但 ego 与 exo 的分布差�
 
 #### 关键公式
 
-{% raw %}
 $$w^c_{mem/view} = \text{MLP}_{1/2}\big(\text{Avg}(\text{Concat}(F_{mem}, F_{view}))\big), \qquad \dot{F}_{mem/view} = w^c_{mem/view} \otimes F_{mem/view} + F_{mem/view}$$
-{% endraw %}
 
-{% raw %}
 $$w^s_{mem/view} = \text{Conv}_{1/2}\big(\text{Concat}(\dot{F}_{mem}, \dot{F}_{view})\big), \qquad \ddot{F}_{mem/view} = w^s_{mem/view} \otimes \dot{F}_{mem/view} + \dot{F}_{mem/view}$$
-{% endraw %}
 
-{% raw %}
 $$F_{tar} = \ddot{F}_{mem} + \ddot{F}_{view}$$
-{% endraw %}
 
 #### 代码对应
 
@@ -186,13 +175,9 @@ MV-MoE 本质是**双输入的双重注意力门控融合**：通道门控捕捉
 
 #### 关键公式
 
-{% raw %}
 $$d^t_i = \text{Euclid}(f^t_i,\ f^{t+1}_i), \quad t\in[1,M],\ i\in[1,P]; \qquad k = \arg\min_t (d^t_i)$$
-{% endraw %}
 
-{% raw %}
 $$f^k_i \leftarrow \frac{f^k_i + f^{k+1}_i}{2} \quad \text{（按位置逐点加权平均，合并最冗余的相邻帧）}$$
-{% endraw %}
 
 #### 代码对应
 
@@ -221,7 +206,7 @@ compressed_memory_bank = dst_memory_bank / dst_size.unsqueeze(-1)  # 按合并�
 
 **论文机制图**
 
-![Figure 4: An illustration of our memory bank compression strategy, which preserves a fixed memory size in both ego-view and exo-view memo...](https://20020730.xyz/images/tracking/egoexo/fig4.webp)
+![Figure 4: An illustration of our memory bank compression strategy, which preserves a fixed memory size in both ego-view and exo-view memo...](/images/tracking/egoexo/fig4.webp?v=msvt41vj)
 
 ### 3.4 论文与代码对照
 
@@ -312,12 +297,12 @@ Hardware: 训练 8× A100，推理 1× V100
 
 ### 论文图示（截图）
 
-![Figure 5: Performance evaluation across different object sizes in the target (exo) view, including IoU, shape accuracy, and location score.](https://20020730.xyz/images/tracking/egoexo/fig5.webp)
-![Figure 6: Comparison across different activity scenarios for each model.](https://20020730.xyz/images/tracking/egoexo/fig6.webp)
-![Figure 7: Ego to Exo results of different approaches.](https://20020730.xyz/images/tracking/egoexo/fig7.webp)
-![Figure 8: Exo to Ego results of different approaches.](https://20020730.xyz/images/tracking/egoexo/fig8.webp)
-![Figure 9: Failure cases.](https://20020730.xyz/images/tracking/egoexo/fig9.webp)
-![Figure 10: Attention map visualization.](https://20020730.xyz/images/tracking/egoexo/fig10.webp)
+![Figure 5: Performance evaluation across different object sizes in the target (exo) view, including IoU, shape accuracy, and location score.](/images/tracking/egoexo/fig5.webp?v=mushbn6a)
+![Figure 6: Comparison across different activity scenarios for each model.](/images/tracking/egoexo/fig6.webp?v=msvt42rw)
+![Figure 7: Ego to Exo results of different approaches.](/images/tracking/egoexo/fig7.webp?v=msvt43ln)
+![Figure 8: Exo to Ego results of different approaches.](/images/tracking/egoexo/fig8.webp?v=msvt44i3)
+![Figure 9: Failure cases.](/images/tracking/egoexo/fig9.webp?v=msvt44z3)
+![Figure 10: Attention map visualization.](/images/tracking/egoexo/fig10.webp?v=msvt4515)
 
 ## 5. 复现指南
 

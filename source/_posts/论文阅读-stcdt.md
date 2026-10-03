@@ -1,26 +1,22 @@
 ---
-title: >-
-  论文阅读｜Spatio-Temporal Conditional Denoising Transformer for Modality-Missing
-  RGBT Tracking
+title: "论文阅读｜Spatio-Temporal Conditional Denoising Transformer for Modality-Missing RGBT Tracking"
 categories:
-  - 视觉目标跟踪
-tags:
-  - 文献笔记
-  - AI论文
-  - 追踪
-  - RGB-T
-  - CVPR
-  - 视频目标跟踪
-  - Tracking
   - 文献阅读
-description: >-
-  缺失模态（modality-missing）常导致 RGBT
-  跟踪中的多模态特征表示不完整、不稳定，严重损害性能。现有方法通常尝试从可用模态恢复缺失模态，但在挑战性场景下生成质量可能不佳；且当前方法在处理"缺失"与"完整"两类数据时灵活性有限。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "追踪"
+  - "RGB-T"
+  - "CVPR"
+  - "视频目标跟踪"
+  - "Tracking"
+description: "缺失模态（modality-missing）常导致 RGBT 跟踪中的多模态特征表示不完整、不稳定，严重损害性能。现有方法通常尝试从可用模态恢复缺失模态，但在挑战性场景下生成质量可能不佳；且当前方法在处理\"缺失\"与\"完整\"两类数据时灵活性有限。…"
 readmore: true
 mathjax: true
-abbrlink: d3c3087
-date: 2026-08-16 20:15:00
+date: 2026-08-16 20:10:00
 updated: 2026-08-16 23:00:00
+abbrlink: "d3c3087"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -72,7 +68,7 @@ updated: 2026-08-16 23:00:00
 
 **论文图示**
 
-![Figure 1: Figure 1. Comparison of the existing method of RGBT tracking when facing missing scenerios. (a) Basic strategies. (b) Invertible prompt l...](https://20020730.xyz/images/tracking/stcdt/fig1.webp)
+![Figure 1: Figure 1. Comparison of the existing method of RGBT tracking when facing missing scenerios. (a) Basic strategies. (b) Invertible prompt l...](/images/tracking/stcdt/fig1.webp?v=msvt4i8p)
 
 ## 2. 主要贡献
 
@@ -89,13 +85,11 @@ updated: 2026-08-16 23:00:00
 
 ## 3. 方法
 
-> **阅读说明**
-> 论文未开源（未检索到公开仓库），本节严格按论文 Method 与图（Fig. 1-3）整理，无法结合源码验证；公式编号与论文一致。
-
+> **阅读说明｜> 论文未开源（未检索到公开仓库），本节严格按论文 Method 与图（Fig. 1-3）整理，无法结合源码验证；公式编号与论文一致。**
 ### 3.1 整体框架
 
-![Figure 2: Figure 2. Overall architecture of the proposed SCDT. SCDT performs a noising-denoising process on available search frames, guided by hist...](https://20020730.xyz/images/tracking/stcdt/fig2.webp)
-![Figure 3: Figure 3. Detailed architecture of the Spatio-temporal Conditioned Denoiser Block.](https://20020730.xyz/images/tracking/stcdt/fig3.webp)
+![Figure 2: Figure 2. Overall architecture of the proposed SCDT. SCDT performs a noising-denoising process on available search frames, guided by hist...](/images/tracking/stcdt/fig2.webp?v=msvt4igr)
+![Figure 3: Figure 3. Detailed architecture of the Spatio-temporal Conditioned Denoiser Block.](/images/tracking/stcdt/fig3.webp?v=mushdo95)
 
 
 **核心架构图**
@@ -132,31 +126,15 @@ IPL / FlexTrack 等现有方法要么只做单帧重建（无时序），要么�
 #### 核心做法
 
 1. **加噪（Eq. 1）**：对可用模态特征生成加噪输入
-
-   {% raw %}
    $$\tilde{f}_m = \sqrt{\bar{\alpha}}\, f_m + \sqrt{1-\bar{\alpha}}\, \varepsilon, \qquad \varepsilon \sim \mathcal{N}(0, \sigma^2 I)$$
-   {% endraw %}
-
    噪声方差 σ² 与场景相关：**高噪声 → 鼓励重建；低噪声 → 利于增强**。
 2. **条件去噪（Eq. 2）**：去噪器 Dθ 以空间、时间条件生成精炼特征
-
-   {% raw %}
    $$\hat{f} = D_\theta(\tilde{f}_m;\, c_s, c_t)$$
-   {% endraw %}
-
    c_s 捕获当前帧空间信息；c_t 整合"未缺失的短期历史帧"与"长期模态 token"。
 3. **缺失 → 重建**：对可用模态施加**更强噪声**，迫使去噪器在时空条件引导下推断缺失模态语义（Eq. 3）；重建特征 f̂_m′ 与原始特征 f_m 拼接送入跟踪头。训练用**特征级重建损失**（Eq. 4，MSE，同时约束空间结构与语义内容）：
-
-   {% raw %}
    $$\mathcal{L}_{recon} = \lVert \hat{f}_{m'} - f_{m'} \rVert_2^2$$
-   {% endraw %}
-
 4. **完整 → 增强**：同一条件生成通路、**弱噪声**机制下，不强求逐像素保真，而是让生成特征贴近真实分布且更具判别性——对齐生成特征与真实特征的一阶、二阶统计量（Eq. 5，μ/Var 沿空间 token 计算）：
-
-   {% raw %}
    $$\mathcal{L}_{align} = \lVert \mu(\hat{f}_m) - \mu(f_m) \rVert_2^2 + \lVert \mathrm{Var}(\hat{f}_m) - \mathrm{Var}(f_m) \rVert_2^2$$
-   {% endraw %}
-
 5. **损失切换（Eq. 9）**：L_total = λ1·L_recon + λ2·L_align + λ3·L_track，λ3 ≡ 1.0；缺失场景 λ1=1.0、λ2=0.0，完整场景 λ1=0.0、λ2=1.0。两个场景共享去噪器权重。
 
 #### 关键公式
@@ -181,18 +159,10 @@ Eq. 1-5、Eq. 9 如上（√ᾱ 噪声调度、L_recon、L_align 均为论文原
 
 1. **Self-Attention**：对加噪特征 f̃_m 做自注意力，得到 f̃_m^SA。
 2. **短期时间条件（cross-attention，Eq. 6）**：以 f̃_m^SA 为 query，互补模态近期邻帧提取的短期 token s_c 为 key/value：
-
-   {% raw %}
    $$f'_m = \tilde{f}_m^{SA} + \mathrm{CrossAttn}(\tilde{f}_m^{SA},\, s_c,\, s_c)$$
-   {% endraw %}
-
    捕获局部对齐的帧级信息，恢复/增强目标相关特征并缓解跨模态失配。
 3. **长期时间条件（FiLM 调制，Eq. 7）**：长期 token l_c（编码序列级模态演化）通过 scale-shift 调制：
-
-   {% raw %}
    $$f''_m = f'_m \odot \big(1 + \tanh(W_s\, l_c)\big) + \tanh(W_r\, l_c)$$
-   {% endraw %}
-
    W_s、W_r 为可学习投影；tanh 把调制幅度限制在稳定范围，抑制噪声激活。
 4. **FFN（Eq. 8）**：f̂_m = f''_m + FFN(LN(f''_m)) 输出精炼特征。
 
@@ -209,8 +179,8 @@ Eq. 6（短期 cross-attention）、Eq. 7（长期 FiLM）、Eq. 8（FFN 残差�
 
 **论文机制图**
 
-![Figure 5: Figure 5. Precision rate (PR) of challenge attributes on LasHeR-Miss dataset. The axes of each attribute have been normalized.](https://20020730.xyz/images/tracking/stcdt/fig5.webp)
-![Figure 6: Figure 6. Per-frame tracking IoU curves in the leftmirror sequence under modality-missing challenges. Blue shaded regions indicate frames...](https://20020730.xyz/images/tracking/stcdt/fig6.webp)
+![Figure 5: Figure 5. Precision rate (PR) of challenge attributes on LasHeR-Miss dataset. The axes of each attribute have been normalized.](/images/tracking/stcdt/fig5.webp?v=msvt4ive)
+![Figure 6: Figure 6. Per-frame tracking IoU curves in the leftmirror sequence under modality-missing challenges. Blue shaded regions indicate frames...](/images/tracking/stcdt/fig6.webp?v=mushtg1k)
 
 ### 3.4 论文与代码对照
 
@@ -321,7 +291,7 @@ Hardware: 6× RTX 4090（训练）；推理硬件未说明
 
 ### 论文图示（截图）
 
-![Figure 4: Figure 4. Visualization of features learned by SCDT under com- plete and missing modality conditions.](https://20020730.xyz/images/tracking/stcdt/fig4.webp)
+![Figure 4: Figure 4. Visualization of features learned by SCDT under com- plete and missing modality conditions.](/images/tracking/stcdt/fig4.webp?v=msvt4it0)
 
 ## 5. 复现指南
 

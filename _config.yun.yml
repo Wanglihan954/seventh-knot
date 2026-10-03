@@ -172,7 +172,7 @@ pages:
   - name: 论文中心
     url: /papers/
     icon: ri:file-paper-2-line
-    color: '#d7ff19'
+    color: '#ffffff'
 
 wordcount:
   enable: true

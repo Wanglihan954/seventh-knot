@@ -1,7 +1,8 @@
 ---
 title: "论文阅读｜Group Orthogonal Low-Rank Adaptation for RGB-T Tracking"
 categories:
-  - 视觉目标跟踪
+  - 文献阅读
+  - "Tracking"
 tags:
   - "文献笔记"
   - "AI论文"
@@ -10,12 +11,11 @@ tags:
   - "LoRA"
   - "视频目标跟踪"
   - "Tracking"
-  - 文献阅读
 description: "RGB-T 跟踪常用参数高效微调：冻结预训练骨干，只训练少量低秩参数，以降低训练和部署开销。论文指出，LoRA 的低秩空间虽然参数量小，但多个 rank 的重要性高度不均衡，许多 rank 几乎没有贡献，导致模型难以学习应对低照度、遮挡、相似干扰等多样挑战。作者提出 GOLA（Group Orthogonal Low-Rank Adaptation） ：先对 LoRA 的参数矩阵做 SVD，估计 rank 重要性；…"
 readmore: true
 mathjax: true
-date: 2026-08-21 20:10:00
-updated: 2026-09-26 22:00:00
+date: 2026-08-21 20:05:00
+updated: 2026-08-21 23:00:00
 abbrlink: "b7b236b0"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
@@ -25,8 +25,8 @@ abbrlink: "b7b236b0"
 
 **Title:** Group Orthogonal Low-Rank Adaptation for RGB-T Tracking
 **Authors:** Zekai Shao、Yufan Hu、Jingyuan Liu、Bin Fan、Hongmin Liu（University of Science and Technology Beijing）
-**Venue:** AAAI 2026（正式论文集，Vol. 40 No. 11，pp. 8887–8895）
-**DOI:** 10.1609/aaai.v40i11.37843
+**Venue:** arXiv preprint（arXiv:2512.05359v2）
+**Date:** `paper_meta.json` 记录为 2025；全文页眉显示 v2 日期为 2026-04-25，二者未进一步核对
 **GitHub:** https://github.com/MelanTech/GOLA（全文给出的地址；本地未克隆核验）
 
 ### 摘要
@@ -41,14 +41,11 @@ RGB-T 跟踪常用参数高效微调：冻结预训练骨干，只训练少量�
 
 - **Zotero:** 未在本地证据中核验是否导入
 - **PDF:** [本地 PDF](../.papers/golor.pdf)
-- **Paper:** [AAAI Proceedings](https://ojs.aaai.org/index.php/AAAI/article/view/37843)
-- **Preprint:** [arXiv abstract](https://arxiv.org/abs/2512.05359)
+- **Paper:** [arXiv abstract](http://arxiv.org/abs/2512.05359v2)
 - **PDF URL:** [arXiv PDF](https://arxiv.org/pdf/2512.05359v2)
 - **GitHub:** https://github.com/MelanTech/GOLA（仅记录全文中的地址，不代表本次已检查仓库内容）
 
-> **注意**
-> 本笔记的方法与实验内容仍以本地 `golor.txt`、`paper_meta.json` 及原论文为边界；发表信息已在 2026-09-26 对照 AAAI 官方论文集重新核验。
-
+> **注意｜> 本笔记只使用本地 `golor.txt`、`paper_meta.json` 以及相邻的 CamSAM2 / token-routing 笔记。没有联网核验 GitHub，也没有把论文参考文献扩写成新的外部事实；数值均以全文中可读到的表格或文字为边界。**
 ---
 
 ## 1. 研究动机
@@ -78,7 +75,7 @@ RGB 与热红外提供互补线索，但 RGB-T 数据通常比通用 RGB 数据�
 
 **论文图示**
 
-![Figure 1: Figure 1: Comparison of rank importance score distribution between LoRA and our proposed GOLA. The rank space of LoRA exhibits significan...](/images/tracking/golor/fig1.webp)
+![Figure 1: Figure 1: Comparison of rank importance score distribution between LoRA and our proposed GOLA. The rank space of LoRA exhibits significan...](/images/tracking/golor/fig1.webp?v=msvt452i)
 
 ## 2. 主要贡献
 
@@ -96,12 +93,10 @@ RGB 与热红外提供互补线索，但 RGB-T 数据通常比通用 RGB 数据�
 
 ## 3. 方法
 
-> **阅读说明**
-> 论文全文给出了算法公式和官方 GitHub 地址，但本地输入中没有 GOLA 源码、README、checkpoint 或 commit 快照。因此 3.4 只记录“论文描述 ↔ 本地可见代码证据”的边界，不虚构文件名、类名和行号。
-
+> **阅读说明｜> 论文全文给出了算法公式和官方 GitHub 地址，但本地输入中没有 GOLA 源码、README、checkpoint 或 commit 快照。因此 3.4 只记录“论文描述 ↔ 本地可见代码证据”的边界，不虚构文件名、类名和行号。**
 ### 3.1 整体框架
 
-![Figure 2: Figure 2: (a) Our proposed Group Orthogonal Low-Rank Adaptation (GOLA) framework. We decompose pretrained ranks into crucial ranks and re...](/images/tracking/golor/fig2.webp)
+![Figure 2: Figure 2: (a) Our proposed Group Orthogonal Low-Rank Adaptation (GOLA) framework. We decompose pretrained ranks into crucial ranks and re...](/images/tracking/golor/fig2.webp?v=msvt4582)
 
 
 **输入与 token 组织**
@@ -233,7 +228,7 @@ prediction head 的 score map 最大值被用作 confidence；当它超过阈值
 
 **论文机制图**
 
-![Figure 7: Figure 7: Normalized orthogonal heatmap between groups.](/images/tracking/golor/fig7.webp)
+![Figure 7: Figure 7: Normalized orthogonal heatmap between groups.](/images/tracking/golor/fig7.webp?v=msvt45po)
 
 ### 3.4 论文与代码对照
 
@@ -386,11 +381,11 @@ Table 4 比较 partition reference：
 
 ### 论文图示（截图）
 
-![Figure 3: Figure 3: Comparison between GOLA-B with different trackers across various attributes in the LasHeR testing set.](/images/tracking/golor/fig3.webp)
-![Figure 4: Figure 4: Impact of the number of crucial ranks and groups.](/images/tracking/golor/fig4.webp)
-![Figure 5: Figure 5: Qualitative comparison of GOLA-B against 4 state-of-the-art trackers on 4 video sequences.](/images/tracking/golor/fig5.webp)
-![Figure 6: Figure 6: Visualization of t-SNE maps between rank groups. Ranks within different groups use different colors.](/images/tracking/golor/fig6.webp)
-![Figure 8: Figure 8: Visualization of failure cases of GOLA-B under 4 representative attributes.](/images/tracking/golor/fig8.webp)
+![Figure 3: Figure 3: Comparison between GOLA-B with different trackers across various attributes in the LasHeR testing set.](/images/tracking/golor/fig3.webp?v=msvt459p)
+![Figure 4: Figure 4: Impact of the number of crucial ranks and groups.](/images/tracking/golor/fig4.webp?v=msvt45af)
+![Figure 5: Figure 5: Qualitative comparison of GOLA-B against 4 state-of-the-art trackers on 4 video sequences.](/images/tracking/golor/fig5.webp?v=msvt45lp)
+![Figure 6: Figure 6: Visualization of t-SNE maps between rank groups. Ranks within different groups use different colors.](/images/tracking/golor/fig6.webp?v=mushbn7e)
+![Figure 8: Figure 8: Visualization of failure cases of GOLA-B under 4 representative attributes.](/images/tracking/golor/fig8.webp?v=msvt460v)
 
 ## 5. 复现指南
 

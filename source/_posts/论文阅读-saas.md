@@ -1,26 +1,22 @@
 ---
-title: '论文阅读｜Segment Anything Across Shots: A Method and Benchmark'
+title: "论文阅读｜Segment Anything Across Shots: A Method and Benchmark"
 categories:
-  - 视频目标分割
-tags:
-  - 文献笔记
-  - AI论文
-  - SAM2
-  - VOS
-  - 跨镜头
-  - 视频目标分割 (MVOS)
-  - Tracking
   - 文献阅读
-description: >-
-  本文研究多镜头半监督视频目标分割 (MVOS)：给定首帧掩码提示，在整个含多个镜头切换的视频中持续分割目标。现有 VOS
-  方法只关注单镜头视频，难以处理镜头不连续性。作者提出 TMA
-  转场模拟数据增强策略——仅用单镜头数据即可实现跨镜头泛化，缓解多镜头标注的极度稀疏；并提出转场感知方法
-  SAAS，在推理时检测并理解镜头转场。为支持评测与后续研究，构建了 Cut-VOS 基准（密集掩码标注、多样类别、高频转场）。…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "SAM2"
+  - "VOS"
+  - "跨镜头"
+  - "视频目标分割 (MVOS)"
+  - "Tracking"
+description: "本文研究多镜头半监督视频目标分割 (MVOS)：给定首帧掩码提示，在整个含多个镜头切换的视频中持续分割目标。现有 VOS 方法只关注单镜头视频，难以处理镜头不连续性。作者提出 TMA 转场模拟数据增强策略——仅用单镜头数据即可实现跨镜头泛化，缓解多镜头标注的极度稀疏；并提出转场感知方法 SAAS，在推理时检测并理解镜头转场。为支持评测与后续研究，构建了 Cut-VOS 基准（密集掩码标注、多样类别、高频转场）。…"
 readmore: true
 mathjax: true
-abbrlink: 545293dc
-date: 2026-08-15 20:50:00
+date: 2026-08-15 20:35:00
 updated: 2026-08-15 23:00:00
+abbrlink: "545293dc"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -64,7 +60,7 @@ updated: 2026-08-15 23:00:00
 
 **论文图示**
 
-![Figure 1: Figure 1: This work focuses on an underexplored task of multi-shot video object segmentation (MVOS). As shown in (a), the significant var...](https://20020730.xyz/images/tracking/saas/fig1.webp)
+![Figure 1: Figure 1: This work focuses on an underexplored task of multi-shot video object segmentation (MVOS). As shown in (a), the significant var...](/images/tracking/saas/fig1.webp?v=msvt4bv6)
 
 ## 2. 主要贡献
 
@@ -78,12 +74,10 @@ updated: 2026-08-15 23:00:00
 ---
 ## 3. 方法
 
-> **阅读说明**
-> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。
-
+> **阅读说明｜> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。**
 ### 3.1 整体框架
 
-![Figure 3: Figure 3: The overall pipeline of our proposed Segment Anything Across Shots (SAAS) method, consisting of three new components, Transitio...](https://20020730.xyz/images/tracking/saas/fig3.webp)
+![Figure 3: Figure 3: The overall pipeline of our proposed Segment Anything Across Shots (SAAS) method, consisting of three new components, Transitio...](/images/tracking/saas/fig3.webp?v=msvt4c7c)
 
 **核心架构图**
 
@@ -110,7 +104,7 @@ updated: 2026-08-15 23:00:00
 MVOS 最关键的障碍是训练数据缺失：YouMVOS 标注未开源，而单镜头数据（YTVOS 等）充足且成熟。TMA 的目标是**只用单镜头数据训练出跨镜头分割能力**。
 
 #### 核心做法
-以概率 `1 − p_trans` 维持传统 8 帧连续采样；否则以概率 `p_once` 执行单次转场（模式 a/b/d）或多次转场（模式 c）。四种模拟模式：
+以概率 `1 − p_trans` 维持传统 8 帧连续采样；否则以概率 $p_{\mathrm{once}}$ 执行单次转场（模式 a/b/d）或多次转场（模式 c）。四种模拟模式：
 
 | 模式 | 操作 | 模拟的转场类型 |
 |------|------|---------------|
@@ -122,7 +116,7 @@ MVOS 最关键的障碍是训练数据缺失：YouMVOS 标注未开源，而单�
 TMA 综合四种模式保证数据丰富性，同时刻意排除歧义样本与异常噪声。
 
 #### 关键公式
-无显式公式；由控制随机变量 `p_trans`、`p_once` 及各模式的变换参数决定采样。
+无显式公式；由控制随机变量 $p_{\mathrm{trans}}$、$p_{\mathrm{once}}$ 及各模式的变换参数决定采样。
 
 #### 代码对应
 ```text
@@ -135,12 +129,10 @@ TMA 本质是"数据层面的转场合成器"：把单镜头视频通过编辑�
 ### 3.3 Core Module 2 — `推理期转场感知：TDM + TCH + Local Memory Bank`
 #### 3.3.1 TDM 转场检测模块
 #### 核心做法
-转场发生时标准 SAM2 记忆匹配必然失效，必须先定位转场帧才能路由策略——这是整个管线的开关。受镜头边界检测（TransNet 系列）启发，用**扩张卷积金字塔**（dilation 1/2/4/8）构成轻量检测器。每帧输出转场概率 `p̂_tr`：低于阈值 `τ_tr` 走标准 SAM2 流程（记忆存入 B_adj）；高于阈值走转场分割策略（记忆存入 B_scene，供 TCH 建立场景理解）。TDM 先在 IACC.3 + ClipShots 镜头边界数据集上预训练，主训练阶段保持冻结，推理开销极小。
+转场发生时标准 SAM2 记忆匹配必然失效，必须先定位转场帧才能路由策略——这是整个管线的开关。受镜头边界检测（TransNet 系列）启发，用**扩张卷积金字塔**（dilation 1/2/4/8）构成轻量检测器。每帧输出转场概率 `p̂_tr`：低于阈值 $τ_{\mathrm{tr}}$ 走标准 SAM2 流程（记忆存入 B_adj）；高于阈值走转场分割策略（记忆存入 B_scene，供 TCH 建立场景理解）。TDM 先在 IACC.3 + ClipShots 镜头边界数据集上预训练，主训练阶段保持冻结，推理开销极小。
 
 #### 关键公式
-{% raw %}
 $$\hat{p}_{i,tr} = \text{Sigmoid}(\mathcal{F}_{TDM}(F^t, \{F^{t-i}\}_{i=1,2,...,N}))$$
-{% endraw %}
 
 #### 代码对应
 ```text
@@ -157,15 +149,13 @@ TDM 把"检测转场"降维成轻量二分类：先验预训练 + 推理固定�
 #### 核心做法
 两段式设计：
 
-1. **场景整合**：从 B_cond / B_scene 读出场景记忆（B_scene 存最近 Ns 个镜头的代表性记忆），经堆叠注意力层整合进当前帧特征 `F^t_l3` → `F'^t_l3`；
-2. **转场状态建模**：可学习向量 `Q_init` 依次与 `F'^t_l3`（当前帧）、`F^{t-1}_l3`（前一帧）做交叉注意力，迭代 N2 层得到转场状态表征 `Q_i`；
+1. **场景整合**：从 B_cond / B_scene 读出场景记忆（B_scene 存最近 Ns 个镜头的代表性记忆），经堆叠注意力层整合进当前帧特征 $F^t_{\mathrm{l3}}$ → $F'^t_{\mathrm{l3}}$；
+2. **转场状态建模**：可学习向量 $Q_{\mathrm{init}}$ 依次与 $F'^t_{\mathrm{l3}}$（当前帧）、$F^{t-1}_{\mathrm{l3}}$（前一帧）做交叉注意力，迭代 N2 层得到转场状态表征 $Q_i$；
 3. **辅助训练目标**（各权重 0.5）：presence 预测——从 Q_i 预测目标下一帧是否出现（BCE 损失 L_exis）；bbox 回归——从旧 bbox + Q_i 预测转场后 bbox（MCE 损失 L_box），简单 MLP 即可；
-4. **注意力聚合器**：解码 Q_i 细化上一镜头记忆 `M^{t-1}_adj`，与 B_cond、B_local 拼接后送入 SAM2 memory attention——与 SAM2 预训练分割头无缝兼容。
+4. **注意力聚合器**：解码 Q_i 细化上一镜头记忆 $M^{t-1}_{\mathrm{adj}}$，与 B_cond、B_local 拼接后送入 SAM2 memory attention——与 SAM2 预训练分割头无缝兼容。
 
 #### 关键公式
-{% raw %}
 $$Q^n_i = \text{Attn}(\text{Attn}(Q^{n-1}_i, F'^t_{l3}), F^{t-1}_{l3}), \quad Q^0_i = Q_{init}$$
-{% endraw %}
 
 Attention 层 = 多头交叉注意力 + 多头自注意力 + FFN（带 RoPE 位置编码）。
 
@@ -188,10 +178,10 @@ TCH 干的是"跨镜头目标重定位"：场景记忆回答"新镜头在哪"，
 #### 核心做法
 动机：相当比例的转场中，局部细节（人的衣着、车辆涂装标记）是关键的跨镜头匹配线索，而现有方法从不主动捕获。做法（训练无关，仅在条件帧计算一次）：
 
-1. 在条件帧掩码最深特征图 `M_0 ⊙ F^0_l3` 上构建**最小生成树 (MST)**，同时保留语义聚类与空间结构；
+1. 在条件帧掩码最深特征图 $M_0 ⊙ F^0_{\mathrm{l3}}$ 上构建**最小生成树 (MST)**，同时保留语义聚类与空间结构；
 2. 剪掉低权重边，目标被无监督划分为多个语义相干子区域；
 3. 每个分区中心点作 positive point prompt、其余作 negative，用 SAM 重新分割各子区域并提取高分辨率细粒度特征；
-4. 特征压缩为 complementary object pointers 存入 B_local，转场检测到时参与指导分割；比例阈值 `τ_p = 2.5%` 过滤过小目标，防止过度分区。
+4. 特征压缩为 complementary object pointers 存入 B_local，转场检测到时参与指导分割；比例阈值 $τ_p = 2.5%$ 过滤过小目标，防止过度分区。
 
 #### 代码对应
 ```text
@@ -265,9 +255,7 @@ Hardware: 训练 4× RTX-A6000 48G；推理单卡
 
 **Jt 跨镜头指标**：对每个镜头 S_i，分别计算转场帧 I_tir 与目标首次出现帧 I_app（delayed cut-in 时若目标未出现则以首帧计）的 IoU 取平均：
 
-{% raw %}
 $$J_t = \frac{1}{|S|} \sum_{i \in |S|} \frac{\text{IoU}(\hat{M}_{t_{ir}}, M_{t_{ir}}) + \text{IoU}(\hat{M}_{a_{pp}}, M_{a_{pp}})}{2}$$
-{% endraw %}
 
 **Cut-VOS 转场体系**：9 种类型 = 存在型（cut in、cut away、delayed cut in）+ 视角型（close up/distant view、pitch、horizon、scene change、insignificance），存在型与视角型可共存。62% actors + 38% 静态目标；EAcc 44.7% → 38.8%（较 YouMVOS），难度差距显著。
 
@@ -318,11 +306,11 @@ $$J_t = \frac{1}{|S|} \sum_{i \in |S|} \frac{\text{IoU}(\hat{M}_{t_{ir}}, M_{t_{
 
 ### 论文图示（截图）
 
-![Figure 2: Figure 2: The comparison between YouMVOS and our proposed Cut-VOS benchmark. Cut-VOS is distinguished from YouMVOS by frequent, significa...](https://20020730.xyz/images/tracking/saas/fig2.webp)
-![Figure 4: Figure 4: Some visualization cases of our proposed TMA strategy. (a) Random strong transforms. (b) Single transition across different tem...](https://20020730.xyz/images/tracking/saas/fig4.webp)
-![Figure 5: Figure 5: Comparison of object categories. Cut-VOS contains 4 categories in YouMVOS and 7 new categories.](https://20020730.xyz/images/tracking/saas/fig5.webp)
-![Figure 6: Figure 6: The average accuracies of different transition types on the SAM2-B+ model and their distribution across two benchmarks. The dro...](https://20020730.xyz/images/tracking/saas/fig6.webp)
-![Figure 7: Figure 7: Qualitative comparison of some representative cases from Cut-VOS between the SAAS and the SAM2 methods. (a) shows a case with a...](https://20020730.xyz/images/tracking/saas/fig7.webp)
+![Figure 2: Figure 2: The comparison between YouMVOS and our proposed Cut-VOS benchmark. Cut-VOS is distinguished from YouMVOS by frequent, significa...](/images/tracking/saas/fig2.webp?v=mushdnu8)
+![Figure 4: Figure 4: Some visualization cases of our proposed TMA strategy. (a) Random strong transforms. (b) Single transition across different tem...](/images/tracking/saas/fig4.webp?v=mushbmqf)
+![Figure 5: Figure 5: Comparison of object categories. Cut-VOS contains 4 categories in YouMVOS and 7 new categories.](/images/tracking/saas/fig5.webp?v=msvt4ch1)
+![Figure 6: Figure 6: The average accuracies of different transition types on the SAM2-B+ model and their distribution across two benchmarks. The dro...](/images/tracking/saas/fig6.webp?v=msvt4chq)
+![Figure 7: Figure 7: Qualitative comparison of some representative cases from Cut-VOS between the SAAS and the SAM2 methods. (a) shows a case with a...](/images/tracking/saas/fig7.webp?v=msvt4cvn)
 
 ## 5. 复现指南
 

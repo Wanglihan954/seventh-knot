@@ -1,24 +1,21 @@
 ---
-title: '论文阅读｜CamSAM2: Segment Anything Accurately in Camouflaged Videos'
+title: "论文阅读｜CamSAM2: Segment Anything Accurately in Camouflaged Videos"
 categories:
-  - 视频目标分割
-tags:
-  - 文献笔记
-  - AI论文
-  - SAM2
-  - 跨视角
-  - 视频目标分割
-  - Tracking
   - 文献阅读
-description: >-
-  视频伪装目标分割（Video Camouflaged Object Segmentation, VCOS）旨在分割与环境融为一体的伪装目标。SAM2
-  虽然推动了视频分割的进展，但其特征优化偏向自然场景，在伪装视频上表现欠佳，尤其是只给 point / box 等简单 prompt 时。本文提出
-  CamSAM2：在不修改 SAM2 任何参数的前提下，引入一个可学习的 decamouflaged token 提供特征调整的灵活性；…
+  - "Tracking"
+tags:
+  - "文献笔记"
+  - "AI论文"
+  - "SAM2"
+  - "跨视角"
+  - "视频目标分割"
+  - "Tracking"
+description: "视频伪装目标分割（Video Camouflaged Object Segmentation, VCOS）旨在分割与环境融为一体的伪装目标。SAM2 虽然推动了视频分割的进展，但其特征优化偏向自然场景，在伪装视频上表现欠佳，尤其是只给 point / box 等简单 prompt 时。本文提出 CamSAM2：在不修改 SAM2 任何参数的前提下，引入一个可学习的 decamouflaged token 提供特征调整的灵活性；…"
 readmore: true
 mathjax: true
-abbrlink: 3b40772a
 date: 2026-08-15 20:00:00
 updated: 2026-08-15 23:00:00
+abbrlink: "3b40772a"
 ---
 > 本文基于论文、补充材料与公开代码整理。文中的“我的理解”和“批判性思考”属于个人分析；
 > 论文插图均来自原论文或补充材料，仅用于学习与讨论。
@@ -66,7 +63,7 @@ updated: 2026-08-15 23:00:00
 
 **论文图示**
 
-![Figure 1: Illustration of SAM2 and CamSAM2. Top: SAM2’s segmentation of the camouflaged object is suboptimal, primarily because its featu...](https://20020730.xyz/images/tracking/camsam2/fig1.webp)
+![Figure 1: Illustration of SAM2 and CamSAM2. Top: SAM2’s segmentation of the camouflaged object is suboptimal, primarily because its featu...](/images/tracking/camsam2/fig1.webp?v=msvt3u5a)
 
 ## 2. 主要贡献
 
@@ -82,13 +79,11 @@ updated: 2026-08-15 23:00:00
 
 ## 3. 方法
 
-> **阅读说明**
-> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。
-
+> **阅读说明｜> 方法部分优先结合公开源码理解；未提供代码时，则依据论文与补充材料整理。**
 ### 3.1 整体框架
 
-![Figure 2: Overall architecture of CamSAM2. CamSAM2 effectively captures and segments camouflaged objects by leveraging implicit and expli...](https://20020730.xyz/images/tracking/camsam2/fig2.webp)
-![Figure 5: Illustration of the architecture toggle. The toggle switch enables or disables the proposed modules for VCOS containing the dec...](https://20020730.xyz/images/tracking/camsam2/fig5.webp)
+![Figure 2: Overall architecture of CamSAM2. CamSAM2 effectively captures and segments camouflaged objects by leveraging implicit and expli...](/images/tracking/camsam2/fig2.webp?v=msvt3ubp)
+![Figure 5: Illustration of the architecture toggle. The toggle switch enables or disables the proposed modules for VCOS containing the dec...](/images/tracking/camsam2/fig5.webp?v=msvt3uxy)
 
 
 **核心架构图**
@@ -154,7 +149,7 @@ IOF 本质是"**把 SAM2 扔掉的高分辨率信息接回来**"，且通过可�
 
 #### 核心做法
 
-**EOF 三步**：(1) Fiof 与 SAM2 mask logits R_t 沿通道拼接后经 Conv 投影回 32ch；(2) 以 Fiof 为 query、历史帧原型 P_t 为 key/value 做单头 cross-attention（flash_attn 实现），原型越陈旧/不可靠，注意力权重越低，天然抑制过时信息；(3) attention 输出与上采样 mask 特征（经 embedding_mask_feature 卷积）逐点相加。最终 `R_c = MLP(T') · F_eof'`。
+**EOF 三步**：(1) Fiof 与 SAM2 mask logits R_t 沿通道拼接后经 Conv 投影回 32ch；(2) 以 Fiof 为 query、历史帧原型 P_t 为 key/value 做单头 cross-attention（flash_attn 实现），原型越陈旧/不可靠，注意力权重越低，天然抑制过时信息；(3) attention 输出与上采样 mask 特征（经 embedding_mask_feature 卷积）逐点相加。最终 $R_c = MLP(T') · F_eof'$。
 
 **OPG**：在预测 mask 区域内先用 FPS（代码实现为迭代距离变换，`_mask_slic`）选 k=5 个均匀分布的种子点，再做 **1 轮** k-means（cosine 距离），每个簇的均值作为原型 P_t 存入 memory。论文实验：cosine 优于 Euclidean（64.3 vs 61.9 mDice），k=5 最优（3/7 均下降），FPS+k-means 组合最优。
 
@@ -198,7 +193,7 @@ EOF+OPG 组合的实质是**把"帧级记忆"替换为"目标级原型记忆"**�
 
 **论文机制图**
 
-![Figure 6: The cosine similarity map between the preceding frames prototype and the current frame feature map.](https://20020730.xyz/images/tracking/camsam2/fig6.webp)
+![Figure 6: The cosine similarity map between the preceding frames prototype and the current frame feature map.](/images/tracking/camsam2/fig6.webp?v=msvt3vgl)
 
 ### 3.4 论文与代码对照
 
@@ -292,11 +287,11 @@ Hardware: RTX 4090（论文评测）
 
 ### 论文图示（截图）
 
-![Figure 3: Qualitative comparisons between SAM2 and CamSAM2 using 1-click prompt with the Hiera-T backbone on two MoCA-Mask clips. From to...](https://20020730.xyz/images/tracking/camsam2/fig3.webp)
-![Figure 4: Attention map visualization from SAM2 and CamSAM2 using point prompts with the Hiera-T backbone. From top to bot- tom: input fr...](https://20020730.xyz/images/tracking/camsam2/fig4.webp)
-![Figure 7: Qualitative comparisons between SAM2 and CamSAM2 using mask prompt with the Hiera-T backbone on two video clips of SUN-SEG-Hard...](https://20020730.xyz/images/tracking/camsam2/fig7.webp)
-![Figure 8: More qualitative comparisons between SAM2 and CamSAM2 using 1-click point prompt with the Hiera-T backbone on three video clips...](https://20020730.xyz/images/tracking/camsam2/fig8.webp)
-![Figure 9: More qualitative comparisons between SAM2 and CamSAM2 using 1-click point prompt with the Hiera-T backbone on three video clips...](https://20020730.xyz/images/tracking/camsam2/fig9.webp)
+![Figure 3: Qualitative comparisons between SAM2 and CamSAM2 using 1-click prompt with the Hiera-T backbone on two MoCA-Mask clips. From to...](/images/tracking/camsam2/fig3.webp?v=msvt3usy)
+![Figure 4: Attention map visualization from SAM2 and CamSAM2 using point prompts with the Hiera-T backbone. From top to bot- tom: input fr...](/images/tracking/camsam2/fig4.webp?v=mushienf)
+![Figure 7: Qualitative comparisons between SAM2 and CamSAM2 using mask prompt with the Hiera-T backbone on two video clips of SUN-SEG-Hard...](/images/tracking/camsam2/fig7.webp?v=msvt3vja)
+![Figure 8: More qualitative comparisons between SAM2 and CamSAM2 using 1-click point prompt with the Hiera-T backbone on three video clips...](/images/tracking/camsam2/fig8.webp?v=msvt3w05)
+![Figure 9: More qualitative comparisons between SAM2 and CamSAM2 using 1-click point prompt with the Hiera-T backbone on three video clips...](/images/tracking/camsam2/fig9.webp?v=msvt3wdz)
 
 ## 5. 复现指南
 
