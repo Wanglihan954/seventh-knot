@@ -1,15 +1,12 @@
 ---
 title: "论文阅读｜STHFT：融合层级相似图的时空 Transformer"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
-  - "RGBT"
   - "RGB"
   - "UAV"
   - "单目标跟踪"
   - "Transformer"
-  - "多层特征"
 description: "阅读摘要： 单一层的模板/搜索相关图难兼顾 UAV 场景的局部定位和高层判别。构造层级时空相似图，经 Transformer 交互后预测目标框角点。 证据边界： 未定义 tiny，也不涉及 RGB/TIR 对齐。"
 readmore: true
 mathjax: true

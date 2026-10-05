@@ -5,13 +5,8 @@ categories:
 tags:
   - "C++"
   - "MiniInfer"
-  - "Modern C++"
   - "CMake"
   - "RAII"
-  - "学习笔记"
-  - "Final-Review"
-  - "Template"
-  - "Polymorphism"
 description: "用一个最小推理网络串联模板、多态、RAII、所有权和 CMake，完成 Modern C++ 第一轮复盘。"
 readmore: true
 date: 2026-09-09

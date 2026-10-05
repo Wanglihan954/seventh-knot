@@ -5,8 +5,6 @@ categories:
 tags:
   - "C++"
   - "CS106L"
-  - "复习"
-  - "学习笔记"
 description: "按问题索引 14 天 Modern C++ 学习中的关键概念，便于从具体疑问回到对应课程笔记。"
 readmore: true
 date: 2026-09-18 16:57:54

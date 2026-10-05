@@ -3,9 +3,8 @@ title: Linux命令
 categories:
   - Linux 系统与桌面
 tags:
-  - Ubuntu
-  - Linux
-  - 命令行
+  - "Ubuntu"
+  - "Linux"
 readmore: true
 hideTime: true
 date: '2026-04-24 00:26'

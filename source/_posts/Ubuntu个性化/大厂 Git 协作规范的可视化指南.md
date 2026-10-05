@@ -3,9 +3,8 @@ title: 大厂 Git 协作规范的可视化指南
 categories:
   - 开发工具与协作
 tags:
-  - Git
-  - 协作规范
-  - Ubuntu
+  - "Git"
+  - "Ubuntu"
 readmore: true
 hideTime: true
 date: '2026-05-05 18:49'

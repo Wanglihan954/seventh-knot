@@ -1,15 +1,10 @@
 ---
 title: "论文阅读｜Robust Ego-Exo Correspondence with Long-Term Memory"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 跨视角与三维视觉
 tags:
-  - "文献笔记"
-  - "AI论文"
   - "SAM2"
   - "跨视角"
-  - "跨视角目标分割"
-  - "Tracking"
 description: "在 ego（第一人称）与 exo（第三人称）视角之间建立目标级对应（Ego-Exo Correspondence, EEC）是智能助手指引等应用的基础，但面临极端视角差异、遮挡与小目标等挑战。直接套用 SAM2 时，由于 ego-exo 特征融合低效且长期记忆容量不足（长视频中尤为明显），表现很差。…"
 readmore: true
 mathjax: true

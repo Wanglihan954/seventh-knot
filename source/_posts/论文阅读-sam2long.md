@@ -5,13 +5,8 @@ title: >-
 categories:
   - 视频目标分割
 tags:
-  - 文献笔记
-  - AI论文
-  - VOS
-  - SAM2
-  - 视频目标分割 (VOS)
-  - Tracking
-  - 文献阅读
+  - "VOS"
+  - "SAM2"
 description: >-
   SAM 2 的视频分割靠 memory module 用前序帧的 object-aware
   记忆来提示当前帧预测，但其贪婪选择（greedy）记忆设计存在"error accumulation"问题：一帧出错/漏检会级联影响后续帧。SAM2Long

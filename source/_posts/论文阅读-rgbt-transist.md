@@ -1,12 +1,10 @@
 ---
 title: "论文阅读｜TransIST：多尺度注意力跟踪红外小目标"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
-  - "RGBT"
   - "近红外"
-  - "微小目标"
+  - "小目标"
   - "UAV"
   - "Transformer"
   - "单目标跟踪"

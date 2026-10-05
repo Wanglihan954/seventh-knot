@@ -43,7 +43,7 @@ block content
         .tag-cloud
           - var start_color = theme.colors.tag_start_color || '#333'
           - var end_color = theme.colors.tag_end_color || theme.colors.primary
-          .tag-cloud-tags!= tagcloud({min_font: 12, max_font: 30, amount: 200, color: true, start_color, end_color})
+          .tag-cloud-tags!= tagcloud({min_font: 12, max_font: 30, color: true, start_color, end_color})
 
     else if page.type === 'categories'
       +page_header(page.title, theme.icons.category)

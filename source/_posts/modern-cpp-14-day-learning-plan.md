@@ -4,14 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "AI工程"
+  - "推理框架"
   - "学习路线"
-  - "学习笔记"
-  - "learning-plan"
-  - "cpp"
-  - "modern-cpp"
-  - "CV工程"
 description: "已完成的 14 天 Modern C++ 学习笔记导航：从指针、对象模型和 STL，走到所有权、CMake、KuiperInfer 与 MiniInfer。"
 readmore: true
 date: 2026-08-26

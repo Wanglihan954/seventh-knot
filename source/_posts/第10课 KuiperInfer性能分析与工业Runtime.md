@@ -3,14 +3,10 @@ title: "第10课 KuiperInfer性能分析与工业Runtime"
 categories:
   - AI 推理工程
 tags:
-  - "AI 推理工程"
-  - "深度学习"
   - "KuiperInfer"
   - "性能分析"
   - "ONNXRuntime"
   - "CUDA"
-  - "学习笔记"
-  - "课程"
 description: "比较教学型 KuiperInfer 与工业运行时的性能差异，定位编译优化、内存访问、算子实现与并行策略。"
 readmore: true
 mathjax: true

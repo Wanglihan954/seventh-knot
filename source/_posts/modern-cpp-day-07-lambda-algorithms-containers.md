@@ -4,13 +4,9 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "Lambda"
-  - "Algorithm"
-  - "STL"
-  - "学习笔记"
   - "CS106L"
-  - "unordered_map"
+  - "Lambda"
+  - "STL"
 description: "结合 sort、find、transform 与 map、unordered_map、set，掌握 STL 的协作方式。"
 readmore: true
 date: 2026-08-31

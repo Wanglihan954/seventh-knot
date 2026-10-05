@@ -1,16 +1,9 @@
 ---
 title: "论文阅读｜SEATrack: Simple, Efficient, and Adaptive Multimodal Tracker"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视觉目标跟踪
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "追踪"
-  - "RGB-T"
-  - "CVPR"
-  - "视频目标跟踪"
-  - "Tracking"
+  - "RGBT"
 description: "多模态跟踪中的参数高效微调（PEFT）出现了一个令人担忧的趋势：最近的性能提升往往以膨胀的参数预算为代价，这从根本上侵蚀了 PEFT 的效率承诺。本文提出 SEATrack，一个 Simple、Efficient、Adaptive 的双流多模态跟踪器，从两个互补的视角解决这一性能-效率困境。首先，我们优先考虑 匹配响应的跨模态对齐 ——一个被忽视但关键的因素，我们论证它对打破这一权衡至关重要。…"
 readmore: true
 mathjax: true

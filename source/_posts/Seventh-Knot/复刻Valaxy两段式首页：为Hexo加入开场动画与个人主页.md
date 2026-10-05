@@ -3,12 +3,11 @@ title: 复刻 Valaxy 两段式首页：为 Hexo 加入开场动画与个人主�
 categories:
   - 博客开发
 tags:
-  - Hexo
-  - Valaxy
-  - 首页动画
-  - Pug
-  - JavaScript
-  - Seventh Knot
+  - "Hexo"
+  - "Valaxy"
+  - "动画"
+  - "Pug"
+  - "JavaScript"
 readmore: true
 hideTime: true
 abbrlink: 73fda5c4

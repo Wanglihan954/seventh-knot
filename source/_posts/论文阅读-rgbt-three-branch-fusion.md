@@ -1,13 +1,10 @@
 ---
 title: "论文阅读｜三分支多阶段融合：浅层局部信息与深层语义"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
   - "RGBT"
   - "单目标跟踪"
-  - "多层特征"
-  - "融合"
 description: "阅读摘要： 微小目标局部结构在高层下采样和全局注意力中容易被稀释。通过三分支多阶段设计联合浅层 CNN 局部细节和深层 Transformer 语义，CFM 加强相邻 patch 信息。 证据边界： 缺本地 PDF；不能声称专门解决 tiny-SOT。"
 readmore: true
 mathjax: true

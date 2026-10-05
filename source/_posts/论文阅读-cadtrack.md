@@ -3,16 +3,10 @@ title: "论文阅读｜CADTrack: Learning Contextual Aggregation with Deformable
 categories:
   - 视觉目标跟踪
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "追踪"
-  - "RGB-T"
+  - "RGBT"
   - "Mamba"
   - "UAV"
   - "跨视角"
-  - "RGB-T 跟踪"
-  - "Tracking"
-  - 文献阅读
 description: "RGB-T 跟踪利用可见光（RGB）与热红外（TIR）的互补信息，在全天候目标跟踪中具有优势；但两种模态的分布差异会阻碍跨模态传播与融合，也会在运动或视角变化下造成空间错位。本文提出 CADTrack （Contextual Aggregation with Deformable Alignment），由三个模块组成： Mamba-based Feature Interaction（MFI） 用状态空间模型进行线性复杂度的跨模态交互；…"
 readmore: true
 mathjax: true

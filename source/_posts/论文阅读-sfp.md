@@ -1,17 +1,10 @@
 ---
 title: "论文阅读｜Semantic Feature Purification for Adversarially-Aware RGB-T Tracking"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视觉目标跟踪
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "追踪"
-  - "RGB-T"
-  - "对抗鲁棒性"
-  - "语义净化"
-  - "视频目标跟踪"
-  - "Tracking"
+  - "RGBT"
+  - "鲁棒性"
 description: "RGB-T 跟踪虽然利用 RGB 与热红外（TIR）的互补性改善了低照度和遮挡场景的表现，但跨模态不一致也使它容易受到细微输入扰动的攻击。本文提出 SFPT（Semantic Feature Purification framework） ，不在像素层面直接滤波，而是在特征空间引入由描述性语言生成的任务语义锚点，强化对扰动不敏感的线索。…"
 readmore: true
 mathjax: true

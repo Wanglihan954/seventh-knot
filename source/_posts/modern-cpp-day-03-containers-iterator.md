@@ -4,13 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "STL"
-  - "vector"
-  - "Iterator"
-  - "学习笔记"
   - "CS106L"
-  - "Containers"
+  - "STL"
 description: "梳理 vector、string、容量扩张与 iterator/reference/pointer 失效规则。"
 readmore: true
 date: 2026-08-29

@@ -3,11 +3,9 @@ title: 打造 Inter-Knot 风格界面：Seventh Knot 的视觉系统改造
 categories:
   - 博客开发
 tags:
-  - CSS
-  - Inter-Knot
-  - UI设计
-  - Theme Yun
-  - Seventh Knot
+  - "CSS"
+  - "主题定制"
+  - "Theme Yun"
 readmore: true
 hideTime: true
 abbrlink: fb906e47

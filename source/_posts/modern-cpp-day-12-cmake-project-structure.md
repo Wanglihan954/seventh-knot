@@ -5,12 +5,6 @@ categories:
 tags:
   - "C++"
   - "CMake"
-  - "Build System"
-  - "工程化"
-  - "学习笔记"
-  - "Build-System"
-  - "CppProject"
-  - "Makefile"
 description: "从编译链接流程到 Target 设计，搭建可维护的多文件 CMake C++ 项目。"
 readmore: true
 date: 2026-09-05

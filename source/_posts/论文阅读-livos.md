@@ -1,14 +1,10 @@
 ---
 title: "论文阅读｜LiVOS: Light Video Object Segmentation with Gated Linear Matching"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视频目标分割
 tags:
-  - "文献笔记"
-  - "AI论文"
   - "SAM2"
-  - "视频目标分割"
-  - "Tracking"
+  - "VOS"
 description: "半监督 VOS 主要由 space-time memory (STM) 网络驱动，它把过去帧特征存为时空记忆，通过 softmax attention 分割当前帧。但 softmax 匹配的二次复杂度带来显存瓶颈，限制了视频长度与分辨率扩展。LiVOS 提出轻量记忆网络：用 linear attention 把记忆匹配重写为递归过程，将二次大小的注意力矩阵压缩为常数大小的时空无关 2D state；…"
 readmore: true
 mathjax: true

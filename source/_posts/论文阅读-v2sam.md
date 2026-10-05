@@ -1,17 +1,11 @@
 ---
 title: "论文阅读｜V²-SAM: Marrying SAM2 with Multi-Prompt Experts for Cross-View Object Correspondence"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 跨视角与三维视觉
 tags:
-  - "文献笔记"
-  - "AI论文"
   - "SAM2"
   - "跨视角"
-  - "多专家"
-  - "Ego-Exo"
-  - "跨视角目标对应"
-  - "Tracking"
+  - "MoE"
 description: "跨视角目标对应（cross-view object correspondence），以 ego–exo 对应为代表任务，由于视角与外观差异剧烈，SAM2 等分割模型难以直接应用。V²-SAM 通过两个互补的 prompt 生成器把 SAM2 从单视角分割适配到跨视角对应：Cross-View Anchor Prompt Generator (V2-Anchor) 基于 DINOv3 特征建立几何感知对应，首次在跨视角场景解锁 SA…"
 readmore: true
 mathjax: true

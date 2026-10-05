@@ -1,16 +1,9 @@
 ---
 title: "论文阅读｜UETrack: A Unified and Efficient Framework for Single Object Tracking"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视觉目标跟踪
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "追踪"
-  - "RGB-T"
-  - "CVPR"
-  - "视频目标跟踪"
-  - "Tracking"
+  - "RGBT"
 description: "单目标跟踪（SOT）中，高效跟踪器大多局限于 RGB 输入，在多模态场景下力不从心；而现有多模态跟踪方法设计复杂、模型笨重，难以在资源受限设备上部署。本文提出 UETrack：一个统一且高效的单目标跟踪框架，一次训练即可高效处理 RGB、Depth、Thermal、Event、Language 五种模态，填补高效多模态跟踪的空白。…"
 readmore: true
 mathjax: true

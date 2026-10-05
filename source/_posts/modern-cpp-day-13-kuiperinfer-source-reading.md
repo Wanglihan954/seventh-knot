@@ -7,11 +7,7 @@ tags:
   - "KuiperInfer"
   - "源码阅读"
   - "Tensor"
-  - "Ownership"
-  - "学习笔记"
-  - "Source-Reading"
-  - "Layer"
-  - "Runtime"
+  - "内存管理"
 description: "沿 Tensor、Layer、Operator、Runtime 到 Conv 的对象关系阅读 KuiperInfer 源码。"
 readmore: true
 date: 2026-09-07

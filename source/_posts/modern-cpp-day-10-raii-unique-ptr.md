@@ -4,13 +4,9 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "RAII"
-  - "unique_ptr"
-  - "Ownership"
-  - "学习笔记"
   - "CS106L"
-  - "Exception-Safety"
+  - "RAII"
+  - "内存管理"
 description: "以异常安全和多态 Layer 管理为线索，掌握 RAII、unique_ptr 与唯一所有权。"
 readmore: true
 date: 2026-09-03

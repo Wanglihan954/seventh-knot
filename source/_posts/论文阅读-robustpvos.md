@@ -1,14 +1,10 @@
 ---
 title: "论文阅读｜Robust Promptable Video Object Segmentation"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视频目标分割
 tags:
-  - "文献笔记"
-  - "AI论文"
   - "SAM2"
-  - "视频目标分割"
-  - "Tracking"
+  - "VOS"
 description: "Promptable video object segmentation (PVOS) 模型在输入退化（噪声、模糊、低照度、恶劣天气）下性能大幅下降，阻碍了其在安全关键领域的部署。本文首次系统性研究 RobustPVOS：构建包含 351 个真实视频片段、2500+ 物体掩码的两个真实世界评测数据集；同时用 8 种带时间变化的退化对现有 VOS 数据集合成训练数据。…"
 readmore: true
 mathjax: true

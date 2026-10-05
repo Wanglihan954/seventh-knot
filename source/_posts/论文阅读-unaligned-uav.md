@@ -3,16 +3,9 @@ title: "论文阅读｜Unaligned UAV RGBT Tracking: A Largescale Benchmark and A
 categories:
   - 视觉目标跟踪
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "追踪"
-  - "RGB-T"
+  - "RGBT"
   - "UAV"
-  - "未对齐"
-  - "对齐"
-  - "视频目标跟踪"
-  - "Tracking"
-  - 文献阅读
+  - "未配准"
 description: "无人机通常分别搭载可见光（RGB）与热红外（TIR）传感器，两个模态的分辨率、安装位置和视场差异会产生天然的空间失准。本文定义 unaligned UAV RGBT tracking 任务：使用未经人工后处理的原始未对齐 RGB/TIR 图像，同时预测两个模态中的目标框。…"
 readmore: true
 mathjax: true

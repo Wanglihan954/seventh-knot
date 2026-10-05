@@ -1,16 +1,9 @@
 ---
 title: "论文阅读｜Adaptive Depth Lightweight RGB-T Tracking with Holistic Token Routing"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视觉目标跟踪
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "追踪"
-  - "RGB-T"
-  - "CVPR"
-  - "视频目标跟踪"
-  - "Tracking"
+  - "RGBT"
 description: "RGB-T 跟踪的价值在于：夜间、眩光、雾、部分遮挡下 RGB 失效时热红外仍可用。但近期架构强调深融合与大参数量，推高 FLOPs 与带宽，实时性被限制在高端 GPU。本文提出 ADTrack 平衡精度与效率：(1) Adaptive Early-Exit (AEE) ：给 backbone 挂 anytime heads，配一个置信度校准的早退策略，在最早的可信层停止推理，跳过冗余计算；…"
 readmore: true
 mathjax: true

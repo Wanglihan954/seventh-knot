@@ -4,14 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "Copy"
-  - "Rule of Five"
-  - "学习笔记"
   - "CS106L"
-  - "Rule-of-Three"
-  - "Rule-of-Five"
-  - "Rule-of-Zero"
+  - "内存管理"
 description: "区分 copy constructor 与 copy assignment，理解 shallow/deep copy 和 Rule of 3/5/0。"
 readmore: true
 date: 2026-09-01

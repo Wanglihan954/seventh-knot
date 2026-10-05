@@ -3,12 +3,9 @@ title: 给深度改造的 Hexo 博客一个新名字：Seventh Knot 的项目化
 categories:
   - 博客开发
 tags:
-  - GitHub
-  - Git
-  - 项目命名
-  - 开源
-  - Hexo
-  - Seventh Knot
+  - "GitHub"
+  - "Git"
+  - "Hexo"
 readmore: true
 hideTime: true
 abbrlink: d0c4982b

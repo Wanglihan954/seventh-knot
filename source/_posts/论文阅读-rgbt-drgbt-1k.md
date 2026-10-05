@@ -1,10 +1,8 @@
 ---
 title: "论文阅读｜DRGBT-1K：大规模动态 RGBT 跟踪基准"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
-  - "RGBT"
   - "DRGBT"
   - "数据集"
   - "跨平台跟踪"

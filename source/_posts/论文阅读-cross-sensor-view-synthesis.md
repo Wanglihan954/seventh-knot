@@ -1,18 +1,10 @@
 ---
 title: "论文阅读｜No Calibration, No Depth, No Problem: Cross-Sensor View Synthesis with 3D Consistency"
 categories:
-  - 文献阅读
-  - "红外-可见光配准"
+  - 跨视角与三维视觉
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "红外-可见光配准"
-  - "RGB-X"
-  - "跨模态匹配"
   - "视图合成"
   - "3DGS"
-  - "DySPN"
-  - "红外-可见光图像配准"
 description: "跨传感器视图合成（cross-sensor view synthesis）的\"输入是像素级对齐的 RGB-X 对\"这个前提，实际获取时极其昂贵：需要标定、同步、相对位姿与 metric depth。本文提出 match-densify-consolidate 方法： 1. match ：RGB-X 图像匹配 + 引导式点稠密化；…"
 readmore: true
 mathjax: true

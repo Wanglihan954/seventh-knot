@@ -1,16 +1,14 @@
-//- layout/_partial/my-search.pug
-//- 专属定制：Valaxy 风格毛玻璃本地搜索弹窗
-
-#my-search-modal(style="display:none;")
-  .search-modal-bg
-  .search-modal-content
+//- Shared search dialog; behavior lives in site-search.js.
+#my-search-modal(hidden, data-search-url=url_for('/search.xml'))
+  .search-modal-bg(data-search-close, aria-hidden='true')
+  .search-modal-content(role='dialog', aria-modal='true', aria-label='搜索文章')
     .search-header
-      span.search-icon
+      span.search-icon(aria-hidden='true')
         +icon('ri:search-line')
-      input#my-search-input(type="text", placeholder="输入关键词搜索全站...")
-      span#my-search-close.close-btn
+      input#my-search-input(type='search', aria-label='搜索关键词', placeholder='输入关键词搜索全站…', autocomplete='off', enterkeyhint='search')
+      button#my-search-close.close-btn(type='button', aria-label='关闭搜索', data-search-close)
         +icon('ri:close-line')
-    #my-search-results.search-results
+    #my-search-results.search-results(aria-live='polite')
 
 style.
   #my-search-modal {
@@ -50,86 +48,3 @@ style.
   .search-result-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; color: var(--hty-primary-color); }
   .search-result-content { font-size: 0.9rem; opacity: 0.7; line-height: 1.6; }
   .search-keyword { color: #ff5252; font-weight: bold; }
-
-script.
-  document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('my-search-modal');
-    const bg = document.querySelector('.search-modal-bg');
-    const closeBtn = document.getElementById('my-search-close');
-    const input = document.getElementById('my-search-input');
-    const results = document.getElementById('my-search-results');
-    let searchData = null;
-
-    // 绑定导航栏上的搜索图标
-    document.querySelectorAll('.popup-trigger').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        modal.style.display = 'flex';
-        input.focus();
-        
-        // 第一次点开时悄悄加载 search.xml 数据
-        if (!searchData) {
-          fetch('/search.xml').then(res => res.text()).then(str => {
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(str, "text/xml");
-            const entries = xml.getElementsByTagName("entry");
-            searchData = Array.from(entries).map(entry => ({
-              title: entry.getElementsByTagName('title')[0]?.textContent || '',
-              content: entry.getElementsByTagName('content')[0]?.textContent.replace(/<[^>]+>/g, '') || '',
-              url: entry.getElementsByTagName('url')[0]?.textContent || ''
-            }));
-          });
-        }
-      });
-    });
-
-    // 关闭弹窗的逻辑
-    function closeModal() {
-      modal.style.display = 'none';
-      input.value = '';
-      results.innerHTML = '';
-    }
-    bg.addEventListener('click', closeModal);
-    closeBtn.addEventListener('click', closeModal);
-
-    // 实时搜索过滤逻辑
-    input.addEventListener('input', function() {
-      const keyword = this.value.toLowerCase().trim();
-      if (!keyword) { results.innerHTML = ''; return; }
-      if (!searchData) return;
-
-      const matched = searchData.filter(item => 
-        item.title.toLowerCase().includes(keyword) || 
-        item.content.toLowerCase().includes(keyword)
-      );
-
-      if (matched.length === 0) {
-        results.innerHTML = '<div style="padding:30px;text-align:center;opacity:0.5;">呜呜，什么都没有找到...</div>';
-        return;
-      }
-
-      // 高亮匹配文字并截取摘要
-      results.innerHTML = matched.map(item => {
-        const reg = new RegExp(keyword, 'gi');
-        const title = item.title.replace(reg, match => `<span class="search-keyword">${match}</span>`);
-        
-        let content = item.content;
-        const index = content.toLowerCase().indexOf(keyword);
-        if (index > -1) {
-          let start = Math.max(0, index - 30);
-          let end = Math.min(content.length, index + 30);
-          content = (start > 0 ? '...' : '') + content.substring(start, end) + (end < content.length ? '...' : '');
-          content = content.replace(reg, match => `<span class="search-keyword">${match}</span>`);
-        } else {
-          content = content.substring(0, 60) + '...';
-        }
-
-        return `
-          <a href="${item.url}" class="search-result-item">
-            <div class="search-result-title">${title}</div>
-            <div class="search-result-content">${content}</div>
-          </a>
-        `;
-      }).join('');
-    });
-  });

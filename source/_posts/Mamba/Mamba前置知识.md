@@ -5,10 +5,8 @@ categories:
 author: 宁翰
 email: 314375980@qq.com
 tags:
-  - python
-  - Mamba
-  - DeepLearning
-  - 学习笔记
+  - "Python"
+  - "Mamba"
 readmore: true
 hideTime: true
 mathjax: true

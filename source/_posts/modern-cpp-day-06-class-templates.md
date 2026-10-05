@@ -4,13 +4,9 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "Template"
+  - "泛型编程"
   - "Tensor"
-  - "学习笔记"
   - "CS106L"
-  - "Templates"
-  - "Class-Template"
 description: "以 Tensor<T> 为例理解类模板、实例化、函数模板与模板定义通常放在 header 的原因。"
 readmore: true
 date: 2026-08-30

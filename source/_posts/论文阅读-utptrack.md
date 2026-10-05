@@ -3,14 +3,7 @@ title: '论文阅读｜UTPTrack: Towards Simple and Unified Token Pruning for Vi
 categories:
   - 视觉目标跟踪
 tags:
-  - 文献笔记
-  - AI论文
-  - 追踪
-  - RGB-T
-  - CVPR
-  - 视频目标跟踪
-  - Tracking
-  - 文献阅读
+  - "RGBT"
 description: >-
   单流 Transformer 跟踪器性能先进但计算开销大。token
   剪枝是有效的效率途径，但现有方法各自孤立地剪搜索区（SR）、动态模板（DT）或静态模板（ST），忽略了组件间依赖。本文提出

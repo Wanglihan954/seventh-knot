@@ -3,16 +3,8 @@ title: 论文阅读｜A Distractor-Aware Memory for Visual Object Tracking with 
 categories:
   - 视频目标分割
 tags:
-  - 文献笔记
-  - AI论文
-  - Object Tracking
-  - VOS
-  - SAM2
-  - Memory
-  - Distractor
-  - 视觉目标跟踪 / 视频目标分割
-  - Tracking
-  - 文献阅读
+  - "VOS"
+  - "SAM2"
 description: >-
   基于记忆的跟踪器通过把历史图像和预测掩码写入 memory bank，再用当前帧查询历史记忆来定位目标。SAM2.1 已具备很强的分割与跟踪能力，但近期帧
   FIFO 记忆面对相似物体时容易被干扰物污染，并在遮挡或目标重现后发生漂移。本文提出无需训练的 Distractor-Aware Memory（DAM）

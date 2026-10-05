@@ -3,11 +3,7 @@ title: "论文阅读｜HiHR: Hierarchical Hyperbolic Representation for Aerial-G
 categories:
   - 目标重识别
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "目标重识别"
   - "Person Re-ID"
-  - "空地行人重识别"
   - "双曲学习"
   - "CLIP"
 description: "HiHR 面向空中—地面行人重识别中极端视角、尺度与背景差异。作者不把所有特征强行压到单一视角无关表示，而是先以文本语义引导多层视觉特征融合，再在双曲空间建立“跨视角共享身份—视角特有细节”的父子层级，从而同时保证身份一致性与细粒度判别性。"

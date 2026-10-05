@@ -3,10 +3,10 @@ title: Ubuntu 24.04 安装 Parsec 及解决视频解码器 -10 错误
 categories:
   - 网络与远程开发
 tags:
-  - Ubuntu
-  - Parsec
-  - remote-desktop
-  - troubleshooting
+  - "Ubuntu"
+  - "Parsec"
+  - "远程桌面"
+  - "故障排查"
 readmore: true
 hideTime: true
 abbrlink: 9a3bf775

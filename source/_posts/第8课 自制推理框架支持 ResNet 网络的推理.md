@@ -3,15 +3,10 @@ title: "第8课 自制推理框架支持 ResNet 网络的推理"
 categories:
   - AI 推理工程
 tags:
-  - "AI 推理工程"
-  - "深度学习"
   - "KuiperInfer"
-  - "ResNet"
   - "OpenCV"
-  - "Softmax"
-  - "推理"
-  - "学习笔记"
-  - "课程"
+  - "算子实现"
+  - "推理框架"
 description: "以 ResNet18 图像分类为例，完成模型加载、前向执行、Softmax 与结果验证的端到端推理流程。"
 readmore: true
 mathjax: true

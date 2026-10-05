@@ -4,12 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "shared_ptr"
-  - "weak_ptr"
-  - "Ownership"
-  - "学习笔记"
   - "CS106L"
+  - "内存管理"
   - "RAII"
 description: "比较 unique_ptr、shared_ptr 和 weak_ptr，理解引用计数、观察关系与循环引用。"
 readmore: true

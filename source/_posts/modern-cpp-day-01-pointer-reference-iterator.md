@@ -4,11 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "Pointer"
-  - "Reference"
-  - "Iterator"
-  - "学习笔记"
+  - "内存管理"
+  - "STL"
   - "CS106L"
 description: "从值、地址和解引用出发，建立 Pointer、Reference、参数传递与 Iterator 的统一心智模型。"
 readmore: true

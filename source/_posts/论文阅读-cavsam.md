@@ -1,17 +1,11 @@
 ---
 title: "论文阅读｜Correspondence as Video: Test-Time Adaption on SAM2 for Reference Segmentation in the Wild"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 跨视角与三维视觉
 tags:
-  - "文献笔记"
-  - "AI论文"
   - "SAM2"
   - "跨视角"
-  - "参考分割"
-  - "Test-Time Adaptation"
-  - "跨视角目标对应"
-  - "Tracking"
+  - "测试时适应"
 description: "参考分割（reference segmentation）利用参考图像及其 mask 向大视觉模型（如 SAM）注入新类别/新域知识，但现有方法依赖 meta-learning，需要海量数据和巨大算力。本文提出 Correspondence As Video for SAM (CAV-SAM)：把参考-目标图像对之间的内在对应关系\"当作\"一段伪视频，从而用具备交互式视频分割（iVOS）能力的 SAM2 以轻量方式适配下游任务。…"
 readmore: true
 mathjax: true

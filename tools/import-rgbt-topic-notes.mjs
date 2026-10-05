@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { normalizeTags } from './post-tags.mjs';
 
 const sourceDir = process.argv[2];
 const requested = new Set(process.argv.slice(3));
@@ -107,8 +108,8 @@ for (const name of sourceNames) {
     (['CMRL：基于因果的模态与平台不变动态RGBT跟踪', 'DRGBT-1K'].includes(stem) ? '2026-10-03' : '2026-10-01');
   const minute = dayCounts.get(date) ?? 0;
   dayCounts.set(date, minute + 3);
-  const category = survey ? '方向综述' : '文献阅读';
-  const noteTags = [...new Set(['RGBT', ...tags(front).filter((tag) => tag !== '论文笔记')])];
+  const category = '视觉目标跟踪';
+  const noteTags = normalizeTags(tags(front), { category, slug: slugFor(stem) });
   const venue = scalar(front, 'venue') || (stem === 'DRGBT-1K' ? 'arXiv 2026' : '');
   const resource = resources(front, body);
   if (stem === 'DRGBT-1K') {
@@ -125,7 +126,7 @@ for (const name of sourceNames) {
   ];
   const output = [
     '---', `title: ${quote(title)}`, 'categories:', `  - ${quote(category)}`,
-    '  - "RGBT 跟踪"', 'tags:', ...noteTags.map((tag) => `  - ${quote(tag)}`),
+    'tags:', ...noteTags.map((tag) => `  - ${quote(tag)}`),
     `description: ${quote(abstract(body))}`, 'readmore: true', 'mathjax: true',
     ...(venue ? [`venue: ${quote(venue)}`] : []),
     ...(resource.cover ? [`cover: ${quote(resource.cover)}`] : []),

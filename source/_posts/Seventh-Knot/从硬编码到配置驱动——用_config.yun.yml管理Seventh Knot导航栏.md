@@ -3,12 +3,9 @@ title: 从硬编码到配置驱动：用 _config.yun.yml 管理 Seventh Knot 导
 categories:
   - 博客开发
 tags:
-  - Hexo
-  - Theme Yun
-  - 导航栏
-  - 配置化
-  - 邦布
-  - Seventh Knot
+  - "Hexo"
+  - "Theme Yun"
+  - "主题定制"
 readmore: true
 hideTime: true
 abbrlink: 7c4e2b91

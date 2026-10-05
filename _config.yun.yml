@@ -268,10 +268,11 @@ katex:
 # 在配置文件中找到或添加这段代码
 head:
   css:
-    - /css/custom_theme.css?v=20260824-2
+    - /css/custom_theme.css?v=20261005-4
     - /css/projects.css?v=20260817-1
   js:
     defer:
       - /js/web-pet.js
-      - /js/mobile-navigation.js
-      - /js/home-intro.js?v=20260810-6
+      - /js/mobile-navigation.js?v=20261005-4
+      - /js/site-search.js?v=20261005-1
+      - /js/home-intro.js?v=20261005-4

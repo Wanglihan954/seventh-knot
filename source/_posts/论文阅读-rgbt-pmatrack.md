@@ -1,13 +1,11 @@
 ---
 title: "论文阅读｜PMATrack：渐进式多线索对齐"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
   - "RGBT"
   - "单目标跟踪"
   - "未配准"
-  - "几何对齐"
 description: "阅读摘要： 原始 RGB/TIR 双流的目标中心、尺度及局部形状同时错位，统一回归全部几何参数容易耦合。按中心、尺度、残差逐级校正；每次校正后进行跨模态交互，并以难度感知专家路由控制计算。 证据边界： 空间未配准，不是专门 tiny-SOT。"
 readmore: true
 mathjax: true

@@ -3,8 +3,8 @@ title: Ubuntu24.04实时显示CPU、内存、网速
 categories:
   - Linux 系统与桌面
 tags:
-  - Ubuntu
-  - 系统监控
+  - "Ubuntu"
+  - "系统配置"
 readmore: true
 hideTime: true
 abbrlink: f4e16fad

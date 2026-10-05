@@ -4,12 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "Class"
-  - "const"
-  - "学习笔记"
+  - "面向对象"
   - "CS106L"
-  - "Const-Correctness"
 description: "通过 Tensor 小类理解封装、构造与析构、初始化列表、this 以及 const overload。"
 readmore: true
 date: 2026-08-29

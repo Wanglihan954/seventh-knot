@@ -1,12 +1,10 @@
 ---
 title: "论文阅读｜CADTrack：上下文聚合与可变形对齐"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
   - "RGBT"
   - "单目标跟踪"
-  - "可变形对齐"
   - "Mamba"
 description: "阅读摘要： RGB/TIR 信息需要交互，但只用单一深层特征会损失局部细节，位置偏差还会影响融合。MFI 交换模态信息，CAM 从多层专家池选择上下文，DAM 以可变形采样和时间线索缓解局部错位。 证据边界： 一般 RGBT 跟踪，未单独定义原始未配准 tiny-SOT。"
 readmore: true

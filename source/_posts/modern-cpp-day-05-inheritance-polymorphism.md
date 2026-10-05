@@ -4,15 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "继承"
-  - "多态"
-  - "virtual"
-  - "学习笔记"
+  - "面向对象"
   - "CS106L"
-  - "Inheritance"
-  - "Polymorphism"
-  - "Virtual"
 description: "用 Layer、Conv 与 ReLU 的例子理解继承、虚函数、动态多态和 object slicing。"
 readmore: true
 date: 2026-08-29

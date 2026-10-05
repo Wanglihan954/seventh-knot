@@ -131,3 +131,9 @@ Seventh Knot 不是一个全新的静态站点生成器，而是一个具有独�
 - 设计灵感：[Valaxy](https://github.com/YunYouJun/valaxy) 与《绝区零》Inter-Knot 视觉体系
 
 《绝区零》、邦布及相关游戏素材的著作权与商标权归其权利人所有。本项目为非官方个人博客，与米哈游无隶属或合作关系。文章内容及个人原创资源未经许可请勿转载；第三方代码与资源分别遵循其原始许可。
+
+## 标签维护
+
+每篇文章使用 2～4 个能复用的主题、模型或工具标签，必要时保留 5 个。具体 API、算子名称、会议名称和文章类型放在正文或文章元数据里，避免为每个细节建立独立标签。
+
+标签词表见 `tools/tag-vocabulary.json`，归并规则见 `tools/tag-aliases.json`。新增主题时先更新词表；两个笔记导入脚本会自动套用同一规则。运行 `node tools/check-post-tags.mjs` 可检查文章标签，`node tools/check-post-categories.mjs` 可检查一级分类。

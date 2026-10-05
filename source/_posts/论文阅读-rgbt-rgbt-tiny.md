@@ -1,14 +1,12 @@
 ---
 title: "论文阅读｜RGBT-Tiny：双模态微小目标检测与 SAFit"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
   - "RGBT"
-  - "微小目标"
-  - "检测"
+  - "小目标"
+  - "目标检测"
   - "数据集"
-  - "评价指标"
 description: "阅读摘要： 微小目标框对少量像素位移高度敏感，纯 IoU 评价和回归不够稳健。建立双模态 tiny 检测数据集，并用 SAFit 按目标面积平滑切换 IoU 与 NWD 的权重。 证据边界： 检测基准且基本对齐，不是现成未配准 SOT。"
 readmore: true
 mathjax: true

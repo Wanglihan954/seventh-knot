@@ -3,14 +3,8 @@ title: "论文阅读｜HPL: Hierarchical Prompt Learning for Image- and Text-Bas
 categories:
   - 目标重识别
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "目标重识别"
   - "Person Re-ID"
-  - "图文行人重识别"
-  - "提示学习"
   - "CLIP"
-  - "AAAI"
 description: "HPL 试图用一个模型同时完成 image-to-image（I2I）与 text-to-image（T2I）行人重识别。其关键是先用双分类 token 隔离任务偏好，再用身份级和实例级提示补足共享语义，最后通过跨模态提示正则化限制图像与文本伪提示的偏移，从而缓解朴素联合训练中的语义冲突。"
 readmore: true
 mathjax: true

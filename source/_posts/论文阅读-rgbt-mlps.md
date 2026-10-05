@@ -1,15 +1,12 @@
 ---
 title: "论文阅读｜MLPS：分层预测用于小型 UAV 目标"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
-  - "RGBT"
   - "RGB"
-  - "微小目标"
+  - "小目标"
   - "UAV"
   - "单目标跟踪"
-  - "多层特征"
 description: "阅读摘要： UAV 小目标在深层下采样后细节不足，只依赖浅层又缺语义判别。对多层特征分别预测分类、框和质量，再用残差语义约束与层注意力融合。 证据边界： 单模态 UAV 跟踪；缺本地 PDF。"
 readmore: true
 mathjax: true

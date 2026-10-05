@@ -3,10 +3,9 @@ title: 从 Theme Yun 到 Seventh Knot：我的 Hexo 博客重构计划
 categories:
   - 博客开发
 tags:
-  - Hexo
-  - Theme Yun
-  - 博客重构
-  - Seventh Knot
+  - "Hexo"
+  - "Theme Yun"
+  - "主题定制"
 readmore: true
 hideTime: true
 abbrlink: 861c0a51

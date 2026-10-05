@@ -842,10 +842,8 @@ hr {
   width: 150px;
   aspect-ratio: 192 / 208;
   user-select: none;
-  touch-action: none;
   cursor: grab;
-  filter: drop-shadow(0 8px 7px rgba(0, 0, 0, 0.42));
-  animation: xiaolemi-float 3.2s ease-in-out infinite;
+  isolation: isolate;
 }
 
 #xiaolemi-pet.is-dragging {
@@ -861,6 +859,7 @@ hr {
   background: transparent;
   border: 0;
   cursor: inherit;
+  touch-action: none;
 }
 
 .xiaolemi-pet__actor:focus-visible {
@@ -898,14 +897,119 @@ hr {
   background-size: 800% 1100%;
   image-rendering: auto;
   pointer-events: none;
+  filter: drop-shadow(0 8px 7px rgba(0, 0, 0, 0.32));
+  animation: xiaolemi-float 4.8s ease-in-out infinite;
 }
+
+.xiaolemi-pet__actor[hidden],
+.xiaolemi-pet__menu[hidden],
+.xiaolemi-pet__tools[hidden],
+.xiaolemi-pet__restore[hidden] {
+  display: none;
+}
+
+#xiaolemi-pet.is-dragging .xiaolemi-pet__sprite,
+#xiaolemi-pet.is-inactive .xiaolemi-pet__sprite,
+#xiaolemi-pet.is-paused .xiaolemi-pet__sprite {
+  animation: none;
+}
+
+.xiaolemi-pet__menu,
+.xiaolemi-pet__restore,
+.xiaolemi-pet__tools {
+  color: #f6f7f8;
+  background: rgba(19, 22, 26, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.xiaolemi-pet__menu {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 36px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.xiaolemi-pet__tools {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 38px;
+  width: 116px;
+  padding: 4px;
+}
+
+#xiaolemi-pet.tools-below .xiaolemi-pet__tools {
+  top: 100%;
+  bottom: auto;
+}
+
+#xiaolemi-pet.tools-right .xiaolemi-pet__tools {
+  right: auto;
+  left: 0;
+}
+
+.xiaolemi-pet__tools button {
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 8px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.xiaolemi-pet__tools button:hover,
+.xiaolemi-pet__tools button:focus-visible,
+.xiaolemi-pet__menu:hover {
+  color: var(--ik-yellow);
+  background: #30353a;
+}
+
+.xiaolemi-pet__menu:focus-visible,
+.xiaolemi-pet__restore:focus-visible {
+  outline: 2px solid var(--ik-yellow);
+  outline-offset: 3px;
+}
+
+#xiaolemi-pet.is-minimized {
+  left: auto !important;
+  top: auto !important;
+  right: 68px !important;
+  bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+  width: auto;
+  aspect-ratio: auto;
+  cursor: pointer;
+}
+
+.xiaolemi-pet__restore {
+  min-height: 36px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.xiaolemi-pet__restore span { color: var(--ik-yellow); }
 
 .xiaolemi-pet__bubble {
   position: absolute;
-  right: 72%;
-  bottom: 76%;
+  left: 0;
+  top: -48px;
   width: max-content;
-  max-width: 180px;
+  max-width: min(220px, calc(100vw - 32px));
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
   padding: 7px 10px;
   color: #111;
   background: rgba(255, 255, 255, 0.96);
@@ -927,8 +1031,8 @@ hr {
 }
 
 @keyframes xiaolemi-float {
-  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
-  50% { transform: translateY(-7px) rotate(0.8deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 /* ZZZ agent directory: turn Yun's compact portrait list into Inter-Knot files. */
@@ -1422,9 +1526,13 @@ hr {
   }
 
   .xiaolemi-pet__bubble {
-    right: 62%;
     max-width: 145px;
     font-size: 0.7rem;
+  }
+
+  #xiaolemi-pet.is-minimized {
+    right: 58px !important;
+    bottom: calc(66px + env(safe-area-inset-bottom)) !important;
   }
 
   .post-block,
@@ -1508,7 +1616,8 @@ hr {
   .post-card,
   .valaxy-nav .nav-item,
   .hty-button,
-  #xiaolemi-pet {
+  #xiaolemi-pet,
+  .xiaolemi-pet__sprite {
     transition: none !important;
     animation: none !important;
   }
@@ -3159,3 +3268,9 @@ body.is-projects-page #footer {
     transition: none !important;
   }
 }
+
+/* Shared search behavior; no mobile layout overrides. */
+#my-search-modal[hidden] { display: none !important; }
+body.search-open { overflow: hidden; }
+.valaxy-nav button.nav-item { background: transparent; border: 0; font: inherit; cursor: pointer; }
+.search-header .close-btn { background: transparent; border: 0; padding: 0; color: inherit; cursor: pointer; }

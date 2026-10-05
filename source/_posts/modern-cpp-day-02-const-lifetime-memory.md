@@ -4,16 +4,9 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "const"
+  - "CS106L"
   - "内存管理"
   - "RAII"
-  - "学习笔记"
-  - "CS106L"
-  - "lifetime"
-  - "pointer"
-  - "memory"
-  - "KuiperInfer"
 description: "理解 const correctness、对象生命周期、动态内存及现代 C++ 为何以 RAII 取代裸 new/delete。"
 readmore: true
 date: 2026-08-28

@@ -3,14 +3,7 @@ title: 论文阅读｜Progressive Multi-cue Alignment for Unaligned RGBT Trackin
 categories:
   - 视觉目标跟踪
 tags:
-  - 文献笔记
-  - AI论文
-  - 追踪
-  - RGB-T
-  - CVPR
-  - 视频目标跟踪
-  - Tracking
-  - 文献阅读
+  - "RGBT"
 description: >-
   未对齐 RGBT 跟踪（Unaligned RGBT Tracking）旨在对空间上失准的 RGB 与热红外（TIR）视频实现鲁棒目标定位，是 RGBT
   跟踪落地真实场景的关键挑战。现有方法往往同时估计全部跨模态对齐参数（空间偏移与尺度变化），存在两大局限：1) 难以自适应跟踪过程中不同程度的对齐难度；2)

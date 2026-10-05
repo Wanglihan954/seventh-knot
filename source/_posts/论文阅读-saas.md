@@ -1,16 +1,11 @@
 ---
 title: "论文阅读｜Segment Anything Across Shots: A Method and Benchmark"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视频目标分割
 tags:
-  - "文献笔记"
-  - "AI论文"
   - "SAM2"
   - "VOS"
-  - "跨镜头"
-  - "视频目标分割 (MVOS)"
-  - "Tracking"
+  - "MVOS"
 description: "本文研究多镜头半监督视频目标分割 (MVOS)：给定首帧掩码提示，在整个含多个镜头切换的视频中持续分割目标。现有 VOS 方法只关注单镜头视频，难以处理镜头不连续性。作者提出 TMA 转场模拟数据增强策略——仅用单镜头数据即可实现跨镜头泛化，缓解多镜头标注的极度稀疏；并提出转场感知方法 SAAS，在推理时检测并理解镜头转场。为支持评测与后续研究，构建了 Cut-VOS 基准（密集掩码标注、多样类别、高频转场）。…"
 readmore: true
 mathjax: true

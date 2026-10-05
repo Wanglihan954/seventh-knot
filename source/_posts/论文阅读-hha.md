@@ -3,14 +3,8 @@ title: "论文阅读｜HHA: Hyperbolic Hierarchical Alignment for Video-Based Vi
 categories:
   - 目标重识别
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "目标重识别"
   - "Person Re-ID"
-  - "视频行人重识别"
-  - "可见光-红外"
   - "双曲学习"
-  - "ICML"
 description: "HHA 处理视频可见光—红外行人重识别中的双重困难：轨迹内部的姿态、遮挡和时间变化，以及两种成像模态之间的外观鸿沟。方法把时空聚合与跨模态对齐统一放入 Poincaré 球：HHSA 建立层级时空表示，GMA 再以模态中心和共享身份原型完成几何一致的对齐。"
 readmore: true
 mathjax: true

@@ -4,14 +4,8 @@ categories:
   - 现代 C++
 tags:
   - "C++"
-  - "Modern C++"
-  - "Move"
-  - "Rvalue Reference"
-  - "学习笔记"
   - "CS106L"
-  - "Rvalue-Reference"
-  - "std-move"
-  - "noexcept"
+  - "内存管理"
 description: "从值类别到 move constructor，厘清 std::move、资源转移和 moved-from object。"
 readmore: true
 date: 2026-09-02

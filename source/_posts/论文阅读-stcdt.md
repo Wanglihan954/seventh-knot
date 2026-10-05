@@ -1,16 +1,9 @@
 ---
 title: "论文阅读｜Spatio-Temporal Conditional Denoising Transformer for Modality-Missing RGBT Tracking"
 categories:
-  - 文献阅读
-  - "Tracking"
+  - 视觉目标跟踪
 tags:
-  - "文献笔记"
-  - "AI论文"
-  - "追踪"
-  - "RGB-T"
-  - "CVPR"
-  - "视频目标跟踪"
-  - "Tracking"
+  - "RGBT"
 description: "缺失模态（modality-missing）常导致 RGBT 跟踪中的多模态特征表示不完整、不稳定，严重损害性能。现有方法通常尝试从可用模态恢复缺失模态，但在挑战性场景下生成质量可能不佳；且当前方法在处理\"缺失\"与\"完整\"两类数据时灵活性有限。…"
 readmore: true
 mathjax: true

@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { normalizeTags } from './post-tags.mjs';
 import { spawnSync } from 'node:child_process';
+import { categoryForNote } from './post-taxonomy.mjs';
 
 const notesRoot = process.argv[2];
 const requestedSlugs = new Set(process.argv.slice(3));
@@ -308,15 +310,14 @@ for (const filename of noteFiles) {
   const publicationTime = `${updated} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
   const originalTags = list(raw, 'tags');
   const task = scalar(raw, 'task');
-  const tags = [...new Set([...originalTags, task, collectionConfig.category].filter(Boolean))];
+  const tags = normalizeTags([...originalTags, task, collectionConfig.category], { slug });
   const description = extractAbstract(body);
 
   const frontMatterLines = [
     '---',
     `title: ${yamlQuote(`论文阅读｜${paperTitle}`)}`,
     'categories:',
-    '  - 文献阅读',
-    `  - ${yamlQuote(collectionConfig.category)}`,
+    `  - ${yamlQuote(categoryForNote({ task, tags, collection: noteCollection }))}`,
     'tags:',
     ...tags.map((tag) => `  - ${yamlQuote(tag)}`),
     `description: ${yamlQuote(description)}`,

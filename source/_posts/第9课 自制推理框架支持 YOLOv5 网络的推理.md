@@ -3,15 +3,8 @@ title: "第9课 自制推理框架支持 YOLOv5 网络的推理"
 categories:
   - AI 推理工程
 tags:
-  - "AI 推理工程"
-  - "深度学习"
   - "KuiperInfer"
-  - "YOLOv5"
-  - "Object-Detection"
-  - "NMS"
-  - "Letterbox"
-  - "学习笔记"
-  - "课程"
+  - "目标检测"
 description: "以 YOLOv5 为例整理预处理、前向执行、候选框解码与 NMS，形成目标检测端到端推理闭环。"
 readmore: true
 mathjax: true

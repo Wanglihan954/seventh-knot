@@ -1,13 +1,10 @@
 ---
 title: "论文阅读｜HATrack：频率引导的空间重校准"
 categories:
-  - "文献阅读"
-  - "RGBT 跟踪"
+  - 视觉目标跟踪
 tags:
   - "RGBT"
   - "单目标跟踪"
-  - "空间重校准"
-  - "Adapter"
 description: "阅读摘要： 跨模态显著区域和频率成分不同，直接融合可能放大局部错位与噪声。以 CFSR 分解高低频并重校准空间位置，再用异构 adapter 调整融合特征。 证据边界： 缺本地 PDF；通用 RGBT 融合而非专门 tiny-SOT。"
 readmore: true
 mathjax: true
